@@ -2,7 +2,7 @@ import { Directive, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { ColumnFilterItemListDirective } from './column-filter-item-list.directive';
 
 @Directive({
-	selector: '[q-grid-column-filter-item]'
+	selector: '[q-grid-column-filter-item]',
 })
 export class ColumnFilterItemDirective implements OnInit {
 	@Input('q-grid-column-filter-item') value: any;
@@ -11,7 +11,7 @@ export class ColumnFilterItemDirective implements OnInit {
 
 	constructor(
 		private viewContainerRef: ViewContainerRef,
-		private itemList: ColumnFilterItemListDirective
+		private itemList: ColumnFilterItemListDirective,
 	) {
 	}
 

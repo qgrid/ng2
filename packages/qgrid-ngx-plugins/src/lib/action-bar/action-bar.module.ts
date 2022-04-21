@@ -13,7 +13,7 @@ import { ActionListComponent } from './action-list.component';
 		ActionListComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ActionBarModule { }

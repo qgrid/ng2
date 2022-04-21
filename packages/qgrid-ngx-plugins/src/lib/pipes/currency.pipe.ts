@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Log } from '@qgrid/core';
 
 @Pipe({
-	name: 'qGridCurrency'
+	name: 'qGridCurrency',
 })
 export class CurrencyPipe implements PipeTransform {
 	constructor(private pipe: NgCurrencyPipe) { }

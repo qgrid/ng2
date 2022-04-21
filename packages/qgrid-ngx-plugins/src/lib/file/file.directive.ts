@@ -4,7 +4,7 @@ import {
 	EventEmitter,
 	Input,
 	Optional,
-	Output
+	Output,
 } from '@angular/core';
 import { EventListener, EventManager, yes } from '@qgrid/core';
 import { Disposable } from '@qgrid/ngx';
@@ -12,7 +12,7 @@ import { BackdropService } from '../backdrop/backdrop.service';
 
 @Directive({
 	selector: '[q-grid-file]',
-	providers: [Disposable]
+	providers: [Disposable],
 })
 export class FileDirective {
 	private reader = new FileReader();

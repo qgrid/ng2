@@ -3,7 +3,7 @@ import {
 	Component,
 	ElementRef,
 	Input,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import { ColumnModel, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
@@ -12,18 +12,18 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-column-filter-trigger',
 	templateUrl: './column-filter-trigger.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnFilterTriggerComponent implements OnInit {
 	@Input() column: ColumnModel;
 
 	context: { $implicit: ColumnFilterTriggerComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(
 		private plugin: GridPlugin,
-		private element: ElementRef
+		private element: ElementRef,
 	) {
 	}
 

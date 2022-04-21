@@ -7,19 +7,19 @@ import { TemplateModule } from '@qgrid/ngx';
 @NgModule({
 	imports: [
 		FormsModule,
-		TemplateModule
+		TemplateModule,
 	],
 	exports: [
 		PersistenceComponent,
-		PersistencePanelComponent
+		PersistencePanelComponent,
 	],
 	declarations: [
 		PersistenceComponent,
-		PersistencePanelComponent
+		PersistencePanelComponent,
 	],
 	entryComponents: [
-		PersistencePanelComponent
-	]
+		PersistencePanelComponent,
+	],
 })
 export class PersistenceModule {
 }

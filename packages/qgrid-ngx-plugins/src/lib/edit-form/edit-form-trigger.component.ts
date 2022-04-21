@@ -10,6 +10,6 @@ export class EditFormTriggerComponent {
 	@Input() row: any;
 
 	context: any = {
-		$implicit: this
+		$implicit: this,
 	};
 }

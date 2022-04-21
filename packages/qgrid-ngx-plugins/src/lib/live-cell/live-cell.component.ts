@@ -8,7 +8,7 @@ import {
 	OnInit,
 	SimpleChange,
 	TemplateRef,
-	ViewChild
+	ViewChild,
 } from '@angular/core';
 import { GridError, TdCoreDirective, TemplateHostService } from '@qgrid/ngx';
 
@@ -16,7 +16,7 @@ import { GridError, TdCoreDirective, TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-live-cell',
 	templateUrl: './live-cell.tpl.html',
 	providers: [TemplateHostService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LiveCellComponent implements OnInit, OnDestroy {
 	@Input() cell: TdCoreDirective;

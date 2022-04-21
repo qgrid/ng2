@@ -3,11 +3,11 @@ import { DataProviderComponent } from './data-provider.component';
 
 @NgModule({
 	declarations: [
-		DataProviderComponent
+		DataProviderComponent,
 	],
 	exports: [
-		DataProviderComponent
-	]
+		DataProviderComponent,
+	],
 })
 export class DataProviderModule {
 }

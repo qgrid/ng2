@@ -3,11 +3,11 @@ import { RaiseDirective } from './raise.directive';
 
 @NgModule({
 	declarations: [
-		RaiseDirective
+		RaiseDirective,
 	],
 	exports: [
-		RaiseDirective
-	]
+		RaiseDirective,
+	],
 })
 export class RaiseModule {
 }

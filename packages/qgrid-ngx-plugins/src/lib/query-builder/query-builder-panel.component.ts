@@ -27,7 +27,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 	queryService: QueryBuilderService;
 
 	context: { $implicit: QueryBuilderPanelComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	addGroup = new Command({
@@ -40,7 +40,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 				this.nodeService.current = group;
 			}
 		},
-		canExecute: () => !!this.findLogicalNode(this.nodeService.current)
+		canExecute: () => !!this.findLogicalNode(this.nodeService.current),
 	});
 
 	addRule = new Command({
@@ -53,7 +53,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 				this.nodeService.current = rule;
 			}
 		},
-		canExecute: () => !!this.findLogicalNode(this.nodeService.current)
+		canExecute: () => !!this.findLogicalNode(this.nodeService.current),
 	});
 
 	remove = new Command({
@@ -70,7 +70,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 		canExecute: () => {
 			const current = this.nodeService.current;
 			return current && (current.id === '#condition' || (current.level > 1 || current.children.length > 0));
-		}
+		},
 	});
 
 	submit = new Command({
@@ -96,14 +96,14 @@ export class QueryBuilderPanelComponent implements OnInit {
 					? memo
 					: memo && expression.isValid()
 			, true);
-		}
+		},
 	});
 
 	cancel = new Command({
 		source: 'query-builder.component',
 		execute: () => {
 			this.close.emit();
-		}
+		},
 	});
 
 	reset = new Command({
@@ -118,7 +118,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 
 			this.nodeService.current = this.node.children[0];
 
-		}
+		},
 	});
 
 	constructor(

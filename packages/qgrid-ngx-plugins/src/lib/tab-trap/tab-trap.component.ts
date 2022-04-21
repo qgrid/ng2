@@ -4,7 +4,7 @@ import {
 	ElementRef,
 	Input,
 	TemplateRef,
-	ViewChild
+	ViewChild,
 } from '@angular/core';
 import { EventListener, EventManager, Shortcut } from '@qgrid/core';
 import { GridError, GridPlugin } from '@qgrid/ngx';
@@ -13,7 +13,7 @@ import { GridError, GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-tab-trap',
 	templateUrl: './tab-trap.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabTrapComponent {
 	private isActivating = false;
@@ -22,7 +22,7 @@ export class TabTrapComponent {
 	@Input() roundTrip = false;
 
 	context: { $implicit: TabTrapComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	traps = new Map<string, any>();
@@ -58,7 +58,7 @@ export class TabTrapComponent {
 		const e = {
 			key: 'Tab',
 			keyCode: 9,
-			shiftKey: target === 'start'
+			shiftKey: target === 'start',
 		};
 
 		const { model } = this.plugin;

@@ -4,7 +4,7 @@ import {
 	EventEmitter,
 	Input,
 	OnInit,
-	Output
+	Output,
 } from '@angular/core';
 import {
 	CellView,
@@ -12,7 +12,7 @@ import {
 	getValueFactory,
 	isArray,
 	isUndefined,
-	SelectionService
+	SelectionService,
 } from '@qgrid/core';
 import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 
@@ -20,7 +20,7 @@ import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 	selector: 'q-grid-reference',
 	templateUrl: './reference.component.html',
 	providers: [Disposable],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReferenceComponent implements OnInit {
 	private _value: any;
@@ -40,7 +40,7 @@ export class ReferenceComponent implements OnInit {
 	@Input() cell: CellView;
 
 	context: { $implicit: ReferenceComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get value() { return this._value; }
@@ -69,7 +69,7 @@ export class ReferenceComponent implements OnInit {
 
 	constructor(
 		private modelBuilder: GridModelBuilder,
-		private disposable: Disposable
+		private disposable: Disposable,
 	) {
 	}
 
@@ -77,7 +77,7 @@ export class ReferenceComponent implements OnInit {
 		this.reference = {
 			commit: new Command({ execute: e => this.value = e.entries }),
 			cancel: new Command(),
-			value: this.value
+			value: this.value,
 		};
 
 		this.model = this.cell.column.editorOptions.modelFactory({
@@ -100,14 +100,14 @@ export class ReferenceComponent implements OnInit {
 							const entries = isArray(value) ? value : [value];
 							const items = selectionService.map(entries);
 							this.model.selection({
-								items
+								items,
 							}, {
-								source: 'reference.component'
+								source: 'reference.component',
 							});
 						}
 					}
 				}
-			})
+			}),
 		);
 
 		this.disposable.add(
@@ -124,7 +124,7 @@ export class ReferenceComponent implements OnInit {
 						const entries = selectionService.lookup(e.state.items);
 						this.value = entries;
 					}
-				})
+				}),
 		);
 	}
 }

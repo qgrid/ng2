@@ -1,21 +1,21 @@
-import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { TemplateModule } from '@qgrid/ngx';
-import { LiveCellComponent } from './live-cell.component';
 import { PipeModule } from '../pipes/pipe.module';
+import { LiveCellComponent } from './live-cell.component';
 
 @NgModule({
 	declarations: [
 		LiveCellComponent,
 	],
 	exports: [
-		LiveCellComponent
+		LiveCellComponent,
 	],
 	imports: [
 		TemplateModule,
 		CommonModule,
-		PipeModule
-	]
+		PipeModule,
+	],
 })
 export class LiveCellModule {
 }

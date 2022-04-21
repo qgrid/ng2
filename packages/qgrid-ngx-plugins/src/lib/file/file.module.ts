@@ -3,10 +3,10 @@ import { FileDirective } from './file.directive';
 
 @NgModule({
 	declarations: [
-		FileDirective
+		FileDirective,
 	],
 	exports: [
-		FileDirective
-	]
+		FileDirective,
+	],
 })
 export class FileModule {}

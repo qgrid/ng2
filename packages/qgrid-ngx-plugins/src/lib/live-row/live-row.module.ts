@@ -7,11 +7,11 @@ import { LiveRowComponent } from './live-row.component';
 		LiveRowComponent,
 	],
 	exports: [
-		LiveRowComponent
+		LiveRowComponent,
 	],
 	imports: [
-		CommonModule
-	]
+		CommonModule,
+	],
 })
 export class LiveRowModule {
 }

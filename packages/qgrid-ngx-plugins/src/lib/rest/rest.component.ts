@@ -4,7 +4,7 @@ import {
 	Component,
 	Input,
 	OnChanges,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import { RestState } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
@@ -14,7 +14,7 @@ import { RestPlugin } from '@qgrid/plugins';
 	selector: 'q-grid-rest',
 	template: '',
 	providers: [GridPlugin, StateAccessor],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RestComponent implements OnInit, OnChanges {
 	private restState = this.stateAccessor.setter(RestState);
@@ -28,7 +28,7 @@ export class RestComponent implements OnInit, OnChanges {
 	constructor(
 		private http: HttpClient,
 		private plugin: GridPlugin,
-		private stateAccessor: StateAccessor
+		private stateAccessor: StateAccessor,
 	) {
 	}
 
@@ -41,7 +41,7 @@ export class RestComponent implements OnInit, OnChanges {
 		const rest = new RestPlugin(
 			this.plugin.model, {
 				get: (url, params) => this.http.get(url, { params }).toPromise(),
-				post: (url, data) => this.http.post(url, { data }).toPromise()
+				post: (url, data) => this.http.post(url, { data }).toPromise(),
 			});
 
 		this.context = { $implicit: rest };

@@ -37,7 +37,7 @@ function visitGroup(node) {
 			kind: 'group',
 			op: opExpr.value.toLowerCase(),
 			left: children[0],
-			right: null
+			right: null,
 		};
 	}
 
@@ -47,7 +47,7 @@ function visitGroup(node) {
 			kind: 'group',
 			op: opExpr.value.toLowerCase(),
 			left: memo,
-			right: item
+			right: item,
 		}), children[0]);
 }
 
@@ -93,7 +93,7 @@ function visitUnary(line, op) {
 
 	return {
 		left: left.value,
-		op: camelCaseMapping[op.toUpperCase()]
+		op: camelCaseMapping[op.toUpperCase()],
 	};
 }
 
@@ -104,7 +104,7 @@ function visitBinary(line, op) {
 	return {
 		left: left.value,
 		op: camelCaseMapping[op.toUpperCase()],
-		right: right.value
+		right: right.value,
 	};
 }
 
@@ -115,7 +115,7 @@ function visitIn(line) {
 	return {
 		left: left.value,
 		op: 'in',
-		right: cloneDeep(right.values) || right.value
+		right: cloneDeep(right.values) || right.value,
 	};
 }
 
@@ -127,7 +127,7 @@ function visitBetween(line) {
 	return {
 		left: left.value,
 		op: 'between',
-		right: [from.value, to.value]
+		right: [from.value, to.value],
 	};
 }
 

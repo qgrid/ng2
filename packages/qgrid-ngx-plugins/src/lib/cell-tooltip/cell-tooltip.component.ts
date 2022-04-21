@@ -4,7 +4,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	Input,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -26,7 +26,7 @@ export class CellTooltipComponent implements OnInit {
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef,
-		private appRef: ApplicationRef
+		private appRef: ApplicationRef,
 	) { }
 
 	ngOnInit() {
@@ -44,7 +44,7 @@ export class CellTooltipComponent implements OnInit {
 
 					if (domCell.model()) {
 						this.context = {
-							$implicit: domCell.model()
+							$implicit: domCell.model(),
 						};
 						this.cellElement = domCell.element;
 						this.addTooltipLayer();

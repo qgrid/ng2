@@ -16,7 +16,7 @@ class Serializer {
 			id: this.node.id,
 			attributes: this.serializeAttributes(this.node),
 			children: this.node.children.map(child => new Serializer(child).serialize()),
-			line: groups.filter(group => group.expressions.length)
+			line: groups.filter(group => group.expressions.length),
 		};
 	}
 
@@ -25,7 +25,7 @@ class Serializer {
 			id: group.id,
 			expressions: group.expressions
 				.filter(expr => this.canSerialize(expr))
-				.map(expr => this.serializeExpression(expr))
+				.map(expr => this.serializeExpression(expr)),
 		};
 	}
 

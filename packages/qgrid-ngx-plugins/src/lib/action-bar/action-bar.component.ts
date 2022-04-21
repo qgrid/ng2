@@ -6,12 +6,12 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-action-bar',
 	templateUrl: './action-bar.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionBarComponent implements OnInit {
 
 	context: { $implicit: ActionBarComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get actions(): Action[] {
@@ -38,7 +38,7 @@ export class ActionBarComponent implements OnInit {
 					this.cd.detectChanges();
 				} else {
 					model.action({
-						items: initialItems.sort((a: Action, b: Action) => a.command.priority - b.command.priority)
+						items: initialItems.sort((a: Action, b: Action) => a.command.priority - b.command.priority),
 					});
 				}
 

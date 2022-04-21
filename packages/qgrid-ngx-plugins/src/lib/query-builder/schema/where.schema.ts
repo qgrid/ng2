@@ -38,7 +38,7 @@ export class WhereSchema {
 			.node('#logical', function (logical) {
 				logical
 					.attr('serialize', {
-						'#logical-op': ['value']
+						'#logical-op': ['value'],
 					})
 					.attr('class', {
 						'qb-logical': true,
@@ -49,12 +49,12 @@ export class WhereSchema {
 						'qb-or': function (node) {
 							const op = node.line.get('#logical-op');
 							return op.expressions[0].value === 'OR';
-						}
+						},
 					})
 					.select('#logical-op', {
 						classes: ['qb-operation'],
 						options: ['AND', 'OR'],
-						value: 'AND'
+						value: 'AND',
 					})
 					.node('#condition', function (condition) {
 						condition
@@ -64,7 +64,7 @@ export class WhereSchema {
 								'#value': ['value'],
 								'#from': ['value'],
 								'#to': ['value'],
-								'#in-operand': ['values']
+								'#in-operand': ['values'],
 							})
 							.select('#field', {
 								classes: ['qb-field'],
@@ -98,7 +98,7 @@ export class WhereSchema {
 											operand.value = null;
 										}
 									}
-								}
+								},
 							})
 							.select('#operator', {
 								classes: ['qb-operator'],
@@ -131,7 +131,7 @@ export class WhereSchema {
 														},
 														'qb-invalid': function (n) {
 															return !this.isValid(n);
-														}
+														},
 													},
 													value: getValue(line, '#operand', ['value', 'values']),
 													validate: function () {
@@ -143,7 +143,7 @@ export class WhereSchema {
 													options: null,
 													refresh: function (n, l) {
 														this.options = this.suggest(n, l);
-													}
+													},
 												});
 											});
 											break;
@@ -158,7 +158,7 @@ export class WhereSchema {
 															},
 															'qb-invalid': function (n) {
 																return !this.isValid(n);
-															}
+															},
 														},
 														validate: function () {
 															const field = line.get('#field').expressions[0].value;
@@ -166,11 +166,11 @@ export class WhereSchema {
 														},
 														options: suggest,
 														value: null,
-														placeholderText: 'Select value'
+														placeholderText: 'Select value',
 													})
 													.label('#and', {
 														classes: ['qb-operand', 'qb-operand-and-label'],
-														text: 'AND'
+														text: 'AND',
 													})
 													.input('#to', {
 														classes: {
@@ -180,7 +180,7 @@ export class WhereSchema {
 															},
 															'qb-invalid': function (n) {
 																return !this.isValid(n);
-															}
+															},
 														},
 														value: null,
 														validate: function () {
@@ -192,7 +192,7 @@ export class WhereSchema {
 														options: null,
 														refresh: function (n, l) {
 															this.options = this.suggest(n, l);
-														}
+														},
 													});
 											});
 											break;
@@ -200,7 +200,7 @@ export class WhereSchema {
 											line.put('#operand', node, function (schema) {
 												schema
 													.label('#in-open', {
-														text: '('
+														text: '(',
 													})
 													.multiselect('#in-operand', {
 														classes: {
@@ -210,7 +210,7 @@ export class WhereSchema {
 															},
 															'qb-invalid': function (n) {
 																return !this.isValid(n);
-															}
+															},
 														},
 														validate: function () {
 															const field = line.get('#field').expressions[0].value;
@@ -223,10 +223,10 @@ export class WhereSchema {
 															if (v && this.values.indexOf(v) < 0) {
 																this.values.push(v);
 															}
-														}
+														},
 													})
 													.label('#in-close', {
-														text: ')'
+														text: ')',
 													});
 											});
 											break;
@@ -235,7 +235,7 @@ export class WhereSchema {
 											line.put('#operand', node, noop);
 											break;
 									}
-								}
+								},
 							})
 							.group('#operand', function (schema) {
 								schema.autocomplete('#value', {
@@ -246,7 +246,7 @@ export class WhereSchema {
 										},
 										'qb-invalid': function (node) {
 											return !this.isValid(node);
-										}
+										},
 									},
 									value: null,
 									validate: function (node, line) {
@@ -258,7 +258,7 @@ export class WhereSchema {
 									options: null,
 									refresh: function (node, line) {
 										this.options = this.suggest(node, line);
-									}
+									},
 								});
 							});
 					});

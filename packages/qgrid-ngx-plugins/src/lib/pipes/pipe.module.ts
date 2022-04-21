@@ -34,7 +34,7 @@ import { ConvertPipe } from './convert.pipe';
 		NumberPipe,
 		TextPipe,
 		TimePipe,
-	]
+	],
 })
 export class PipeModule {
 }

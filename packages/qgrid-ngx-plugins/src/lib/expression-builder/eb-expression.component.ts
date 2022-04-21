@@ -29,7 +29,7 @@ export class EbExpressionComponent implements OnInit, DoCheck {
 							this.model,
 							key,
 							$watch[key],
-							[this.node, this.line])
+							[this.node, this.line]),
 					);
 		}
 	}

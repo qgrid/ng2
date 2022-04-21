@@ -6,7 +6,7 @@ import {
 	Input,
 	NgZone,
 	TemplateRef,
-	ViewChild
+	ViewChild,
 } from '@angular/core';
 import { ColumnModel, EventListener, EventManager } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
@@ -17,14 +17,14 @@ import { FocusAfterRender } from '../focus/focus.service';
 	selector: 'q-grid-column-sort',
 	templateUrl: './column-sort.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnSortComponent implements AfterViewInit {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Input() column: ColumnModel;
 
 	context: { $implicit: ColumnSortComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(
@@ -43,7 +43,7 @@ export class ColumnSortComponent implements AfterViewInit {
 			element: nativeElement,
 			column: this.column,
 			iconAsc,
-			iconDesc
+			iconDesc,
 		});
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
@@ -54,7 +54,7 @@ export class ColumnSortComponent implements AfterViewInit {
 		});
 
 		this.zone.runOutsideAngular(() =>
-			listener.on('mouseleave', () => columnSort.mouseLeave())
+			listener.on('mouseleave', () => columnSort.mouseLeave()),
 		);
 	}
 }

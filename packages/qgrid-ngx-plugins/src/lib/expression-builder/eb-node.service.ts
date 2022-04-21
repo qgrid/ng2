@@ -22,7 +22,7 @@ export class EbNodeService {
 			this.node = value;
 			this.currentChange.emit({
 				oldValue: oldNode,
-				newValue: value
+				newValue: value,
 			});
 		}
 	}

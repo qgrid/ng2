@@ -3,7 +3,7 @@ import {
 	Component,
 	Input,
 	OnChanges,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import {
 	Action,
@@ -14,7 +14,7 @@ import {
 	PersistenceService,
 	PersistenceState,
 	PersistenceStorage,
-	takeOnce
+	takeOnce,
 } from '@qgrid/core';
 import { GridEvent, GridModelBuilder, GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { PersistenceItem } from '@qgrid/plugins';
@@ -23,7 +23,7 @@ import { PersistenceItem } from '@qgrid/plugins';
 	selector: 'q-grid-persistence',
 	template: '',
 	providers: [GridPlugin, StateAccessor],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	private persistenceState = this.stateAccessor.setter(PersistenceState);
@@ -64,7 +64,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 					return false;
 				}),
-				takeOnce()
+				takeOnce(),
 			)
 			.subscribe(() =>
 				model.persistence()
@@ -79,7 +79,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 						if (defaultItem) {
 							this.service.load(defaultItem.model);
 						}
-					})
+					}),
 			);
 
 		switch (model.persistence().schedule) {
@@ -88,7 +88,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 						new Action(
 							new Command(),
 							'Save/Load',
-							'history'
+							'history',
 						);
 
 				historyAction.templateUrl = 'plugin-persistence.tpl.html';
@@ -110,7 +110,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 						observe(model[state + 'Changed'] as GridEvent<any>)
 							.pipe(
 								// TODO: get rid of e.tag.source check
-								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
+								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service'),
 							)
 							.subscribe(() => {
 								const currentModel = this.service.save();
@@ -120,7 +120,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 									group: defaultGroup,
 									model: currentModel,
 									isDefault: true,
-									canEdit: false
+									canEdit: false,
 								};
 
 								storage.setItem(id, [item]);

@@ -3,13 +3,13 @@ import {
 	Directive,
 	ElementRef,
 	Input,
-	NgZone
+	NgZone,
 } from '@angular/core';
 import { isFunction, isString } from '@qgrid/core';
 import { GridError } from '@qgrid/ngx';
 
 @Directive({
-	selector: '[q-grid-focus]'
+	selector: '[q-grid-focus]',
 })
 export class FocusDirective implements AfterViewInit {
 	@Input('q-grid-focus') selector;
@@ -17,7 +17,7 @@ export class FocusDirective implements AfterViewInit {
 
 	constructor(
 		private elementRef: ElementRef,
-		private zone: NgZone
+		private zone: NgZone,
 	) { }
 
 	ngAfterViewInit() {
@@ -33,14 +33,14 @@ export class FocusDirective implements AfterViewInit {
 		if (!element) {
 			throw new GridError(
 				'focus.directive',
-				`Element ${this.selector} is not found`
+				`Element ${this.selector} is not found`,
 			);
 		}
 
 		if (!isFunction(element.focus)) {
 			throw new GridError(
 				'focus.directive',
-				`Can't find focus method in ${element}`
+				`Can't find focus method in ${element}`,
 			);
 		}
 

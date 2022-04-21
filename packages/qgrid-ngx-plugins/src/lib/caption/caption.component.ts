@@ -5,11 +5,11 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-caption',
 	templateUrl: './caption.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaptionComponent implements OnInit {
 	context: { $implicit: CaptionComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get value() {
@@ -19,7 +19,7 @@ export class CaptionComponent implements OnInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
 	) {
 	}
 

@@ -25,7 +25,7 @@ export function suggestsFactory(service: QueryBuilderService, name: string) {
 						: items;
 					resolve(result);
 				})
-				.catch(ex => reject(ex))
+				.catch(ex => reject(ex)),
 		);
 	};
 }

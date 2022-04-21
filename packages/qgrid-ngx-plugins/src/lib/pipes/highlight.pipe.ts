@@ -3,7 +3,7 @@ import { escapeRegexp, GRID_PREFIX, htmlEncode } from '@qgrid/core';
 
 
 @Pipe({
-	name: 'qGridHighlight'
+	name: 'qGridHighlight',
 })
 export class HighlightPipe implements PipeTransform {
 	transform(text: string | number, search: string | number): string {
@@ -14,7 +14,7 @@ export class HighlightPipe implements PipeTransform {
 			const contains = new RegExp(escapeRegexp(search), 'gi');
 			if (contains.test(text)) {
 				return text.replace(contains,
-					s => `<span class="${GRID_PREFIX}-highlight-part">${htmlEncode(s)}</span>`
+					s => `<span class="${GRID_PREFIX}-highlight-part">${htmlEncode(s)}</span>`,
 				);
 			}
 

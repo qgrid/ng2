@@ -4,14 +4,14 @@ import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
-		ColumnSortComponent
+		ColumnSortComponent,
 	],
 	exports: [
-		ColumnSortComponent
+		ColumnSortComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ColumnSortModule {
 }

@@ -6,14 +6,14 @@ import { TemplateModule } from '@qgrid/ngx';
 @NgModule({
 	declarations: [
 		ActionComponent,
-		ActionCoreComponent
+		ActionCoreComponent,
 	],
 	exports: [
 		ActionComponent,
-		ActionCoreComponent
+		ActionCoreComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ActionModule { }

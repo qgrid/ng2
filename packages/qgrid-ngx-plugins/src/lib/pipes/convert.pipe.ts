@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { parseFactory } from '@qgrid/core';
 
 @Pipe({
-	name: 'qGridConvert'
+	name: 'qGridConvert',
 })
 export class ConvertPipe implements PipeTransform {
 	constructor() { }
