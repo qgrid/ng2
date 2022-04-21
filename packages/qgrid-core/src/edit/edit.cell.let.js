@@ -1,4 +1,5 @@
 import { Command } from '../command/command';
+import { Td } from '../dom/td';
 import { Log } from '../infrastructure/log';
 import { parseFactory } from '../services/convert';
 import { getLabelFactory } from '../services/label';
@@ -6,12 +7,47 @@ import { getValueFactory } from '../services/value';
 import { Shortcut } from '../shortcut/shortcut';
 import * as validationService from '../validation/validation.service';
 import { CellEditor } from './edit.cell.editor';
-import { Td } from '../dom/td';
 
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class EditCellLet {
+	get fetch() {
+		return this.editor.fetch;
+	}
+
+	get value() {
+		return this.editor.value;
+	}
+
+	set value(value) {
+		this.editor.value = value;
+	}
+
+	get label() {
+		return this.editor.label;
+	}
+
+	set label(label) {
+		this.editor.label = label;
+	}
+
+	get row() {
+		return this.cell.row;
+	}
+
+	get column() {
+		return this.cell.column;
+	}
+
+	get cell() {
+		return this.editor.td;
+	}
+
+	get options() {
+		return this.column.options;
+	}
+
 	constructor(plugin, shortcut) {
 		const { model, observeReply } = plugin;
 
@@ -99,42 +135,6 @@ export class EditCellLet {
 					}
 				}
 			});
-	}
-
-	get fetch() {
-		return this.editor.fetch;
-	}
-
-	get value() {
-		return this.editor.value;
-	}
-
-	get label() {
-		return this.editor.label;
-	}
-
-	get row() {
-		return this.cell.row;
-	}
-
-	get column() {
-		return this.cell.column;
-	}
-
-	get cell() {
-		return this.editor.td;
-	}
-
-	get options() {
-		return this.column.options;
-	}
-
-	set value(value) {
-		this.editor.value = value;
-	}
-
-	set label(label) {
-		this.editor.label = label;
 	}
 
 	mode(cell, status) {

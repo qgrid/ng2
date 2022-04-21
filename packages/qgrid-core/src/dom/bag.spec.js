@@ -1,6 +1,9 @@
 import { Bag } from './bag';
 
 describe('Bag', () => {
+	const row = { element: 'row' };
+	const cell = { element: 'cell' };
+	const bag = new Bag();
 
 	afterEach(function () {
 		bag.elements.clear();
@@ -8,9 +11,6 @@ describe('Bag', () => {
 		bag.cells.clear();
 	});
 
-	const row = { element: 'row' };
-	const cell = { element: 'cell' };
-	const bag = new Bag();
 
 	describe('addRow', () => {
 		it('returns true if row was added', () => {

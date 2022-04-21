@@ -17,7 +17,7 @@ function merge(left, right, force = false) {
 	const doMerge = mergeFactory({
 		equals: (l, r) => l.key === r.key,
 		update: (l, r) => assignWith(l, r, canAssign),
-		insert: (r, left) => left.push(r),
+		insert: (r, l) => l.push(r),
 		remove: noop
 	});
 

@@ -14,20 +14,18 @@ export declare interface UnsubscribableLike {
 
 export declare interface SubscribableLike<T> {
 	subscribe(observer?: Partial<ObserverLike<T>>): UnsubscribableLike;
-	/** @deprecated Use an observer instead of a complete callback */
-	subscribe(next: null | undefined, error: null | undefined, complete: () => void): UnsubscribableLike;
 	/** @deprecated Use an observer instead of an error callback */
 	subscribe(next: null | undefined, error: (error: any) => void, complete?: () => void): UnsubscribableLike;
 	/** @deprecated Use an observer instead of a complete callback */
-	subscribe(next: (value: T) => void, error: null | undefined, complete: () => void): UnsubscribableLike;
+	subscribe(next: null | undefined | ((value: T) => void), error: null | undefined, complete: () => void): UnsubscribableLike;
 	subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): UnsubscribableLike;
 }
 
-export declare interface UnaryFunctionLike<T, R> {
-	(source: T): R;
-}
+export type UnaryFunctionLike<T, R> = (source: T) => R;
 
+// eslint-disable-next-line no-use-before-define
 export declare interface OperatorFunctionLike<T, R> extends UnaryFunctionLike<ObservableLike<T>, ObservableLike<R>> {
+	type?: T;
 }
 export declare interface ObservableLike<T> extends SubscribableLike<T> {
 	toPromise(): Promise<T>;

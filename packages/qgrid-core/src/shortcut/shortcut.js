@@ -63,9 +63,8 @@ export class Shortcut {
 	}
 
 	factory(manager) {
-		const self = this;
 		return {
-			register: commands => self.register(manager, commands)
+			register: commands => this.register(manager, commands)
 		};
 	}
 

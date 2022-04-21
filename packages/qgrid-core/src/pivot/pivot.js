@@ -31,6 +31,7 @@ class Plan {
 	}
 }
 
+// TODO: move factory to inside pivot function
 function factory(plan) {
 	return name => {
 		plan.cursor(name);

@@ -101,6 +101,7 @@ export class ObservableEvent {
 	}
 
 	pipe(...operators) {
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let source = this;
 		for (const op of operators) {
 			source = op(source);
