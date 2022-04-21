@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Input,
+	OnInit
+} from '@angular/core';
 import { ColumnModel, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 

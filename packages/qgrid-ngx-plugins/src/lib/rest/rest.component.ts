@@ -1,5 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnChanges,
+	OnInit
+} from '@angular/core';
 import { RestState } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { RestPlugin } from '@qgrid/plugins';

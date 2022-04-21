@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import {
+	Component,
+	Input,
+	OnChanges,
+	SimpleChanges,
+	TemplateRef,
+	ViewChild,
+	ChangeDetectionStrategy
+} from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 import { TemplateHostService } from '@qgrid/ngx';
 

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	NgZone,
+	OnInit
+} from '@angular/core';
 import { Fastdom, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 

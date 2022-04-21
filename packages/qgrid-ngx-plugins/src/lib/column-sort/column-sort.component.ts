@@ -1,6 +1,12 @@
 import {
-	AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, NgZone,
-	TemplateRef, ViewChild
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Input,
+	NgZone,
+	TemplateRef,
+	ViewChild
 } from '@angular/core';
 import { ColumnModel, EventListener, EventManager } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';

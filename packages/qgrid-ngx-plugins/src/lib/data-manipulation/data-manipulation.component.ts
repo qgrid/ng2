@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnChanges,
+	OnInit
+} from '@angular/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { DataManipulationPlugin, DataManipulationState } from '@qgrid/plugins';
 

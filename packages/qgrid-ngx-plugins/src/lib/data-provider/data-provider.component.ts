@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	NgZone,
+	OnInit,
+	Output
+} from '@angular/core';
 import { PipeUnit } from '@qgrid/core/public-api';
 import { GridModel, GridPlugin } from '@qgrid/ngx';
 

@@ -1,6 +1,13 @@
 import {
-	ChangeDetectionStrategy, Component, HostBinding, Input, NgZone, OnDestroy, OnInit,
-	SimpleChange, TemplateRef,
+	ChangeDetectionStrategy,
+	Component,
+	HostBinding,
+	Input,
+	NgZone,
+	OnDestroy,
+	OnInit,
+	SimpleChange,
+	TemplateRef,
 	ViewChild
 } from '@angular/core';
 import { GridError, TdCoreDirective, TemplateHostService } from '@qgrid/ngx';

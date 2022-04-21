@@ -1,5 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, TemplateRef } from '@angular/core';
-import { Action, ColumnModel, Command, Composite, EventListener, EventManager } from '@qgrid/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	ElementRef,
+	Input,
+	TemplateRef
+} from '@angular/core';
+import {
+	Action,
+	ColumnModel,
+	Command,
+	Composite,
+	EventListener,
+	EventManager
+} from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 import { ImportPlugin } from '@qgrid/plugins';
 

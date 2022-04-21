@@ -1,4 +1,11 @@
-import { Directive, DoCheck, ElementRef, Input, OnInit, Optional } from '@angular/core';
+import {
+	Directive,
+	DoCheck,
+	ElementRef,
+	Input,
+	OnInit,
+	Optional
+} from '@angular/core';
 import { isArray } from '@qgrid/core';
 import { evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';

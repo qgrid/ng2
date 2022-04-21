@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output
+} from '@angular/core';
 import { CellView, Command, SelectionService } from '@qgrid/core';
 import { Disposable, GridModel } from '@qgrid/ngx';
 
