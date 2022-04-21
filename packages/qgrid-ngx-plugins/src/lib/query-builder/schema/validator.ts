@@ -40,7 +40,7 @@ export class Validator {
 		const trueResult = this.trueResult;
 		const id = column.type;
 		const rule = this.rules[id];
-		let validate = (value: any) => trueResult;
+		let validate: ((value: any) => string[]) = () => trueResult;
 		if (rule) {
 			const schema = { [id]: rule };
 			validate = function test(value): Array<string> {
