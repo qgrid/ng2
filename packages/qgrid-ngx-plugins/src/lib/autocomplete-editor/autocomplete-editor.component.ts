@@ -9,6 +9,10 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteEditorComponent {
+	private get cell() {
+		return this.plugin.view.edit.cell;
+	}
+
 	options: any[] = [];
 
 	context: { $implicit: AutoCompleteEditorComponent } = {
@@ -29,10 +33,6 @@ export class AutoCompleteEditorComponent {
 
 	set value(value) {
 		this.cell.value = value;
-	}
-
-	private get cell() {
-		return this.plugin.view.edit.cell;
 	}
 
 	constructor(

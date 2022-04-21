@@ -9,6 +9,8 @@ import { GridModel, GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataProviderComponent implements OnInit {
+	private next: (rows: any[]) => void;
+
 	@Output() requestRows = new EventEmitter<GridModel>();
 
 	@Input('rows') set rows(value: any[]) {
@@ -20,8 +22,6 @@ export class DataProviderComponent implements OnInit {
 			}
 		}
 	}
-
-	private next: (rows: any[]) => void;
 
 	constructor(
 		private plugin: GridPlugin,

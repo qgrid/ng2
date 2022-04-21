@@ -18,6 +18,9 @@ import { WhereSchema } from './schema/where.schema';
 	providers: [FocusAfterRender, GridPlugin],
 })
 export class QueryBuilderPanelComponent implements OnInit {
+	private traverse = new TraverseService();
+	private plan: INodeSchema;
+
 	@Output() close = new EventEmitter<any>();
 
 	node: Node;
@@ -117,9 +120,6 @@ export class QueryBuilderPanelComponent implements OnInit {
 
 		}
 	});
-
-	private traverse = new TraverseService();
-	private plan: INodeSchema;
 
 	constructor(
 		public focusAfterRender: FocusAfterRender,

@@ -8,13 +8,13 @@ import { Node } from './model/node';
 	templateUrl: './eb-expression.component.html',
 })
 export class EbExpressionComponent implements OnInit, DoCheck {
+	private watchers: Watcher[];
+
 	@Input() node: Node;
 	@Input() line: Line;
 	@Input() model: any;
 
 	context: { $implicit: any; node: Node; line: Line };
-
-	private watchers: Watcher[];
 
 	ngOnInit() {
 		this.context = { $implicit: this.model, node: this.node, line: this.line };

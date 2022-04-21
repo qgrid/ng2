@@ -8,6 +8,10 @@ import { BackdropService } from '../backdrop/backdrop.service';
 	providers: [Disposable]
 })
 export class FileDirective {
+	private reader = new FileReader();
+	private _value: any;
+	private _label: string;
+
 	@Output('q-grid-fileChange') valueChange = new EventEmitter<any>();
 	@Output('q-grid-file-labelChange') labelChange = new EventEmitter<string>();
 
@@ -34,10 +38,6 @@ export class FileDirective {
 			this.labelChange.emit(value);
 		}
 	}
-
-	private reader = new FileReader();
-	private _value: any;
-	private _label: string;
 
 	constructor(
 		@Optional() private backdropService: BackdropService,

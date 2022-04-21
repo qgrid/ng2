@@ -8,6 +8,8 @@ export interface EbNodeServiceEventArg<T> {
 
 @Injectable()
 export class EbNodeService {
+	private node: Node = null;
+
 	currentChange = new EventEmitter<EbNodeServiceEventArg<Node>>();
 
 	get current() {
@@ -24,6 +26,4 @@ export class EbNodeService {
 			});
 		}
 	}
-
-	private node: Node = null;
 }

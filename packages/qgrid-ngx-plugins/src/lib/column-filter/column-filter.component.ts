@@ -14,6 +14,8 @@ import { FocusAfterRender } from '../focus/focus.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterComponent implements OnInit {
+	private vscrollContext: VscrollContext;
+
 	@Input() column: ColumnModel;
 	@Input() search = '';
 
@@ -36,8 +38,6 @@ export class ColumnFilterComponent implements OnInit {
 	get hasOperators() {
 		return this.operators && this.operators.length > 1;
 	}
-
-	private vscrollContext: VscrollContext;
 
 	constructor(
 		public focusAfterRender: FocusAfterRender,

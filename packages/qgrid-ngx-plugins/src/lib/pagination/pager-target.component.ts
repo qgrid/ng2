@@ -9,6 +9,8 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagerTargetComponent implements OnInit {
+	private value: number;
+
 	context: { $implicit: PagerTargetComponent } = {
 		$implicit: this
 	};
@@ -21,8 +23,6 @@ export class PagerTargetComponent implements OnInit {
 		const { count, size } = this.plugin.model.pagination();
 		return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
 	}
-
-	private value: number;
 
 	constructor(private plugin: GridPlugin) {
 	}

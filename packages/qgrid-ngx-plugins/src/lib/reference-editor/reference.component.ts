@@ -9,6 +9,14 @@ import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceComponent implements OnInit {
+	private _value: any;
+	private _model: GridModel;
+	private _reference: {
+		commit: Command;
+		cancel: Command;
+		value: any;
+	};
+
 	@Output() modelChange = new EventEmitter<GridModel>();
 	@Output() valueChange = new EventEmitter<any>();
 	@Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
@@ -44,14 +52,6 @@ export class ReferenceComponent implements OnInit {
 			this.referenceChange.emit(value);
 		}
 	}
-
-	private _value: any;
-	private _model: GridModel;
-	private _reference: {
-		commit: Command;
-		cancel: Command;
-		value: any;
-	};
 
 	constructor(
 		private modelBuilder: GridModelBuilder,

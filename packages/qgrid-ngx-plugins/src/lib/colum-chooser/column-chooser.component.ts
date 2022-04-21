@@ -28,6 +28,8 @@ export class RootContext {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
+	private ccState = this.stateAccessor.setter(ColumnChooserState);
+
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
@@ -37,8 +39,6 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 	};
 
 	@Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }); }
-
-	private ccState = this.stateAccessor.setter(ColumnChooserState);
 
 	constructor(
 		public focusAfterRender: FocusAfterRender,
