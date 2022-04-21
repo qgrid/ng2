@@ -51,8 +51,7 @@ export class SortLet {
 								'head.core',
 								`Invalid sort direction ${dir}`);
 					}
-				}
-				else {
+				} else {
 					if (sortState.mode === 'single') {
 						by.length = 0;
 					}

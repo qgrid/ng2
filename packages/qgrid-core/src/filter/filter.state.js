@@ -66,6 +66,6 @@ export class FilterState {
 					return ['contains'];
 				}
 			}
-		}
+		};
 	}
 }

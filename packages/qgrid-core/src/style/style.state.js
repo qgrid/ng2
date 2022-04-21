@@ -1,5 +1,5 @@
-import { noop } from '../utility/kit';
 import { Command } from '../command/command';
+import { noop } from '../utility/kit';
 
 export class StyleState {
 	constructor() {

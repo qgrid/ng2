@@ -1,4 +1,4 @@
-import {Aggregation} from './aggregation';
+import { Aggregation } from './aggregation';
 
 describe('Aggregation', () => {
 	const getValue = value => value;
@@ -13,7 +13,7 @@ describe('Aggregation', () => {
 		});
 		it('should return first row, if rows are not empty ', () => {
 			expect(Aggregation.first(testArray, getValue)).to.be.equal(2);
-		});		
+		});
 	});
 
 	describe('last', () => {

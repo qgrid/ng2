@@ -34,8 +34,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 					node,
 					rows: [row]
 				};
-			}
-			else {
+			} else {
 				const group = groups[key];
 				group.node.rows.push(index);
 				group.rows.push(row);

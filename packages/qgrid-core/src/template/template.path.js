@@ -5,6 +5,16 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 const resolvers = {};
 export class TemplatePath {
+
+	static get require() {
+		const getName = this.name;
+		return Object.keys(resolvers)
+			.reduce((memo, key) => {
+				memo[getName(key)] = `^^?${key}`;
+				return memo;
+			}, {});
+	}
+
 	constructor() {
 	}
 
@@ -32,7 +42,7 @@ export class TemplatePath {
 
 	static find(source) {
 		const getName = this.name;
-		for (let key of Object.keys(resolvers)) {
+		for (const key of Object.keys(resolvers)) {
 			const name = getName(key);
 			const value = source[name];
 			if (!isUndefined(value) && value !== null) {
@@ -48,14 +58,5 @@ export class TemplatePath {
 
 	static getName(name) {
 		return '_' + name;
-	}
-
-	static get require() {
-		const getName = this.name;
-		return Object.keys(resolvers)
-			.reduce((memo, key) => {
-				memo[getName(key)] = `^^?${key}`;
-				return memo;
-			}, {});
 	}
 }

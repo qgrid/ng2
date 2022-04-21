@@ -25,8 +25,7 @@ class Plan {
 				schema: this.schema,
 				data: data
 			};
-		}
-		else {
+		} else {
 			return data;
 		}
 	}

@@ -1,5 +1,5 @@
-import {SelectionService} from './selection.service';
-import {modelFactory} from '../test/model.factory';
+import { modelFactory } from '../test/model.factory';
+import { SelectionService } from './selection.service';
 
 let model;
 const rows = [{
@@ -35,7 +35,7 @@ describe('selection service', () => {
 
 		model.columnList({
 			line: columns
-		})
+		});
 	});
 
 	describe('row unit', () => {

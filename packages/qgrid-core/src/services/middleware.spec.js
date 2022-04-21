@@ -1,13 +1,13 @@
-import {Middleware} from './middleware';
+import { Middleware } from './middleware';
 
 describe('Middleware', () => {
 	it('should return promise', () => {
-		let pipeline = new Middleware([]);
+		const pipeline = new Middleware([]);
 		expect(pipeline.run()).to.be.a('promise');
 	});
 
 	it('should call first stage with initial data', (done) => {
-		let pipeline = new Middleware([
+		const pipeline = new Middleware([
 			(data, ctx, next) => {
 				expect(data).to.eql([1, 2, 3]);
 				next(data);
@@ -18,7 +18,7 @@ describe('Middleware', () => {
 	});
 
 	it('should pass handled data to the next stage', (done) => {
-		let middleware = new Middleware([
+		const middleware = new Middleware([
 			(data, ctx, next) => {
 				next(data.slice(1));
 			},
@@ -35,7 +35,7 @@ describe('Middleware', () => {
 	});
 
 	it('should be stopped if stage has exception', (done) => {
-		let middleware = new Middleware([
+		const middleware = new Middleware([
 			(data, ctx, next) => {
 				throw new Error('');
 			},

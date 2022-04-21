@@ -22,7 +22,7 @@ export class ShortcutDispatcher {
 		}
 
 		const disposes = [];
-		for (let cmd of commands) {
+		for (const cmd of commands) {
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					context.commands.push(cmd);
@@ -32,8 +32,7 @@ export class ShortcutDispatcher {
 							context.commands.splice(index, 1);
 						}
 					});
-				}
-				else {
+				} else {
 					cmd.shortcut
 						.toLowerCase()
 						.split('|')

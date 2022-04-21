@@ -1,5 +1,32 @@
 import { Log } from '../infrastructure/log';
 
+function getAccessor(parts, last) {
+	if (parts.length > 1) {
+		const firstPart = parts[0];
+		return parts
+			.filter((_, index) => index > 0 && index !== last)
+			.reduce(
+				(accessor, part) => graph => {
+					const host = accessor(graph);
+					if (host) {
+						return host[part];
+					}
+
+					return null;
+				},
+				graph => {
+					if (graph) {
+						return graph[firstPart];
+					}
+
+					return null;
+				}
+			);
+	}
+
+	return null;
+}
+
 export function compile(parts) {
 	const last = parts.length - 1;
 	const accessor = getAccessor(parts, last);
@@ -92,33 +119,4 @@ export function compileSet(path) {
 
 		Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
 	};
-}
-
-function getAccessor(parts, last) {
-	if (parts.length > 1) {
-		const firstPart = parts[0];
-		return parts
-			.filter((_, index) => index > 0 && index !== last)
-			.reduce(
-				(accessor, part) => {
-					return graph => {
-						const host = accessor(graph);
-						if (host) {
-							return host[part];
-						}
-
-						return null;
-					};
-				},
-				graph => {
-					if (graph) {
-						return graph[firstPart];
-					}
-
-					return null;
-				}
-			);
-	}
-
-	return null;
 }

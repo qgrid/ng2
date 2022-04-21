@@ -2,7 +2,7 @@ import { FilterLet } from './filter.let';
 
 describe('FilterLet', () => {
 	const model = {
-		filter: () => { return { by: { 'Key': null } } }
+		filter: () => { return { by: { 'Key': null } }; }
 	};
 
 	describe('has', () => {

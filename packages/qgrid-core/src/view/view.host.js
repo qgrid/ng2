@@ -9,7 +9,14 @@ import { eventPath } from '../services/dom';
 import { Fastdom } from '../services/fastdom';
 import { jobLine } from '../services/job.line';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export class ViewHost {
+	get selection() {
+		const { model } = this.plugin;
+		return model.selection();
+	}
+
 	constructor(plugin) {
 		this.plugin = plugin;
 
@@ -36,8 +43,7 @@ export class ViewHost {
 						const domRow = rowMonitor.enter();
 						try {
 							style.invalidate(domCell, domRow);
-						}
-						finally {
+						} finally {
 							rowMonitor.exit();
 							cellMonitor.exit();
 						}
@@ -96,9 +102,11 @@ export class ViewHost {
 						const units = [];
 						const trigger = triggers[name];
 						for (const key in e.changes) {
-							const unit = trigger[key];
-							if (unit) {
-								units.push(unit);
+							if(hasOwnProperty.call(e.changes, key)) {
+								const unit = trigger[key];
+								if (unit) {
+									units.push(unit);
+								}
 							}
 						}
 
@@ -353,10 +361,5 @@ export class ViewHost {
 		if (highlight.clear.canExecute()) {
 			highlight.clear.execute();
 		}
-	}
-
-	get selection() {
-		const { model } = this.plugin;
-		return model.selection();
 	}
 }
