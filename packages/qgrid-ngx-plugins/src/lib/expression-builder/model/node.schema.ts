@@ -51,7 +51,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 				throw new GridError('node.schema', 'Build function is not defined');
 			}
 
-			this.plan.push((node) => {
+			this.plan.push(node => {
 				const schema = new NodeSchema(this.schemaMap);
 				build(schema);
 

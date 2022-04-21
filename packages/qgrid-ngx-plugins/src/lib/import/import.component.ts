@@ -44,7 +44,7 @@ export class ImportComponent implements AfterViewInit {
 		const eventListener = new EventListener(nativeElement, new EventManager(this));
 		const importPlugin = new ImportPlugin(model, nativeElement, this.options);
 
-		eventListener.on('change', (e) => importPlugin.load(e));
+		eventListener.on('change', e => importPlugin.load(e));
 
 		const action = new Action(
 			new Command({

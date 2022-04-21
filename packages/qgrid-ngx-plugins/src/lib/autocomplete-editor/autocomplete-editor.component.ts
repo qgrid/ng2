@@ -55,7 +55,7 @@ export class AutoCompleteEditorComponent {
 	itemLabelFactory(column) {
 		const { itemLabel } = column;
 		if (itemLabel) {
-			return (item) => itemLabel(item);
+			return item => itemLabel(item);
 		}
 
 		return item => item;
