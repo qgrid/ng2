@@ -28,7 +28,7 @@ export class CellTooltipComponent implements OnInit {
 		const { model, observe, table } = this.plugin;
 
 		observe(model.mouseChanged)
-			.subscribe((e) => {
+			.subscribe(e => {
 				if (e.state.status !== 'move' && e.state.status !== 'leave') {
 					return;
 				}

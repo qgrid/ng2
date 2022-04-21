@@ -21,6 +21,7 @@
       "arraysInArrays": false
     }],
     "arrow-body-style": "error",
+    "arrow-parens": ["error", "as-needed"],
     "arrow-spacing": "error",
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "constructor-super": "error",
