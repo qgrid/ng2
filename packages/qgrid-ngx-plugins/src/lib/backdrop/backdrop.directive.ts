@@ -5,11 +5,11 @@ import {
 	Inject,
 	Input,
 	NgZone,
-	Output
+	Output,
 } from '@angular/core';
 
 @Directive({
-	selector: '[q-grid-backdrop]'
+	selector: '[q-grid-backdrop]',
 })
 export class BackdropDirective {
 	private backdrop: HTMLElement;

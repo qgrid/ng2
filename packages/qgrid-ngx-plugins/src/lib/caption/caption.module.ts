@@ -4,13 +4,13 @@ import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
-		CaptionComponent
+		CaptionComponent,
 	],
 	exports: [
-		CaptionComponent
+		CaptionComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class CaptionModule {}

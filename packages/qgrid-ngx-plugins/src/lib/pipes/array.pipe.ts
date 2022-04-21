@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { isArray, isUndefined, Log } from '@qgrid/core';
 
 @Pipe({
-	name: 'qGridArray'
+	name: 'qGridArray',
 })
 export class ArrayPipe implements PipeTransform {
 	transform(value: any) {

@@ -4,7 +4,7 @@ import {
 	Input,
 	OnChanges,
 	Renderer2,
-	SimpleChanges
+	SimpleChanges,
 } from '@angular/core';
 import { GRID_PREFIX, jobLine } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
@@ -22,7 +22,7 @@ export class CellTooltipDirective implements OnChanges {
 
 	constructor(
 		private elementRef: ElementRef,
-		private renderer: Renderer2
+		private renderer: Renderer2,
 	) {
 		this.job = jobLine(this.showDelay);
 	}

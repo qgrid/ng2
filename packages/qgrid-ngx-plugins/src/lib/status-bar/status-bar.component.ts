@@ -6,11 +6,11 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-status-bar',
 	templateUrl: './status-bar.component.html',
 	providers: [TemplateHostService, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBarComponent implements OnInit {
 	context: { $implicit: StatusBarComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get rowIndex() {

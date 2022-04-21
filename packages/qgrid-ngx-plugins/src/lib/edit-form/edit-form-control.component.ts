@@ -4,7 +4,7 @@ import { CellEditor } from '@qgrid/core';
 @Component({
 	selector: 'q-grid-edit-form-control',
 	templateUrl: './edit-form-control.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditFormControlComponent {
 	@Input() editor: CellEditor;

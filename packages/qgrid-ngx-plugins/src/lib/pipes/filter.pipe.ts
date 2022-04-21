@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { filterNode, Node, predicateFactory } from '@qgrid/core';
 
 @Pipe({
-	name: 'qGridFilter'
+	name: 'qGridFilter',
 })
 export class FilterPipe implements PipeTransform {
 	transform(items: any[] | Node, { search = null, type = 'plain' }) {

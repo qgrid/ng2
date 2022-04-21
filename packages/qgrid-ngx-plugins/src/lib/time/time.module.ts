@@ -3,11 +3,11 @@ import { TimeDirective } from './time.directive';
 
 @NgModule({
 	declarations: [
-		TimeDirective
+		TimeDirective,
 	],
 	exports: [
-		TimeDirective
-	]
+		TimeDirective,
+	],
 })
 export class TimeModule {
 }

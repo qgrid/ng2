@@ -12,7 +12,7 @@ import {
 	OnInit,
 	Optional,
 	Output,
-	SimpleChanges
+	SimpleChanges,
 } from '@angular/core';
 import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
@@ -21,13 +21,13 @@ export class ZoneCommandManager {
 	constructor(
 		private run: <T>(f: () => T) => T,
 		private manager: CommandManager,
-		private commandArg: any
+		private commandArg: any,
 	) {
 	}
 
 	invoke(commands: Command[]) {
 		return this.run(() =>
-			this.manager.invoke(commands, this.commandArg, 'command.directive')
+			this.manager.invoke(commands, this.commandArg, 'command.directive'),
 		);
 	}
 
@@ -38,7 +38,7 @@ export class ZoneCommandManager {
 
 @Directive({
 	selector: '[q-grid-command]',
-	providers: [Disposable]
+	providers: [Disposable],
 })
 export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
 	private isAfterViewInit = false;
@@ -55,7 +55,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 		private disposable: Disposable,
 		private elementRef: ElementRef,
 		private zone: NgZone,
-		@Optional() private plugin: GridPlugin
+		@Optional() private plugin: GridPlugin,
 	) {
 	}
 
@@ -64,7 +64,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
 		this.aroundZone(() =>
 			nativeElement
-				.addEventListener(this.commandEvent, e => this.execute(e))
+				.addEventListener(this.commandEvent, e => this.execute(e)),
 		);
 	}
 
@@ -102,7 +102,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 		this.disposable.add(
 			command
 				.canExecuteCheck
-				.subscribe(() => this.updateState())
+				.subscribe(() => this.updateState()),
 		);
 
 		if (this.useCommandShortcut && command.shortcut) {
@@ -121,7 +121,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 				);
 
 				this.disposable.add(
-					shortcut.register(zoneManager, [command])
+					shortcut.register(zoneManager, [command]),
 				);
 			} else {
 				const manager = new CommandManager(f => {
@@ -138,11 +138,11 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 				document.addEventListener('keydown', keyDown);
 
 				this.disposable.add(() =>
-					document.removeEventListener('keydown', keyDown)
+					document.removeEventListener('keydown', keyDown),
 				);
 
 				this.disposable.add(
-					shortcut.register(manager, [command])
+					shortcut.register(manager, [command]),
 				);
 			}
 		}

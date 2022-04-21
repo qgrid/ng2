@@ -4,7 +4,7 @@ import {
 	EventEmitter,
 	Input,
 	OnInit,
-	Output
+	Output,
 } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 import { EditFormPanelPlugin } from '@qgrid/plugins';
@@ -13,7 +13,7 @@ import { EditFormPanelPlugin } from '@qgrid/plugins';
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditFormComponent implements OnInit {
 	@Input() caption: string;
@@ -33,7 +33,7 @@ export class EditFormComponent implements OnInit {
 	ngOnInit() {
 		const context = {
 			row: this.row,
-			caption: this.caption
+			caption: this.caption,
 		};
 
 		const editFormPanel = new EditFormPanelPlugin(this.plugin, context);
@@ -46,7 +46,7 @@ export class EditFormComponent implements OnInit {
 
 			service.invalidate({
 				source: 'edit-form.component',
-				why: 'refresh'
+				why: 'refresh',
 			});
 		});
 

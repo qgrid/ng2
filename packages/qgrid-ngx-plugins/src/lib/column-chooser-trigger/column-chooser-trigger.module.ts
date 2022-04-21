@@ -4,13 +4,13 @@ import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	imports: [
-		TemplateModule
+		TemplateModule,
 	],
 	exports: [
-		ColumnChooserTriggerComponent
+		ColumnChooserTriggerComponent,
 	],
 	declarations: [
-		ColumnChooserTriggerComponent
-	]
+		ColumnChooserTriggerComponent,
+	],
 })
 export class ColumnChooserTriggerModule {}

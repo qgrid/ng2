@@ -6,15 +6,15 @@ import { DateService } from './date.service';
 @NgModule({
 	declarations: [
 		DateDirective,
-		DateMaskDirective
+		DateMaskDirective,
 	],
 	exports: [
 		DateDirective,
-		DateMaskDirective
+		DateMaskDirective,
 	],
 	providers: [
-		DateService
-	]
+		DateService,
+	],
 })
 export class DateModule {
 }

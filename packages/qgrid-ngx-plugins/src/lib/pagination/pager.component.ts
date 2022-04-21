@@ -4,7 +4,7 @@ import {
 	Component,
 	Input,
 	OnChanges,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import { PaginationState, PaginationStateMode } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';

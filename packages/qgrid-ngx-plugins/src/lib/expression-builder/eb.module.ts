@@ -10,21 +10,21 @@ import { TemplateModule } from '@qgrid/ngx';
 @NgModule({
 	imports: [
 		CommonModule,
-		TemplateModule
+		TemplateModule,
 	],
 	exports: [
 		EbNodeComponent,
-		EbClassDirective
+		EbClassDirective,
 	],
 	declarations: [
 		EbNodeComponent,
 		EbExpressionComponent,
-		EbClassDirective
+		EbClassDirective,
 	],
 	providers: [
 		SerializationService,
-		EbNodeService
-	]
+		EbNodeService,
+	],
 })
 export class EbModule {
 }

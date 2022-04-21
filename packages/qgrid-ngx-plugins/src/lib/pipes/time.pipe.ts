@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Log } from '@qgrid/core';
 
 @Pipe({
-	name: 'qGridTime'
+	name: 'qGridTime',
 })
 export class TimePipe implements PipeTransform {
 	constructor(private pipe: DatePipe) { }

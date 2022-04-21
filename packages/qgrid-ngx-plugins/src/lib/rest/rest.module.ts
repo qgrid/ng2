@@ -3,11 +3,11 @@ import { RestComponent } from './rest.component';
 
 @NgModule({
 	declarations: [
-		RestComponent
+		RestComponent,
 	],
 	exports: [
-		RestComponent
-	]
+		RestComponent,
+	],
 })
 export class RestModule {
 }

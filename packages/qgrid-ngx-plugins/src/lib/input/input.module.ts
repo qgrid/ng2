@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
 	declarations: [],
-	exports: []
+	exports: [],
 })
 export class InputModule {
 }

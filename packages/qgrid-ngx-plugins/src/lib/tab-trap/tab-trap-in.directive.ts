@@ -3,7 +3,7 @@ import { EventListener, EventManager } from '@qgrid/core';
 import { TabTrapComponent } from './tab-trap.component';
 
 @Directive({
-	selector: '[q-grid-tab-trap-in]'
+	selector: '[q-grid-tab-trap-in]',
 })
 export class TabTrapInDirective implements OnInit {
 	@Input('q-grid-tab-trap-in') target;

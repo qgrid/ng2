@@ -5,7 +5,7 @@ import {
 	Input,
 	NgZone,
 	OnInit,
-	Output
+	Output,
 } from '@angular/core';
 import { PipeUnit } from '@qgrid/core/public-api';
 import { GridModel, GridPlugin } from '@qgrid/ngx';
@@ -14,7 +14,7 @@ import { GridModel, GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-data-provider',
 	template: '',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataProviderComponent implements OnInit {
 	private next: (rows: any[]) => void;
@@ -45,8 +45,8 @@ export class DataProviderComponent implements OnInit {
 						this.next = next;
 						this.requestRows.emit(context.model);
 					}),
-				...PipeUnit.view
-			]
+				...PipeUnit.view,
+			],
 		}, { source: 'data.provider' });
 	}
 }

@@ -6,7 +6,7 @@ import { VisibilityComponent } from './visibility.component';
 		VisibilityComponent,
 	],
 	exports: [
-		VisibilityComponent
+		VisibilityComponent,
 	],
 })
 export class VisibilityModule {

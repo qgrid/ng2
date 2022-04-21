@@ -19,7 +19,7 @@ export class Validator {
 		'url': ['required'],
 		'reference': ['required'],
 		'text': ['required', 'string'],
-		'time': ['required']
+		'time': ['required'],
 	};
 
 	constructor(service: QueryBuilderService) {

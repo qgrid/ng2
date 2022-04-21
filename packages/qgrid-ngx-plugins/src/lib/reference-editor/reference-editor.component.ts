@@ -4,7 +4,7 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	Output
+	Output,
 } from '@angular/core';
 import { CellView, Command, SelectionService } from '@qgrid/core';
 import { Disposable, GridModel } from '@qgrid/ngx';
@@ -13,7 +13,7 @@ import { Disposable, GridModel } from '@qgrid/ngx';
 	selector: 'q-grid-reference-editor',
 	templateUrl: './reference-editor.component.html',
 	providers: [Disposable],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReferenceEditorComponent implements AfterViewInit {
 	private state: any;
@@ -29,7 +29,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 	model: GridModel;
 
 	context: { $implicit: ReferenceEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	submit = new Command();
@@ -76,7 +76,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 					}
 
 					return false;
-				}
+				},
 			});
 
 			this.cancel = new Command({
@@ -88,12 +88,12 @@ export class ReferenceEditorComponent implements AfterViewInit {
 					}
 
 					return false;
-				}
+				},
 			});
 
 			const { shortcut, manager } = model.action();
 			this.disposable.add(
-				shortcut.register(manager, [this.submit, this.cancel])
+				shortcut.register(manager, [this.submit, this.cancel]),
 			);
 		}, 0);
 	}

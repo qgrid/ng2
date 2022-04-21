@@ -5,7 +5,7 @@ import {
 	EventEmitter,
 	Input,
 	OnInit,
-	Output
+	Output,
 } from '@angular/core';
 import {
 	ColumnModel,
@@ -13,7 +13,7 @@ import {
 	flatten,
 	getValue,
 	Guard,
-	uniq
+	uniq,
 } from '@qgrid/core';
 import {
 	Grid,
@@ -21,7 +21,7 @@ import {
 	GridPlugin,
 	TemplateService,
 	VscrollContext,
-	VscrollService
+	VscrollService,
 } from '@qgrid/ngx';
 import { ColumnFilterPlugin, ColumnFilterState } from '@qgrid/plugins';
 import { FocusAfterRender } from '../focus/focus.service';
@@ -30,7 +30,7 @@ import { FocusAfterRender } from '../focus/focus.service';
 	selector: 'q-grid-column-filter',
 	templateUrl: './column-filter.component.html',
 	providers: [FocusAfterRender, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnFilterComponent implements OnInit {
 	private vscrollContext: VscrollContext;
@@ -161,7 +161,7 @@ export class ColumnFilterComponent implements OnInit {
 		this.context = {
 			$implicit: columnFilterPlugin,
 			plugin: this,
-			vscroll: vscrollContext
+			vscroll: vscrollContext,
 		};
 	}
 
@@ -185,7 +185,7 @@ export class ColumnFilterComponent implements OnInit {
 
 		throw new GridError(
 			'column-filter.component',
-			`Column filter template for operator ${op} is not found`
+			`Column filter template for operator ${op} is not found`,
 		);
 	}
 

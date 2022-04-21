@@ -3,7 +3,7 @@ import {
 	Component,
 	Input,
 	OnChanges,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { DataManipulationPlugin, DataManipulationState } from '@qgrid/plugins';

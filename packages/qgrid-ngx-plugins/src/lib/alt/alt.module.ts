@@ -4,13 +4,13 @@ import { AltComponent } from './alt.component';
 
 @NgModule({
 	declarations: [
-		AltComponent
+		AltComponent,
 	],
 	exports: [
-		AltComponent
+		AltComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class AltModule {}

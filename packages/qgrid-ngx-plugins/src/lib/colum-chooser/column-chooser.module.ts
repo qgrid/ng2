@@ -7,14 +7,14 @@ import { ColumnChooserComponent } from './column-chooser.component';
 @NgModule({
 	imports: [
 		FormsModule,
-		TemplateModule
+		TemplateModule,
 	],
 	exports: [
-		ColumnChooserComponent
+		ColumnChooserComponent,
 	],
 	declarations: [
-		ColumnChooserComponent
-	]
+		ColumnChooserComponent,
+	],
 })
 export class ColumnChooserModule {
 	constructor(modelBuilder: GridModelBuilder) {

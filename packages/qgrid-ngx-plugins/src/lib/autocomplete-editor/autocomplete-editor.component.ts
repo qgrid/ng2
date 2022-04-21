@@ -6,7 +6,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-autocomplete-editor',
 	templateUrl: './autocomplete-editor.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoCompleteEditorComponent {
 	private get cell() {
@@ -16,7 +16,7 @@ export class AutoCompleteEditorComponent {
 	options: any[] = [];
 
 	context: { $implicit: AutoCompleteEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get items() {

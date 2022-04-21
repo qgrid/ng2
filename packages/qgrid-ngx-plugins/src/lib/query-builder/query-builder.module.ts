@@ -7,18 +7,18 @@ import { QueryBuilderModel } from './query-builder.model';
 
 @NgModule({
 	imports: [
-		TemplateModule
+		TemplateModule,
 	],
 	exports: [
 		QueryBuilderComponent,
 		QueryBuilderPanelComponent,
-		QueryBuilderPipe
+		QueryBuilderPipe,
 	],
 	declarations: [
 		QueryBuilderComponent,
 		QueryBuilderPanelComponent,
-		QueryBuilderPipe
-	]
+		QueryBuilderPipe,
+	],
 })
 export class QueryBuilderModule {
 	constructor(modelBuilder: GridModelBuilder) {

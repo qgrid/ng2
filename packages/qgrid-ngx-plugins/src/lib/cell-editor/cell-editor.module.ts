@@ -4,14 +4,14 @@ import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
-		CellEditorComponent
+		CellEditorComponent,
 	],
 	exports: [
-		CellEditorComponent
+		CellEditorComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class CellEditorModule {
 }

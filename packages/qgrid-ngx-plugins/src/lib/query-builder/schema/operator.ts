@@ -14,7 +14,7 @@ const commonOperators = [
 	'NOT EQUALS',
 	'IN',
 	'IS EMPTY',
-	'IS NOT EMPTY'
+	'IS NOT EMPTY',
 ];
 
 const oneToOneCommonOperators = ['EQUALS', 'NOT EQUALS'];
@@ -23,7 +23,7 @@ const textOperators = [
 	'LIKE',
 	'NOT LIKE',
 	'STARTS WITH',
-	'ENDS WITH'
+	'ENDS WITH',
 ];
 
 const numberOperators = [
@@ -31,14 +31,14 @@ const numberOperators = [
 	'GREATER THAN',
 	'LESS THAN',
 	'GREATER OR EQ. TO',
-	'LESS OR EQ. TO'
+	'LESS OR EQ. TO',
 ];
 
 const oneToOneNumberOperators = [
 	'GREATER THAN',
 	'LESS THAN',
 	'GREATER OR EQ. TO',
-	'LESS OR EQ. TO'
+	'LESS OR EQ. TO',
 ];
 
 export const camelCaseMapping = {
@@ -55,7 +55,7 @@ export const camelCaseMapping = {
 	'STARTS WITH': 'startsWith',
 	'ENDS WITH': 'endsWith',
 	'IN': 'in',
-	'BETWEEN': 'between'
+	'BETWEEN': 'between',
 };
 
 export const typeMapping = {
@@ -68,7 +68,7 @@ export const typeMapping = {
 	number: commonOperators.concat(numberOperators),
 	date: commonOperators.concat(numberOperators),
 	time: commonOperators.concat(numberOperators),
-	currency: commonOperators.concat(numberOperators)
+	currency: commonOperators.concat(numberOperators),
 };
 
 export const oneToOneMapping = {
@@ -81,7 +81,7 @@ export const oneToOneMapping = {
 	number: oneToOneCommonOperators.concat(oneToOneNumberOperators),
 	date: oneToOneCommonOperators.concat(oneToOneNumberOperators),
 	time: oneToOneCommonOperators.concat(oneToOneNumberOperators),
-	currency: oneToOneCommonOperators.concat(oneToOneNumberOperators)
+	currency: oneToOneCommonOperators.concat(oneToOneNumberOperators),
 };
 
 export const labelMapping = swap(camelCaseMapping);

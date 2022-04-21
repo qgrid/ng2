@@ -5,11 +5,11 @@ import { DataManipulationComponent } from './data-manipulation.component';
 
 @NgModule({
 	declarations: [
-		DataManipulationComponent
+		DataManipulationComponent,
 	],
 	exports: [
-		DataManipulationComponent
-	]
+		DataManipulationComponent,
+	],
 })
 export class DataManipulationModule {
 	constructor(modelBuilder: GridModelBuilder) {

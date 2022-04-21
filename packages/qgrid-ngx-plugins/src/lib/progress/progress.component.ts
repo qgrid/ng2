@@ -9,7 +9,7 @@ import { GridPlugin } from '@qgrid/ngx';
 })
 export class ProgressComponent implements OnInit {
 	context: { $implicit: ProgressComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get isBusy() {

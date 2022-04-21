@@ -4,14 +4,14 @@ import {
 	EventEmitter,
 	Input,
 	OnInit,
-	Output
+	Output,
 } from '@angular/core';
 import { BoolColumnModel } from '@qgrid/core';
 
 @Component({
 	selector: 'q-grid-bool-editor',
 	templateUrl: './bool-editor.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoolEditorComponent implements OnInit {
 	private state: any;
@@ -22,7 +22,7 @@ export class BoolEditorComponent implements OnInit {
 	@Output() valueChange = new EventEmitter<any>();
 
 	context: { $implicit: BoolEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	@Input() get value() {

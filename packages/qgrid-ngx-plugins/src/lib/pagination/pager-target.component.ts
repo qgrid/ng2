@@ -12,7 +12,7 @@ export class PagerTargetComponent implements OnInit {
 	private value: number;
 
 	context: { $implicit: PagerTargetComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get current() {
@@ -46,9 +46,9 @@ export class PagerTargetComponent implements OnInit {
 					if (this.plugin.model.pagination().current !== current) {
 						// new FocusAfterRender(this.plugin);
 						this.plugin.model.pagination({
-							current
+							current,
 						}, {
-							source: 'pager-target.component'
+							source: 'pager-target.component',
 						});
 					}
 				}

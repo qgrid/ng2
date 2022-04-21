@@ -5,7 +5,7 @@ import {
 	ContentChild,
 	ElementRef,
 	Input,
-	TemplateRef
+	TemplateRef,
 } from '@angular/core';
 import {
 	Action,
@@ -13,7 +13,7 @@ import {
 	Command,
 	Composite,
 	EventListener,
-	EventManager
+	EventManager,
 } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 import { ImportPlugin } from '@qgrid/plugins';
@@ -29,7 +29,7 @@ export class ImportComponent implements AfterViewInit {
 	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ImportComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get rows() {
@@ -47,7 +47,7 @@ export class ImportComponent implements AfterViewInit {
 	constructor(
 		private plugin: GridPlugin,
 		private templateHost: TemplateHostService,
-		private hostElement: ElementRef
+		private hostElement: ElementRef,
 	) {
 		this.templateHost.key = () => 'import';
 	}
@@ -63,10 +63,10 @@ export class ImportComponent implements AfterViewInit {
 
 		const action = new Action(
 			new Command({
-				execute: () => importPlugin.upload()
+				execute: () => importPlugin.upload(),
 			}),
 			'Import data',
-			'file_upload'
+			'file_upload',
 		);
 
 		if (this.templateRef) {
@@ -76,9 +76,9 @@ export class ImportComponent implements AfterViewInit {
 		const items = Composite.list([model.action().items, [action]]);
 
 		model.action({
-			items
+			items,
 		}, {
-			source: 'import.component'
+			source: 'import.component',
 		});
 
 		disposable.add(() => {
@@ -87,9 +87,9 @@ export class ImportComponent implements AfterViewInit {
 				items: model
 					.action()
 					.items
-					.filter(x => x !== action)
+					.filter(x => x !== action),
 			}, {
-				source: 'import.component'
+				source: 'import.component',
 			});
 		});
 	}

@@ -7,7 +7,7 @@ import {
 	NgZone,
 	OnChanges,
 	OnInit,
-	Output
+	Output,
 } from '@angular/core';
 import { Node, noop } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
@@ -31,9 +31,9 @@ export class RootContext {
 	providers: [
 		FocusAfterRender,
 		GridPlugin,
-		StateAccessor
+		StateAccessor,
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
 	private ccState = this.stateAccessor.setter(ColumnChooserState);
@@ -68,7 +68,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		const context = {
-			name: COLUMN_CHOOSER_NAME
+			name: COLUMN_CHOOSER_NAME,
 		};
 
 		const columnChooser = new ColumnChooserPlugin(this.plugin, context);

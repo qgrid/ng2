@@ -3,14 +3,14 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	Output
+	Output,
 } from '@angular/core';
 import { ColumnModel } from '@qgrid/core';
 
 @Component({
 	selector: 'q-grid-column-filter-by',
 	templateUrl: './column-filter-by.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnFilterByComponent {
 	@Input() column: ColumnModel;
@@ -20,7 +20,7 @@ export class ColumnFilterByComponent {
 	@Output() byBlanksChange = new EventEmitter();
 
 	context: { $implicit: ColumnFilterByComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	get isBlanks() {
