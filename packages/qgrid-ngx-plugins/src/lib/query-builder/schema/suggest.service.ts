@@ -23,6 +23,7 @@ export function suggestsFactory(service: QueryBuilderService, name: string) {
 					const result = selection.length
 						? items.filter(item => selection.indexOf(('' + item).toLowerCase()) < 0)
 						: items;
+					resolve(result);
 				})
 				.catch(ex => reject(ex))
 		);
