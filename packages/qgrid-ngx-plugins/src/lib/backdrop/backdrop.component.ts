@@ -1,5 +1,14 @@
 import {
-	ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	OnInit,
+	Output,
+	TemplateRef,
+	ViewChild
 } from '@angular/core';
 import { BackdropPlugin } from '@qgrid/plugins';
 import { BackdropService } from './backdrop.service';

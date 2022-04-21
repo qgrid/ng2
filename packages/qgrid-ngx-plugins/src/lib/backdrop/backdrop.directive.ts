@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Directive, EventEmitter, Inject, Input, NgZone, Output } from '@angular/core';
+import {
+	Directive,
+	EventEmitter,
+	Inject,
+	Input,
+	NgZone,
+	Output
+} from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-backdrop]'

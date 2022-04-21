@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	Input,
+	OnInit,
+	TemplateRef
+} from '@angular/core';
 import { Action, Command, guid } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
