@@ -15,7 +15,7 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 })
 
 export class CellTooltipDirective implements OnChanges {
-	private job: jobLine;
+	private job: (job: () => void) => Promise<void>;
 
 	@Input() host: HTMLElement;
 	@Input() showDelay = 1000;
