@@ -8,10 +8,7 @@
 		"linebreak-style": ["error", "unix"],
     "arrow-body-style": [
 			"error",
-			"as-needed",
-			{
-				"requireReturnForObjectLiteral": true
-			}
+			"as-needed"
 		],
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "constructor-super": "error",
@@ -39,7 +36,7 @@
     "no-fallthrough": "error",
     "no-new-wrappers": "error",
     "no-restricted-imports": ["error", "rxjs/Rx"],
-    "no-shadow": "error",
+    "no-shadow": "warn",
     "no-throw-literal": "error",
     "no-trailing-spaces": "error",
     "no-undef-init": "error",

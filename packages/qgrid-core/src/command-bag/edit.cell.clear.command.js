@@ -34,7 +34,7 @@ export class EditCellClearCommand extends Command {
 
 				return false;
 			},
-			execute: (cell, e) => {
+			execute: (cell) => {
 				const editLet = view.edit.cell;
 				cell = cell || editLet.editor.td;
 

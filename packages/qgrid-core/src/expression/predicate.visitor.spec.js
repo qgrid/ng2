@@ -17,7 +17,7 @@ describe('PredicateVisitor', () => {
 
 	describe('visitGroup', () => {
 		it('check for equality with op = "and"', () => {
-			let group = {
+			const group = {
 				kind: 'group',
 				op: 'and',
 				right: {

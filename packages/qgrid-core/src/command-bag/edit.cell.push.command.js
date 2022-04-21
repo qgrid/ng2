@@ -35,7 +35,7 @@ export class EditCellPushCommand extends Command {
 
 				return false;
 			},
-			execute: (cell, e) => {
+			execute: cell => {
 				cell = cell || this.editor.td;
 				if (cell) {
 					const clientContext = editCellContextFactory(

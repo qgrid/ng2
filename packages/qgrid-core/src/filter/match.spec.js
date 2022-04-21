@@ -1,4 +1,5 @@
 import { modelFactory } from '../test/model.factory';
+import { identity } from '../utility/kit';
 import * as Match from './match';
 
 describe('Match', () => {
@@ -38,8 +39,8 @@ describe('Match', () => {
 
 	const context = {
 		model,
-		valueFactory: value => value => value,
-		labelFactory: value => value => value,
+		valueFactory: () => identity,
+		labelFactory: () => identity,
 	};
 
 	describe('match', () => {
