@@ -2,7 +2,7 @@ import { ColumnView } from './view/column.view';
 import { RowView } from './view/row.view';
 
 export declare type SceneStateStatus = 'idle' | 'start' | 'pull' | 'push' | 'stop';
-export declare type SceneStateColumnArea =  { left: ColumnView[], right: ColumnView[], mid: ColumnView[] };
+export declare interface SceneStateColumnArea { left: ColumnView[]; right: ColumnView[]; mid: ColumnView[] }
 export declare type SceneStateColumnLine = ColumnView[];
 export declare type SceneStateColumnRows = ColumnView[][];
 

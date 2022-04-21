@@ -1,6 +1,14 @@
 import cssEscape from 'css.escape';
 import * as markup from './markup';
 
+export function escapeAttr(name) {
+	return ('' + name).replace(/\s|\t|\n|"|'/g, '_');
+}
+
+export function escape(name) {
+	return cssEscape(escapeAttr(name));
+}
+
 export function sheet(id, source) {
 	const sheetId = `${id}-${source}`;
 	let sheet = document.getElementById(sheetId);
@@ -28,12 +36,4 @@ export function sheet(id, source) {
 			}
 		}
 	};
-}
-
-export function escapeAttr(name) {
-	return ('' + name).replace(/\s|\t|\n|"|'/g, '_');
-}
-
-export function escape(name) {
-	return cssEscape(escapeAttr(name));
 }

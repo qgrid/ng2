@@ -1,7 +1,3 @@
-export function build(style) {
-	return buildLines(style).join('\n');
-}
-
 export function buildLines(style) {
 	return Object
 		.keys(style)
@@ -17,4 +13,8 @@ export function buildLines(style) {
 			memo.push(`${key}{\n${body.join('\n')}\n}`);
 			return memo;
 		}, []);
+}
+
+export function build(style) {
+	return buildLines(style).join('\n');
 }

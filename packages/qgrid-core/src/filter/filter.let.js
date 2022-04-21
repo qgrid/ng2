@@ -46,8 +46,7 @@ export class FilterLet {
 							break;
 						}
 					}
-				}
-				else {
+				} else {
 					delete by[key];
 				}
 

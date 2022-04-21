@@ -1,7 +1,7 @@
-import { Cell } from '../cell';
-import { Td } from '../td';
 import { GridError } from '../../infrastructure/error';
+import { Cell } from '../cell';
 import { FakeElement } from '../fake/element';
+import { Td } from '../td';
 
 class VirtualTd {
 	constructor(selector) {
@@ -17,28 +17,28 @@ class VirtualTd {
 		return td;
 	}
 
-	mode(value) {
-		return this.model.mode(value);
-	}
-
 	get value() {
 		return this.model.value;
-	}
-
-	set value(value) {
-		this.model.value = value;
 	}
 
 	get label() {
 		return this.model.label;
 	}
 
+	get element() {
+		return this.model.element || new FakeElement();
+	}
+
 	set label(value) {
 		this.model.label = value;
 	}
 
-	get element() {
-		return this.model.element || new FakeElement();
+	set value(value) {
+		this.model.value = value;
+	}
+
+	mode(value) {
+		return this.model.mode(value);
 	}
 }
 

@@ -41,7 +41,7 @@ describe('column matrix', () => {
 		const view = expand(columnRows);
 		const line = collapse(view);
 		const key = lineKeyFactory(line);
-		expect(line.length).to.equals(3)
+		expect(line.length).to.equals(3);
 		expect(key(0)).to.equals('D');
 		expect(key(1)).to.equals('F');
 		expect(key(2)).to.equals('H');

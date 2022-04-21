@@ -18,7 +18,6 @@ import { HighlightState } from '../highlight/highlight.state';
 import { KeyboardState } from '../keyboard/keyboard.state';
 import { LayerState } from '../layer/layer.state';
 import { LayoutState } from '../layout/layout.state';
-import { Model } from '../model/model';
 import { MouseState } from '../mouse/mouse.state';
 import { NavigationState } from '../navigation/navigation.state';
 import { PaginationState } from '../pagination/pagination.state';

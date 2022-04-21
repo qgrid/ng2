@@ -1,6 +1,6 @@
-import {MultipleSelectionState} from './multiple.selection.state';
-import {SelectionService} from '../selection.service';
-import {modelFactory} from '../../test/model.factory';
+import { modelFactory } from '../../test/model.factory';
+import { SelectionService } from '../selection.service';
+import { MultipleSelectionState } from './multiple.selection.state';
 
 let model;
 const rows = [{
@@ -26,7 +26,7 @@ const columns = [{
 }];
 
 describe('multiple selection state', () => {
-	before('init model', () => {0
+	before('init model', () => {
 
 		model = modelFactory();
 
@@ -78,9 +78,9 @@ describe('multiple selection state', () => {
 
 				const states = rows.map(row => selectionState.state(row));
 
-				expect(states[0]).to.be.true;
-				expect(states[1]).to.be.true;
-				expect(states[2]).to.be.false;
+				expect(states[0]).to.be.true();
+				expect(states[1]).to.be.true();
+				expect(states[2]).to.be.false();
 			});
 		});
 	});
@@ -121,15 +121,15 @@ describe('multiple selection state', () => {
 
 				const states = columns.map(col => selectionState.state(col));
 
-				expect(states[0]).to.be.true;
-				expect(states[1]).to.be.true;
-				expect(states[2]).to.be.false;
+				expect(states[0]).to.be.true();
+				expect(states[1]).to.be.true();
+				expect(states[2]).to.be.false();
 			});
 		});
 	});
 
 	describe('cell unit', () => {
-		let cells = [];
+		const cells = [];
 
 		before('init model', () => {
 			model.selection({
@@ -191,8 +191,8 @@ describe('multiple selection state', () => {
 
 				const states = cells.map(cell => selectionState.state(cell));
 
-				expect(states[0]).to.be.true;
-				expect(states[last]).to.be.true;
+				expect(states[0]).to.be.true();
+				expect(states[last]).to.be.true();
 			});
 		});
 	});

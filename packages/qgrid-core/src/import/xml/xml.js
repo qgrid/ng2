@@ -28,7 +28,7 @@ export class XmlImport {
 	arrayFromChildren(node, statistics, path, tag) {
 		const result = [];
 		const children = Array.from(node.children).filter(child => child.nodeName === tag);
-		for (let child of children) {
+		for (const child of children) {
 			result.push(this.buildNonArray(child, statistics, path));
 		}
 

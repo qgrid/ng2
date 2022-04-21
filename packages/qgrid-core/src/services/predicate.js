@@ -1,4 +1,4 @@
-import { isObject, yes, escapeRegexp } from '../utility/kit';
+import { escapeRegexp, isObject, yes } from '../utility/kit';
 import { compileGet } from './path';
 
 export function predicateFactory(search) {
@@ -30,7 +30,7 @@ export function predicateFactory(search) {
 				return item =>
 					getters.reduce((memo, get) =>
 						(memo && new RegExp(search[get.key], 'gi').test(get.value(item)) || search[get.key] === ''),
-						true);
+					true);
 
 			}
 		}
@@ -41,5 +41,5 @@ export function predicateFactory(search) {
 	return item => {
 		expr.lastIndex = 0;
 		return expr.test(item);
-	}
+	};
 }

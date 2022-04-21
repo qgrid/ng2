@@ -7,7 +7,7 @@ describe('Convert', () => {
 			expect(Convert.getType('123')).to.equal('text');
 			expect(Convert.getType('foo')).to.equal('text');
 			expect(Convert.getType('123$')).to.equal('text');
-			expect(Convert.getType(new String('bar'))).to.equal('text');
+			expect(Convert.getType(new string('bar'))).to.equal('text');
 			expect(Convert.getType('2017-01-01')).to.equal('text');
 			expect(Convert.getType(new Date())).to.equal('datetime');
 			expect(Convert.getType(true)).to.equal('bool');

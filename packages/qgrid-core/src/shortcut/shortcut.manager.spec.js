@@ -1,27 +1,27 @@
-import {ShortcutDispatcher} from './shortcut.dispatcher';
-import {Command} from '../command/command';
-import {CommandManager} from './../command/command.manager';
+import { Command } from '../command/command';
+import { CommandManager } from './../command/command.manager';
+import { ShortcutDispatcher } from './shortcut.dispatcher';
 
 describe('ShortcutDispatcher', () => {
-	let manager = new CommandManager();
-	let command1 = new Command();
+	const manager = new CommandManager();
+	const command1 = new Command();
 	command1.shortcut = 'ctrl|escape';
-	let command2 = new Command();
+	const command2 = new Command();
 	command2.shortcut = () => 'alt|shift';
-	let command3 = new Command();
+	const command3 = new Command();
 	command3.shortcut = () => 'enter|tab';
-	let cmds = [command1, command2, command3];
-	let shortcutDispatcher = new ShortcutDispatcher();
+	const cmds = [command1, command2, command3];
+	const shortcutDispatcher = new ShortcutDispatcher();
 
 	describe('execute', () => {
 		it('should return true if shortcut was registered and executed', () => {
 			shortcutDispatcher.register(manager, cmds);
-			let result = shortcutDispatcher.execute('ctrl').length > 0;
+			const result = shortcutDispatcher.execute('ctrl').length > 0;
 			expect(result).to.equal(true);
 		});
 
 		it('should return false if shortcut was not found', () => {
-			let result = shortcutDispatcher.execute('deleeete').length > 0;
+			const result = shortcutDispatcher.execute('deleeete').length > 0;
 			expect(result).to.equal(false);
 		});
 	});

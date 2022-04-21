@@ -86,7 +86,7 @@ export class StyleLet {
 			visitCell = new VirtualCellStyle(table, visitCell).visitFactory();
 		}
 
-		// For performance reason we make rowContext and cellContext the same reference 
+		// For performance reason we make rowContext and cellContext the same reference
 		// for the all style calls.
 		const rowContext = {
 			class: noop,
@@ -106,14 +106,14 @@ export class StyleLet {
 			columns: rowContext.columns
 		};
 
-		// To improve performance take rows and cells directly from the bag and not from the DOM table. 
+		// To improve performance take rows and cells directly from the bag and not from the DOM table.
 		const { body } = table;
 		const { rowToView, columnToView } = table.box.mapper;
 		const bodyBag = table.box.bag.body;
 
 		if (isRowActive) {
 			const rows = bodyBag.getRowElements();
-			for (let tr of rows) {
+			for (const tr of rows) {
 				const { index, element, model } = tr;
 				// This private method we use only for performance, don't use it in other places.
 				const row = body.createRowCore(rowToView(index), element);
@@ -128,7 +128,7 @@ export class StyleLet {
 
 		if (isCellActive) {
 			const cells = bodyBag.getCellElements();
-			for (let td of cells) {
+			for (const td of cells) {
 				const { rowIndex, columnIndex, element, row, column } = td;
 				// This private method we use only for performance, don't use it in other places.
 				const cell = body.createCellCore(rowToView(rowIndex), columnToView(columnIndex), element);

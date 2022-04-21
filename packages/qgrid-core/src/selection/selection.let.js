@@ -108,6 +108,28 @@ export class SelectionLet {
 			});
 	}
 
+	get selection() {
+		return this.plugin.model.selection();
+	}
+
+	get mode() {
+		return this.selection.mode;
+	}
+
+	get items() {
+		return this.selection.items;
+	}
+
+	get rows() {
+		const { table } = this.plugin;
+		return table.data.rows();
+	}
+
+	get columns() {
+		const { table } = this.plugin;
+		return table.data.columns();
+	}
+
 	getCommands() {
 		const { model, table } = this.plugin;
 		const { shortcut } = model.selection();
@@ -153,8 +175,7 @@ export class SelectionLet {
 								const commit = this.toggle({ item: item.row, unit: 'row' }, source);
 								commit();
 								break;
-							}
-							else {
+							} else {
 								const commit = this.toggle({ item: item, unit: 'cell' }, source);
 								commit();
 								break;
@@ -401,28 +422,6 @@ export class SelectionLet {
 		}
 
 		return this.form.state(item) === null;
-	}
-
-	get selection() {
-		return this.plugin.model.selection();
-	}
-
-	get mode() {
-		return this.selection.mode;
-	}
-
-	get items() {
-		return this.selection.items;
-	}
-
-	get rows() {
-		const { table } = this.plugin;
-		return table.data.rows();
-	}
-
-	get columns() {
-		const { table } = this.plugin;
-		return table.data.columns();
 	}
 
 	navigateTo(rowIndex, columnIndex) {

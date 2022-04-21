@@ -1,4 +1,4 @@
-import {stringifyFactory} from './model.stringify';
+import { stringifyFactory } from './model.stringify';
 
 describe('model stringify', () => {
 	let stringify;

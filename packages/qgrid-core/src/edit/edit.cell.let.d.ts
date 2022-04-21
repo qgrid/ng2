@@ -29,7 +29,6 @@ export declare class EditCellLet {
 
 	constructor(
 		plugin: GridPlugin,
-		shortcut: { register: (commands: Command[]) => void, keyCode: () => KeyCode }
+		shortcut: { register: (commands: Command[]) => void; keyCode: () => KeyCode }
 	);
-
 }

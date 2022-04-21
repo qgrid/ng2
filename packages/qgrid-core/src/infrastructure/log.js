@@ -1,5 +1,5 @@
 /* eslint-disable  no-console*/
-/* eslint-disable no-unused-vars*/
+/* eslint-disable @typescript-eslint/no-unused-vars*/
 
 export class Log {
 	static info(source, message) {

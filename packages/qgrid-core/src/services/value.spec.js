@@ -1,4 +1,4 @@
-import { getValue, setValue } from "./value";
+import { getValue, setValue } from './value';
 
 describe('value service', () => {
 	let row;

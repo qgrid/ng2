@@ -1,4 +1,4 @@
-import {getLabel, setLabel} from "./label";
+import { getLabel, setLabel } from './label';
 
 describe('label service', () => {
 	let row;

@@ -40,7 +40,7 @@ const toCamelCase = (...names) => {
 
 const isEmail = value => {
 	if (value) {
-		const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; // eslint-disable-line no-useless-escape
+		const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 		return re.test(value);
 	}
 
@@ -120,8 +120,9 @@ function htmlEncode(s) {
 }
 
 function escapeRegexp(text) {
-	if (!text)
+	if (!text) {
 		return text;
+	}
 
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
@@ -133,8 +134,7 @@ function binarySearch(list, value) {
 		const mid = (low + high) >>> 1;
 		if (list[mid] < value) {
 			low = mid + 1;
-		}
-		else {
+		} else {
 			high = mid;
 		}
 	}
@@ -143,13 +143,13 @@ function binarySearch(list, value) {
 }
 
 function isUrl(value) {
-	var a = document.createElement('a');
+	const a = document.createElement('a');
 	a.href = value;
-	return (a.host && a.host != window.location.host);
+	return (a.host && a.host !== window.location.host);
 }
 
 function isImage(value) {
-	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
+	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) !== null;
 }
 
 function matchISO8601(date) {
@@ -204,4 +204,3 @@ export {
 	yes,
 	zip,
 };
-

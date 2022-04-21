@@ -49,8 +49,7 @@ export class PivotRow {
 
 							return dataRow.getLabel(row, column, select, rowIndex, columnIndex);
 						};
-					}
-					else {
+					} else {
 						pivotRows = [];
 						this.getValue = dataRow.getValue;
 						this.getLabel = dataRow.getLabel;

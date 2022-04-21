@@ -12,14 +12,14 @@ export declare class Shortcut {
 	static translate(e: KeyboardEvent): string;
 
 	factory(commandManager: CommandManager): {
-		register: (commands: Command[]) => void
+		register: (commands: Command[]) => void;
 	};
 
 	keyDown(
 		e: {
-			key: string,
-			keyCode: number,
-			shiftKey: boolean
+			key: string;
+			keyCode: number;
+			shiftKey: boolean;
 		},
 		source?: string): string[];
 

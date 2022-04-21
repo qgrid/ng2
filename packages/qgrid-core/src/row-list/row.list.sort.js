@@ -14,7 +14,7 @@ export function sortFactory(model) {
 			rows
 				.filter((row, i) => {
 					const key = rowId(i, row);
-					const position = index.get(key)
+					const position = index.get(key);
 					if (position || position === 0) {
 						positions.set(position, row);
 						return false;

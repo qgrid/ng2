@@ -10,7 +10,7 @@ export declare interface IVscrollSettings {
 	rowHeight: number | ((element: HTMLElement) => number);
 	columnWidth: number | ((element: HTMLElement) => number);
 
-	fetch: (skip: number, take: number, d: { resolve: (count: number) => void, reject: () => void }) => void;
+	fetch: (skip: number, take: number, d: { resolve: (count: number) => void; reject: () => void }) => void;
 	emit: (f: () => void) => void;
 }
 
@@ -33,8 +33,8 @@ export declare interface IVscrollContext {
 }
 
 export declare class ScrollLet {
-	constructor(plugin: GridPlugin, vscroll: IVscrollContext);
-
 	readonly mode: ScrollStateMode;
 	readonly y: IVscrollContext;
+
+	constructor(plugin: GridPlugin, vscroll: IVscrollContext);
 }
