@@ -13,11 +13,11 @@ import { PersistenceItem } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersistenceComponent implements OnInit, OnChanges {
-	@Input('schedule') set schedule(schedule: PersistenceSchedule) { this.persistenceState({ schedule }); }
-	@Input('storage') set storage(storage: PersistenceStorage) { this.persistenceState({ storage }); }
-
 	private persistenceState = this.stateAccessor.setter(PersistenceState);
 	private service: PersistenceService | null = null;
+
+	@Input('schedule') set schedule(schedule: PersistenceSchedule) { this.persistenceState({ schedule }); }
+	@Input('storage') set storage(storage: PersistenceStorage) { this.persistenceState({ storage }); }
 
 	constructor(
 		private plugin: GridPlugin,

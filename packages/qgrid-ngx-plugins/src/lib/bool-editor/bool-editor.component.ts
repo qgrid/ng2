@@ -7,6 +7,8 @@ import { BoolColumnModel } from '@qgrid/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoolEditorComponent implements OnInit {
+	private state: any;
+
 	@Input() autofocus = false;
 	@Input() column: BoolColumnModel;
 	@Input() label: string;
@@ -42,8 +44,6 @@ export class BoolEditorComponent implements OnInit {
 	get falseValue() {
 		return this.column.falseValue;
 	}
-
-	private state: any;
 
 	ngOnInit() {
 		// entering edit mode means toggling boolean value

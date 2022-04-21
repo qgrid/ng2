@@ -7,11 +7,11 @@ import { EbNodeComponent } from './eb-node.component';
 	selector: '[q-grid-eb-class]'
 })
 export class EbClassDirective implements OnInit, DoCheck {
-	@Input('q-grid-eb-class') klass: any;
-	@Input('q-grid-eb-class-model') model: any;
-
 	private evaluate: (value: any) => any;
 	private oldClassList: Array<string> = [];
+
+	@Input('q-grid-eb-class') klass: any;
+	@Input('q-grid-eb-class-model') model: any;
 
 	constructor(private elementRef: ElementRef, @Optional() private node: EbNodeComponent) {
 	}

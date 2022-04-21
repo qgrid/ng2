@@ -85,13 +85,18 @@
     ],
     "@typescript-eslint/member-ordering": ["error", { "default": [
       "signature",
-      "public-decorated-field",
-      "protected-decorated-field",
-      "public-instance-field",
-      "protected-instance-field",
-      ["get", "set"],
       "private-decorated-field",
       "private-instance-field",
+      ["private-get", "private-set"],
+
+      "protected-decorated-field",
+      "protected-instance-field",
+      ["protected-get", "protected-set"],
+
+      "public-decorated-field",
+      "public-instance-field",
+      ["public-get", "public-set"],
+
       "constructor",
       "public-method",
       "private-method"

@@ -11,13 +11,13 @@ import { RestPlugin } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RestComponent implements OnInit, OnChanges {
+	private restState = this.stateAccessor.setter(RestState);
+
 	context: { $implicit: RestPlugin };
 
 	@Input('url') set restUrl(url: string) { this.restState({ url }); }
 	@Input('method') set restMethod(method: string) { this.restState({ method }); }
 	@Input('serialize') set restSerialize(serialize: (x: any) => any) { this.restState({ serialize }); }
-
-	private restState = this.stateAccessor.setter(RestState);
 
 	constructor(
 		private http: HttpClient,

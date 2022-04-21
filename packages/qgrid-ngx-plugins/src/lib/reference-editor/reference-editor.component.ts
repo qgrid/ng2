@@ -9,6 +9,8 @@ import { Disposable, GridModel } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceEditorComponent implements AfterViewInit {
+	private state: any;
+
 	@Output() valueChange = new EventEmitter<any>();
 	@Output() afterSubmit = new EventEmitter();
 	@Output() afterCancel = new EventEmitter();
@@ -35,8 +37,6 @@ export class ReferenceEditorComponent implements AfterViewInit {
 			this.valueChange.emit(value);
 		}
 	}
-
-	private state: any;
 
 	constructor(private disposable: Disposable) { }
 

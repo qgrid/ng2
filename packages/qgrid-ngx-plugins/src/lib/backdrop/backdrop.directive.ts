@@ -5,6 +5,8 @@ import { Directive, EventEmitter, Inject, Input, NgZone, Output } from '@angular
 	selector: '[q-grid-backdrop]'
 })
 export class BackdropDirective {
+	private backdrop: HTMLElement;
+
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
 
 	@Input('q-grid-backdrop-selector') selector = '';
@@ -39,8 +41,6 @@ export class BackdropDirective {
 			element.parentElement.appendChild(this.backdrop);
 		});
 	}
-
-	private backdrop: HTMLElement;
 
 	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
 	}
