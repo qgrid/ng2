@@ -10,18 +10,24 @@
 			[q-grid-core-td-align]="$column">
 		</td>
 	</tr>
-	<tr *ngFor="let $row of $view.body.render.rows[pin] | qGridVscroll$: $view.scroll.y | async; index as $vscrollIndex; trackBy: $view.scroll.y.id"
-		[q-grid-core-tr]="$row"
-		[q-grid-core-index]="$vscrollIndex"
-		[q-grid-vscroll-row]="$vscrollIndex"
-		q-grid-core-source="body">
-		<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, mapToDataIndex($vscrollIndex)); index as $columnIndex; trackBy: columnId"
-			[attr.rowspan]="$view.body.render.rowspan($row, $column, mapToDataIndex($vscrollIndex), $columnIndex)"
-			[attr.colspan]="$view.body.render.colspan($row, $column, mapToDataIndex($vscrollIndex), $columnIndex)">
-			<ng-container [q-grid-core-td]="$column"
-						  [q-grid-core-label]="$view.body.render.getLabel($row, $column.model, mapToDataIndex($vscrollIndex), $columnIndex)"
-						  [q-grid-core-value]="$view.body.render.getValue($row, $column.model, mapToDataIndex($vscrollIndex), $columnIndex)">
-			</ng-container>
+	<tr *ngFor="
+		let $row of $view.body.render.rows[pin] | qGridVscroll$: $view.scroll.y | async;
+		index as $vscrollIndex;
+		trackBy: $view.scroll.y.id"
+			[q-grid-core-tr]="$row"
+			[q-grid-core-index]="$vscrollIndex"
+			[q-grid-vscroll-row]="$vscrollIndex"
+			q-grid-core-source="body">
+		<td *ngFor="
+			let $column of $view.body.render.columns($row, $table.pin, mapToDataIndex($vscrollIndex));
+			index as $columnIndex;
+			trackBy: columnId"
+				[attr.rowspan]="$view.body.render.rowspan($row, $column, mapToDataIndex($vscrollIndex), $columnIndex)"
+				[attr.colspan]="$view.body.render.colspan($row, $column, mapToDataIndex($vscrollIndex), $columnIndex)">
+				<ng-container [q-grid-core-td]="$column"
+					[q-grid-core-label]="$view.body.render.getLabel($row, $column.model, mapToDataIndex($vscrollIndex), $columnIndex)"
+					[q-grid-core-value]="$view.body.render.getValue($row, $column.model, mapToDataIndex($vscrollIndex), $columnIndex)">
+				</ng-container>
 		</td>
 	</tr>
 	<tr q-grid-vscroll-mark="bottom"
@@ -43,8 +49,8 @@
 			[attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
 			[attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
 			<ng-container [q-grid-core-td]="$column"
-						  [q-grid-core-label]="$view.body.render.getLabel($row, $column.model, $rowIndex, $columnIndex)"
-						  [q-grid-core-value]="$view.body.render.getValue($row, $column.model, $rowIndex, $columnIndex)">
+				[q-grid-core-label]="$view.body.render.getLabel($row, $column.model, $rowIndex, $columnIndex)"
+				[q-grid-core-value]="$view.body.render.getValue($row, $column.model, $rowIndex, $columnIndex)">
 			</ng-container>
 		</td>
 	</tr>
