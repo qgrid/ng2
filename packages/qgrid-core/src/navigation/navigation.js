@@ -2,10 +2,6 @@ import { Command } from '../command/command';
 import { selectColumnIndex, selectRowIndex } from './navigation.state.selector';
 
 export class Navigation {
-	constructor(model, table) {
-		this.model = model;
-		this.table = table;
-	}
 
 	get currentColumn() {
 		const columns = this.columns(this.currentRow);
@@ -304,6 +300,12 @@ export class Navigation {
 
 		return new Map(Object.entries(commands));
 	}
+
+	constructor(model, table) {
+		this.model = model;
+		this.table = table;
+	}
+
 
 	position(y, direction) {
 		const table = this.table;

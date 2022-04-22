@@ -8,6 +8,12 @@ import * as sortService from '../sort/sort.service';
 import { noop } from '../utility/kit';
 
 export class HighlightLet {
+
+	get isRendering() {
+		const { model } = this.plugin;
+		return model.scene().status !== 'stop' || model.drag().isActive;
+	}
+
 	constructor(plugin) {
 		const { model, table, observeReply, observe } = plugin;
 		this.plugin = plugin;
@@ -179,11 +185,6 @@ export class HighlightLet {
 					}
 				}
 			});
-	}
-
-	get isRendering() {
-		const { model } = this.plugin;
-		return model.scene().status !== 'stop' || model.drag().isActive;
 	}
 
 	invalidateColumnHover(dispose) {

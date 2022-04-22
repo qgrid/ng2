@@ -4,7 +4,7 @@ import { PipeCallback } from './pipe.types';
 
 export declare interface ColumnIndexPipeMemo {
     columns: SceneStateColumnRows;
-    tree: Nod;
+    tree: Node;
 }
 
 export declare const columnIndexPipe: PipeCallback<Node, ColumnIndexPipeMemo>;

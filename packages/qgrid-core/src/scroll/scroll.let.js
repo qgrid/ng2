@@ -5,6 +5,11 @@ import { identity, isFunction } from '../utility/kit';
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class ScrollLet {
+
+	get mode() {
+		return this.plugin.model.scroll().mode;
+	}
+
 	constructor(plugin, vscroll) {
 		const { model, observeReply, service } = plugin;
 		const { scroll, row, pagination, fetch, pipe } = model;
@@ -169,10 +174,6 @@ export class ScrollLet {
 					this.invalidate();
 				}
 			});
-	}
-
-	get mode() {
-		return this.plugin.model.scroll().mode;
 	}
 
 	invalidate() {

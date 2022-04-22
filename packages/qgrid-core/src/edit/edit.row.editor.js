@@ -18,30 +18,36 @@ class RowEditorCore {
 
 
 class TdView {
-	constructor(row, column) {
-		this.row = row;
-		this.column = column;
-	}
 
 	get value() {
 		return getValue(this.row, this.column);
-	}
-
-	get label() {
-		return getLabel(this.row, this.column);
 	}
 
 	set value(value) {
 		setValue(this.row, this.column, value);
 	}
 
+	get label() {
+		return getLabel(this.row, this.column);
+	}
+
 	set label(value) {
 		setLabel(this.row, this.column, value);
+	}
+
+	constructor(row, column) {
+		this.row = row;
+		this.column = column;
 	}
 }
 
 const empty = new RowEditorCore();
 export class RowEditor extends RowEditorCore {
+
+	static get empty() {
+		return empty;
+	}
+
 	constructor(row, columns) {
 		super();
 
@@ -52,10 +58,6 @@ export class RowEditor extends RowEditorCore {
 			columns
 				.filter(column => column.canEdit)
 				.map(column => new CellEditor(new TdView(this.value, column)));
-	}
-
-	static get empty() {
-		return empty;
 	}
 
 	commit() {

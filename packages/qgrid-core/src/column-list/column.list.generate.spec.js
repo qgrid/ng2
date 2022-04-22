@@ -1,7 +1,7 @@
 import { generate as doGenerate } from '../column-list/column.list.generate';
 import { columnFactory } from '../column/column.factory';
 
-const createColumn = columnFactory({ columnList: () => { columns: []; reference: {} } });
+const createColumn = columnFactory({ columnList: () => ({ columns: [], eference: {} }) });
 const generate = rows => rows ? doGenerate({ rows, columnFactory: createColumn }) : doGenerate({ columnFactory: createColumn });
 
 describe('column generate', () => {

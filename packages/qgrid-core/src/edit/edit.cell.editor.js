@@ -27,6 +27,15 @@ class CellEditorCore {
 const empty = new CellEditorCore(null);
 
 export class CellEditor extends CellEditorCore {
+
+	static get empty() {
+		return empty;
+	}
+
+	get cell() {
+		return this.td;
+	}
+
 	constructor(td) {
 		super(td);
 
@@ -43,15 +52,6 @@ export class CellEditor extends CellEditorCore {
 
 		this.label = isUndefined(td.label) ? null : clone(td.label);
 	}
-
-	static get empty() {
-		return empty;
-	}
-
-	get cell() {
-		return this.td;
-	}
-
 
 	commit() {
 		this.td.value = this.value;

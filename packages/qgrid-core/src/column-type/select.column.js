@@ -3,19 +3,15 @@ import { TemplatePath } from '../template/template.path';
 import { noop } from '../utility/kit';
 import { ColumnModel } from './column.model';
 
-TemplatePath.register('select-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('select-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key
+}));
 
-TemplatePath.register('select-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('select-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key
+}));
 
 export class SelectColumnModel extends ColumnModel {
 	constructor() {

@@ -2,12 +2,10 @@ import { ColumnView } from '../scene/view/column.view';
 import { TemplatePath } from '../template/template.path';
 import { ColumnModel } from './column.model';
 
-TemplatePath.register('filter-row-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('filter-row-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key
+}));
 
 export class FilterRowColumnModel extends ColumnModel {
 	constructor(model) {

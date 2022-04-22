@@ -29,6 +29,7 @@ export declare class Node {
 	/**
 	 * List of child nodes.
 	 */
+	// eslint-disable-next-line no-use-before-define
 	children: Node[];
 
 	/**

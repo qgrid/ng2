@@ -2,12 +2,10 @@ import { ColumnView } from '../scene/view/column.view';
 import { TemplatePath } from '../template/template.path';
 import { ColumnModel } from './column.model';
 
-TemplatePath.register('pivot-cell', (template) => {
-	return {
-		model: 'pivot',
-		resource: template.for
-	};
-});
+TemplatePath.register('pivot-cell', (template) => ({
+	model: 'pivot',
+	resource: template.for
+}));
 
 export class PivotColumnModel extends ColumnModel {
 	constructor() {

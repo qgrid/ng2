@@ -2,19 +2,15 @@ import { ColumnView } from '../scene/view/column.view';
 import { TemplatePath } from '../template/template.path';
 import { DataColumnModel } from './data.column.model';
 
-TemplatePath.register('url-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('url-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key
+}));
 
-TemplatePath.register('url-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('url-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key
+}));
 
 export class UrlColumnModel extends DataColumnModel {
 	constructor() {
