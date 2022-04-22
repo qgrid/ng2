@@ -1,10 +1,9 @@
 import { Range } from '../../infrastructure/range';
+import { hasOwnProperty } from '../../utility/kit';
 import { Matrix } from './matrix';
 import { Selector } from './selector';
 import { SelectorMediator } from './selector.mediate';
 import { UnitFactory } from './unit.factory';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class SelectorFactory {
 	constructor(bag, selectorMark) {

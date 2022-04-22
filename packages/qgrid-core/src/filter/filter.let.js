@@ -1,7 +1,5 @@
 import { Command } from '../command/command';
-import { clone, isArray, isUndefined } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { clone, hasOwnProperty, isArray, isUndefined } from '../utility/kit';
 
 export class FilterLet {
 	constructor(plugin) {

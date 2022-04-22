@@ -1,6 +1,4 @@
-import { flatten } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { flatten, hasOwnProperty } from '../utility/kit';
 
 function filter(model) {
 	const values = Object.values(model.by)

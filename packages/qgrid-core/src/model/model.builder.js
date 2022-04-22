@@ -38,13 +38,11 @@ import { SortState } from '../sort/sort.state';
 import { StyleState } from '../style/style.state';
 import { TemplateState } from '../template/template.state';
 import { ToolbarState } from '../toolbar/toolbar.state';
-import { isFunction } from '../utility/kit';
+import { hasOwnProperty, isFunction } from '../utility/kit';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
 import { Model } from './model';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class ModelBuilder {
 	constructor() {

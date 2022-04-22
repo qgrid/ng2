@@ -2,8 +2,7 @@ import { GridError } from '../infrastructure/error';
 import { Log } from '../infrastructure/log';
 import { Aggregation } from '../services/aggregation';
 import { getValueFactory } from '../services/value';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 export class FootLet {
 

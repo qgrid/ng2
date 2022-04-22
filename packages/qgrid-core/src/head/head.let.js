@@ -6,8 +6,7 @@ import { Log } from '../infrastructure/log';
 import { calk, findLeaves, findNode, preOrderDFS } from '../node/node.service';
 import { PathService } from '../path/path.service';
 import { eventPath } from '../services/dom';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 export class HeadLet {
 	constructor(plugin, tagName) {

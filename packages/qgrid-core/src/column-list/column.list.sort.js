@@ -1,6 +1,5 @@
 import { bend, copy, preOrderDFS } from '../node/node.service';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 function findFactory(index) {
 	const map = index.reduce((memo, key, i) => {

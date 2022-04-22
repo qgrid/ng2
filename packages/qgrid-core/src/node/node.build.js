@@ -1,8 +1,7 @@
 import { GridError } from '../infrastructure/error';
 import { getValueFactory } from '../services/value';
+import { hasOwnProperty } from '../utility/kit';
 import { Node } from './node';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 	if (groupBy.length === 0) {

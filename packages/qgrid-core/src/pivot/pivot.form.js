@@ -1,7 +1,5 @@
 import { Node } from '../node/node';
-import { flatten } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { flatten, hasOwnProperty } from '../utility/kit';
 
 function injectData(schema, source, target) {
 	return Object

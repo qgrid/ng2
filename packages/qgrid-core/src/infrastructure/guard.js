@@ -1,7 +1,5 @@
+import { hasOwnProperty, isFunction, isUndefined } from '../utility/kit';
 import { GridError } from './error';
-import { isUndefined, isFunction } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class Guard {
 	/**

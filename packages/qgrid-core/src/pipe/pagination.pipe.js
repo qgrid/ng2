@@ -1,6 +1,5 @@
 import { Guard } from '../infrastructure/guard';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 function paginate(model, rows) {
 	const { pinTop, pinBottom } = model.row();

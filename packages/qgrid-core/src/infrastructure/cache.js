@@ -1,6 +1,5 @@
+import { hasOwnProperty } from '../utility/kit';
 import { GridError } from './error';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class Cache {
 	constructor() {
