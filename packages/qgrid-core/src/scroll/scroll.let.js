@@ -52,7 +52,7 @@ export class ScrollLet {
 
 		const updateTotalCount = () => {
 			const { effect } = pipe();
-			if (hasOwnProperty(effect, 'memo')) {
+			if (hasOwnProperty.call(effect, 'memo')) {
 				const count = effect.memo.length;
 				pagination({ count }, {
 					source: 'scroll.view',
