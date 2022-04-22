@@ -96,7 +96,7 @@ export declare interface ObservableLike<T> extends SubscribableLike<T> {
 		op8: OperatorFunctionLike<G, H>,
 		op9: OperatorFunctionLike<H, I>,
 		...operations: OperatorFunctionLike<any, any>[]
-	): ObservableLike<{}>;
+	): ObservableLike<any>;
 }
 
 export declare class ObservableEvent<T> implements ObservableLike<T> {
@@ -173,7 +173,7 @@ export declare class ObservableEvent<T> implements ObservableLike<T> {
 		op8: OperatorFunctionLike<G, H>,
 		op9: OperatorFunctionLike<H, I>,
 		...operations: OperatorFunctionLike<any, any>[]
-	): ObservableLike<{}>;
+	): ObservableLike<any>;
 }
 
 export declare class ObservableReplyEvent<T> extends ObservableEvent<T> {
