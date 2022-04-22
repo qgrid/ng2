@@ -10,16 +10,16 @@ export class Validator {
 		'bool': ['required'],
 		'currency': ['required', 'decimal'],
 		'date': ['required', 'iso_date'],
-		'email': ['required' /*, 'email'*/],
+		'email': ['required'],
 		'file': ['required'],
 		'id': ['required'],
 		'image': ['required'],
 		'number': ['required', 'decimal'],
 		'password': ['required'],
-		'url': ['required'/*, 'url'*/],
+		'url': ['required'],
 		'reference': ['required'],
 		'text': ['required', 'string'],
-		'time': ['required']
+		'time': ['required'],
 	};
 
 	constructor(service: QueryBuilderService) {
@@ -28,7 +28,7 @@ export class Validator {
 
 	for(key: string) {
 		const validators = this.validators;
-		if (validators.hasOwnProperty('key')) {
+		if (Object.prototype.hasOwnProperty.call(validators, 'key')) {
 			return validators[key];
 		}
 
@@ -40,7 +40,7 @@ export class Validator {
 		const trueResult = this.trueResult;
 		const id = column.type;
 		const rule = this.rules[id];
-		let validate = (value: any) => trueResult;
+		let validate: ((value: any) => string[]) = () => trueResult;
 		if (rule) {
 			const schema = { [id]: rule };
 			validate = function test(value): Array<string> {

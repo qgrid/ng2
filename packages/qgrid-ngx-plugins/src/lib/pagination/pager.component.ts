@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	Input,
+	OnChanges,
+	OnInit,
+} from '@angular/core';
 import { PaginationState, PaginationStateMode } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { PagerPlugin } from '@qgrid/plugins';

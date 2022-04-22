@@ -6,15 +6,15 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-query-builder',
 	templateUrl: './query-builder.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QueryBuilderComponent implements OnInit {
 	context: { $implicit: QueryBuilderComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
 	) {
 	}
 
@@ -24,16 +24,16 @@ export class QueryBuilderComponent implements OnInit {
 			new Action(
 				new Command(),
 				'Query Builder',
-				'filter'
+				'filter',
 			);
 
 		action.templateUrl = 'plugin-query-builder.tpl.html';
 
 		const items = Composite.list([model.action().items, [action]]);
 		model.action({
-			items
+			items,
 		}, {
-			source: 'query-builder.component'
+			source: 'query-builder.component',
 		});
 
 		disposable.add(() => {
@@ -41,9 +41,9 @@ export class QueryBuilderComponent implements OnInit {
 				items: model
 					.action()
 					.items
-					.filter(x => x !== action)
+					.filter(x => x !== action),
 			}, {
-				source: 'query-builder.component'
+				source: 'query-builder.component',
 			});
 		});
 	}

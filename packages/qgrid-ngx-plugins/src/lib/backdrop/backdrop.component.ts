@@ -1,5 +1,14 @@
 import {
-	ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	OnInit,
+	Output,
+	TemplateRef,
+	ViewChild,
 } from '@angular/core';
 import { BackdropPlugin } from '@qgrid/plugins';
 import { BackdropService } from './backdrop.service';
@@ -7,7 +16,7 @@ import { BackdropService } from './backdrop.service';
 @Component({
 	selector: 'q-grid-backdrop',
 	templateUrl: './backdrop.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackdropComponent implements OnInit, OnDestroy {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
@@ -15,7 +24,7 @@ export class BackdropComponent implements OnInit, OnDestroy {
 	@Input() propagate = true;
 
 	context: { $implicit: BackdropComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(private backdropService: BackdropService, elementRef: ElementRef) {

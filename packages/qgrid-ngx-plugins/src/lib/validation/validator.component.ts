@@ -6,7 +6,7 @@ import { ValidatorPlugin } from '@qgrid/plugins';
 	selector: 'q-grid-validator',
 	templateUrl: './validator.component.html',
 	providers: [TemplateHostService, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ValidatorComponent implements OnInit {
 	@Input() value: string;
@@ -16,9 +16,9 @@ export class ValidatorComponent implements OnInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
 	) {
-		this.templateHost.key = () => `validator`;
+		this.templateHost.key = () => 'validator';
 	}
 
 	ngOnInit() {

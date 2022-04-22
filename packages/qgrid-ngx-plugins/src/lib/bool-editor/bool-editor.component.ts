@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
 import { BoolColumnModel } from '@qgrid/core';
 
 @Component({
 	selector: 'q-grid-bool-editor',
 	templateUrl: './bool-editor.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoolEditorComponent implements OnInit {
 	private state: any;
@@ -15,7 +22,7 @@ export class BoolEditorComponent implements OnInit {
 	@Output() valueChange = new EventEmitter<any>();
 
 	context: { $implicit: BoolEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	@Input() get value() {
@@ -29,18 +36,6 @@ export class BoolEditorComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() {
-		// entering edit mode means toggling boolean value
-		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
-			setTimeout(() =>
-				this.value =
-				this.value === this.trueValue
-					? this.falseValue
-					: this.trueValue
-				, 10);
-		}
-	}
-
 	get isChecked() {
 		return this.column.isChecked(this.value);
 	}
@@ -49,15 +44,27 @@ export class BoolEditorComponent implements OnInit {
 		this.value = value ? this.trueValue : this.falseValue;
 	}
 
-	isIndeterminate() {
-		return this.column.isIndeterminate(this.value);
-	}
-
 	get trueValue() {
 		return this.column.trueValue;
 	}
 
 	get falseValue() {
 		return this.column.falseValue;
+	}
+
+	ngOnInit() {
+		// entering edit mode means toggling boolean value
+		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
+			setTimeout(() =>
+				this.value =
+				this.value === this.trueValue
+					? this.falseValue
+					: this.trueValue
+			, 10);
+		}
+	}
+
+	isIndeterminate() {
+		return this.column.isIndeterminate(this.value);
 	}
 }

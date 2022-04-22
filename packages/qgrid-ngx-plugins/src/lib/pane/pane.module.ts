@@ -13,7 +13,7 @@ import { PaneComponent } from './pane.component';
 	imports: [
 		CommonModule,
 		TemplateModule,
-		LayerModule
-	]
+		LayerModule,
+	],
 })
 export class PaneModule { }

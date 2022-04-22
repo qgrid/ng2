@@ -1,28 +1,49 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CellView, Command, getValueFactory, isArray, isUndefined, SelectionService } from '@qgrid/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
+import {
+	CellView,
+	Command,
+	getValueFactory,
+	isArray,
+	isUndefined,
+	SelectionService,
+} from '@qgrid/core';
 import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-reference',
 	templateUrl: './reference.component.html',
 	providers: [Disposable],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReferenceComponent implements OnInit {
 	private _value: any;
 	private _model: GridModel;
 	private _reference: {
-		commit: Command,
-		cancel: Command,
-		value: any
+		commit: Command;
+		cancel: Command;
+		value: any;
 	};
+
+	@Output() modelChange = new EventEmitter<GridModel>();
+	@Output() valueChange = new EventEmitter<any>();
+	@Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
 
 	@Input() caption = '';
 	@Input() autofocus = false;
 	@Input() cell: CellView;
 
+	context: { $implicit: ReferenceComponent } = {
+		$implicit: this,
+	};
+
 	get value() { return this._value; }
-	@Output() valueChange = new EventEmitter<any>();
 	@Input() set value(value) {
 		if (value !== this._value) {
 			this._value = value;
@@ -31,7 +52,6 @@ export class ReferenceComponent implements OnInit {
 	}
 
 	get model() { return this._model; }
-	@Output() modelChange = new EventEmitter<GridModel>();
 	@Input() set model(value) {
 		if (value !== this._model) {
 			this._model = value;
@@ -40,7 +60,6 @@ export class ReferenceComponent implements OnInit {
 	}
 
 	get reference() { return this._reference; }
-	@Output() referenceChange = new EventEmitter<{ commit: Command, cancel: Command, value: any }>();
 	@Input() set reference(value) {
 		if (value !== this._reference) {
 			this._reference = value;
@@ -48,13 +67,9 @@ export class ReferenceComponent implements OnInit {
 		}
 	}
 
-	context: { $implicit: ReferenceComponent } = {
-		$implicit: this
-	};
-
 	constructor(
 		private modelBuilder: GridModelBuilder,
-		private disposable: Disposable
+		private disposable: Disposable,
 	) {
 	}
 
@@ -62,7 +77,7 @@ export class ReferenceComponent implements OnInit {
 		this.reference = {
 			commit: new Command({ execute: e => this.value = e.entries }),
 			cancel: new Command(),
-			value: this.value
+			value: this.value,
 		};
 
 		this.model = this.cell.column.editorOptions.modelFactory({
@@ -85,14 +100,14 @@ export class ReferenceComponent implements OnInit {
 							const entries = isArray(value) ? value : [value];
 							const items = selectionService.map(entries);
 							this.model.selection({
-								items
+								items,
 							}, {
-								source: 'reference.component'
+								source: 'reference.component',
 							});
 						}
 					}
 				}
-			})
+			}),
 		);
 
 		this.disposable.add(
@@ -109,7 +124,7 @@ export class ReferenceComponent implements OnInit {
 						const entries = selectionService.lookup(e.state.items);
 						this.value = entries;
 					}
-				})
+				}),
 		);
 	}
 }

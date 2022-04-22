@@ -5,11 +5,11 @@ import { TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-legend',
 	templateUrl: './legend.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [TemplateHostService]
+	providers: [TemplateHostService],
 })
 export class LegendComponent {
 	context: { $implicit: LegendComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(templateHost: TemplateHostService) {

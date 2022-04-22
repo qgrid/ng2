@@ -6,14 +6,34 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-autocomplete-editor',
 	templateUrl: './autocomplete-editor.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoCompleteEditorComponent {
+	private get cell() {
+		return this.plugin.view.edit.cell;
+	}
+
 	options: any[] = [];
 
 	context: { $implicit: AutoCompleteEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
+
+	get items() {
+		return (this.cell.fetch as any).result;
+	}
+
+	get title() {
+		return this.cell.column.title;
+	}
+
+	get value() {
+		return this.cell.value;
+	}
+
+	set value(value) {
+		this.cell.value = value;
+	}
 
 	constructor(
 		private plugin: GridPlugin,
@@ -32,34 +52,12 @@ export class AutoCompleteEditorComponent {
 		this.options = [];
 	}
 
-	get items() {
-		return (this.cell.fetch as any).result;
-	}
-
-	get title() {
-		return this.cell.column.title;
-	}
-
-	get value() {
-		return this.cell.value;
-	}
-
-	set value(value) {
-		this.cell.value = value;
-	}
-
 	itemLabelFactory(column) {
 		const { itemLabel } = column;
 		if (itemLabel) {
-			return (item) => {
-				return itemLabel(item);
-			};
+			return item => itemLabel(item);
 		}
 
 		return item => item;
-	}
-
-	private get cell() {
-		return this.plugin.view.edit.cell;
 	}
 }

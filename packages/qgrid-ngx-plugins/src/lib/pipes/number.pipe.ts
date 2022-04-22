@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Log } from '@qgrid/core';
 
 @Pipe({
-	name: 'qGridNumber'
+	name: 'qGridNumber',
 })
 export class NumberPipe implements PipeTransform {
 	constructor(private pipe: DecimalPipe) { }

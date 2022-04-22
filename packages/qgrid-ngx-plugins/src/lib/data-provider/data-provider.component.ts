@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	NgZone,
+	OnInit,
+	Output,
+} from '@angular/core';
 import { PipeUnit } from '@qgrid/core/public-api';
 import { GridModel, GridPlugin } from '@qgrid/ngx';
 
@@ -6,10 +14,12 @@ import { GridModel, GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-data-provider',
 	template: '',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataProviderComponent implements OnInit {
 	private next: (rows: any[]) => void;
+
+	@Output() requestRows = new EventEmitter<GridModel>();
 
 	@Input('rows') set rows(value: any[]) {
 		if (Array.isArray(value)) {
@@ -20,8 +30,6 @@ export class DataProviderComponent implements OnInit {
 			}
 		}
 	}
-
-	@Output() requestRows = new EventEmitter<GridModel>();
 
 	constructor(
 		private plugin: GridPlugin,
@@ -37,8 +45,8 @@ export class DataProviderComponent implements OnInit {
 						this.next = next;
 						this.requestRows.emit(context.model);
 					}),
-				...PipeUnit.view
-			]
+				...PipeUnit.view,
+			],
 		}, { source: 'data.provider' });
 	}
 }

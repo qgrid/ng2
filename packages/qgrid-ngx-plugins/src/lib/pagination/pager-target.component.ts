@@ -12,8 +12,17 @@ export class PagerTargetComponent implements OnInit {
 	private value: number;
 
 	context: { $implicit: PagerTargetComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
+
+	get current() {
+		return this.plugin.model.pagination().current + 1;
+	}
+
+	get total() {
+		const { count, size } = this.plugin.model.pagination();
+		return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
+	}
 
 	constructor(private plugin: GridPlugin) {
 	}
@@ -35,12 +44,11 @@ export class PagerTargetComponent implements OnInit {
 				if (value) {
 					const current = value - 1;
 					if (this.plugin.model.pagination().current !== current) {
-						// tslint:disable-next-line:no-unused-expression
 						// new FocusAfterRender(this.plugin);
 						this.plugin.model.pagination({
-							current
+							current,
 						}, {
-							source: 'pager-target.component'
+							source: 'pager-target.component',
 						});
 					}
 				}
@@ -71,19 +79,10 @@ export class PagerTargetComponent implements OnInit {
 				const isValid = page >= min && page <= max && !isNaN(digit);
 
 				if (!isValid) {
-					page > this.total ? this.value = max : this.value = min;
+					this.value = page > this.total ?  max : min;
 					e.preventDefault();
 				}
 			}
 		}
-	}
-
-	get current() {
-		return this.plugin.model.pagination().current + 1;
-	}
-
-	get total() {
-		const { count, size } = this.plugin.model.pagination();
-		return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
 	}
 }

@@ -1,9 +1,9 @@
-import { Node } from './model/node';
-import { Line } from './model/line';
-import { GroupExpression } from './model/expression';
-import { INodeSchema } from './model/node.schema';
-import { override, indexOf } from './utility';
 import { Injectable } from '@angular/core';
+import { GroupExpression } from './model/expression';
+import { Line } from './model/line';
+import { Node } from './model/node';
+import { INodeSchema } from './model/node.schema';
+import { indexOf, override } from './utility';
 
 class Serializer {
 	constructor(private node: Node) {
@@ -16,7 +16,7 @@ class Serializer {
 			id: this.node.id,
 			attributes: this.serializeAttributes(this.node),
 			children: this.node.children.map(child => new Serializer(child).serialize()),
-			line: groups.filter(group => group.expressions.length)
+			line: groups.filter(group => group.expressions.length),
 		};
 	}
 
@@ -25,7 +25,7 @@ class Serializer {
 			id: group.id,
 			expressions: group.expressions
 				.filter(expr => this.canSerialize(expr))
-				.map(expr => this.serializeExpression(expr))
+				.map(expr => this.serializeExpression(expr)),
 		};
 	}
 
@@ -46,12 +46,12 @@ class Serializer {
 		return result;
 	}
 
-	serializeAttributes(node) {
-		const serializeAttr = this.node.attr('serialize');
+	serializeAttributes(node: Node) {
+		const serializeAttr = node.attr('serialize');
 		if (serializeAttr && serializeAttr['@attr']) {
 			const props = serializeAttr['@attr'];
 			return props.reduce((memo, attr) => {
-				memo[attr] = this.node.attr(attr);
+				memo[attr] = node.attr(attr);
 				return memo;
 			}, {});
 		}
@@ -136,7 +136,7 @@ class Deserializer {
 }
 
 function traverse(node: Node, map: { [key: string]: Node }) {
-	if (!map.hasOwnProperty(node.id)) {
+	if (!Object.prototype.hasOwnProperty.call(map, node.id)) {
 		map[node.id] = node;
 	}
 

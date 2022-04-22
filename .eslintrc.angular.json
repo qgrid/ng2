@@ -1,45 +1,60 @@
 {
-  "extends": ".eslintrc.json",
+  "extends": [
+    ".eslintrc.json",
+    "plugin:@angular-eslint/recommended",
+    "plugin:@angular-eslint/template/process-inline-templates"
+  ],
+  "rules": {
+    "@angular-eslint/component-class-suffix": "error",
+    "@angular-eslint/directive-class-suffix": "error",
+    "@angular-eslint/directive-selector": [
+      "error",
+      {
+        "type": "attribute",
+        "prefix": "q-grid",
+        "style": "kebab-case"
+      }
+    ],
+    "@angular-eslint/component-selector": [
+      "error",
+      {
+        "type": "element",
+        "prefix": "q-grid",
+        "style": "kebab-case"
+      }
+    ],
+    "@angular-eslint/no-host-metadata-property": "error",
+    "@angular-eslint/no-input-rename": "off",
+    "@angular-eslint/no-inputs-metadata-property": "error",
+    "@angular-eslint/no-output-on-prefix": "off",
+    "@angular-eslint/no-output-rename": "off",
+    "@angular-eslint/no-output-native": "off",
+    "@angular-eslint/no-outputs-metadata-property": "error",
+    "@angular-eslint/use-lifecycle-interface": "error",
+    "@angular-eslint/use-pipe-transform-interface": "error"
+  },
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": ["*.html"],
       "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        "@angular-eslint/component-class-suffix": "error",
-        "@angular-eslint/directive-class-suffix": "error",
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "q-grid",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "q-grid",
-            "style": "kebab-case"
-          }
-        ],
-        "@angular-eslint/no-host-metadata-property": "error",
-        "@angular-eslint/no-input-rename": "off",
-        "@angular-eslint/no-inputs-metadata-property": "error",
-        "@angular-eslint/no-output-on-prefix": "off",
-        "@angular-eslint/no-output-rename": "off",
-        "@angular-eslint/no-outputs-metadata-property": "error",
-        "@angular-eslint/use-lifecycle-interface": "error",
-        "@angular-eslint/use-pipe-transform-interface": "error"
+        "indent": "off"
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
+      "files": ["*.module.ts"],
+      "rules": {
+        "array-element-newline": ["error", {
+          "multiline": true,
+          "minItems": 1
+        }],
+        "array-bracket-newline": ["error", {
+          "multiline": true,
+          "minItems": 1
+        }]
+      }
     }
   ]
 }

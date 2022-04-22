@@ -1,9 +1,28 @@
 import {
 	ChangeDetectionStrategy,
-	ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
 } from '@angular/core';
-import { ColumnModel, Fetch, flatten, getValue, Guard, uniq } from '@qgrid/core';
-import { Grid, GridError, GridPlugin, TemplateService, VscrollContext, VscrollService } from '@qgrid/ngx';
+import {
+	ColumnModel,
+	Fetch,
+	flatten,
+	getValue,
+	Guard,
+	uniq,
+} from '@qgrid/core';
+import {
+	Grid,
+	GridError,
+	GridPlugin,
+	TemplateService,
+	VscrollContext,
+	VscrollService,
+} from '@qgrid/ngx';
 import { ColumnFilterPlugin, ColumnFilterState } from '@qgrid/plugins';
 import { FocusAfterRender } from '../focus/focus.service';
 
@@ -11,9 +30,11 @@ import { FocusAfterRender } from '../focus/focus.service';
 	selector: 'q-grid-column-filter',
 	templateUrl: './column-filter.component.html',
 	providers: [FocusAfterRender, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnFilterComponent implements OnInit {
+	private vscrollContext: VscrollContext;
+
 	@Input() column: ColumnModel;
 	@Input() search = '';
 
@@ -21,27 +42,30 @@ export class ColumnFilterComponent implements OnInit {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	context: {
-		$implicit: ColumnFilterPlugin,
-		plugin: ColumnFilterComponent,
-		vscroll: VscrollContext
+		$implicit: ColumnFilterPlugin;
+		plugin: ColumnFilterComponent;
+		vscroll: VscrollContext;
 	};
-
-	private vscrollContext: VscrollContext;
-
-	constructor(
-		private plugin: GridPlugin,
-		private vscroll: VscrollService,
-		private qgrid: Grid,
-		private cd: ChangeDetectorRef,
-		private templateService: TemplateService,
-		focusAfterRender: FocusAfterRender) {
-	}
 
 	get operators() {
 		const { model } = this.plugin;
 		return model
 			.filter()
 			.operatorFactory(this.column);
+	}
+
+	get hasOperators() {
+		return this.operators && this.operators.length > 1;
+	}
+
+	constructor(
+		public focusAfterRender: FocusAfterRender,
+		private plugin: GridPlugin,
+		private vscroll: VscrollService,
+		private qgrid: Grid,
+		private cd: ChangeDetectorRef,
+		private templateService: TemplateService,
+	) {
 	}
 
 	ngOnInit() {
@@ -125,8 +149,7 @@ export class ColumnFilterComponent implements OnInit {
 						}
 
 						d.resolve(columnFilterPlugin.items.length);
-					}
-					finally {
+					} finally {
 						cancelBusy();
 					}
 				}
@@ -138,7 +161,7 @@ export class ColumnFilterComponent implements OnInit {
 		this.context = {
 			$implicit: columnFilterPlugin,
 			plugin: this,
-			vscroll: vscrollContext
+			vscroll: vscrollContext,
 		};
 	}
 
@@ -162,12 +185,8 @@ export class ColumnFilterComponent implements OnInit {
 
 		throw new GridError(
 			'column-filter.component',
-			`Column filter template for operator ${op} is not found`
+			`Column filter template for operator ${op} is not found`,
 		);
-	}
-
-	get hasOperators() {
-		return this.operators && this.operators.length > 1;
 	}
 
 	private buildTemplateKeys(op: string) {

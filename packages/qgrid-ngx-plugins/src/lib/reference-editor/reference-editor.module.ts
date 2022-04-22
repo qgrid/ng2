@@ -4,8 +4,16 @@ import { ReferenceComponent } from './reference.component';
 import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
-	declarations: [ReferenceEditorComponent, ReferenceComponent],
-	exports: [ReferenceEditorComponent, ReferenceComponent],
-	imports: [TemplateModule]
+	declarations: [
+		ReferenceEditorComponent,
+		ReferenceComponent,
+	],
+	exports: [
+		ReferenceEditorComponent,
+		ReferenceComponent,
+	],
+	imports: [
+		TemplateModule,
+	],
 })
 export class ReferenceEditorModule {}

@@ -13,18 +13,18 @@ import { ColumnFilterComponent } from './column-filter.component';
 		ColumnFilterTriggerComponent,
 		ColumnFilterByComponent,
 		ColumnFilterItemListDirective,
-		ColumnFilterItemDirective
+		ColumnFilterItemDirective,
 	],
 	exports: [
 		ColumnFilterComponent,
 		ColumnFilterTriggerComponent,
 		ColumnFilterByComponent,
 		ColumnFilterItemListDirective,
-		ColumnFilterItemDirective
+		ColumnFilterItemDirective,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ColumnFilterModule {
 	constructor(modelBuilder: GridModelBuilder) {

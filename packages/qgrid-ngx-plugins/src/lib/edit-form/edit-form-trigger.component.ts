@@ -1,5 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { DomTd } from '@qgrid/ngx';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-edit-form-trigger',
@@ -11,6 +10,6 @@ export class EditFormTriggerComponent {
 	@Input() row: any;
 
 	context: any = {
-		$implicit: this
+		$implicit: this,
 	};
 }

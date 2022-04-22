@@ -4,14 +4,14 @@ import { StatusBarComponent } from './status-bar.component';
 
 @NgModule({
 	declarations: [
-		StatusBarComponent
+		StatusBarComponent,
 	],
 	exports: [
-		StatusBarComponent
+		StatusBarComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class StatusBarModule {
 }

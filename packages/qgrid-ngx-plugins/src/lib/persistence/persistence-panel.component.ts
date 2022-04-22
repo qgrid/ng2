@@ -6,16 +6,16 @@ import { PersistencePlugin } from '@qgrid/plugins';
 	selector: 'q-grid-persistence-panel',
 	templateUrl: './persistence-panel.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersistencePanelComponent implements OnInit {
 	context: {
-		$implicit: PersistencePlugin
+		$implicit: PersistencePlugin;
 	};
 
 	constructor(
 		private plugin: GridPlugin,
-		private modelBuilder: GridModelBuilder
+		private modelBuilder: GridModelBuilder,
 	) {
 	}
 

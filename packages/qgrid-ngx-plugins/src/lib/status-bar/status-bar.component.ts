@@ -6,12 +6,20 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-status-bar',
 	templateUrl: './status-bar.component.html',
 	providers: [TemplateHostService, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBarComponent implements OnInit {
 	context: { $implicit: StatusBarComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
+
+	get rowIndex() {
+		return selectRowIndex(this.plugin.model.navigation());
+	}
+
+	get columnIndex() {
+		return selectColumnIndex(this.plugin.model.navigation());
+	}
 
 	constructor(
 		private plugin: GridPlugin,
@@ -24,13 +32,5 @@ export class StatusBarComponent implements OnInit {
 		const { model, observe } = this.plugin;
 		observe(model.navigationChanged)
 			.subscribe(() => this.cd.detectChanges());
-	}
-
-	get rowIndex() {
-		return selectRowIndex(this.plugin.model.navigation());
-	}
-
-	get columnIndex() {
-		return selectColumnIndex(this.plugin.model.navigation());
 	}
 }

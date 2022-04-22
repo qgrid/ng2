@@ -1,10 +1,33 @@
 {
   "root": true,
   "ignorePatterns": ["**/dist/**/*", "**/node_modules/**/*"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "import-newlines"
+  ],
   "rules": {
     "linebreak-style": ["error", "unix"],
+    "array-element-newline": ["error", {
+      "multiline": true,
+      "minItems": 3
+    }],
+    "array-bracket-newline": ["error", {
+      "multiline": true,
+      "minItems": 3
+    }],
+    "array-bracket-spacing": ["error", "never", {
+      "singleValue": false,
+      "objectsInArrays": true,
+      "arraysInArrays": false
+    }],
     "arrow-body-style": "error",
+    "arrow-parens": ["error", "as-needed"],
+    "arrow-spacing": "error",
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "comma-dangle": ["error", "always-multiline"],
     "constructor-super": "error",
     "curly": "error",
     "dot-notation": "off",
@@ -13,7 +36,9 @@
     "guard-for-in": "error",
     "id-denylist": "off",
     "id-match": "off",
-    "indent": ["error", "tab"],
+    "indent": ["error", "tab", {
+      "SwitchCase": 1
+    }],
     "max-len": ["error", { "code": 140 }],
     "no-bitwise": "off",
     "no-caller": "error",
@@ -37,13 +62,14 @@
     "no-underscore-dangle": "off",
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
-    "no-use-before-define": "error",
+    "no-use-before-define": "off",
     "no-var": "error",
     "prefer-const": "error",
     "quotes": ["error", "single"],
     "radix": "error",
     "semi": "error",
     "spaced-comment": ["error", "always", { "markers": ["/"] }],
+    "import-newlines/enforce": "error",
     "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/explicit-member-accessibility": [
@@ -63,8 +89,24 @@
         }
       }
     ],
-    "@typescript-eslint/member-ordering": "error",
-    "@typescript-eslint/naming-convention": "error",
+    "@typescript-eslint/member-ordering": ["error", { "default": [
+      "signature",
+      "private-decorated-field",
+      "private-instance-field",
+      ["private-get", "private-set"],
+
+      "protected-decorated-field",
+      "protected-instance-field",
+      ["protected-get", "protected-set"],
+
+      "public-decorated-field",
+      "public-instance-field",
+      ["public-get", "public-set"],
+
+      "constructor",
+      "public-method",
+      "private-method"
+    ] }],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "error",
     "@typescript-eslint/no-inferrable-types": [
@@ -75,17 +117,12 @@
     "@typescript-eslint/no-non-null-assertion": "error",
     "@typescript-eslint/no-shadow": ["error", { "hoist": "all" }],
     "@typescript-eslint/no-unused-expressions": "error",
-    "@typescript-eslint/no-use-before-define": "error",
+    "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/unified-signatures": "error"
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", ".js"],
-      "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"]
-    }
-  ]
+    "@typescript-eslint/unified-signatures": "error",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }

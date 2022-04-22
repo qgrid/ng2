@@ -1,22 +1,22 @@
 import {
+	ChangeDetectionStrategy,
 	Component,
+	HostBinding,
 	Input,
+	NgZone,
+	OnDestroy,
 	OnInit,
 	SimpleChange,
-	ChangeDetectionStrategy,
-	NgZone,
-	HostBinding,
 	TemplateRef,
 	ViewChild,
-	OnDestroy
 } from '@angular/core';
-import { TemplateHostService, TdCoreDirective, GridError } from '@qgrid/ngx';
+import { GridError, TdCoreDirective, TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-live-cell',
 	templateUrl: './live-cell.tpl.html',
 	providers: [TemplateHostService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LiveCellComponent implements OnInit, OnDestroy {
 	@Input() cell: TdCoreDirective;
@@ -41,7 +41,7 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 		this.class = `q-grid-live-cell q-grid-live-cell-${this.cell.column.type} `;
 
 		if (this.getDifference(this.cell.changes)) {
-			this.class += this.getDifference(this.cell.changes) > 0 ? `q-grid-live-cell-up ` : `q-grid-live-cell-down `;
+			this.class += this.getDifference(this.cell.changes) > 0 ? 'q-grid-live-cell-up ' : 'q-grid-live-cell-down ';
 		}
 		this.zone.runOutsideAngular(() => {
 			this.timeoutId = setTimeout(() => {

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { GridError } from '@qgrid/ngx';
 
 @Pipe({
-	name: 'qGridText'
+	name: 'qGridText',
 })
 export class TextPipe implements PipeTransform {
 	transform(item: string, format: 'fromCamelCase'): string {

@@ -2,7 +2,7 @@ import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 import { parseFactory } from '@qgrid/core';
 
 @Directive({
-	selector: '[q-grid-time]'
+	selector: '[q-grid-time]',
 })
 export class TimeDirective {
 	private toMidnight: (x: Date | string) => Date = parseFactory('date');
@@ -17,7 +17,12 @@ export class TimeDirective {
 		}
 
 		const midnight = this.toMidnight(previous);
-		const [hours, minutes, seconds, ms] = current.split(':');
+		const [
+			hours,
+			minutes,
+			seconds,
+			ms,
+		] = current.split(':');
 
 		if (hours && minutes) {
 			const time = new Date(
@@ -27,7 +32,7 @@ export class TimeDirective {
 				+hours,
 				+minutes,
 				seconds ? +seconds : 0,
-				ms ? +ms : 0
+				ms ? +ms : 0,
 			);
 
 			return time;

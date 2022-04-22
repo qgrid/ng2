@@ -1,8 +1,8 @@
 import { GridError } from '@qgrid/ngx';
-import { Line } from './line';
 import { GroupExpression } from './expression';
-import { Node } from './node';
 import { GroupSchema } from './group.schema';
+import { Line } from './line';
+import { Node } from './node';
 
 export interface INodeSchema {
 	schemaMap: { [key: string]: INodeSchema };
@@ -51,7 +51,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 				throw new GridError('node.schema', 'Build function is not defined');
 			}
 
-			this.plan.push((node, line) => {
+			this.plan.push(node => {
 				const schema = new NodeSchema(this.schemaMap);
 				build(schema);
 

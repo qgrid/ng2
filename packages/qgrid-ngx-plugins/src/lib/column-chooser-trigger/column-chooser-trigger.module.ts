@@ -3,8 +3,14 @@ import { ColumnChooserTriggerComponent } from './column-chooser-trigger.componen
 import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
-	imports: [TemplateModule],
-	exports: [ColumnChooserTriggerComponent],
-	declarations: [ColumnChooserTriggerComponent]
+	imports: [
+		TemplateModule,
+	],
+	exports: [
+		ColumnChooserTriggerComponent,
+	],
+	declarations: [
+		ColumnChooserTriggerComponent,
+	],
 })
 export class ColumnChooserTriggerModule {}

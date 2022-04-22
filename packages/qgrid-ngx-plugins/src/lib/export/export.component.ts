@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	Input,
+	TemplateRef,
+} from '@angular/core';
 import { Action, Command, Composite } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 import { ExportPlugin } from '@qgrid/plugins';
@@ -6,10 +13,7 @@ import { ExportPlugin } from '@qgrid/plugins';
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
-	providers: [
-		TemplateHostService,
-		GridPlugin
-	],
+	providers: [TemplateHostService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
@@ -17,12 +21,12 @@ export class ExportComponent implements AfterViewInit {
 	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ExportComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(
 		private plugin: GridPlugin,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
 	) {
 		this.templateHost.key = () => `export-${this.type}`;
 	}
@@ -32,10 +36,10 @@ export class ExportComponent implements AfterViewInit {
 		const exportPlugin = new ExportPlugin(model, this.type);
 		const action = new Action(
 			new Command({
-				execute: () => exportPlugin[this.type].execute()
+				execute: () => exportPlugin[this.type].execute(),
 			}),
 			`Export to ${this.type}`,
-			'file_download'
+			'file_download',
 		);
 
 		if (this.templateRef) {
@@ -44,9 +48,9 @@ export class ExportComponent implements AfterViewInit {
 
 		const items = Composite.list([model.action().items, [action]]);
 		model.action({
-			items
+			items,
 		}, {
-			source: 'export.component'
+			source: 'export.component',
 		});
 
 		disposable.add(() => {
@@ -54,9 +58,9 @@ export class ExportComponent implements AfterViewInit {
 				items: model
 					.action()
 					.items
-					.filter(x => x !== action)
+					.filter(x => x !== action),
 			}, {
-				source: 'export.component'
+				source: 'export.component',
 			});
 		});
 	}

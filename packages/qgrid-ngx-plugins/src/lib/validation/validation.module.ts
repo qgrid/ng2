@@ -8,16 +8,16 @@ import { TemplateModule } from '@qgrid/ngx';
 	declarations: [
 		ValidationComponent,
 		ValidatorComponent,
-		RuleComponent
+		RuleComponent,
 	],
 	exports: [
 		ValidationComponent,
 		ValidatorComponent,
-		RuleComponent
+		RuleComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ValidationModule {
 }

@@ -6,7 +6,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-alt',
 	templateUrl: './alt.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AltComponent implements OnInit {
 	constructor(
@@ -30,14 +30,14 @@ export class AltComponent implements OnInit {
 			.pagination({
 				size: 10,
 			}, {
-				source: 'alt.component'
+				source: 'alt.component',
 			})
 			.data({
 				columns:
 					[altColumn]
-						.concat(model.data().columns)
+						.concat(model.data().columns),
 			}, {
-				source: 'alt.component'
+				source: 'alt.component',
 			});
 
 		observe(model.keyboardChanged)
@@ -55,9 +55,9 @@ export class AltComponent implements OnInit {
 								const altRow = rows[rowIndex];
 								if (altRow) {
 									model.selection({
-										items: [altRow]
+										items: [altRow],
 									}, {
-										source: 'alt.component'
+										source: 'alt.component',
 									});
 
 									service.focus(rowIndex);

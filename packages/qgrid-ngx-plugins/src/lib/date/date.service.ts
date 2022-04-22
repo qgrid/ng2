@@ -39,29 +39,28 @@ export class DateService {
 
 		let cursor = 0;
 		for (const formatKey of format) {
-
 			switch (formatKey) {
 				case 'y': {
 					const digit = text[cursor++];
 					if (digit) {
 						year += digit;
 					}
-				}
 					break;
+				}
 				case 'M': {
 					const digit = text[cursor++];
 					if (digit) {
 						month += digit;
 					}
-				}
 					break;
+				}
 				case 'd': {
 					const digit = text[cursor++];
 					if (digit) {
 						day += digit;
 					}
-				}
 					break;
+				}
 			}
 		}
 

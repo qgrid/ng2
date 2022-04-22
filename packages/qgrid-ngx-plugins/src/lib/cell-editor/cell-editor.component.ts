@@ -5,7 +5,7 @@ import {
 	Output,
 	ViewChild,
 	ChangeDetectionStrategy,
-	OnInit
+	OnInit,
 } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
@@ -13,14 +13,14 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-cell-editor',
 	templateUrl: './cell-editor.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellEditorComponent implements OnInit {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: CellEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(private plugin: GridPlugin) {

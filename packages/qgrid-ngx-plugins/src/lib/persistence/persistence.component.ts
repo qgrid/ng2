@@ -1,5 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Action, Command, Composite, filter, PersistenceSchedule, PersistenceService, PersistenceState, PersistenceStorage, takeOnce } from '@qgrid/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnChanges,
+	OnInit,
+} from '@angular/core';
+import {
+	Action,
+	Command,
+	Composite,
+	filter,
+	PersistenceSchedule,
+	PersistenceService,
+	PersistenceState,
+	PersistenceStorage,
+	takeOnce,
+} from '@qgrid/core';
 import { GridEvent, GridModelBuilder, GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { PersistenceItem } from '@qgrid/plugins';
 
@@ -7,7 +23,7 @@ import { PersistenceItem } from '@qgrid/plugins';
 	selector: 'q-grid-persistence',
 	template: '',
 	providers: [GridPlugin, StateAccessor],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	private persistenceState = this.stateAccessor.setter(PersistenceState);
@@ -29,7 +45,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const { model, disposable, observe, observeReply, table } = this.plugin;
+		const { model, disposable, observe, observeReply } = this.plugin;
 
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({ id });
@@ -48,7 +64,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 					return false;
 				}),
-				takeOnce()
+				takeOnce(),
 			)
 			.subscribe(() =>
 				model.persistence()
@@ -63,17 +79,17 @@ export class PersistenceComponent implements OnInit, OnChanges {
 						if (defaultItem) {
 							this.service.load(defaultItem.model);
 						}
-					})
+					}),
 			);
 
 		switch (model.persistence().schedule) {
 			case 'onDemand': {
 				const historyAction =
-					new Action(
-						new Command(),
-						'Save/Load',
-						'history'
-					);
+						new Action(
+							new Command(),
+							'Save/Load',
+							'history',
+						);
 
 				historyAction.templateUrl = 'plugin-persistence.tpl.html';
 
@@ -94,9 +110,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
 						observe(model[state + 'Changed'] as GridEvent<any>)
 							.pipe(
 								// TODO: get rid of e.tag.source check
-								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
+								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service'),
 							)
-							.subscribe(e => {
+							.subscribe(() => {
 								const currentModel = this.service.save();
 								const item = {
 									title: `auto-save: ${state}.${key} changed`,
@@ -104,7 +120,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 									group: defaultGroup,
 									model: currentModel,
 									isDefault: true,
-									canEdit: false
+									canEdit: false,
 								};
 
 								storage.setItem(id, [item]);

@@ -5,9 +5,16 @@ import { ColumnChooserState } from '@qgrid/plugins';
 import { ColumnChooserComponent } from './column-chooser.component';
 
 @NgModule({
-	imports: [FormsModule, TemplateModule],
-	exports: [ColumnChooserComponent],
-	declarations: [ColumnChooserComponent]
+	imports: [
+		FormsModule,
+		TemplateModule,
+	],
+	exports: [
+		ColumnChooserComponent,
+	],
+	declarations: [
+		ColumnChooserComponent,
+	],
 })
 export class ColumnChooserModule {
 	constructor(modelBuilder: GridModelBuilder) {

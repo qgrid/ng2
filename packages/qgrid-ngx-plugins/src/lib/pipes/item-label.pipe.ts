@@ -1,7 +1,7 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
 @Pipe({
-	name: 'qGridItemLabel'
+	name: 'qGridItemLabel',
 })
 export class ItemLabelPipe implements PipeTransform {
 	constructor() { }

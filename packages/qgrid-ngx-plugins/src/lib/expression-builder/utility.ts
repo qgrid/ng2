@@ -24,7 +24,7 @@ export function defaults<T>(...args: any[]): T {
 
 		for (let k = 0, keysLength = keys.length; k < keysLength; k++) {
 			const key = keys[k];
-			if (!result.hasOwnProperty(key)) {
+			if (!Object.prototype.hasOwnProperty.call(result, key)) {
 				result[key] = source[key];
 			}
 		}

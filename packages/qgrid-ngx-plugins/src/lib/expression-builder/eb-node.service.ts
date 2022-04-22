@@ -1,5 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { EbNodeComponent } from './eb-node.component';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Node } from './model/node';
 
 export interface EbNodeServiceEventArg<T> {
@@ -23,7 +22,7 @@ export class EbNodeService {
 			this.node = value;
 			this.currentChange.emit({
 				oldValue: oldNode,
-				newValue: value
+				newValue: value,
 			});
 		}
 	}
