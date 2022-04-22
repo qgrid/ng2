@@ -4,14 +4,14 @@ import { TemplateModule as TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
-		LegendComponent
+		LegendComponent,
 	],
 	exports: [
-		LegendComponent
+		LegendComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class LegendModule {
 }

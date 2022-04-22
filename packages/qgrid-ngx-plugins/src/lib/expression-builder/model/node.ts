@@ -73,14 +73,12 @@ export class Node {
 	toString(indent = 0) {
 		return Array(indent).join('-') + ' ' + this.level + '\n' +
 			this.children
-				.map(child => {
-					return child.toString(indent + 1);
-				})
+				.map(child => child.toString(indent + 1))
 				.join('\n');
 	}
 
 	toTraceString() {
-		if (null != this.parent) {
+		if (this.parent) {
 			let parent = this.parent;
 			while (null !== parent.parent) {
 				parent = parent.parent;

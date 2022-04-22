@@ -7,7 +7,7 @@ import { PositionDirective } from './position.directive';
 	],
 	exports: [
 		PositionDirective,
-	]
+	],
 })
 export class LayoutModule {
 }

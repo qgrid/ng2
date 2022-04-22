@@ -6,15 +6,15 @@ import { TabTrapInDirective } from './tab-trap-in.directive';
 @NgModule({
 	declarations: [
 		TabTrapComponent,
-		TabTrapInDirective
+		TabTrapInDirective,
 	],
 	exports: [
 		TabTrapComponent,
-		TabTrapInDirective
+		TabTrapInDirective,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class TabTrapModule {
 }

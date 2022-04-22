@@ -2,7 +2,7 @@ import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 import { GridError } from '@qgrid/ngx';
 
 @Directive({
-	selector: '[q-grid-raise]'
+	selector: '[q-grid-raise]',
 })
 export class RaiseDirective implements AfterViewInit {
 	@Input('q-grid-raise') type = 'click';

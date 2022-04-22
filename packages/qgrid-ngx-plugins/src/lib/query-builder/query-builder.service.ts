@@ -39,11 +39,11 @@ export class QueryBuilderService {
 		return model
 			.columnList()
 			.line
-			.filter(column => typeMapping.hasOwnProperty(column.type))
+			.filter(column => Object.prototype.hasOwnProperty.call(typeMapping, column.type))
 			.map(column => ({
 				key: column.key,
 				title: column.title,
-				type: column.type
+				type: column.type,
 			}));
 	}
 
@@ -57,10 +57,10 @@ export class QueryBuilderService {
 	submit(expression) {
 		const model = this.model;
 		model.filter({
-			by: expression
+			by: expression,
 		}, {
-				source: 'query-builder.service'
-			});
+			source: 'query-builder.service',
+		});
 	}
 
 	suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
@@ -83,7 +83,7 @@ export class QueryBuilderService {
 					!isUndefined(item) &&
 					item !== '' &&
 					item !== null &&
-					selection.indexOf(('' + item).toLowerCase()) < 0
+					selection.indexOf(('' + item).toLowerCase()) < 0,
 				);
 
 			const uniqueView = uniq(view);
@@ -103,40 +103,40 @@ export class QueryBuilderService {
 		const statements = [
 			{
 				type: 'label',
-				templateKey: 'plugin-eb-label.tpl.html'
+				templateKey: 'plugin-eb-label.tpl.html',
 			},
 			{
 				type: 'input',
-				templateKey: 'plugin-eb-input.tpl.html'
+				templateKey: 'plugin-eb-input.tpl.html',
 			},
 			{
 				type: 'select',
-				templateKey: 'plugin-eb-select.tpl.html'
+				templateKey: 'plugin-eb-select.tpl.html',
 			},
 			{
 				type: 'button',
-				templateKey: 'plugin-eb-button.tpl.html'
+				templateKey: 'plugin-eb-button.tpl.html',
 			},
 			{
 				type: 'iconButton',
-				templateKey: 'plugin-eb-icon-button.tpl.html'
+				templateKey: 'plugin-eb-icon-button.tpl.html',
 			},
 			{
 				type: 'autocomplete',
-				templateKey: 'plugin-eb-autocomplete.tpl.html'
+				templateKey: 'plugin-eb-autocomplete.tpl.html',
 			},
 			{
 				type: 'multiselect',
-				templateKey: 'plugin-eb-multiselect.tpl.html'
-			}
+				templateKey: 'plugin-eb-multiselect.tpl.html',
+			},
 		];
 
 		const settings = {
 			defaults: {
 				isValid: function () {
 					return !this.validate || !(this.state = this.validate()).length;
-				}
-			}
+				},
+			},
 		};
 
 		return new ExpressionBuilder(settings)

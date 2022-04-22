@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import {
+	Component,
+	Input,
+	OnChanges,
+	SimpleChanges,
+	TemplateRef,
+	ViewChild,
+	ChangeDetectionStrategy,
+} from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 import { TemplateHostService } from '@qgrid/ngx';
 
@@ -6,7 +14,7 @@ import { TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-rule',
 	templateUrl: './rule.component.html',
 	providers: [TemplateHostService, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RuleComponent implements OnChanges {
 	@Input() for: string;
@@ -45,20 +53,20 @@ export class RuleComponent implements OnChanges {
 	@ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 
 	context: { $implicit: RuleComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	constructor(
 		private plugin: GridPlugin,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
 	) {
-		this.templateHost.key = () => `rule`;
+		this.templateHost.key = () => 'rule';
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const rule = {
 			for: this.for,
-			key: this.key
+			key: this.key,
 		};
 
 		const { model } = this.plugin;

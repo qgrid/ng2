@@ -4,14 +4,14 @@ import { AutoCompleteEditorComponent } from './autocomplete-editor.component';
 
 @NgModule({
 	declarations: [
-		AutoCompleteEditorComponent
+		AutoCompleteEditorComponent,
 	],
 	exports: [
-		AutoCompleteEditorComponent
+		AutoCompleteEditorComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class AutoCompleteEditorModule {
 }

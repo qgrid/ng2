@@ -5,7 +5,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-visibility',
 	template: '',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VisibilityComponent implements OnChanges {
 	@Input() head = true;

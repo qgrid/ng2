@@ -1,8 +1,14 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnInit,
+	Renderer2,
+} from '@angular/core';
 import { noop } from '@qgrid/core';
 
 @Directive({
-	selector: '[q-grid-on-blur]'
+	selector: '[q-grid-on-blur]',
 })
 export class BlurDirective implements OnInit {
 	@Input('q-grid-on-blur') onBlur = noop;

@@ -6,15 +6,15 @@ import { TemplateModule } from '@qgrid/ngx';
 @NgModule({
 	declarations: [
 		PagerComponent,
-		PagerTargetComponent
+		PagerTargetComponent,
 	],
 	exports: [
 		PagerComponent,
-		PagerTargetComponent
+		PagerTargetComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class PagerModule {
 }

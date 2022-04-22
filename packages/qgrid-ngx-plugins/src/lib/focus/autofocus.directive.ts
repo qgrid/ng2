@@ -4,21 +4,18 @@ import { AutofocusPlugin } from '@qgrid/plugins';
 
 @Directive({
 	selector: '[q-grid-autofocus]',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
 })
 export class AutoFocusDirective implements AfterViewInit {
 	@Input('q-grid-autofocus') enabled: boolean | string;
 
 	constructor(
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
 	) { }
 
 	ngAfterViewInit() {
 		if (this.enabled !== false) {
-			// tslint:disable-next-line:no-unused-expression
-			new AutofocusPlugin(
-				this.plugin
-			);
+			new AutofocusPlugin(this.plugin);
 		}
 	}
 }

@@ -6,13 +6,18 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-action-bar',
 	templateUrl: './action-bar.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionBarComponent implements OnInit {
 
 	context: { $implicit: ActionBarComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
+
+	get actions(): Action[] {
+		const { model } = this.plugin;
+		return model.action().items;
+	}
 
 	constructor(
 		private plugin: GridPlugin,
@@ -33,9 +38,7 @@ export class ActionBarComponent implements OnInit {
 					this.cd.detectChanges();
 				} else {
 					model.action({
-						items: initialItems.sort((a: Action, b: Action) => {
-							return a.command.priority - b.command.priority;
-						})
+						items: initialItems.sort((a: Action, b: Action) => a.command.priority - b.command.priority),
 					});
 				}
 
@@ -46,17 +49,12 @@ export class ActionBarComponent implements OnInit {
 			});
 	}
 
-	get actions(): Action[] {
-		const { model } = this.plugin;
-		return model.action().items;
-	}
-
 	private isSorted(actions: Action[]): boolean {
 		for (let i = 0; i < actions.length - 1; i++) {
 			const action = actions[i];
 			const nextAction = actions[i+1];
 			if (action.command.priority > nextAction.command.priority) {
-					return false;
+				return false;
 			}
 		}
 

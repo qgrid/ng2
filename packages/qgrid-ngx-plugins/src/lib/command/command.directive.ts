@@ -1,6 +1,18 @@
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
+
 import {
-	AfterViewInit, Directive,
-	DoCheck, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Optional, Output, SimpleChanges
+	AfterViewInit,
+	Directive,
+	DoCheck,
+	ElementRef,
+	EventEmitter,
+	Input,
+	NgZone,
+	OnChanges,
+	OnInit,
+	Optional,
+	Output,
+	SimpleChanges,
 } from '@angular/core';
 import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
@@ -9,13 +21,13 @@ export class ZoneCommandManager {
 	constructor(
 		private run: <T>(f: () => T) => T,
 		private manager: CommandManager,
-		private commandArg: any
+		private commandArg: any,
 	) {
 	}
 
 	invoke(commands: Command[]) {
 		return this.run(() =>
-			this.manager.invoke(commands, this.commandArg, 'command.directive')
+			this.manager.invoke(commands, this.commandArg, 'command.directive'),
 		);
 	}
 
@@ -26,37 +38,24 @@ export class ZoneCommandManager {
 
 @Directive({
 	selector: '[q-grid-command]',
-	providers: [Disposable]
+	providers: [Disposable],
 })
 export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
 	private isAfterViewInit = false;
 
-	@Input('q-grid-command')
-	command: Command<any>;
-
-	@Input('q-grid-command-arg')
-	commandArg: any;
-
-	@Input('q-grid-command-use-shortcut')
-	useCommandShortcut: boolean;
-
-	@Input('q-grid-command-event')
-	commandEvent = 'click';
-
-	@Input('q-grid-command-use-zone')
-	useZone: boolean;
-
-	@Output('q-grid-command-execute')
-	commandExecute = new EventEmitter<any>();
-
-	@Input('q-grid-command-host')
-	host: 'grid' | 'document' = 'grid';
+	@Input('q-grid-command') command: Command<any>;
+	@Input('q-grid-command-arg') commandArg: any;
+	@Input('q-grid-command-use-shortcut') useCommandShortcut: boolean;
+	@Input('q-grid-command-event') commandEvent = 'click';
+	@Input('q-grid-command-use-zone') useZone: boolean;
+	@Input('q-grid-command-host') host: 'grid' | 'document' = 'grid';
+	@Output('q-grid-command-execute') commandExecute = new EventEmitter<any>();
 
 	constructor(
 		private disposable: Disposable,
 		private elementRef: ElementRef,
 		private zone: NgZone,
-		@Optional() private plugin: GridPlugin
+		@Optional() private plugin: GridPlugin,
 	) {
 	}
 
@@ -65,7 +64,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
 		this.aroundZone(() =>
 			nativeElement
-				.addEventListener(this.commandEvent, e => this.execute(e))
+				.addEventListener(this.commandEvent, e => this.execute(e)),
 		);
 	}
 
@@ -103,7 +102,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 		this.disposable.add(
 			command
 				.canExecuteCheck
-				.subscribe(() => this.updateState())
+				.subscribe(() => this.updateState()),
 		);
 
 		if (this.useCommandShortcut && command.shortcut) {
@@ -122,7 +121,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 				);
 
 				this.disposable.add(
-					shortcut.register(zoneManager, [command])
+					shortcut.register(zoneManager, [command]),
 				);
 			} else {
 				const manager = new CommandManager(f => {
@@ -139,11 +138,11 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 				document.addEventListener('keydown', keyDown);
 
 				this.disposable.add(() =>
-					document.removeEventListener('keydown', keyDown)
+					document.removeEventListener('keydown', keyDown),
 				);
 
 				this.disposable.add(
-					shortcut.register(manager, [command])
+					shortcut.register(manager, [command]),
 				);
 			}
 		}

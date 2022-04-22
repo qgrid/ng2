@@ -6,19 +6,14 @@ import { GridError, GridModel, GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-action-core',
 	templateUrl: './action-core.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionCoreComponent {
 	@Input() action: Action;
 
 	context: { $implicit: ActionCoreComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
-
-	constructor(
-		private plugin: GridPlugin
-	) {
-	}
 
 	get model(): GridModel {
 		return this.plugin.model;
@@ -29,7 +24,7 @@ export class ActionCoreComponent {
 		if (!action) {
 			throw new GridError(
 				'action-core.component',
-				'Action is not set'
+				'Action is not set',
 			);
 		}
 
@@ -41,7 +36,7 @@ export class ActionCoreComponent {
 		if (!action) {
 			throw new GridError(
 				'action-core.component',
-				'Action is not set'
+				'Action is not set',
 			);
 		}
 
@@ -53,7 +48,7 @@ export class ActionCoreComponent {
 		if (!action) {
 			throw new GridError(
 				'action-core.component',
-				'Action is not set'
+				'Action is not set',
 			);
 		}
 
@@ -65,7 +60,7 @@ export class ActionCoreComponent {
 		if (!action) {
 			throw new GridError(
 				'action-core.component',
-				'Action is not set'
+				'Action is not set',
 			);
 		}
 
@@ -77,7 +72,7 @@ export class ActionCoreComponent {
 		if (!action) {
 			throw new GridError(
 				'action-core.component',
-				'Action is not set'
+				'Action is not set',
 			);
 		}
 
@@ -94,5 +89,10 @@ export class ActionCoreComponent {
 		}
 
 		return 'none';
+	}
+
+	constructor(
+		private plugin: GridPlugin,
+	) {
 	}
 }

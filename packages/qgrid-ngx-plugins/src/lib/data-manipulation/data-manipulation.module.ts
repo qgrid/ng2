@@ -4,8 +4,12 @@ import { DataManipulationState } from '@qgrid/plugins';
 import { DataManipulationComponent } from './data-manipulation.component';
 
 @NgModule({
-	declarations: [DataManipulationComponent],
-	exports: [DataManipulationComponent]
+	declarations: [
+		DataManipulationComponent,
+	],
+	exports: [
+		DataManipulationComponent,
+	],
 })
 export class DataManipulationModule {
 	constructor(modelBuilder: GridModelBuilder) {

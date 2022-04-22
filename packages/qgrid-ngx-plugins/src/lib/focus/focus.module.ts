@@ -7,13 +7,13 @@ import { BlurDirective } from './blur.directive';
 	declarations: [
 		FocusDirective,
 		AutoFocusDirective,
-		BlurDirective
+		BlurDirective,
 	],
 	exports: [
 		FocusDirective,
 		AutoFocusDirective,
-		BlurDirective
-	]
+		BlurDirective,
+	],
 })
 export class FocusModule {
 }

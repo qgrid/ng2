@@ -8,7 +8,7 @@ import { Validator } from './schema/validator';
 
 @Pipe({
 	name: 'qGridQueryBuilderMarkup',
-	pure: false
+	pure: false,
 })
 export class QueryBuilderPipe implements PipeTransform {
 	visitor: MarkupVisitor;
@@ -23,7 +23,7 @@ export class QueryBuilderPipe implements PipeTransform {
 					new MarkupVisitor(
 						k => columnMap[k].title,
 						k => columnMap[k].type,
-						(k, v) => validator.for(k)(v).length === 0
+						(k, v) => validator.for(k)(v).length === 0,
 					);
 			}
 

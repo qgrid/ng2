@@ -4,14 +4,14 @@ import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
-		ExportComponent
+		ExportComponent,
 	],
 	exports: [
-		ExportComponent
+		ExportComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ExportModule {
 }

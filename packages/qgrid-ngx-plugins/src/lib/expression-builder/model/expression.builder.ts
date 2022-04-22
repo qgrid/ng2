@@ -35,7 +35,7 @@ export class ExpressionBuilder {
 							utility.defaults<Expression>(
 								sampleExpression,
 								statement.defaults,
-								settings.defaults
+								settings.defaults,
 							);
 
 						expression.id = id;
@@ -96,7 +96,7 @@ export class ExpressionBuilder {
 							utility.defaults<Expression>(
 								sampleExpression,
 								statement.defaults,
-								settings.defaults
+								settings.defaults,
 							);
 
 						expression.id = id;

@@ -4,23 +4,24 @@ import { PositionPlugin } from '@qgrid/plugins';
 
 @Directive({
 	selector: '[q-grid-position]',
-	providers: [Disposable]
+	providers: [Disposable],
 })
 export class PositionDirective implements OnInit {
 	@Input('q-grid-position') target = '';
 
 	constructor(
 		private elementRef: ElementRef,
-		private disposable: Disposable
+		private disposable: Disposable,
 	) {
 	}
 
 	ngOnInit() {
-		const position = new PositionPlugin({
-			element: this.elementRef.nativeElement,
-			targetName: this.target,
-		},
-			this.disposable
+		const position = new PositionPlugin(
+			{
+				element: this.elementRef.nativeElement,
+				targetName: this.target,
+			},
+			this.disposable,
 		);
 
 		position.invalidate();

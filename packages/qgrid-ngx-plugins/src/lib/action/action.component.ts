@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChild,
+	Input,
+	OnInit,
+	TemplateRef,
+} from '@angular/core';
 import { Action, Command, guid } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -6,10 +13,7 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-action',
 	template: '',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		GridPlugin,
-		TemplateHostService
-	]
+	providers: [GridPlugin, TemplateHostService],
 })
 export class ActionComponent implements OnInit {
 	@ContentChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
@@ -20,7 +24,7 @@ export class ActionComponent implements OnInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
 	) {
 		const id = guid();
 		templateHost.key = source => `action-${source}-${id}.tpl.html`;
@@ -31,7 +35,7 @@ export class ActionComponent implements OnInit {
 		const action = new Action(
 			this.command || new Command(),
 			this.title,
-			this.icon
+			this.icon,
 		);
 
 		if (this.templateRef) {
@@ -42,19 +46,19 @@ export class ActionComponent implements OnInit {
 			items: model
 				.action()
 				.items
-				.concat([action])
+				.concat([action]),
 		}, {
-			source: 'action.component'
+			source: 'action.component',
 		});
 
-		
+
 		disposable.add(() =>
 			model.action({
 				items: model
 					.action()
 					.items
-					.filter(x => x !== action)
-			})
+					.filter(x => x !== action),
+			}),
 		);
 	}
 }

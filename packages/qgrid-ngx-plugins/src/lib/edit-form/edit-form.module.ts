@@ -10,9 +10,16 @@ import { TemplateModule } from '@qgrid/ngx';
 	declarations: [
 		EditFormTriggerComponent,
 		EditFormComponent,
-		EditFormControlComponent
+		EditFormControlComponent,
 	],
-	exports: [EditFormTriggerComponent, EditFormComponent, EditFormControlComponent],
-	imports: [CommonModule, TemplateModule]
+	exports: [
+		EditFormTriggerComponent,
+		EditFormComponent,
+		EditFormControlComponent,
+	],
+	imports: [
+		CommonModule,
+		TemplateModule,
+	],
 })
 export class EditFormModule { }

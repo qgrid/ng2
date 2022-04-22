@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	Input,
+	OnInit,
+} from '@angular/core';
 import { isUndefined } from '@qgrid/core';
 import { GridError, GridEventArg, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -8,18 +14,15 @@ const DEFAULT_SIDE: PaneSide = 'right';
 @Component({
 	selector: 'q-grid-pane',
 	templateUrl: './pane.component.html',
-	providers: [
-		GridPlugin,
-		TemplateHostService
-	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [GridPlugin, TemplateHostService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaneComponent implements OnInit {
 	@Input() trigger: string;
 
 	context: {
 		[side in PaneSide]?: {
-			$implicit: PaneComponent,
+			$implicit: PaneComponent;
 			value: any;
 		}
 	};
@@ -27,19 +30,19 @@ export class PaneComponent implements OnInit {
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef,
-		templateHost: TemplateHostService
+		templateHost: TemplateHostService,
 	) {
 		templateHost.key = source => `plugin-pane-${source}.tpl.html`;
 
 		this.context = {
 			left: {
 				$implicit: this,
-				value: null
+				value: null,
 			},
 			right: {
 				$implicit: this,
-				value: null
-			}
+				value: null,
+			},
 		};
 	}
 

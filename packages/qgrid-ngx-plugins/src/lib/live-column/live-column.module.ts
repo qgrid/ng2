@@ -4,14 +4,14 @@ import { LiveColumnComponent } from './live-column.component';
 
 @NgModule({
 	declarations: [
-		LiveColumnComponent
+		LiveColumnComponent,
 	],
 	exports: [
-		LiveColumnComponent
+		LiveColumnComponent,
 	],
 	imports: [
-		CommonModule
-	]
+		CommonModule,
+	],
 })
 export class LiveColumnModule {
 }

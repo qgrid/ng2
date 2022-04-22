@@ -17,33 +17,6 @@ export class Line {
 	constructor(private GroupSchemaT: typeof GroupSchema) {
 	}
 
-	private getIndex(id: string) {
-		const index = this.expressions.findIndex(item => item.id === id);
-		if (index < 0) {
-			throw new GridError('line', `Expression ${id} not found`);
-		}
-
-		return index;
-	}
-
-	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): ExpressionEntry {
-		for (let index = 0, length = expressions.length; index < length; index++) {
-			const expression = expressions[index];
-			if (expression.id === id) {
-				return { index, expression, parent };
-			}
-			if (expression instanceof GroupExpression) {
-				const group = expression as GroupExpression;
-				const groupChild = this.findById(group.expressions, id, group);
-				if (groupChild) {
-					return groupChild;
-				}
-			}
-		}
-
-		return null;
-	}
-
 	add(expression: Expression) {
 		this.expressions.push(expression);
 	}
@@ -80,11 +53,37 @@ export class Line {
 
 	remove(id) {
 		const item = this.findById(this.expressions, id);
-		const expressions = item.parent ? item.parent.expressions : this.expressions;
 		if (item.expression instanceof GroupExpression) {
 			item.expression.expressions = [];
 		} else {
 			throw new GridError('line', 'Unsupported operation: remove expression, that is not a group');
 		}
+	}
+
+	private getIndex(id: string) {
+		const index = this.expressions.findIndex(item => item.id === id);
+		if (index < 0) {
+			throw new GridError('line', `Expression ${id} not found`);
+		}
+
+		return index;
+	}
+
+	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): ExpressionEntry {
+		for (let index = 0, length = expressions.length; index < length; index++) {
+			const expression = expressions[index];
+			if (expression.id === id) {
+				return { index, expression, parent };
+			}
+			if (expression instanceof GroupExpression) {
+				const group = expression as GroupExpression;
+				const groupChild = this.findById(group.expressions, id, group);
+				if (groupChild) {
+					return groupChild;
+				}
+			}
+		}
+
+		return null;
 	}
 }

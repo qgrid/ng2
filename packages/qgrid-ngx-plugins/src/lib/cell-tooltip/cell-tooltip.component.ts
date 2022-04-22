@@ -1,5 +1,10 @@
 import {
-	ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit
+	ApplicationRef,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	Input,
+	OnInit,
 } from '@angular/core';
 import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -21,14 +26,14 @@ export class CellTooltipComponent implements OnInit {
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef,
-		private appRef: ApplicationRef
+		private appRef: ApplicationRef,
 	) { }
 
 	ngOnInit() {
 		const { model, observe, table } = this.plugin;
 
 		observe(model.mouseChanged)
-			.subscribe((e) => {
+			.subscribe(e => {
 				if (e.state.status !== 'move' && e.state.status !== 'leave') {
 					return;
 				}
@@ -39,7 +44,7 @@ export class CellTooltipComponent implements OnInit {
 
 					if (domCell.model()) {
 						this.context = {
-							$implicit: domCell.model()
+							$implicit: domCell.model(),
 						};
 						this.cellElement = domCell.element;
 						this.addTooltipLayer();

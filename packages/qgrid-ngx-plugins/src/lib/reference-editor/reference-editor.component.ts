@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+} from '@angular/core';
 import { CellView, Command, SelectionService } from '@qgrid/core';
 import { Disposable, GridModel } from '@qgrid/ngx';
 
@@ -6,40 +13,39 @@ import { Disposable, GridModel } from '@qgrid/ngx';
 	selector: 'q-grid-reference-editor',
 	templateUrl: './reference-editor.component.html',
 	providers: [Disposable],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReferenceEditorComponent implements AfterViewInit {
 	private state: any;
-
-	@Input() caption = '';
-	@Input() cell: CellView;
 
 	@Output() valueChange = new EventEmitter<any>();
 	@Output() afterSubmit = new EventEmitter();
 	@Output() afterCancel = new EventEmitter();
 
-	reference: { commit: Command, cancel: Command };
+	@Input() caption = '';
+	@Input() cell: CellView;
+
+	reference: { commit: Command; cancel: Command };
 	model: GridModel;
 
 	context: { $implicit: ReferenceEditorComponent } = {
-		$implicit: this
+		$implicit: this,
 	};
 
 	submit = new Command();
 	cancel = new Command();
 
-	constructor(private disposable: Disposable) { }
-
 	@Input() get value() {
 		return this.state;
 	}
-
 	set value(value) {
 		if (value !== this.state) {
 			this.state = value;
 			this.valueChange.emit(value);
 		}
 	}
+
+	constructor(private disposable: Disposable) { }
 
 	ngAfterViewInit() {
 		const { model } = this;
@@ -70,7 +76,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 					}
 
 					return false;
-				}
+				},
 			});
 
 			this.cancel = new Command({
@@ -82,12 +88,12 @@ export class ReferenceEditorComponent implements AfterViewInit {
 					}
 
 					return false;
-				}
+				},
 			});
 
 			const { shortcut, manager } = model.action();
 			this.disposable.add(
-				shortcut.register(manager, [this.submit, this.cancel])
+				shortcut.register(manager, [this.submit, this.cancel]),
 			);
 		}, 0);
 	}

@@ -1,10 +1,17 @@
-import { Directive, DoCheck, ElementRef, Input, OnInit, Optional } from '@angular/core';
+import {
+	Directive,
+	DoCheck,
+	ElementRef,
+	Input,
+	OnInit,
+	Optional,
+} from '@angular/core';
 import { isArray } from '@qgrid/core';
 import { evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';
 
 @Directive({
-	selector: '[q-grid-eb-class]'
+	selector: '[q-grid-eb-class]',
 })
 export class EbClassDirective implements OnInit, DoCheck {
 	private evaluate: (value: any) => any;

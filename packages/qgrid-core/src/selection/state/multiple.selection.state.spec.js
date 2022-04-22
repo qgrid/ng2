@@ -44,9 +44,7 @@ describe('multiple selection state', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'row',
-				key: {
-					row: row => row.id
-				}
+				rowKey: row => row.id
 			});
 		});
 
@@ -89,9 +87,7 @@ describe('multiple selection state', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'column',
-				key: {
-					column: column => column.key
-				}
+				columnKey: column => column.key
 			});
 		});
 
@@ -134,10 +130,8 @@ describe('multiple selection state', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'cell',
-				key: {
-					row: row => row.id,
-					column: column => column.key
-				}
+				columnKey: column => column.key,
+				rowKey: row => row.id
 			});
 		});
 

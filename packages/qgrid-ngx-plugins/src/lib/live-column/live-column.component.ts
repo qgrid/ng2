@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	NgZone,
+	OnInit,
+} from '@angular/core';
 import { Fastdom, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
@@ -6,7 +12,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-live-columns',
 	template: '',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LiveColumnComponent implements OnInit {
 	@Input('duration') duration = 500;
@@ -58,7 +64,7 @@ export class LiveColumnComponent implements OnInit {
 					Promise.all(animations)
 						.then(complete);
 				});
-			})
+			}),
 		});
 	}
 
@@ -95,10 +101,9 @@ export class LiveColumnComponent implements OnInit {
 					oldColumn.addClass(`${GRID_PREFIX}-live-column`);
 					oldColumn.cells().forEach(cell => animatedCells.push(
 						new Promise(columnAnimationEnd => {
-							const animation = cell.model().element.animate([
-								{ transform: `translateX(0px)` },
-								{ transform: `translateX(${offset}px)` }],
-								{ duration: this.duration }
+							const animation = cell.model().element.animate(
+								[ { transform: 'translateX(0px)' }, { transform: `translateX(${offset}px)` } ],
+								{ duration: this.duration },
 							);
 
 							animation.onfinish = () => Fastdom.mutate(() => {

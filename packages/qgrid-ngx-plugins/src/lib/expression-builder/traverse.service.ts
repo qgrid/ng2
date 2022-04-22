@@ -1,7 +1,7 @@
 import { Node } from './model/node';
 
 export class TraverseService {
-	findUp(node: Node, test: (node: Node) => boolean) {
+	findUp(node: Node, test: (foundNode: Node) => boolean) {
 		while (node) {
 			if (test(node)) {
 				return node;

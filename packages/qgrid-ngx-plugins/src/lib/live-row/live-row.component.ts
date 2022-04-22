@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	NgZone,
+	OnInit,
+} from '@angular/core';
 import { Fastdom, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
@@ -6,7 +12,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	selector: 'q-grid-live-rows',
 	template: '',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LiveRowComponent implements OnInit {
 	@Input('duration') duration = 400;
@@ -43,7 +49,7 @@ export class LiveRowComponent implements OnInit {
 					Promise.all(animations)
 						.then(complete);
 				});
-			})
+			}),
 		});
 	}
 
@@ -56,10 +62,8 @@ export class LiveRowComponent implements OnInit {
 			}
 
 			Fastdom.mutate(() => {
-				const animation = tr.model().tr.element.animate([
-					{ opacity: `1` },
-					{ opacity: `0` }],
-					{ duration: this.duration }
+				const animation = tr.model().tr.element.animate([ { opacity: '1' }, { opacity: '0' } ],
+					{ duration: this.duration },
 				);
 
 				animation.onfinish = () => resolve(null);
@@ -91,10 +95,9 @@ export class LiveRowComponent implements OnInit {
 						.forEach(rowElement =>
 							animatedRows.push(
 								new Promise(animationRowEnd => {
-									const animation = rowElement.animate([
-										{ transform: `translateY(0px)` },
-										{ transform: `translateY(${offset}px)` }],
-										{ duration: this.duration }
+									const animation = rowElement.animate(
+										[ { transform: 'translateY(0px)' }, { transform: `translateY(${offset}px)` } ],
+										{ duration: this.duration },
 									);
 
 									animation.onfinish = () => Fastdom.mutate(() => {
@@ -102,7 +105,7 @@ export class LiveRowComponent implements OnInit {
 										oldTr.removeClass(`${GRID_PREFIX}-drag`);
 										animationRowEnd(null);
 									});
-								}))
+								})),
 						);
 
 					Promise.all(animatedRows).finally(() => animationEnd(null));

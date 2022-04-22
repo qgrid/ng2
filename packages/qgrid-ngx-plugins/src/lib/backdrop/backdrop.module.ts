@@ -7,18 +7,18 @@ import { TemplateModule } from '@qgrid/ngx';
 @NgModule({
 	declarations: [
 		BackdropComponent,
-		BackdropDirective
+		BackdropDirective,
 	],
 	exports: [
 		BackdropComponent,
-		BackdropDirective
+		BackdropDirective,
 	],
 	imports: [
-		TemplateModule
+		TemplateModule,
 	],
 	providers: [
-		BackdropService
-	]
+		BackdropService,
+	],
 })
 export class BackdropModule {
 }

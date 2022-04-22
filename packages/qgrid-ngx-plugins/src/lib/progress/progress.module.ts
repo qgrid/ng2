@@ -4,14 +4,14 @@ import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
-		ProgressComponent
+		ProgressComponent,
 	],
 	exports: [
-		ProgressComponent
+		ProgressComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ProgressModule {
 }

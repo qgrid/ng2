@@ -3,11 +3,11 @@ import { CommandDirective } from './command.directive';
 
 @NgModule({
 	declarations: [
-		CommandDirective
+		CommandDirective,
 	],
 	exports: [
-		CommandDirective
-	]
+		CommandDirective,
+	],
 })
 export class CommandModule {
 }
