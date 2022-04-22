@@ -13,8 +13,6 @@
     "dist"
   ],
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.19.0",
     "css.escape": "1.5.1",
     "fastdom": "1.0.9",
     "livr": "2.2.5",
