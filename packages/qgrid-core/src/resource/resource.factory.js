@@ -1,7 +1,6 @@
+import { hasOwnProperty } from '../utility/kit';
 import { Resource } from './resource';
 import { EnumerableResource } from './resource.enumerable';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export function factory(resource, key) {
 	const data = resource.data;

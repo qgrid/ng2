@@ -1,8 +1,7 @@
 import { escapeAttr } from '../services/css';
+import { hasOwnProperty } from '../utility/kit';
 import { FakeElement } from './fake/element';
 import { Unit } from './unit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function isParentOf(parent, element) {
 	while (element) {

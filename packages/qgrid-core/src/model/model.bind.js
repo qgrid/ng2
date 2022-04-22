@@ -1,7 +1,5 @@
 import { Log } from '../infrastructure//log';
-import { isArray, isUndefined, noop, toCamelCase } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty, isArray, isUndefined, noop, toCamelCase } from '../utility/kit';
 
 export class ModelBinder {
 	constructor(host, plugin) {

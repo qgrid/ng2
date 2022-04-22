@@ -1,8 +1,6 @@
 import { GridError } from '../infrastructure/error';
-import { isFunction } from '../utility/kit';
+import { hasOwnProperty, isFunction } from '../utility/kit';
 import { compileGet, compileSet } from './path';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export function getValue(row, column) {
 	return column.$value

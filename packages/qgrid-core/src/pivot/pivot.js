@@ -1,5 +1,4 @@
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 class Plan {
 	constructor(schema) {

@@ -1,6 +1,4 @@
-import { clone } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { clone, hasOwnProperty } from '../utility/kit';
 
 // TODO: refactor this to the commands
 export class PersistenceService {

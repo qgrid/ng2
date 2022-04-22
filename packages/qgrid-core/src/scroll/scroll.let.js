@@ -1,8 +1,6 @@
 import { Log } from '../infrastructure/log';
 import { Fastdom } from '../services/fastdom';
-import { identity, isFunction } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty, identity, isFunction } from '../utility/kit';
 
 export class ScrollLet {
 

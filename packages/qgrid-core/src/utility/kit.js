@@ -24,6 +24,8 @@ const noop = () => { };
 const yes = () => true;
 const no = () => false;
 const identity = x => x;
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -176,6 +178,7 @@ export {
 	escapeRegexp,
 	flatten,
 	getTypeName,
+	hasOwnProperty,
 	htmlEncode,
 	identity,
 	isArray,

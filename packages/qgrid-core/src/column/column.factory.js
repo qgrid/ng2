@@ -25,9 +25,7 @@ import { TextColumn } from '../column-type/text.column';
 import { TimeColumn } from '../column-type/time.column';
 import { UrlColumn } from '../column-type/url.column';
 import { ColumnView as CustomColumn } from '../scene/view/column.view';
-import { assignWith, clone, isUndefined } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { assignWith, clone, hasOwnProperty, isUndefined } from '../utility/kit';
 
 function merge(target, source) {
 	if (target && source) {

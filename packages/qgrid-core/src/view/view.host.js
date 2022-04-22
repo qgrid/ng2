@@ -8,8 +8,7 @@ import { PipeUnit } from '../pipe/pipe.unit';
 import { eventPath } from '../services/dom';
 import { Fastdom } from '../services/fastdom';
 import { jobLine } from '../services/job.line';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 export class ViewHost {
 	get selection() {

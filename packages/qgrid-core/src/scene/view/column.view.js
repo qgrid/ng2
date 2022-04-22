@@ -1,7 +1,5 @@
 import { ColumnModel } from '../../column-type/column.model';
-import { isArray, isFunction, isObject } from '../../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty, isArray, isFunction, isObject } from '../../utility/kit';
 
 export class ColumnView {
 	constructor(model) {

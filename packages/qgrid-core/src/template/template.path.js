@@ -1,7 +1,5 @@
 import { GridError } from '../infrastructure/error';
-import { isUndefined } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty, isUndefined } from '../utility/kit';
 
 const resolvers = {};
 export class TemplatePath {

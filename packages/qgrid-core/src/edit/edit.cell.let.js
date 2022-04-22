@@ -5,11 +5,9 @@ import { parseFactory } from '../services/convert';
 import { getLabelFactory } from '../services/label';
 import { getValueFactory } from '../services/value';
 import { Shortcut } from '../shortcut/shortcut';
+import { hasOwnProperty } from '../utility/kit';
 import * as validationService from '../validation/validation.service';
 import { CellEditor } from './edit.cell.editor';
-
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class EditCellLet {
 	get fetch() {

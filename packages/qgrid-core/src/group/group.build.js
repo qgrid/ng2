@@ -1,8 +1,7 @@
 import { mapColumns } from '../column/column.service';
 import { GridError } from '../infrastructure/error';
 import { Aggregation } from '../services/aggregation';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../utility/kit';
 
 export function groupBuilder(model) {
 	const { rows } = model.data();

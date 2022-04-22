@@ -2,9 +2,7 @@ import { Event } from '../event/event';
 import { GridError } from '../infrastructure/error';
 import { Guard } from '../infrastructure/guard';
 import { Log } from '../infrastructure/log';
-import { getTypeName, isArray, isObject } from '../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { getTypeName, hasOwnProperty, isArray, isObject } from '../utility/kit';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm

@@ -2,9 +2,7 @@ import { columnFactory } from '../../column/column.factory';
 import { findFirstLeaf } from '../../group/group.service';
 import { GridError } from '../../infrastructure/error';
 import { Aggregation } from '../../services/aggregation';
-import { dropWhile, sumBy, takeWhile } from '../../utility/kit';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { dropWhile, hasOwnProperty, sumBy, takeWhile } from '../../utility/kit';
 
 export class NodeRow {
 	constructor(model, dataRow) {

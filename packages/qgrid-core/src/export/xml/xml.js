@@ -1,7 +1,6 @@
-import { isArray, isObject, isString } from '../../utility/kit';
+import { hasOwnProperty, isArray, isObject, isString } from '../../utility/kit';
 
 const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function escape(value) {
 	let result = '' + value;

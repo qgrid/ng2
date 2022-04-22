@@ -1,4 +1,4 @@
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+import { hasOwnProperty } from '../../utility/kit';
 
 export class SelectorCache {
 	constructor(selector) {
