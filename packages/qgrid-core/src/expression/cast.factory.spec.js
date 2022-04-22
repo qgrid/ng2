@@ -40,7 +40,7 @@ describe('CastFactory', () => {
 
 		it('should throw an exception if unsupported format', () => {
 			const foo = CastFactory.castFactory(123);
-			expect(() => foo(() => {})).to.throw();
+			expect(() => foo(() => ({}))).to.throw();
 		});
 	});
 });

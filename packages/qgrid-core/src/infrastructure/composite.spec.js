@@ -1,11 +1,11 @@
 import { Command } from '../command/command';
+import { identity, no, yes } from '../utility/kit';
 import { Composite } from './composite';
-import { identity, yes, no } from '../utility/kit';
 
 describe('Composite', () => {
 	describe('composite function', () => {
 		it('should return function', () => {
-			const func = Composite.func(() => {});
+			const func = Composite.func(() => ({}));
 			expect(func).to.be.a('function');
 		});
 

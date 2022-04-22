@@ -1,13 +1,13 @@
 export class CharReader {
+	static get eof() {
+		return undefined;
+	}
+
 	constructor(text) {
 		this.text = text || '';
 		this.peeks = [];
 		this.position = 0;
 		this.length = this.text.length;
-	}
-
-	static get eof() {
-		return undefined;
 	}
 
 	read() {

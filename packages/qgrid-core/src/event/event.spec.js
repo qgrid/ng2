@@ -7,7 +7,7 @@ describe('Event', () => {
 
 	beforeEach(() => {
 		event = new Event();
-		foo = chai.spy(() => {});
+		foo = chai.spy(() => ({}));
 	});
 
 	describe('on/emit', () => {

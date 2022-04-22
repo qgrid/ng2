@@ -3,9 +3,6 @@ import { escapeAttr } from '../services/css';
 import { max, min } from '../utility/kit';
 
 export class Container {
-	constructor(elements) {
-		this.elements = elements;
-	}
 
 	get clientWidth() {
 		return max(this.elements.map(element => element.clientWidth));
@@ -29,6 +26,10 @@ export class Container {
 			remove: name => this.removeClass(name),
 			contains: name => this.hasClass(name)
 		};
+	}
+
+	constructor(elements) {
+		this.elements = elements;
 	}
 
 	getBoundingClientRect() {
@@ -61,10 +62,6 @@ export class Container {
 }
 
 export class TrContainer {
-	constructor(elements) {
-		this.elements = elements;
-	}
-
 	get index() {
 		const tr = this.elements[0];
 		Guard.notNull(tr, 'tr');
@@ -89,5 +86,9 @@ export class TrContainer {
 		Guard.notNull(tr, 'tr');
 
 		return tr.element;
+	}
+
+	constructor(elements) {
+		this.elements = elements;
 	}
 }

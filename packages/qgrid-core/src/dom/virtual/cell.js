@@ -4,9 +4,6 @@ import { FakeElement } from '../fake/element';
 import { Td } from '../td';
 
 class VirtualTd {
-	constructor(selector) {
-		this.selector = selector;
-	}
 
 	get model() {
 		const td = this.selector();
@@ -21,20 +18,24 @@ class VirtualTd {
 		return this.model.value;
 	}
 
-	get label() {
-		return this.model.label;
+	set value(value) {
+		this.model.value = value;
 	}
 
-	get element() {
-		return this.model.element || new FakeElement();
+	get label() {
+		return this.model.label;
 	}
 
 	set label(value) {
 		this.model.label = value;
 	}
 
-	set value(value) {
-		this.model.value = value;
+	get element() {
+		return this.model.element || new FakeElement();
+	}
+
+	constructor(selector) {
+		this.selector = selector;
 	}
 
 	mode(value) {

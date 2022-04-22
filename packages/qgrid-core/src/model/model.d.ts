@@ -40,6 +40,7 @@ import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
 import { ModelEvent, ModelTag } from './model.event';
 
+// eslint-disable-next-line no-use-before-define
 type StateSetAccessor<TState> = (state: Partial<TState>, tag?: ModelTag) => Model;
 type StateGetAccessor<TState> = () => Readonly<TState>;
 

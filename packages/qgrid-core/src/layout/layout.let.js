@@ -5,6 +5,11 @@ import * as css from '../services/css';
 import { Fastdom } from '../services/fastdom';
 
 export class LayoutLet {
+
+	get gridId() {
+		return this.plugin.model.grid().id;
+	}
+
 	constructor(plugin) {
 		const { model, observeReply, disposable } = plugin;
 		const styleRow = this.styleRow.bind(this);
@@ -86,10 +91,6 @@ export class LayoutLet {
 			const sheet = css.sheet(this.gridId, 'column-layout');
 			sheet.remove();
 		});
-	}
-
-	get gridId() {
-		return this.plugin.model.grid().id;
 	}
 
 	updateColumnForm() {

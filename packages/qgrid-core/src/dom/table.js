@@ -9,6 +9,27 @@ import { Head } from './head';
 import { View } from './view';
 
 export class Table {
+
+	get view() {
+		return this._view.instance;
+	}
+
+	get data() {
+		return this._data.instance;
+	}
+
+	get head() {
+		return this._head.instance;
+	}
+
+	get body() {
+		return this._body.instance;
+	}
+
+	get foot() {
+		return this._foot.instance;
+	}
+
 	constructor(model, box) {
 		this.model = model;
 
@@ -41,26 +62,6 @@ export class Table {
 				? new VirtualBody(context, model)
 				: new Body(context, model);
 		});
-	}
-
-	get view() {
-		return this._view.instance;
-	}
-
-	get data() {
-		return this._data.instance;
-	}
-
-	get head() {
-		return this._head.instance;
-	}
-
-	get body() {
-		return this._body.instance;
-	}
-
-	get foot() {
-		return this._foot.instance;
 	}
 
 	invalidate() {

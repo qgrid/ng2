@@ -9,6 +9,29 @@ import { SelectionService } from './selection.service';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 
 export class SelectionLet {
+
+	get selection() {
+		return this.plugin.model.selection();
+	}
+
+	get mode() {
+		return this.selection.mode;
+	}
+
+	get items() {
+		return this.selection.items;
+	}
+
+	get rows() {
+		const { table } = this.plugin;
+		return table.data.rows();
+	}
+
+	get columns() {
+		const { table } = this.plugin;
+		return table.data.columns();
+	}
+
 	constructor(plugin, shortcut) {
 		const { model, table, observeReply } = plugin;
 
@@ -106,28 +129,6 @@ export class SelectionLet {
 					this.select(entries, true);
 				}
 			});
-	}
-
-	get selection() {
-		return this.plugin.model.selection();
-	}
-
-	get mode() {
-		return this.selection.mode;
-	}
-
-	get items() {
-		return this.selection.items;
-	}
-
-	get rows() {
-		const { table } = this.plugin;
-		return table.data.rows();
-	}
-
-	get columns() {
-		const { table } = this.plugin;
-		return table.data.columns();
 	}
 
 	getCommands() {

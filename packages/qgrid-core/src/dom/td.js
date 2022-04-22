@@ -1,13 +1,6 @@
 import { GridError } from '../infrastructure/error';
 
 export class Td {
-	constructor(td) {
-		this.td = td;
-
-		// We need to cache it due to possible virtual mode;
-		this.rowIndex = td.rowIndex;
-		this.columnIndex = td.columnIndex;
-	}
 
 	get element() {
 		if (!Td.equals(this, this.td)) {
@@ -41,14 +34,6 @@ export class Td {
 		return this.td.value;
 	}
 
-	get label() {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
-
-		return this.td.label;
-	}
-
 	set value(value) {
 		if (!Td.equals(this, this.td)) {
 			throw new GridError('td', 'Internal model doesn\'t match container');
@@ -57,12 +42,28 @@ export class Td {
 		this.td.value = value;
 	}
 
+	get label() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.label;
+	}
+
 	set label(label) {
 		if (!Td.equals(this, this.td)) {
 			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		this.td.label = label;
+	}
+
+	constructor(td) {
+		this.td = td;
+
+		// We need to cache it due to possible virtual mode;
+		this.rowIndex = td.rowIndex;
+		this.columnIndex = td.columnIndex;
 	}
 
 	static equals(x, y) {

@@ -5,6 +5,17 @@ import { eventPath } from '../services/dom';
 import { isNumber } from '../utility/kit';
 
 export class RowLet {
+
+	get canMove() {
+		const { model } = this.plugin;
+		return model.row().canMove;
+	}
+
+	get canResize() {
+		const { model } = this.plugin;
+		return model.row().canResize;
+	}
+
 	constructor(plugin, tagName) {
 		const { model, table, observe } = plugin;
 
@@ -109,15 +120,5 @@ export class RowLet {
 					});
 				}
 			});
-	}
-
-	get canMove() {
-		const { model } = this.plugin;
-		return model.row().canMove;
-	}
-
-	get canResize() {
-		const { model } = this.plugin;
-		return model.row().canResize;
 	}
 }

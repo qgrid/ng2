@@ -10,9 +10,6 @@ const emptyRect = Object.freeze({
 });
 
 export class FakeElement {
-	constructor() {
-		this.classList = new FakeClassList();
-	}
 
 	get clientWidth() {
 		return 0;
@@ -28,6 +25,10 @@ export class FakeElement {
 
 	get offsetHeight() {
 		return 0;
+	}
+
+	constructor() {
+		this.classList = new FakeClassList();
 	}
 
 	getBoundingClientRect() {

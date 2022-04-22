@@ -36,14 +36,19 @@
     "no-fallthrough": "error",
     "no-new-wrappers": "error",
     "no-restricted-imports": ["error", "rxjs/Rx"],
-    "no-shadow": "warn",
+    "no-shadow": ["warn", { "hoist": "all" }],
     "no-throw-literal": "error",
     "no-trailing-spaces": "error",
     "no-undef-init": "error",
     "no-underscore-dangle": "off",
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
-    "no-use-before-define": "error",
+    "no-use-before-define": ["error", {
+				"functions": false,
+				"variables": true,
+				"classes": true
+			}
+		],
     "no-var": "error",
     "prefer-const": "error",
     "quotes": ["error", "single"],
@@ -95,11 +100,8 @@
     ],
     "@typescript-eslint/no-misused-new": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/no-shadow": ["error", { "hoist": "all" }],
     "@typescript-eslint/no-unused-expressions": "error",
-    "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error"

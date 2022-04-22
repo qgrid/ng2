@@ -6,20 +6,6 @@ import { getValueFactory } from '../services/value';
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class FootLet {
-	constructor(plugin) {
-		const { model, observeReply } = plugin;
-
-		this.plugin = plugin;
-		this.valueFactory = getValueFactory;
-		this.rows = [];
-
-		observeReply(model.sceneChanged)
-			.subscribe(e => {
-				if (e.hasChanges('column')) {
-					this.invalidate();
-				}
-			});
-	}
 
 	get count() {
 		const { model } = this.plugin;
@@ -33,6 +19,21 @@ export class FootLet {
 		}
 
 		return resourceCount;
+	}
+
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.valueFactory = getValueFactory;
+		this.rows = [];
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					this.invalidate();
+				}
+			});
 	}
 
 	invalidate() {
