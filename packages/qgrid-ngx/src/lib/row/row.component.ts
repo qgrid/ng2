@@ -3,21 +3,20 @@ import {
 	Component,
 	Input,
 	OnChanges,
-	OnInit
-} from '@angular/core'
+	OnInit,
+} from '@angular/core';
 import {
 	Command,
 	RowDetails,
 	RowState,
 	RowStateMode,
-	RowStateUnit
-} from '@qgrid/core'
+	RowStateUnit,
+} from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
 import { TemplateHostService } from '../template/template-host.service';
 
 // TODO: move it to plugins
-
 @Component({
 	selector: 'q-grid-row',
 	template: '<ng-content></ng-content
