@@ -8,7 +8,7 @@ import {
 	OnInit,
 	Optional,
 	SimpleChanges,
-	SkipSelf
+	SkipSelf,
 } from '@angular/core';
 import {
 	ColumnModel,
@@ -17,7 +17,7 @@ import {
 	ColumnModelType,
 	ColumnModelWidthMode,
 	guid,
-	isUndefined
+	isUndefined,
 } from '@qgrid/core';
 import { ColumnListService } from '../column-list/column-list.service';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -31,7 +31,7 @@ import { ColumnHostService } from './column-host.service';
 	providers: [
 		TemplateHostService,
 		ColumnHostService,
-		GridPlugin
+		GridPlugin,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -152,7 +152,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 			const settings =
 				Object
 					.keys(this)
-					.filter(key => !isUndefined(this[key]) && column.hasOwnProperty(key))
+					.filter(key => !isUndefined(this[key]) && Object.prototype.hasOwnProperty.call(column, key))
 					.reduce((memo, key) => {
 						memo[key] = column[key];
 						return memo;
