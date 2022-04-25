@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import * as labelService from '@qgrid/core';
 import * as valueService from '@qgrid/core';
-import { Action, Command, GridService, identity, Node, noop, Pipe, PipeUnit, RowDetailsStatus } from '@qgrid/core';
+import {
+	Action,
+	Command,
+	GridService,
+	identity,
+	Node,
+	noop,
+	Pipe,
+	PipeUnit,
+	RowDetailsStatus,
+} from '@qgrid/core';
 import { GridModelBuilder } from '../grid/grid-model.builder';
 import { GridModel } from './grid-model';
 

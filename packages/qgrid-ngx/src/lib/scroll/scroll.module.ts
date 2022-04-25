@@ -3,7 +3,7 @@ import { ScrollService } from './scroll.service';
 
 @NgModule({
 	providers: [
-		ScrollService
+		ScrollService,
 	],
 })
 export class ScrollModule {

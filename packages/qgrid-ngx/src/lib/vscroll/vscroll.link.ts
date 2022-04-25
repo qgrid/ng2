@@ -55,7 +55,7 @@ export class VscrollLink {
 			const draw = () => {
 				container.position = port.layout.invalidate(position);
 				container.draw$.emit({
-					position: container.position
+					position: container.position,
 				});
 			};
 
@@ -75,7 +75,7 @@ export class VscrollLink {
 				scrollTop: element.scrollTop,
 				scrollLeft: element.scrollLeft,
 				portWidth: element.clientWidth,
-				portHeight: element.clientHeight
+				portHeight: element.clientHeight,
 			};
 
 			if (force || port.hasChanges(newBox, box)) {

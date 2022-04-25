@@ -49,11 +49,11 @@ export class LayerService {
 
 	private getHostElement() {
 		const { nativeElement } = this.container.element;
-		for (let el = nativeElement; !!el; el = el.parentElement) {
+		for (let el = nativeElement; el; el = el.parentElement) {
 			if (el.tagName == 'Q-GRID') {
 				return el;
 			}
 		}
-		return null;	
+		return null;
 	}
 }

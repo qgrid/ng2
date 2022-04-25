@@ -1,5 +1,11 @@
 import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
-import { Disposable, IVscrollContext, Log, ObservableLike, SubjectLike } from '@qgrid/core';
+import {
+	Disposable,
+	IVscrollContext,
+	Log,
+	ObservableLike,
+	SubjectLike,
+} from '@qgrid/core';
 
 @Pipe({
 	name: 'qGridVscroll$',
@@ -58,12 +64,11 @@ export class VscrollPipe implements OnDestroy, PipeTransform {
 
 					try {
 						items$.next(wnd);
-					}
-					finally {
+					} finally {
 						sub.unsubscribe();
 					}
 				}
-			})
+			}),
 		);
 
 		return items$;

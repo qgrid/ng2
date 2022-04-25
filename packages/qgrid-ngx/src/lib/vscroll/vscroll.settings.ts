@@ -10,7 +10,7 @@ export class VscrollSettings implements IVscrollSettings {
 	constructor(private getCount: () => number) {
 	}
 
-	fetch(skip: number, take: number, d: { resolve: (count: number) => void, reject: () => void }) {
+	fetch(skip: number, take: number, d: { resolve: (count: number) => void; reject: () => void }) {
 		d.resolve(this.getCount());
 	}
 

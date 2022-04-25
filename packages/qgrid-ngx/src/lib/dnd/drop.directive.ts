@@ -1,5 +1,21 @@
-import { Directive, ElementRef, Input, NgZone, OnInit, Optional } from '@angular/core';
-import { Command, DragService, elementFromPoint, EventListener, EventManager, GRID_PREFIX, no, parents } from '@qgrid/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	NgZone,
+	OnInit,
+	Optional,
+} from '@angular/core';
+import {
+	Command,
+	DragService,
+	elementFromPoint,
+	EventListener,
+	EventManager,
+	GRID_PREFIX,
+	no,
+	parents,
+} from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 export interface DropEventArg {
@@ -13,7 +29,7 @@ export interface DropEventArg {
 }
 
 @Directive({
-	selector: '[q-grid-drop]'
+	selector: '[q-grid-drop]',
 })
 export class DropDirective implements OnInit {
 	@Input('q-grid-drop-area') area: string;
@@ -25,7 +41,7 @@ export class DropDirective implements OnInit {
 	constructor(
 		@Optional() private plugin: GridPlugin,
 		private elementRef: ElementRef,
-		zone: NgZone
+		zone: NgZone,
 	) {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
@@ -53,7 +69,7 @@ export class DropDirective implements OnInit {
 								dropData: this.dropData,
 								action: 'end',
 								inAreaX: no,
-								inAreaY: no
+								inAreaY: no,
 							};
 
 							if (this.drop.canExecute(eventArg)) {
@@ -75,7 +91,7 @@ export class DropDirective implements OnInit {
 			dropData: this.dropData,
 			action: 'drop',
 			inAreaX: this.inAreaFactory(e, 'x'),
-			inAreaY: this.inAreaFactory(e, 'y')
+			inAreaY: this.inAreaFactory(e, 'y'),
 		};
 
 		if (this.drop.canExecute(eventArg)) {
@@ -117,7 +133,7 @@ export class DropDirective implements OnInit {
 			dropData: this.dropData,
 			action: 'over',
 			inAreaX: this.inAreaFactory(e, 'x'),
-			inAreaY: this.inAreaFactory(e, 'y')
+			inAreaY: this.inAreaFactory(e, 'y'),
 		};
 
 		if (this.dragOver.canExecute(eventArg)) {
@@ -151,7 +167,7 @@ export class DropDirective implements OnInit {
 		return { x, y };
 	}
 
-	private getPath({ x, y }: { x: number, y: number }) {
+	private getPath({ x, y }: { x: number; y: number }) {
 		// Document.elementsFromPoint is not working with tr?
 		// so we need to go through all parent.
 

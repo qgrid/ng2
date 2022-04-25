@@ -1,12 +1,18 @@
-import { Directive, ElementRef, EventEmitter, NgZone, Renderer2 } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	EventEmitter,
+	NgZone,
+	Renderer2,
+} from '@angular/core';
 import { placeholderBitmap } from './vscroll.utility';
 
 @Directive({
-	selector: '[q-grid-vscroll]'
+	selector: '[q-grid-vscroll]',
 })
 export class VscrollDirective {
 	scroll = new EventEmitter();
-	reset = new EventEmitter<{ handled: boolean, source: string }>();
+	reset = new EventEmitter<{ handled: boolean; source: string }>();
 
 	constructor(private elementRef: ElementRef, zone: NgZone, renderer: Renderer2) {
 		zone.runOutsideAngular(() => {
@@ -15,7 +21,7 @@ export class VscrollDirective {
 				.addEventListener(
 					'scroll',
 					() => this.scroll.emit(),
-					{ passive: true }
+					{ passive: true },
 				);
 
 			renderer.listen(
@@ -24,7 +30,7 @@ export class VscrollDirective {
 				() => {
 					const e = { handled: false, source: 'resize' };
 					this.reset.emit(e);
-				}
+				},
 			);
 		});
 	}

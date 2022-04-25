@@ -11,7 +11,7 @@ export class TdCoreAlignDirective implements OnInit {
 	constructor(
 		private elementRef: ElementRef,
 		private cellClass: CellClassService,
-		) {
+	) {
 	}
 
 	ngOnInit() {

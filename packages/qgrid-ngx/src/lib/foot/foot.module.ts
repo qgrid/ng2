@@ -15,8 +15,8 @@ import { CommonModule } from '@angular/common';
 	],
 	imports: [
 		CommonModule,
-		RowModule
-	]
+		RowModule,
+	],
 })
 export class FootModule {
 }

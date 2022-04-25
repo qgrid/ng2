@@ -8,6 +8,6 @@ export {
 	Table as DomTable,
 	Td as DomTd,
 	Tr as DomTr,
-	View as DomView
+	View as DomView,
 } from '@qgrid/core';
 

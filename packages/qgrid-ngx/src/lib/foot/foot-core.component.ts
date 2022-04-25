@@ -9,7 +9,7 @@ import { TableCoreService } from '../table/table-core.service';
 	selector: 'tfoot[q-grid-core-foot]',
 	templateUrl: './foot-core.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [GridPlugin]
+	providers: [GridPlugin],
 })
 export class FootCoreComponent implements OnInit {
 	constructor(

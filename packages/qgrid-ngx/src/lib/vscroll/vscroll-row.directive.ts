@@ -1,9 +1,17 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+	Directive,
+	Input,
+	ElementRef,
+	OnInit,
+	OnDestroy,
+	OnChanges,
+	SimpleChanges,
+} from '@angular/core';
 import { sizeFactory } from './vscroll.container';
 import { VscrollPortYDirective } from './vscroll-port-y.directive';
 
 @Directive({
-	selector: '[q-grid-vscroll-row]'
+	selector: '[q-grid-vscroll-row]',
 })
 export class VscrollRowDirective implements OnDestroy, OnChanges {
 	@Input('q-grid-vscroll-row') index: number;
