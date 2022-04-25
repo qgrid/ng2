@@ -10,15 +10,15 @@ import { ColumnHeadTemplateDirective } from './column-head-template.directive';
 		ColumnBodyTemplateDirective,
 		ColumnEditTemplateDirective,
 		ColumnFootTemplateDirective,
-		ColumnHeadTemplateDirective
+		ColumnHeadTemplateDirective,
 	],
 	exports: [
 		ColumnComponent,
 		ColumnBodyTemplateDirective,
 		ColumnEditTemplateDirective,
 		ColumnFootTemplateDirective,
-		ColumnHeadTemplateDirective
-	]
+		ColumnHeadTemplateDirective,
+	],
 })
 export class ColumnModule {
 }

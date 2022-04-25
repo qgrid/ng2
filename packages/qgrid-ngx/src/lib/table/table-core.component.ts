@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	Input,
+	OnInit,
+} from '@angular/core';
 import { ColumnModelPin, VisibilityState } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -8,7 +14,7 @@ import { TableCoreService } from './table-core.service';
 	selector: 'q-grid-core-table',
 	templateUrl: './table-core.component.html',
 	providers: [TableCoreService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableCoreComponent implements OnInit {
 	@Input() pin: ColumnModelPin = 'mid';
@@ -17,7 +23,7 @@ export class TableCoreComponent implements OnInit {
 		public $view: GridLet,
 		private plugin: GridPlugin,
 		private tableHost: TableCoreService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
 	) {
 	}
 

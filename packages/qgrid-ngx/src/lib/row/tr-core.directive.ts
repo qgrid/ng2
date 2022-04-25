@@ -1,10 +1,16 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+} from '@angular/core';
 import { DomTr } from '../dom/dom';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
-	selector: '[q-grid-core-tr]'
+	selector: '[q-grid-core-tr]',
 })
 export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 	@Input('q-grid-core-index') viewIndex: number;
@@ -16,7 +22,7 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 	constructor(
 		public $view: GridLet,
 		private plugin: GridPlugin,
-		elementRef: ElementRef
+		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement;
 	}

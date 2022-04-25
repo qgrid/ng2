@@ -7,13 +7,13 @@ import { ThemeService } from '../theme/theme.service';
 	selector: 'q-grid-box',
 	templateUrl: './box.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoxComponent implements OnInit {
 	constructor(
 		private elementRef: ElementRef,
 		private theme: ThemeService,
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
 	) {
 	}
 

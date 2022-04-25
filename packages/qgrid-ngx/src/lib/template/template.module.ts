@@ -7,13 +7,13 @@ import { TemplateCacheDirective } from './template-cache.directive';
 	declarations: [
 		TemplateDirective,
 		TemplateLinkDirective,
-		TemplateCacheDirective
+		TemplateCacheDirective,
 	],
 	exports: [
 		TemplateDirective,
 		TemplateLinkDirective,
-		TemplateCacheDirective
-	]
+		TemplateCacheDirective,
+	],
 })
 export class TemplateModule {
 }

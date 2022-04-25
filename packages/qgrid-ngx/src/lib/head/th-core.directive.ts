@@ -4,7 +4,7 @@ import {
 	Input,
 	OnDestroy,
 	OnInit,
-	ViewContainerRef
+	ViewContainerRef,
 } from '@angular/core';
 import { ColumnModel, ColumnView, FilterRowColumnModel, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
@@ -15,7 +15,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 @Directive({
-	selector: '[q-grid-core-th]'
+	selector: '[q-grid-core-th]',
 })
 export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	@Input('q-grid-core-th') columnView: ColumnView;
@@ -32,7 +32,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		private cellTemplate: CellTemplateService,
 		private cellClass: CellClassService,
 		private tr: TrhCoreDirective,
-		elementRef: ElementRef
+		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement.parentNode;
 	}
@@ -79,7 +79,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	mode(value: string): void {
 		throw new GridError(
 			'th-core.directive',
-			`${value} mode is not supported`
+			`${value} mode is not supported`,
 		);
 	}
 

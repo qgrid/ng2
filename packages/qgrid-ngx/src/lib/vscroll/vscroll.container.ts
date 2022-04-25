@@ -1,5 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { Defer, GridError, isFunction, isNumber, IVscrollContainer, IVscrollSettings } from '@qgrid/core';
+import {
+	Defer,
+	GridError,
+	isFunction,
+	isNumber,
+	IVscrollContainer,
+	IVscrollSettings,
+} from '@qgrid/core';
 
 export const rAF = window.requestAnimationFrame;
 
@@ -13,7 +20,7 @@ export class VscrollContainer implements IVscrollContainer {
 	count = 0;
 	position = 0;
 
-	reset$ = new EventEmitter<{ handled: boolean, source: string }>();
+	reset$ = new EventEmitter<{ handled: boolean; source: string }>();
 	update$ = new EventEmitter<number>();
 	draw$ = new EventEmitter<{ position: number }>();
 
@@ -88,7 +95,7 @@ export class VscrollContainer implements IVscrollContainer {
 
 		this.reset$.emit({
 			handled: false,
-			source: 'container'
+			source: 'container',
 		});
 	}
 }
@@ -99,7 +106,7 @@ export function sizeFactory(
 	size: number | VscrollSize,
 	container: VscrollContainer,
 	element: HTMLElement,
-	index: number
+	index: number,
 ): () => number {
 	if (isFunction(size)) {
 		return () => (size as VscrollSize)(element, container.position + index);

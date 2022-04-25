@@ -8,7 +8,7 @@ import { TemplateLinkService } from './template-link.service';
 export class TemplateService {
 	constructor(
 		private templateLink: TemplateLinkService,
-		private templateCache: TemplateCacheService
+		private templateCache: TemplateCacheService,
 	) { }
 
 	find(keys: string | string[]): TemplateLink {

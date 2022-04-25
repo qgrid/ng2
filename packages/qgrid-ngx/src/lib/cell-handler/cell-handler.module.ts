@@ -12,7 +12,7 @@ import { MarkupModule } from '../markup/markup.module';
 	],
 	imports: [
 		CommonModule,
-	]
+	],
 })
 export class CellHandlerModule {
 }

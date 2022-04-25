@@ -1,10 +1,22 @@
 import {
-	ChangeDetectorRef, Directive,
+	ChangeDetectorRef,
+	Directive,
 	ElementRef,
-	Input, OnChanges, OnDestroy,
-	OnInit, SimpleChange, SimpleChanges, ViewContainerRef
+	Input,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	SimpleChange,
+	SimpleChanges,
+	ViewContainerRef,
 } from '@angular/core';
-import { ColumnModel, ColumnView, GridError, GRID_PREFIX, noop } from '@qgrid/core';
+import {
+	ColumnModel,
+	ColumnView,
+	GridError,
+	GRID_PREFIX,
+	noop,
+} from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
 import { DomTd } from '../dom/dom';
@@ -34,7 +46,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 		private cellClass: CellClassService,
 		private tr: TrCoreDirective,
 		private cd: ChangeDetectorRef,
-		elementRef: ElementRef
+		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement.parentNode;
 	}
@@ -75,8 +87,8 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 			case 'edit': {
 				if (link === noop) {
 					throw new GridError(
-						`td-core.directive`,
-						`Can't find template link for edit of ${this.column.key}`
+						'td-core.directive',
+						`Can't find template link for edit of ${this.column.key}`,
 					);
 				}
 

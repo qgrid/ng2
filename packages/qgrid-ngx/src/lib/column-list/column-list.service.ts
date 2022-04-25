@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ColumnListHost, ColumnModel, isUndefined, Lazy, parseFactory } from '@qgrid/core';
+import {
+	ColumnListHost,
+	ColumnModel,
+	isUndefined,
+	Lazy,
+	parseFactory,
+} from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Injectable()

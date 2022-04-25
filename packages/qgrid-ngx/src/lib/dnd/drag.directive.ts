@@ -1,9 +1,16 @@
 import { Directive, ElementRef, Input, Optional } from '@angular/core';
-import { Command, DragService, EventListener, EventManager, GRID_PREFIX, isFunction } from '@qgrid/core';
+import {
+	Command,
+	DragService,
+	EventListener,
+	EventManager,
+	GRID_PREFIX,
+	isFunction,
+} from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
-	selector: '[q-grid-drag]'
+	selector: '[q-grid-drag]',
 })
 export class DragDirective {
 	@Input('q-grid-drag-data') data: any;
@@ -13,7 +20,7 @@ export class DragDirective {
 
 	constructor(
 		@Optional() private plugin: GridPlugin,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
 	) {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
@@ -53,7 +60,7 @@ export class DragDirective {
 		DragService.startPosition = {
 			x: e.clientX,
 			y: e.clientY,
-			rect
+			rect,
 		};
 
 		if (this.plugin) {

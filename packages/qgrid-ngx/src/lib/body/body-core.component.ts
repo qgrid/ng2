@@ -1,5 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit } from '@angular/core';
-import { BodyHost, ColumnView, EventListener, EventManager, SelectionState } from '@qgrid/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	Input,
+	NgZone,
+	OnInit,
+} from '@angular/core';
+import {
+	BodyHost,
+	ColumnView,
+	EventListener,
+	EventManager,
+	SelectionState,
+} from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -9,7 +23,7 @@ import { TableCoreService } from '../table/table-core.service';
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
@@ -20,7 +34,7 @@ export class BodyCoreComponent implements OnInit {
 		private elementRef: ElementRef,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef,
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
 	) {
 	}
 
@@ -37,9 +51,9 @@ export class BodyCoreComponent implements OnInit {
 				listener.on('scroll', () =>
 					host.scroll({
 						scrollLeft: this.$table.pin === 'mid' ? nativeElement.scrollLeft : model.scroll().left,
-						scrollTop: nativeElement.scrollTop
+						scrollTop: nativeElement.scrollTop,
 					}),
-					scrollSettings
+				scrollSettings,
 				));
 
 			disposable.add(listener.on('wheel', e => host.wheel(e)));

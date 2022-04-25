@@ -22,14 +22,11 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 				`${source}-cell-the-${key}.tpl.html`,
 				`${source}-cell-${type}.tpl.html`,
 				`${source}-cell.tpl.html`,
-				`${source}-cell-text.tpl.html`
+				`${source}-cell-text.tpl.html`,
 			];
 
 			if (itemType) {
-				result.splice(0, 0, ...[
-					`${source}-cell-${type}-of-${itemType}-the-${key}.tpl.html`,
-					`${source}-cell-${type}-of-${itemType}.tpl.html`
-				]);
+				result.splice(0, 0, ...[`${source}-cell-${type}-of-${itemType}-the-${key}.tpl.html`, `${source}-cell-${type}-of-${itemType}.tpl.html`]);
 			}
 
 			return result;
@@ -42,14 +39,11 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 				`${mode}-cell-the-${key}.tpl.html`,
 				`${mode}-cell-${type}.tpl.html`,
 				`${mode}-cell.tpl.html`,
-				`${mode}-cell-text.tpl.html`
+				`${mode}-cell-text.tpl.html`,
 			];
 
 			if (itemType) {
-				result.splice(0, 0, ...[
-					`${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`,
-					`${mode}-cell-${type}-of-${itemType}.tpl.html`,
-				]);
+				result.splice(0, 0, ...[`${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`, `${mode}-cell-${type}-of-${itemType}.tpl.html`]);
 			}
 
 			return result;

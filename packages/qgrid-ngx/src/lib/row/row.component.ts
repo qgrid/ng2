@@ -1,5 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Command, RowDetails, RowState, RowStateMode, RowStateUnit } from '@qgrid/core';
+import {
+ChangeDetectionStrategy,
+Component,
+Input,
+OnChanges,
+OnInit
+} from '@angular/core'
+import {
+Command,
+RowDetails,
+RowState,
+RowStateMode,
+RowStateUnit
+} from '@qgrid/core'
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
 import { TemplateHostService } from '../template/template-host.service';
@@ -8,30 +20,31 @@ import { TemplateHostService } from '../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-row',
-	template: '<ng-content></ng-content>',
+	template: '<ng-content></ng-content
+>',
 	providers: [
 		TemplateHostService,
 		GridPlugin,
 		StateAccessor,
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RowComponent implements OnChanges, OnInit {
 	private rowAccessor = this.stateAccessor.setter(RowState);
 
 	private toggleStatus = new Command({
-		execute: (row) => {
+		execute: row => {
 			const { view } = this.plugin;
 			return view.rowDetails.toggleStatus.execute(row);
 		},
-		canExecute: (row) => {
+		canExecute: row => {
 			if (row instanceof RowDetails) {
 				return false;
 			}
 
 			const { view } = this.plugin;
 			return view.rowDetails.toggleStatus.canExecute(row);
-		}
+		},
 	});
 
 	@Input() set mode(mode: RowStateMode) { this.rowAccessor({ mode }); }
@@ -95,26 +108,26 @@ export class RowComponent implements OnChanges, OnInit {
 			let firstClickTarget = null;
 
 			observe(model.mouseChanged)
-			.subscribe(e => {
-				const { code, timestamp } = e.changes;
-				if (e.state.status === 'release' && code?.oldValue === 'left') {
-					const target = e.changes.target?.oldValue;
-					if (firstClickTarget === null) {
-						firstClickTarget = target;
-					} else {
-						const dblClickInterval = 300;
-						if (firstClickTarget === target && timestamp.newValue - timestamp.oldValue <= dblClickInterval) {
-							if (target.column.type !== 'row-expand') {
-								if (this.toggleStatus.canExecute(target.row)) {
-									this.toggleStatus.execute(target.row);
+				.subscribe(e => {
+					const { code, timestamp } = e.changes;
+					if (e.state.status === 'release' && code?.oldValue === 'left') {
+						const target = e.changes.target?.oldValue;
+						if (firstClickTarget === null) {
+							firstClickTarget = target;
+						} else {
+							const dblClickInterval = 300;
+							if (firstClickTarget === target && timestamp.newValue - timestamp.oldValue <= dblClickInterval) {
+								if (target.column.type !== 'row-expand') {
+									if (this.toggleStatus.canExecute(target.row)) {
+										this.toggleStatus.execute(target.row);
+									}
 								}
 							}
+
+							firstClickTarget = null;
 						}
-						
-						firstClickTarget = null;
 					}
-				}
-			});
+				});
 		}
 	}
 

@@ -1,5 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, NgZone, OnInit } from '@angular/core';
-import { EventListener, EventManager, TableCommandManager, ViewHost, VisibilityState } from '@qgrid/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	DoCheck,
+	ElementRef,
+	NgZone,
+	OnInit,
+} from '@angular/core';
+import {
+	EventListener,
+	EventManager,
+	TableCommandManager,
+	ViewHost,
+	VisibilityState,
+} from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
 import { Grid } from '../grid/grid';
@@ -14,7 +28,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 		CellClassService,
 		GridPlugin,
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewCoreComponent implements OnInit, DoCheck {
 	private host: ViewHost;
@@ -38,10 +52,10 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 						table.invalidate();
 
 						model.scene({
-							status: 'stop'
+							status: 'stop',
 						}, {
 							source: 'view-core.component',
-							behavior: 'core'
+							behavior: 'core',
 						});
 
 						if (this.host) {
@@ -69,7 +83,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			observe,
 			view,
 			disposable,
-			service
+			service,
 		} = this.plugin;
 
 		// TODO: make it better
@@ -93,11 +107,11 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 					this.zone.run(() =>
 						model.scene({
-							status: 'push'
+							status: 'push',
 						}, {
 							source: 'view-core.component',
-							behavior: 'core'
-						})
+							behavior: 'core',
+						}),
 					);
 				}
 			});
@@ -118,7 +132,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 					if (e.state.status === 'endBatch') {
 						service.invalidate({
 							source: 'view-core.component',
-							why: 'refresh'
+							why: 'refresh',
 						});
 					}
 				}
@@ -134,7 +148,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		});
 
 		disposable.add(
-			listener.on('mousedown', e => this.host.mouseDown(e))
+			listener.on('mousedown', e => this.host.mouseDown(e)),
 		);
 
 		if (model.scroll().mode === 'virtual') {

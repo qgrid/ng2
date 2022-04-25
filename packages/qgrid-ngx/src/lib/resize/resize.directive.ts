@@ -3,9 +3,11 @@ import {
 	Directive,
 	ElementRef,
 	Inject,
-	Input, NgZone, OnDestroy,
+	Input,
+	NgZone,
+	OnDestroy,
 	OnInit,
-	Optional
+	Optional,
 } from '@angular/core';
 import { clone, EventListener, EventManager, GRID_PREFIX } from '@qgrid/core';
 import { Grid } from '../grid/grid';
@@ -13,22 +15,22 @@ import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
-	selector: '[q-grid-resize]'
+	selector: '[q-grid-resize]',
 })
 export class ResizeDirective implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private divider: HTMLElement;
 
 	private listener: {
-		divider: EventListener,
-		document: EventListener
+		divider: EventListener;
+		document: EventListener;
 	};
 
 	private context = {
 		x: 0,
 		y: 0,
 		height: 0,
-		width: 0
+		width: 0,
 	};
 
 	@Input('q-grid-resize') key;
@@ -49,13 +51,13 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		this.listener = {
 			divider: new EventListener(
 				this.divider,
-				new EventManager(this)
+				new EventManager(this),
 			),
 
 			document: new EventListener(
 				document,
-				new EventManager(this)
-			)
+				new EventManager(this),
+			),
 		};
 	}
 
@@ -104,7 +106,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
 
 		state.set(key, {
 			width: context.width + e.screenX - context.x,
-			height: context.height + e.screenY - context.y
+			height: context.height + e.screenY - context.y,
 		});
 
 		layout({ [path]: state });

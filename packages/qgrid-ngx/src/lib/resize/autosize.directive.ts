@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Fastdom } from '@qgrid/core';
 
 @Directive({
-	selector: '[q-grid-autosize]'
+	selector: '[q-grid-autosize]',
 })
 export class AutoSizeDirective implements OnInit {
 	@Input('q-grid-autosize') selector;

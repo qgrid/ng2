@@ -4,7 +4,7 @@ import {
 	Input,
 	OnDestroy,
 	OnInit,
-	ViewContainerRef
+	ViewContainerRef,
 } from '@angular/core';
 import { ColumnModel, ColumnView, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
@@ -15,7 +15,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 @Directive({
-	selector: '[q-grid-core-tf]'
+	selector: '[q-grid-core-tf]',
 })
 export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	$implicit = this;
@@ -30,7 +30,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 		private cellClass: CellClassService,
 		private viewContainerRef: ViewContainerRef,
 		private tr: TrhCoreDirective,
-		elementRef: ElementRef
+		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement.parentNode;
 	}
