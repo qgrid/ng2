@@ -3,8 +3,7 @@ import { TemplateLinkService } from './template-link.service';
 import { TemplateLink } from './template-link';
 
 @Directive({
-	// tslint:disable-next-line
-	selector: 'ng-template[key]',
+	selector: 'ng-template[key]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateLinkDirective implements OnInit {
 	@Input() key = '';

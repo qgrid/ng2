@@ -10,8 +10,7 @@ import {
 import { TemplateService } from './template.service';
 
 @Directive({
-	// tslint:disable-next-line
-	selector: 'ng-container[key]',
+	selector: 'ng-container[key]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateDirective implements DoCheck, OnChanges {
 	private viewRef: EmbeddedViewRef<any>;
