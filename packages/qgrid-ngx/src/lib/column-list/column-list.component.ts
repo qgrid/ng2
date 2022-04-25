@@ -6,8 +6,8 @@ import { ColumnListService } from './column-list.service';
 
 @Component({
 	selector: 'q-grid-columns',
-	template: '<ng-content></ng-content
->',
+	template: `<ng-content></ng-content>
+`,
 	providers: [
 		ColumnListService,
 		GridPlugin,

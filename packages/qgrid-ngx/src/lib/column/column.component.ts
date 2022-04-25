@@ -26,8 +26,8 @@ import { ColumnHostService } from './column-host.service';
 
 @Component({
 	selector: 'q-grid-column',
-	template: '<ng-content></ng-content
->',
+	template: `<ng-content></ng-content>
+`,
 	providers: [
 		TemplateHostService,
 		ColumnHostService,
