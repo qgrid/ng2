@@ -7,6 +7,10 @@ export class LayerService {
 	private container: ViewContainerRef;
 	private layers = new Map<string, Layer>();
 
+	get count() {
+		return this.layers.size;
+	}
+
 	constructor(private templateService: TemplateService) {
 	}
 
@@ -41,10 +45,6 @@ export class LayerService {
 		const layer = new Layer(destroy);
 		this.layers.set(name, layer);
 		return layer;
-	}
-
-	get count() {
-		return this.layers.size;
 	}
 
 	private getHostElement() {

@@ -7,6 +7,14 @@ export class VscrollLink {
 	private box = new VscrollBox();
 	private ticking = false;
 
+	private get settings() {
+		return this.port.context.settings;
+	}
+
+	private get container() {
+		return this.port.context.container;
+	}
+
 	constructor(
 		private port: VscrollPort,
 		private view: VscrollDirective,
@@ -86,13 +94,5 @@ export class VscrollLink {
 				}
 			}
 		});
-	}
-
-	private get settings() {
-		return this.port.context.settings;
-	}
-
-	private get container() {
-		return this.port.context.container;
 	}
 }

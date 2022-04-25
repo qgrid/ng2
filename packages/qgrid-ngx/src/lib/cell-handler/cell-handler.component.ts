@@ -27,8 +27,9 @@ import { GridPlugin } from '../plugin/grid-plugin';
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private endBatchEdit: () => void;
 
-	canEditBatch = false;
 	@ViewChild('marker', { static: true }) marker: ElementRef;
+
+	canEditBatch = false;
 
 	constructor(
 		private elementRef: ElementRef,

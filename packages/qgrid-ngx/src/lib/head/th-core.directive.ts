@@ -25,6 +25,22 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	value: any;
 	label: any;
 
+	get column(): ColumnModel {
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.columnIndex;
+	}
+
+	get row() {
+		return this.tr.model;
+	}
+
+	get rowIndex() {
+		return this.tr.index;
+	}
+
 	constructor(
 		public $view: GridLet,
 		private root: GridPlugin,
@@ -55,25 +71,8 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		this.cellClass.toHead(element, column);
 		this.cellClass.toBody(element, targetColumn);
 
-
 		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
 		link(this.viewContainerRef, this);
-	}
-
-	get column(): ColumnModel {
-		return this.columnView.model;
-	}
-
-	get columnIndex() {
-		return this.columnView.columnIndex;
-	}
-
-	get row() {
-		return this.tr.model;
-	}
-
-	get rowIndex() {
-		return this.tr.index;
 	}
 
 	mode(value: string): void {

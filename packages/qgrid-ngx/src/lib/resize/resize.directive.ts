@@ -33,6 +33,10 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		width: 0,
 	};
 
+	private get model(): GridModel {
+		return this.plugin.model;
+	}
+
 	@Input('q-grid-resize') key;
 	@Input('q-grid-resize-path') path;
 	@Input('q-grid-can-resize') canResize;
@@ -125,9 +129,5 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		}
 
 		return this.element;
-	}
-
-	private get model(): GridModel {
-		return this.plugin.model;
 	}
 }

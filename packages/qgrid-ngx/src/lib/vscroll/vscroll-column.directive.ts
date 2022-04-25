@@ -13,8 +13,21 @@ import { VscrollPortYDirective } from './vscroll-port-y.directive';
 	selector: '[q-grid-vscroll-column]',
 })
 export class VscrollColumnDirective implements OnDestroy, OnChanges {
-	@Input('q-grid-vscroll-column') index: number;
 	private column: HTMLElement;
+
+	private get layout() {
+		return this.port.layout;
+	}
+
+	private get settings() {
+		return this.port.context.settings;
+	}
+
+	private get container() {
+		return this.port.context.container;
+	}
+
+	@Input('q-grid-vscroll-column') index: number;
 
 	constructor(elementRef: ElementRef, private port: VscrollPortYDirective) {
 		this.column = elementRef.nativeElement;
@@ -50,17 +63,5 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
 
 	ngOnDestroy() {
 		this.port.layout.removeItem(this.index);
-	}
-
-	private get layout() {
-		return this.port.layout;
-	}
-
-	private get settings() {
-		return this.port.context.settings;
-	}
-
-	private get container() {
-		return this.port.context.container;
 	}
 }

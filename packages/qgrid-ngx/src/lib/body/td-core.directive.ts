@@ -28,15 +28,55 @@ import { TrCoreDirective } from '../row/tr-core.directive';
 	selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
-	$implicit = this;
-
 	@Input('q-grid-core-value') actualValue: any;
 	@Input('q-grid-core-label') actualLabel: any;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
 
+	$implicit = this;
+
 	element: HTMLElement;
 	changes: SimpleChange;
+
+	get value() {
+		return this.actualValue;
+	}
+
+	set value(value) {
+		const { column, row, rowIndex, columnIndex } = this;
+		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
+	}
+
+	get label() {
+		return this.actualLabel;
+	}
+
+	set label(label) {
+		const { column, row, rowIndex, columnIndex } = this;
+		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
+	}
+
+	get column(): ColumnModel {
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.columnIndex;
+	}
+
+	get row() {
+		return this.tr.model;
+	}
+
+	get rowIndex() {
+		return this.tr.index;
+	}
+
+	get dataRowIndex() {
+		const { model } = this.root;
+		const { rows } = model.data();
+		return rows.indexOf(this.row);
+	}
 
 	constructor(
 		public $view: GridLet,
@@ -111,46 +151,6 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 				throw new GridError('td-core.directive', `Invalid mode ${value}`);
 			}
 		}
-	}
-
-	get value() {
-		return this.actualValue;
-	}
-
-	set value(value) {
-		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
-	}
-
-	get label() {
-		return this.actualLabel;
-	}
-
-	set label(label) {
-		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
-	}
-
-	get column(): ColumnModel {
-		return this.columnView.model;
-	}
-
-	get columnIndex() {
-		return this.columnView.columnIndex;
-	}
-
-	get row() {
-		return this.tr.model;
-	}
-
-	get rowIndex() {
-		return this.tr.index;
-	}
-
-	get dataRowIndex() {
-		const { model } = this.root;
-		const { rows } = model.data();
-		return rows.indexOf(this.row);
 	}
 
 	ngOnDestroy() {
