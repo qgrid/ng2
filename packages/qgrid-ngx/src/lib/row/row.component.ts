@@ -19,8 +19,8 @@ import { TemplateHostService } from '../template/template-host.service';
 // TODO: move it to plugins
 @Component({
 	selector: 'q-grid-row',
-	template: '<ng-content></ng-content
->',
+	template: `<ng-content></ng-content>
+`,
 	providers: [
 		TemplateHostService,
 		GridPlugin,
