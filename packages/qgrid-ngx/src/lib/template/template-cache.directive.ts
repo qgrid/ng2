@@ -10,8 +10,7 @@ import { TemplateHostService } from './template-host.service';
 import { TemplateLink } from './template-link';
 
 @Directive({
-	// tslint:disable-next-line
-	selector: 'ng-template[for]',
+	selector: 'ng-template[for]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateCacheDirective implements OnInit {
 	@Input('for') key = '';

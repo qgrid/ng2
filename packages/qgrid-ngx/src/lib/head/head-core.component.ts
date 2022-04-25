@@ -12,8 +12,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from '../table/table-core.service';
 
 @Component({
-	// tslint:disable-next-line
-	selector: 'thead[q-grid-core-head]',
+	selector: 'thead[q-grid-core-head]', // eslint-disable-line @angular-eslint/component-selector
 	templateUrl: './head-core.component.html',
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,

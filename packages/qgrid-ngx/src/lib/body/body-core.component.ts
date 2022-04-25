@@ -18,9 +18,9 @@ import { GridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from '../table/table-core.service';
+
 @Component({
-	// tslint:disable-next-line
-	selector: 'tbody[q-grid-core-body]',
+	selector: 'tbody[q-grid-core-body]', // eslint-disable-line @angular-eslint/component-selector
 	templateUrl: './body-core.component.html',
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,

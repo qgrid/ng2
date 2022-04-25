@@ -5,8 +5,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from '../table/table-core.service';
 
 @Component({
-	// tslint:disable-next-line
-	selector: 'tfoot[q-grid-core-foot]',
+	selector: 'tfoot[q-grid-core-foot]', // eslint-disable-line @angular-eslint/component-selector
 	templateUrl: './foot-core.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [GridPlugin],
