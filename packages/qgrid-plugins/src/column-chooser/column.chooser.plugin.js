@@ -1,6 +1,25 @@
-import { Aggregation, Command, copy, Event, identity, isFunction, preOrderDFS } from '@qgrid/core';
+import {
+	Aggregation,
+	Command,
+	copy,
+	Event,
+	identity,
+	isFunction,
+	preOrderDFS,
+	filterNode,
+	findNode,
+} from '@qgrid/core';
 
 export class ColumnChooserPlugin {
+
+	get canAggregate() {
+		return this.columnChooserCanAggregate;
+	}
+
+	get resource() {
+		return this.plugin.model.columnChooser().resource;
+	}
+
 	constructor(plugin, context) {
 		this.plugin = plugin;
 
@@ -22,7 +41,7 @@ export class ColumnChooserPlugin {
 					isVisible: model.isVisible,
 					isDefault: model.isDefault,
 					canMove: model.canMove,
-					aggregation: model.aggregation
+					aggregation: model.aggregation,
 				};
 
 				if (parent) {
@@ -52,7 +71,7 @@ export class ColumnChooserPlugin {
 					this.listView.push(n.value.column);
 				}
 			});
-		}
+		};
 
 		this.search = value => {
 			const search = ('' + value).toLowerCase();
@@ -78,26 +97,26 @@ export class ColumnChooserPlugin {
 		this.toggle = new Command({
 			source: 'column.chooser',
 			canExecute: node => node.value.isVisible,
-			execute: node => toggle(node, !this.state(node))
+			execute: node => toggle(node, !this.state(node)),
 		});
 
 		this.toggleAll = new Command({
 			source: 'column.chooser',
 			execute: () => {
 				const state = !this.stateAll();
-				for (let column of this.listView) {
+				for (const column of this.listView) {
 					column.isVisible = state;
 				}
-			}
+			},
 		});
 
 		this.defaults = new Command({
 			source: 'column.chooser',
 			execute: () => {
-				for (let column of this.listView) {
+				for (const column of this.listView) {
 					column.isVisible = column.isDefault !== false;
 				}
-			}
+			},
 		});
 
 		this.toggleAggregation = new Command({ source: 'column.chooser' });
@@ -146,7 +165,7 @@ export class ColumnChooserPlugin {
 						break;
 					}
 				}
-			}
+			},
 		});
 
 		this.drag = new Command({
@@ -154,7 +173,7 @@ export class ColumnChooserPlugin {
 			canExecute: e => {
 				const node = e.data;
 				return node && node.value.column.canMove;
-			}
+			},
 		});
 
 		this.submit = new Command({
@@ -182,21 +201,21 @@ export class ColumnChooserPlugin {
 
 				const { model: gridModel } = this.plugin;
 				gridModel.columnList({ index }, {
-					source: 'column.chooser.view'
+					source: 'column.chooser.view',
 				});
 
 				this.submitEvent.emit();
-			}
+			},
 		});
 
 		this.cancel = new Command({
 			source: 'column.chooser',
-			execute: () => this.cancelEvent.emit()
+			execute: () => this.cancelEvent.emit(),
 		});
 
 		this.reset = new Command({
 			source: 'column.chooser',
-			execute: () => setup()
+			execute: () => setup(),
 		});
 
 		this.aggregations = Object
@@ -242,18 +261,12 @@ export class ColumnChooserPlugin {
 	}
 
 	stateDefault() {
-		return this.listView.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
+		return this.listView.every(
+			c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false)
+		);
 	}
 
 	isIndeterminate() {
 		return !this.stateAll() && this.listView.some(c => c.isVisible);
-	}
-
-	get canAggregate() {
-		return this.columnChooserCanAggregate;
-	}
-
-	get resource() {
-		return this.plugin.model.columnChooser().resource;
 	}
 }

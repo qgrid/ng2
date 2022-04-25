@@ -1,6 +1,6 @@
 function rewriteObject(obj) {
 	const result = {};
-	for (let [key, value] of Object.entries(obj)) {
+	for (const [key, value] of Object.entries(obj)) {
 		result[key] = value;
 	}
 	return result;
@@ -32,7 +32,7 @@ export class XlsxReader {
 			}
 		}
 		let result = [];
-		for (let sheetName of workbook.SheetNames) {
+		for (const sheetName of workbook.SheetNames) {
 			const partial = this.xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], wbOptions);
 			result = partial.concat(result);
 		}

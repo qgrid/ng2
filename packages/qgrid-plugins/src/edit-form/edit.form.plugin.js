@@ -1,6 +1,22 @@
 import { Command, Event } from '@qgrid/core';
 
 export class EditFormPlugin {
+
+	get commands() {
+		const commands = {
+			submit: new Command({
+				source: 'edit.form',
+				execute: () => this.submitEvent.emit(),
+			}),
+			cancel: new Command({
+				source: 'edit.form',
+				execute: () => this.cancelEvent.emit(),
+			}),
+		};
+
+		return commands;
+	}
+
 	constructor(model, context) {
 		this.model = model;
 
@@ -13,20 +29,5 @@ export class EditFormPlugin {
 
 		this.submit = this.commands.submit;
 		this.cancel = this.commands.cancel;
-	}
-
-	get commands() {
-		const commands = {
-			submit: new Command({
-				source: 'edit.form',
-				execute: () => this.submitEvent.emit()
-			}),
-			cancel: new Command({
-				source: 'edit.form',
-				execute: () => this.cancelEvent.emit()
-			})
-		};
-
-		return commands;
 	}
 }

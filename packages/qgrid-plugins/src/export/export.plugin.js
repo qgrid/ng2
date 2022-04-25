@@ -1,9 +1,28 @@
-import { Command, CsvExport, JsonExport, PluginService, XmlExport } from '@qgrid/core';
+import {
+	Command,
+	CsvExport,
+	JsonExport,
+	PluginService,
+	XmlExport,
+} from '@qgrid/core';
 import { downloadFactory } from './download';
 import { PdfWriter } from './pdf';
 import { XlsxWriter } from './xlsx';
 
 export class ExportPlugin {
+
+	get columns() {
+		return this.model.columnList().line;
+	}
+
+	get rows() {
+		return this.model.view().rows;
+	}
+
+	get id() {
+		return this.model.grid().id;
+	}
+
 	constructor(model, type) {
 		this.model = model;
 		this.type = type;
@@ -18,7 +37,7 @@ export class ExportPlugin {
 				const data = csv.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
 				download(this.id, data, `text/${this.type}`);
-			}
+			},
 		});
 
 		this.json = new Command({
@@ -31,7 +50,7 @@ export class ExportPlugin {
 				const data = json.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
 				download(this.id, data, `text/${this.type}`);
-			}
+			},
 		});
 
 		this.xml = new Command({
@@ -44,7 +63,7 @@ export class ExportPlugin {
 				const data = xml.write(this.rows);
 				const download = downloadFactory(fileSaver);
 				download(this.id, data, `application/${this.type}`);
-			}
+			},
 		});
 
 		this.xlsx = new Command({
@@ -58,7 +77,7 @@ export class ExportPlugin {
 				const data = xlsx.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
 				download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
-			}
+			},
 		});
 
 		this.pdf = new Command({
@@ -69,19 +88,7 @@ export class ExportPlugin {
 				const lib = pluginService.resolve('pdf');
 				const pdf = new PdfWriter(lib);
 				pdf.write(this.rows, this.columns, this.id);
-			}
+			},
 		});
-	}
-
-	get columns() {
-		return this.model.columnList().line;
-	}
-
-	get rows() {
-		return this.model.view().rows;
-	}
-
-	get id() {
-		return this.model.grid().id;
 	}
 }

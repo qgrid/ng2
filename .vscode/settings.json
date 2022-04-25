@@ -8,6 +8,7 @@
     "editor.insertSpaces": false,
     "editor.detectIndentation": false,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": false,
+			"source.sortImports": false
     }
   }
