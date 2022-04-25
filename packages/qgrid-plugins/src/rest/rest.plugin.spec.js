@@ -1,6 +1,7 @@
 import { GridService } from '@qgrid/core/grid/grid.service';
 import { RestView } from './rest.view';
 import { modelFactory } from '@qgrid/core/test/model.factory';
+import * as chai from 'chai';
 
 describe('rest plugin', () => {
 	let config;
@@ -13,10 +14,10 @@ describe('rest plugin', () => {
 		model = modelFactory();
 		service = new GridService(model);
 		get = chai.spy(
-			(url, params) => new Promise(resolve => resolve({ data: [] }))
+			() => new Promise(resolve => resolve({ data: [] }))
 		);
 		post = chai.spy(
-			(url, params) => new Promise(resolve => resolve({ data: [] }))
+			() => new Promise(resolve => resolve({ data: [] }))
 		);
 		config = { get, post };
 	});
@@ -43,7 +44,7 @@ describe('rest plugin', () => {
 					order: '',
 					filter: '',
 					skip: 0,
-					take: 50
+					take: 50,
 				});
 				done();
 			});
@@ -71,7 +72,7 @@ describe('rest plugin', () => {
 			model.rest({
 				url: 'url',
 				method: 'post',
-				serialize: model => 'serialized'
+				serialize: () => 'serialized',
 			});
 
 			new RestView(model, config);
@@ -89,7 +90,7 @@ describe('rest plugin', () => {
 					order: '',
 					filter: '',
 					skip: 0,
-					take: 50
+					take: 50,
 				});
 				done();
 			});

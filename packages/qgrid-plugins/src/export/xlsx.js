@@ -24,10 +24,10 @@ export class XlsxWriter {
 		const headers = [];
 		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
 
-		for (let row of rows) {
+		for (const row of rows) {
 			result.push(graphFlatView(row));
 		}
-		for (let column of columns) {
+		for (const column of columns) {
 			headers.push(column.title);
 		}
 		const worksheet = this.xlsx.utils.json_to_sheet(result);
@@ -41,7 +41,7 @@ export class XlsxWriter {
 		const range = this.xlsx.utils.decode_range(worksheet['!ref']);
 		for (let i = range.s.r; i <= range.e.r; ++i) {
 			const address = this.xlsx.utils.encode_col(i) + '1';
-			if (!worksheet[address]) continue;
+			if (!worksheet[address]) {continue;}
 			worksheet[address].v = headers[i];
 		}
 		return worksheet;

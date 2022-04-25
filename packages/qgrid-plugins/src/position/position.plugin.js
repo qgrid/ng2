@@ -1,4 +1,11 @@
-import { EventListener, EventManager, Fastdom, GRID_PREFIX, jobLine, max } from '@qgrid/core';
+import {
+	EventListener,
+	EventManager,
+	Fastdom,
+	GRID_PREFIX,
+	jobLine,
+	max,
+} from '@qgrid/core';
 
 export class PositionPlugin {
 	constructor(context, disposable) {
@@ -46,7 +53,7 @@ export class PositionPlugin {
 				top: top,
 				right: left + width,
 				bottom: top + height,
-				left: left
+				left: left,
 			}));
 
 		intersections.push(
@@ -54,7 +61,7 @@ export class PositionPlugin {
 				top: top,
 				right: right,
 				bottom: top + height,
-				left: right - width
+				left: right - width,
 			}));
 
 		intersections.push(
@@ -62,7 +69,7 @@ export class PositionPlugin {
 				top: bottom - height,
 				right: left + width,
 				bottom: bottom,
-				left: left
+				left: left,
 			}));
 
 		intersections.push(
@@ -70,7 +77,7 @@ export class PositionPlugin {
 				top: bottom - height,
 				right: right,
 				bottom: bottom,
-				left: right - width
+				left: right - width,
 			}));
 
 		const intersection = max(intersections, i => i.area);
@@ -141,7 +148,7 @@ export class PositionPlugin {
 			bottom: h,
 			right: w,
 			height: h,
-			width: w
+			width: w,
 		};
 	}
 }
