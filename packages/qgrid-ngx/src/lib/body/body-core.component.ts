@@ -97,7 +97,7 @@ export class BodyCoreComponent implements OnInit {
 		return item.model.key;
 	}
 
-	rowId(index: number, row: any) {
+	rowId(index: number) {
 		return index;
 	}
 

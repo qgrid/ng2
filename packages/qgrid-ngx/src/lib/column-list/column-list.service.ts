@@ -12,7 +12,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 export class ColumnListService {
 	private host = new Lazy(() => {
 		const canCopy = (key: string, source, target) =>
-			target.hasOwnProperty(key) && !isUndefined(source[key]);
+			Object.prototype.hasOwnProperty.call(target, key) && !isUndefined(source[key]);
 
 		return new ColumnListHost(this.plugin.model, canCopy, parseFactory);
 	});

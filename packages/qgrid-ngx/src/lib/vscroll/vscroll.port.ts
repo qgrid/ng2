@@ -1,8 +1,6 @@
 import { VscrollBox } from './vscroll.box';
-import { VscrollDirective } from './vscroll.directive';
 import { IVscrollPosition } from './vscroll.position';
 import { VscrollLayout } from './vscroll.layout';
-import { VscrollLink } from './vscroll.link';
 import { VscrollContext } from './vscroll.context';
 
 export function applyHTML(element: HTMLElement) {

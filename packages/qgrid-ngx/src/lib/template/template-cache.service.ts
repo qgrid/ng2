@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { TemplateLink } from './template-link';
 
 @Injectable()

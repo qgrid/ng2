@@ -1,16 +1,16 @@
 import {
-ChangeDetectionStrategy,
-Component,
-Input,
-OnChanges,
-OnInit
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnChanges,
+	OnInit
 } from '@angular/core'
 import {
-Command,
-RowDetails,
-RowState,
-RowStateMode,
-RowStateUnit
+	Command,
+	RowDetails,
+	RowState,
+	RowStateMode,
+	RowStateUnit
 } from '@qgrid/core'
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
