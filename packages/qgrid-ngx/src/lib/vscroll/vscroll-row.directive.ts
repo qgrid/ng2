@@ -2,7 +2,6 @@ import {
 	Directive,
 	Input,
 	ElementRef,
-	OnInit,
 	OnDestroy,
 	OnChanges,
 	SimpleChanges,

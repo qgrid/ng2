@@ -4,7 +4,7 @@ export {
 	ModelEventArg as GridEventArg,
 	NotifyModel as GridNotifyModel,
 	ReadModel as GridReadModel,
-	WriteModel as GridWriteModel
+	WriteModel as GridWriteModel,
 } from '@qgrid/core';
 
 

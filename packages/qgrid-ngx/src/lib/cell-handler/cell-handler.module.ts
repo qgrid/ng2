@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CellHandlerComponent } from './cell-handler.component';
-import { MarkupModule } from '../markup/markup.module';
 
 @NgModule({
 	declarations: [

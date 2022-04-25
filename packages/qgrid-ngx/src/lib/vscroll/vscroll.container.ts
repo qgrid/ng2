@@ -36,7 +36,7 @@ export class VscrollContainer implements IVscrollContainer {
 		f();
 	}
 
-	apply(f: () => void, emit: (f: () => void) => void) {
+	apply(f: () => void, emit: (x: () => void) => void) {
 		emit(f);
 	}
 

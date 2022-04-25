@@ -102,7 +102,7 @@ export class VscrollPortYDirective implements VscrollPort, OnChanges {
 	}
 
 	private pad(pos: string, value: number) {
-		if (this.markup.hasOwnProperty(pos)) {
+		if (Object.prototype.hasOwnProperty.call(this.markup, pos)) {
 			const mark = this.markup[pos];
 			mark.style.height = value + 'px';
 		} else {
