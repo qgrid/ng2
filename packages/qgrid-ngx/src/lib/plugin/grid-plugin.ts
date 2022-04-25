@@ -20,17 +20,6 @@ export class GridPlugin implements OnDestroy {
 
 	readonly disposable = new Disposable();
 
-	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => new ObservableEvent(event, this.disposable);
-
-	readonly observeReply = <TState>(event: Event<TState>): ObservableLike<TState> => new ObservableReplyEvent(event, this.disposable);
-
-	constructor(
-		private $view: NgxGridLet,
-		private $root: GridRoot,
-		private qgrid: Grid,
-	) {
-	}
-
 	get model(): GridModel {
 		const { model } = this.$root;
 		return model;
@@ -48,6 +37,17 @@ export class GridPlugin implements OnDestroy {
 	get service(): GridService {
 		return this.serviceLazy.instance;
 	}
+
+	constructor(
+		private $view: NgxGridLet,
+		private $root: GridRoot,
+		private qgrid: Grid,
+	) {
+	}
+
+	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => new ObservableEvent(event, this.disposable);
+
+	readonly observeReply = <TState>(event: Event<TState>): ObservableLike<TState> => new ObservableReplyEvent(event, this.disposable);
 
 	ngOnDestroy() {
 		this.disposable.finalize();

@@ -28,6 +28,15 @@ import { TableCoreService } from '../table/table-core.service';
 export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
 
+	// @deprecated
+	get selection(): SelectionState {
+		return this.model.selection();
+	}
+
+	get model(): GridModel {
+		return this.plugin.model;
+	}
+
 	constructor(
 		public $view: GridLet,
 		public $table: TableCoreService,
@@ -82,15 +91,6 @@ export class BodyCoreComponent implements OnInit {
 					this.cd.markForCheck();
 				}
 			});
-	}
-
-	// @deprecated
-	get selection(): SelectionState {
-		return this.model.selection();
-	}
-
-	get model(): GridModel {
-		return this.plugin.model;
 	}
 
 	columnId(index: number, item: ColumnView) {

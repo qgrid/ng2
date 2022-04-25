@@ -13,8 +13,6 @@ export class ThemeService {
 	changed = new Event<ThemeNameChangeEventArg>();
 	component: any;
 
-	constructor() { }
-
 	get name() {
 		return this.themeName;
 	}

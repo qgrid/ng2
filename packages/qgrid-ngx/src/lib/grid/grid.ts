@@ -19,16 +19,6 @@ export { GridService } from '@qgrid/core';
 
 @Injectable()
 export class Grid {
-	constructor(private modelBuilder: GridModelBuilder) {
-	}
-
-	model(): GridModel {
-		return this.modelBuilder.build();
-	}
-
-	service(model: GridModel): GridService {
-		return new GridService(model);
-	}
 
 	get noop() {
 		return noop;
@@ -68,5 +58,16 @@ export class Grid {
 
 	get labelFactory() {
 		return labelService.getLabelFactory;
+	}
+
+	constructor(private modelBuilder: GridModelBuilder) {
+	}
+
+	model(): GridModel {
+		return this.modelBuilder.build();
+	}
+
+	service(model: GridModel): GridService {
+		return new GridService(model);
 	}
 }

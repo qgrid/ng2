@@ -14,8 +14,9 @@ import { VscrollPort } from './vscroll.port';
 	selector: '[q-grid-vscroll-mark]',
 })
 export class VscrollMarkDirective implements OnInit, OnDestroy {
-	@Input('q-grid-vscroll-mark') key: string;
 	private ports: Array<VscrollPort> = [];
+
+	@Input('q-grid-vscroll-mark') key: string;
 
 	constructor(
 		private elementRef: ElementRef,

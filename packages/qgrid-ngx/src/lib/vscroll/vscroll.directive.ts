@@ -14,6 +14,10 @@ export class VscrollDirective {
 	scroll = new EventEmitter();
 	reset = new EventEmitter<{ handled: boolean; source: string }>();
 
+	get element() {
+		return this.elementRef.nativeElement;
+	}
+
 	constructor(private elementRef: ElementRef, zone: NgZone, renderer: Renderer2) {
 		zone.runOutsideAngular(() => {
 			elementRef
@@ -33,10 +37,6 @@ export class VscrollDirective {
 				},
 			);
 		});
-	}
-
-	get element() {
-		return this.elementRef.nativeElement;
 	}
 
 	drawPlaceholder(width: number, height: number) {

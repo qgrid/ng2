@@ -101,6 +101,13 @@ export class GridComponent implements OnInit, OnChanges {
 		return this.root.model;
 	}
 
+	// @deprecated
+	get visibility(): VisibilityState {
+		// TODO: get rid of that
+		const { model } = this.plugin;
+		return model.visibility();
+	}
+
 	@Input('id') set gridId(id: string) { this.gridState({ id }); }
 	@Input('header') set gridTitle(header: string) { this.gridState({ caption: header }); }
 	@Input('caption') set gridCaption(caption: string) { this.gridState({ caption }); }
@@ -224,13 +231,6 @@ export class GridComponent implements OnInit, OnChanges {
 		}
 
 		this.stateAccessor.write(this.model);
-	}
-
-	// @deprecated
-	get visibility(): VisibilityState {
-		// TODO: get rid of that
-		const { model } = this.plugin;
-		return model.visibility();
 	}
 
 	private setup() {

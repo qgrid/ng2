@@ -13,9 +13,6 @@ export const rAF = window.requestAnimationFrame;
 export class VscrollContainer implements IVscrollContainer {
 	private lastPage = 0;
 
-	constructor(private settings: IVscrollSettings) {
-	}
-
 	force = false;
 	count = 0;
 	position = 0;
@@ -23,6 +20,17 @@ export class VscrollContainer implements IVscrollContainer {
 	reset$ = new EventEmitter<{ handled: boolean; source: string }>();
 	update$ = new EventEmitter<number>();
 	draw$ = new EventEmitter<{ position: number }>();
+
+	get currentPage() {
+		const threshold = this.settings.threshold;
+		const position = this.position;
+		return Math.ceil((position + threshold) / threshold) - 1;
+	}
+
+	constructor(
+		private settings: IVscrollSettings,
+	) {
+	}
 
 	tick(f: () => void) {
 		rAF(f);
@@ -38,12 +46,6 @@ export class VscrollContainer implements IVscrollContainer {
 
 	apply(f: () => void, emit: (x: () => void) => void) {
 		emit(f);
-	}
-
-	get currentPage() {
-		const threshold = this.settings.threshold;
-		const position = this.position;
-		return Math.ceil((position + threshold) / threshold) - 1;
 	}
 
 	update(count: number) {

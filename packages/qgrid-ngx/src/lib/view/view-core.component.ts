@@ -33,6 +33,11 @@ import { GridPlugin } from '../plugin/grid-plugin';
 export class ViewCoreComponent implements OnInit, DoCheck {
 	private host: ViewHost;
 
+	get visibility(): VisibilityState {
+		const { model } = this.plugin;
+		return model.visibility();
+	}
+
 	constructor(
 		private plugin: GridPlugin,
 		private qgrid: Grid,
@@ -157,10 +162,5 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 				asVirtualBody.requestInvalidate.on(() => this.host.invalidate());
 			}
 		}
-	}
-
-	get visibility(): VisibilityState {
-		const { model } = this.plugin;
-		return model.visibility();
 	}
 }

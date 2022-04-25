@@ -19,16 +19,16 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 
 	element: HTMLElement;
 
+	get index() {
+		return this.$view.scroll.y.container.position + this.viewIndex;
+	}
+
 	constructor(
 		public $view: GridLet,
 		private plugin: GridPlugin,
 		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement;
-	}
-
-	get index() {
-		return this.$view.scroll.y.container.position + this.viewIndex;
 	}
 
 	ngOnInit() {

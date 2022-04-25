@@ -19,6 +19,11 @@ import { TableCoreService } from './table-core.service';
 export class TableCoreComponent implements OnInit {
 	@Input() pin: ColumnModelPin = 'mid';
 
+	get visibility(): VisibilityState {
+		const { model } = this.plugin;
+		return model.visibility();
+	}
+
 	constructor(
 		public $view: GridLet,
 		private plugin: GridPlugin,
@@ -37,10 +42,5 @@ export class TableCoreComponent implements OnInit {
 				this.cd.markForCheck();
 				this.cd.detectChanges();
 			});
-	}
-
-	get visibility(): VisibilityState {
-		const { model } = this.plugin;
-		return model.visibility();
 	}
 }

@@ -21,9 +21,10 @@ import { capitalize } from './vscroll.utility';
 export class VscrollPortYDirective implements VscrollPort, OnChanges {
 	private link: VscrollLink = null;
 
+	@Input('q-grid-vscroll-port-y') context: VscrollContext;
+
 	layout: VscrollLayout = null;
 	markup: { [key: string]: HTMLElement } = {};
-	@Input('q-grid-vscroll-port-y') context: VscrollContext;
 
 	constructor(
 		private elementRef: ElementRef,
