@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import * as labelService from '@qgrid/core';
 import * as valueService from '@qgrid/core';
-import { Action, Command, GridService, identity, Node, noop, Pipe, PipeUnit, RowDetailsStatus } from '@qgrid/core';
+import {
+	Action,
+	Command,
+	GridService,
+	identity,
+	Node,
+	noop,
+	Pipe,
+	PipeUnit,
+	RowDetailsStatus,
+} from '@qgrid/core';
 import { GridModelBuilder } from '../grid/grid-model.builder';
 import { GridModel } from './grid-model';
 
@@ -9,16 +19,6 @@ export { GridService } from '@qgrid/core';
 
 @Injectable()
 export class Grid {
-	constructor(private modelBuilder: GridModelBuilder) {
-	}
-
-	model(): GridModel {
-		return this.modelBuilder.build();
-	}
-
-	service(model: GridModel): GridService {
-		return new GridService(model);
-	}
 
 	get noop() {
 		return noop;
@@ -58,5 +58,16 @@ export class Grid {
 
 	get labelFactory() {
 		return labelService.getLabelFactory;
+	}
+
+	constructor(private modelBuilder: GridModelBuilder) {
+	}
+
+	model(): GridModel {
+		return this.modelBuilder.build();
+	}
+
+	service(model: GridModel): GridService {
+		return new GridService(model);
 	}
 }

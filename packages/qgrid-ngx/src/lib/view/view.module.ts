@@ -6,16 +6,16 @@ import { TableModule } from '../table/table.module';
 
 @NgModule({
 	declarations: [
-		ViewCoreComponent
+		ViewCoreComponent,
 	],
 	exports: [
-		ViewCoreComponent
+		ViewCoreComponent,
 	],
 	imports: [
 		CommonModule,
 		CellHandlerModule,
 		TableModule,
-	]
+	],
 })
 export class ViewModule {
 }

@@ -6,15 +6,15 @@ import { TemplateModule } from '../template/template.module';
 @NgModule({
 	declarations: [
 		ToolbarComponent,
-		ToolbarCoreComponent
+		ToolbarCoreComponent,
 	],
 	exports: [
 		ToolbarComponent,
-		ToolbarCoreComponent
+		ToolbarCoreComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class ToolbarModule {
 }

@@ -14,6 +14,14 @@ export class VscrollLayout {
 	private position = findPositionUsingOffsets(0, []);
 	private getOffsets = recycleFactory(this.items);
 
+	private get container() {
+		return this.port.context.container;
+	}
+
+	private get settings() {
+		return this.port.context.settings;
+	}
+
 	constructor(private port: VscrollPort) {
 	}
 
@@ -128,13 +136,5 @@ export class VscrollLayout {
 		}
 
 		return UNSET_ARM;
-	}
-
-	private get container() {
-		return this.port.context.container;
-	}
-
-	private get settings() {
-		return this.port.context.settings;
 	}
 }

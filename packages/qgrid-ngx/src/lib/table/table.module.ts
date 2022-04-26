@@ -13,7 +13,7 @@ import { VscrollModule } from '../vscroll/vscroll.module';
 		TableCoreComponent,
 	],
 	exports: [
-		TableCoreComponent
+		TableCoreComponent,
 	],
 	imports: [
 		CommonModule,
@@ -23,8 +23,8 @@ import { VscrollModule } from '../vscroll/vscroll.module';
 		BodyModule,
 		MarkupModule,
 		DndModule,
-		VscrollModule
-	]
+		VscrollModule,
+	],
 })
 export class TableModule {
 }

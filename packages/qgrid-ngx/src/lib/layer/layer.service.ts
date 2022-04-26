@@ -7,6 +7,10 @@ export class LayerService {
 	private container: ViewContainerRef;
 	private layers = new Map<string, Layer>();
 
+	get count() {
+		return this.layers.size;
+	}
+
 	constructor(private templateService: TemplateService) {
 	}
 
@@ -43,17 +47,13 @@ export class LayerService {
 		return layer;
 	}
 
-	get count() {
-		return this.layers.size;
-	}
-
 	private getHostElement() {
 		const { nativeElement } = this.container.element;
-		for (let el = nativeElement; !!el; el = el.parentElement) {
-			if (el.tagName == 'Q-GRID') {
+		for (let el = nativeElement; el; el = el.parentElement) {
+			if (el.tagName === 'Q-GRID') {
 				return el;
 			}
 		}
-		return null;	
+		return null;
 	}
 }

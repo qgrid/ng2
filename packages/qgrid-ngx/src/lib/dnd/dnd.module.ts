@@ -5,12 +5,12 @@ import { DropDirective } from './drop.directive';
 @NgModule({
 	declarations: [
 		DragDirective,
-		DropDirective
+		DropDirective,
 	],
 	exports: [
 		DragDirective,
-		DropDirective
-	]
+		DropDirective,
+	],
 })
 export class DndModule {
 }

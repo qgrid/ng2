@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+	ChangeDetectorRef,
+	Directive,
+	Input,
+	OnChanges,
+	SimpleChanges,
+} from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-dirty]',

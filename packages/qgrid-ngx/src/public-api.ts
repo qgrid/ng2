@@ -25,7 +25,7 @@ export { DragDirective } from './lib/dnd/drag.directive';
 export { DropDirective } from './lib/dnd/drop.directive';
 export {
 	DomBag, DomBox,
-	DomCell, DomData, DomRow, DomTable, DomTd, DomTr, DomView
+	DomCell, DomData, DomRow, DomTable, DomTd, DomTr, DomView,
 } from './lib/dom/dom';
 export { FootCoreComponent } from './lib/foot/foot-core.component';
 export { FootModule } from './lib/foot/foot.module';

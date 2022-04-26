@@ -32,7 +32,7 @@ export function findPositionUsingItemSize(value: number, itemSize: number) {
 		offset: itemSize * index,
 		lastOffset: 0,
 		value,
-		pad: 0
+		pad: 0,
 	};
 }
 
@@ -45,7 +45,7 @@ export function findPositionUsingOffsets(value: number, offsets: Array<number>):
 			offset: offsets[index - 1],
 			lastOffset: offsets[length - 1],
 			value,
-			pad: 0
+			pad: 0,
 		};
 	}
 
@@ -54,7 +54,7 @@ export function findPositionUsingOffsets(value: number, offsets: Array<number>):
 		offset: 0,
 		lastOffset: 0,
 		value,
-		pad: 0
+		pad: 0,
 	};
 }
 

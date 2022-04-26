@@ -38,14 +38,14 @@ import { GridComponent } from './grid.component';
 		CurrencyPipe,
 		GridModelBuilder,
 		Grid,
-	]
+	],
 })
 export class GridModule {
 	constructor(
 		zone: NgZone,
 		datePipe: DatePipe,
 		numberPipe: DecimalPipe,
-		currencyPipe: CurrencyPipe
+		currencyPipe: CurrencyPipe,
 	) {
 		FormatService.date = (x, format) => datePipe.transform(x, format);
 		FormatService.number = (x, format) => numberPipe.transform(x, format);

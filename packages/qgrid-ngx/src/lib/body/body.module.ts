@@ -19,7 +19,7 @@ import { RowModule } from '../row/row.module';
 	],
 	exports: [
 		BodyCoreComponent,
-	]
+	],
 })
 export class BodyModule {
 }

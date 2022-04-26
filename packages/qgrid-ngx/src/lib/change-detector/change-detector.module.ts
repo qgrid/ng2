@@ -7,7 +7,7 @@ import { DirtyDirective } from './dirty.directive';
 	],
 	exports: [
 		DirtyDirective,
-	]
+	],
 })
 export class ChangeDetectorModule {
 }
