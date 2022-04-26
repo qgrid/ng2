@@ -63,11 +63,11 @@
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
     "no-use-before-define": ["error", {
-				"functions": false,
-				"variables": true,
-				"classes": true
-			}
-		],
+        "functions": false,
+        "variables": true,
+        "classes": true
+      }
+    ],
     "no-var": "error",
     "prefer-const": "error",
     "quotes": ["error", "single"],
