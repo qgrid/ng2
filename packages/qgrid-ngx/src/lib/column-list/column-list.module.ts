@@ -6,8 +6,8 @@ import { ColumnListComponent } from './column-list.component';
 		ColumnListComponent,
 	],
 	exports: [
-		ColumnListComponent
-	]
+		ColumnListComponent,
+	],
 })
 export class ColumnListModule {
 }

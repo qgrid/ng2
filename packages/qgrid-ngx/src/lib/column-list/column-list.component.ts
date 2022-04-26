@@ -6,9 +6,14 @@ import { ColumnListService } from './column-list.service';
 
 @Component({
 	selector: 'q-grid-columns',
-	template: '<ng-content></ng-content>',
-	providers: [ColumnListService, GridPlugin, StateAccessor],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	template: `<ng-content></ng-content>
+`,
+	providers: [
+		ColumnListService,
+		GridPlugin,
+		StateAccessor,
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnListComponent implements OnChanges {
 	private columnListAccessor = this.stateAccessor.setter(ColumnListState);

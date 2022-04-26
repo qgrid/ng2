@@ -9,7 +9,7 @@ import { DndModule } from '../dnd/dnd.module';
 @NgModule({
 	declarations: [
 		HeadCoreComponent,
-		ThCoreDirective
+		ThCoreDirective,
 	],
 	exports: [
 		HeadCoreComponent,
@@ -20,7 +20,7 @@ import { DndModule } from '../dnd/dnd.module';
 		RowModule,
 		ResizeModule,
 		DndModule,
-	]
+	],
 })
 export class HeadModule {
 }

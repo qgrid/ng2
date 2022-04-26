@@ -2,14 +2,19 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Fastdom } from '@qgrid/core';
 
 @Directive({
-	selector: '[q-grid-autosize]'
+	selector: '[q-grid-autosize]',
 })
 export class AutoSizeDirective implements OnInit {
-	@Input('q-grid-autosize') selector;
-	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
 	private actualText: string;
 	private host: HTMLElement;
 	private element: HTMLInputElement;
+
+	@Input('q-grid-autosize') selector;
+	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
+
+	@Input('q-grid-autosize-value') set value(value: string) {
+		this.autoWidth(value);
+	}
 
 	constructor(element: ElementRef) {
 		this.host = element.nativeElement as HTMLInputElement;
@@ -43,11 +48,6 @@ export class AutoSizeDirective implements OnInit {
 			const width = `${this.calculateWidth(this.element, text)}px`;
 			Fastdom.mutate(() => this.host.style.width = width);
 		});
-	}
-
-	@Input('q-grid-autosize-value')
-	set value(value: string) {
-		this.autoWidth(value);
 	}
 
 	private calculateWidth(element: HTMLElement, text: string) {

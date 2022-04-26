@@ -16,7 +16,7 @@ import { VscrollDirective } from './vscroll.directive';
 		VscrollMarkDirective,
 		VscrollPortXDirective,
 		VscrollPortYDirective,
-		VscrollPipe
+		VscrollPipe,
 	],
 	exports: [
 		VscrollDirective,
@@ -25,11 +25,11 @@ import { VscrollDirective } from './vscroll.directive';
 		VscrollMarkDirective,
 		VscrollPortXDirective,
 		VscrollPortYDirective,
-		VscrollPipe
+		VscrollPipe,
 	],
 	providers: [
-		VscrollService
-	]
+		VscrollService,
+	],
 })
 export class VscrollModule {
 }

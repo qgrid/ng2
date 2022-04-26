@@ -16,8 +16,8 @@ import { TemplateModule } from '../template/template.module';
 		LayerComponent,
 	],
 	imports: [
-		TemplateModule
-	]
+		TemplateModule,
+	],
 })
 export class LayerModule {
 }

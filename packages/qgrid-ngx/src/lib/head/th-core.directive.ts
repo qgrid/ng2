@@ -4,7 +4,7 @@ import {
 	Input,
 	OnDestroy,
 	OnInit,
-	ViewContainerRef
+	ViewContainerRef,
 } from '@angular/core';
 import { ColumnModel, ColumnView, FilterRowColumnModel, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
@@ -15,7 +15,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 @Directive({
-	selector: '[q-grid-core-th]'
+	selector: '[q-grid-core-th]',
 })
 export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	@Input('q-grid-core-th') columnView: ColumnView;
@@ -25,6 +25,22 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	value: any;
 	label: any;
 
+	get column(): ColumnModel {
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.columnIndex;
+	}
+
+	get row() {
+		return this.tr.model;
+	}
+
+	get rowIndex() {
+		return this.tr.index;
+	}
+
 	constructor(
 		public $view: GridLet,
 		private root: GridPlugin,
@@ -32,7 +48,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		private cellTemplate: CellTemplateService,
 		private cellClass: CellClassService,
 		private tr: TrhCoreDirective,
-		elementRef: ElementRef
+		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement.parentNode;
 	}
@@ -55,31 +71,14 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		this.cellClass.toHead(element, column);
 		this.cellClass.toBody(element, targetColumn);
 
-
 		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
 		link(this.viewContainerRef, this);
-	}
-
-	get column(): ColumnModel {
-		return this.columnView.model;
-	}
-
-	get columnIndex() {
-		return this.columnView.columnIndex;
-	}
-
-	get row() {
-		return this.tr.model;
-	}
-
-	get rowIndex() {
-		return this.tr.index;
 	}
 
 	mode(value: string): void {
 		throw new GridError(
 			'th-core.directive',
-			`${value} mode is not supported`
+			`${value} mode is not supported`,
 		);
 	}
 

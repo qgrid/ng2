@@ -1,10 +1,16 @@
-import { Directive, ElementRef, Input, OnInit, Optional } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnInit,
+	Optional,
+} from '@angular/core';
 import { TableCoreService } from '../table/table-core.service';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
 	selector: '[q-grid-markup]',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
 })
 export class MarkupDirective implements OnInit {
 	@Input('q-grid-markup') name = '';
@@ -12,7 +18,7 @@ export class MarkupDirective implements OnInit {
 	constructor(
 		private plugin: GridPlugin,
 		private elementRef: ElementRef,
-		@Optional() private table: TableCoreService
+		@Optional() private table: TableCoreService,
 	) { }
 
 	ngOnInit() {

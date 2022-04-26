@@ -1,4 +1,10 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnChanges,
+	SimpleChanges,
+} from '@angular/core';
 import { isNumber } from '@qgrid/core';
 import { VscrollBox } from './vscroll.box';
 import { VscrollContext } from './vscroll.context';
@@ -10,18 +16,19 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, IVscrollPosition, 
 import { capitalize } from './vscroll.utility';
 
 @Directive({
-	selector: '[q-grid-vscroll-port-y]'
+	selector: '[q-grid-vscroll-port-y]',
 })
 export class VscrollPortYDirective implements VscrollPort, OnChanges {
 	private link: VscrollLink = null;
 
+	@Input('q-grid-vscroll-port-y') context: VscrollContext;
+
 	layout: VscrollLayout = null;
 	markup: { [key: string]: HTMLElement } = {};
-	@Input('q-grid-vscroll-port-y') context: VscrollContext;
 
 	constructor(
 		private elementRef: ElementRef,
-		private view: VscrollDirective
+		private view: VscrollDirective,
 	) {
 	}
 
@@ -96,7 +103,7 @@ export class VscrollPortYDirective implements VscrollPort, OnChanges {
 	}
 
 	private pad(pos: string, value: number) {
-		if (this.markup.hasOwnProperty(pos)) {
+		if (Object.prototype.hasOwnProperty.call(this.markup, pos)) {
 			const mark = this.markup[pos];
 			mark.style.height = value + 'px';
 		} else {
