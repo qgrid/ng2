@@ -6,7 +6,7 @@
   "files.insertFinalNewline": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": false,
-  "editor.detectIndentation": false,
+  "editor.detectIndentation": true,
   "editor.codeActionsOnSave": {
     "source.sortImports": false,
     "source.organizeImports": false
