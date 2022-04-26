@@ -11,6 +11,6 @@ export function serializePost(model) {
 			return (value === 'asc' ? '+' : '-') + key;
 		}),
 		skip: paginationState.current * paginationState.size,
-		take: paginationState.size
+		take: paginationState.size,
 	};
 }

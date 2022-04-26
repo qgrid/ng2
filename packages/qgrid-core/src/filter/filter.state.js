@@ -15,10 +15,10 @@ export class FilterState {
 		this.assertFactory = () => ({
 			equals: (x, y) => x === y,
 			lessThan: (x, y) => x < y,
-			isNull: x => x === '' || x === null || x === undefined
+			isNull: x => x === '' || x === null || x === undefined,
 		});
 
-		this.operatorFactory = (column) => {
+		this.operatorFactory = column => {
 			switch (column.type) {
 				case 'text':
 				case 'url':

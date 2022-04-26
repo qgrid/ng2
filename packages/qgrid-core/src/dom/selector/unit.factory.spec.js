@@ -11,11 +11,11 @@ describe('UnitFactory', () => {
 	const cellResult = {
 		element: 'div',
 		rowIndex: 3,
-		columnIndex: 4
+		columnIndex: 4,
 	};
 	const rowResult = {
 		element: 'div',
-		index: 3
+		index: 3,
 	};
 
 	describe('cell', () => {

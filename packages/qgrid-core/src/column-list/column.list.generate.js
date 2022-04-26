@@ -18,7 +18,7 @@ function merge(left, right, force = false) {
 		equals: (l, r) => l.key === r.key,
 		update: (l, r) => assignWith(l, r, canAssign),
 		insert: (r, l) => l.push(r),
-		remove: noop
+		remove: noop,
 	});
 
 	return doMerge(left, right);
@@ -74,7 +74,7 @@ function build(graph, pathParts, settings) {
 					const columns = build(
 						subject,
 						propParts,
-						settings
+						settings,
 					);
 
 					if (cohort) {
@@ -115,7 +115,7 @@ export function generate(settings) {
 		columnFactory: () => new TextColumnModel(),
 		title: startCase,
 		testNumber: 10,
-		typeDetection: 'inference'
+		typeDetection: 'inference',
 	}, settings);
 
 	if (context.rows.length) {
@@ -129,7 +129,7 @@ export function generate(settings) {
 				title: context.title,
 				typeDetection: context.typeDetection,
 				testRows: context.rows.slice(0, context.testNumber),
-			}
+			},
 		);
 	}
 
@@ -151,7 +151,7 @@ export function generateFactory(model) {
 				columnFactory: createColumn,
 				deep: false,
 				cohort: false,
-				typeDetection
+				typeDetection,
 			};
 
 			switch (generation) {
@@ -170,7 +170,7 @@ export function generateFactory(model) {
 				default:
 					throw new GridError(
 						'column.list.generate',
-						`Invalid generation mode "${generation}"`
+						`Invalid generation mode "${generation}"`,
 					);
 			}
 
@@ -182,20 +182,20 @@ export function generateFactory(model) {
 		const statistics = [];
 		if (spawnColumns.length) {
 			statistics.push(
-				merge(columns, spawnColumns, false)
+				merge(columns, spawnColumns, false),
 			);
 		}
 
 		if (htmlColumns.length) {
 			statistics.push(
-				merge(columns, htmlColumns, true)
+				merge(columns, htmlColumns, true),
 			);
 		}
 
 		return {
 			columns,
 			statistics,
-			hasChanges: hasChanges(statistics)
+			hasChanges: hasChanges(statistics),
 		};
 	};
 }

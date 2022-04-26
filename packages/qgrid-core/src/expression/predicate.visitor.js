@@ -25,7 +25,7 @@ export class PredicateVisitor extends Visitor {
 				default:
 					throw GridError(
 						'predicate.visitor',
-						`Invalid operation ${group.op}`
+						`Invalid operation ${group.op}`,
 					);
 			}
 		}
@@ -131,10 +131,10 @@ export class PredicateVisitor extends Visitor {
 				break;
 			}
 			case 'in': {
-				predicate = (actual) => {
+				predicate = actual => {
 					if (isArray(actual)) {
 						for (const value of map) {
-							if (actual.some((item) => '' + item === value)) {
+							if (actual.some(item => '' + item === value)) {
 								return true;
 							}
 						}
@@ -172,7 +172,7 @@ export class PredicateVisitor extends Visitor {
 			default:
 				throw new GridError(
 					'predicate.visitor',
-					`Invalid operation ${condition.op}`
+					`Invalid operation ${condition.op}`,
 				);
 		}
 

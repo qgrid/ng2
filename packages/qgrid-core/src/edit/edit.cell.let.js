@@ -73,9 +73,9 @@ export class EditCellLet {
 						// this is a trick to go back to the view mode and trigger enter
 						// TODO: make it better
 						model.edit({
-							status: 'view'
+							status: 'view',
 						}, {
-							source: 'edit.cell.view'
+							source: 'edit.cell.view',
 						});
 
 						if (this.enter.canExecute()) {
@@ -85,9 +85,9 @@ export class EditCellLet {
 						// this is a trick to go back to the edit mode and trigger cancel
 						// TODO: make it better
 						model.edit({
-							status: 'edit'
+							status: 'edit',
 						}, {
-							source: 'edit.cell.view'
+							source: 'edit.cell.view',
 						});
 
 						if (this.requestClose) {
@@ -201,7 +201,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			commit: new Command({
 				priority: 1,
@@ -241,7 +241,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			push: new Command({
 				priority: 1,
@@ -274,7 +274,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			cancel: new Command({
 				priority: 1,
@@ -307,7 +307,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			reset: new Command({
 				priority: 1,
@@ -333,7 +333,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			exit: new Command({
 				priority: 1,
@@ -362,7 +362,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			clear: new Command({
 				priority: 1,
@@ -388,12 +388,12 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 		};
 
 		return new Map(
-			Object.entries(commands)
+			Object.entries(commands),
 		);
 	}
 
@@ -411,7 +411,7 @@ export class EditCellLet {
 			unit: 'cell',
 			tag,
 			getValueFactory,
-			getLabelFactory
+			getLabelFactory,
 		};
 	}
 

@@ -43,6 +43,6 @@ export function setValue(row, column, value) {
 
 	throw new GridError(
 		'value',
-		`Row can't be edit on "${column.key}" column`
+		`Row can't be edit on "${column.key}" column`,
 	);
 }

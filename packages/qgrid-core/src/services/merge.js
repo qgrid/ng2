@@ -14,7 +14,7 @@ export function merge(settings) {
 		insert: (r, left) => {
 			left.push(r);
 			return r;
-		}
+		},
 	}, settings);
 
 	return (left, right, result) => {

@@ -81,7 +81,7 @@ export class RowLet {
 						break;
 					}
 				}
-			}
+			},
 		});
 
 		this.drag = new Command({
@@ -102,11 +102,11 @@ export class RowLet {
 				}
 
 				return false;
-			}
+			},
 		});
 
 		this.resize = new Command({
-			source: 'row.view'
+			source: 'row.view',
 		});
 
 		observe(model.dataChanged)
@@ -116,7 +116,7 @@ export class RowLet {
 						index: new Map(),
 					}, {
 						source: 'row.view',
-						behavior: 'core'
+						behavior: 'core',
 					});
 				}
 			});

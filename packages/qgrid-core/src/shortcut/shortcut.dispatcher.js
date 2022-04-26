@@ -15,7 +15,7 @@ export class ShortcutDispatcher {
 		if (!context) {
 			context = {
 				commands: [],
-				shortcuts: new Map()
+				shortcuts: new Map(),
 			};
 
 			this.managerMap.set(manager, context);
@@ -95,7 +95,7 @@ export class ShortcutDispatcher {
 			.from(this.managerMap.entries())
 			.map(([manager, context]) => ({
 				manager,
-				commands: manager.filter(search(context), source)
+				commands: manager.filter(search(context), source),
 			}));
 
 		// Skip wildcard commands if there are some explicit shortcuts

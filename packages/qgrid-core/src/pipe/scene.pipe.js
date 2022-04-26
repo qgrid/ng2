@@ -7,7 +7,7 @@ export function scenePipe(memo, context, next) {
 
 	const tag = {
 		source: context.source || 'scene.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	};
 
 	const { model } = context;
@@ -28,8 +28,8 @@ export function scenePipe(memo, context, next) {
 		column: {
 			rows: scene.columnRows(memo.columns),
 			area: scene.columnArea(memo.columns),
-			line: columnLine
-		}
+			line: columnLine,
+		},
 	}, tag);
 
 	next(memo);

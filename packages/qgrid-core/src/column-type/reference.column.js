@@ -4,12 +4,12 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('reference-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('reference-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class ReferenceColumnModel extends DataColumnModel {

@@ -2,17 +2,21 @@ import { collapse, expand } from './column.matrix';
 
 describe('column matrix', () => {
 
-	const col = (key, rowspan, colspan) => {
-		key = key;
-		rowspan = rowspan;
-		colspan = colspan;
-	};
+	const col = (key, rowspan, colspan) => ({
+		key: key,
+		rowspan: rowspan,
+		colspan: colspan,
+	});
 
 	const lineKeyFactory = line => i => line[i].key;
 	const viewKeyFactory = view => (i, j) => view[i][j].key;
 
 	const columnRows = [
-		[col('A', 1, 1), col('B', 1, 2), col('C', 3, 1)],
+		[
+			col('A', 1, 1),
+			col('B', 1, 2),
+			col('C', 3, 1),
+		],
 		[col('D', 3, 1), col('E', 1, 2)],
 		[col('F', 2, 1), col('G', 1, 1)],
 		[col('H', 1, 2)],
@@ -23,10 +27,30 @@ describe('column matrix', () => {
 		const key = viewKeyFactory(view);
 
 		const etalonView = [
-			['A', 'B', 'B', 'C'],
-			['D', 'E', 'E', 'C'],
-			['D', 'F', 'G', 'C'],
-			['D', 'F', 'H', 'H'],
+			[
+				'A',
+				'B',
+				'B',
+				'C',
+			],
+			[
+				'D',
+				'E',
+				'E',
+				'C',
+			],
+			[
+				'D',
+				'F',
+				'G',
+				'C',
+			],
+			[
+				'D',
+				'F',
+				'H',
+				'H',
+			],
 		];
 
 		for (let i = 0; i < etalonView.length; i++) {

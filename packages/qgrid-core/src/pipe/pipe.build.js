@@ -10,7 +10,7 @@ export function buildFromModel(model) {
 			source,
 			changes,
 			valueFactory: getValueFactory,
-			labelFactory: getLabelFactory
+			labelFactory: getLabelFactory,
 		};
 
 		const { rows } = model.data();

@@ -21,7 +21,7 @@ export class SelectorFactory {
 				.map(({ element, rowRange, columnRange }) => ({
 					matrix: matrix.build(element),
 					rowRange,
-					columnRange
+					columnRange,
 				}));
 
 		const selectorFactory = context =>
@@ -42,7 +42,7 @@ export class SelectorFactory {
 					}
 
 					return f(...args);
-				}
+				},
 			}));
 
 		const unitFactory = new UnitFactory(new Range(0, 0), new Range(0, 0));

@@ -6,8 +6,21 @@ describe('merge.service', () => {
 	const foo = Merge.merge(settings);
 
 	it('should return number of items of property updated and set values to result array', () => {
-		const left = [1, 2, 3];
-		const right = [1, 2, 3, 40, 50, 60, 70, 80];
+		const left = [
+			1,
+			2,
+			3,
+		];
+		const right = [
+			1,
+			2,
+			3,
+			40,
+			50,
+			60,
+			70,
+			80,
+		];
 		const result = [];
 		const resultObject = foo(left, right, result);
 
@@ -17,7 +30,14 @@ describe('merge.service', () => {
 
 	it('should return number of items of property inserted and set values to result array', () => {
 		const left = [1];
-		const right = [1, 2, 3, 4, 5, 6];
+		const right = [
+			1,
+			2,
+			3,
+			4,
+			5,
+			6,
+		];
 		const result = [];
 		const resultObject = foo(left, right, result);
 
@@ -26,7 +46,14 @@ describe('merge.service', () => {
 	});
 
 	it('should return number of items of property removed', () => {
-		const left = [1, 2, 3, 4, 5, 6];
+		const left = [
+			1,
+			2,
+			3,
+			4,
+			5,
+			6,
+		];
 		const right = [1];
 		const result = [];
 		const resultObject = foo(left, right, result);

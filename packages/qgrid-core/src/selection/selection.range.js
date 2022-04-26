@@ -10,7 +10,7 @@ export class SelectionRange {
 			'row': this.buildRows.bind(this),
 			'column': this.buildColumns.bind(this),
 			'cell': this.buildCells.bind(this),
-			'mix': this.buildMix.bind(this)
+			'mix': this.buildMix.bind(this),
 		};
 
 		const model = this.model;
@@ -50,10 +50,12 @@ export class SelectionRange {
 
 	buildCells(startCell, endCell) {
 		if (!endCell) {
-			return [{
-				column: startCell.column,
-				row: startCell.row
-			}];
+			return [
+				{
+					column: startCell.column,
+					row: startCell.row,
+				},
+			];
 		}
 
 		const model = this.model;
@@ -76,7 +78,7 @@ export class SelectionRange {
 				.forEach(column => {
 					items.push({
 						column: column,
-						row: row
+						row: row,
 					});
 				});
 		});
@@ -90,7 +92,7 @@ export class SelectionRange {
 		return range
 			.map(item => ({
 				item: item,
-				unit: mixUnit
+				unit: mixUnit,
 			}));
 	}
 }

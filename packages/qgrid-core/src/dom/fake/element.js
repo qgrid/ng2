@@ -6,7 +6,7 @@ const emptyRect = Object.freeze({
 	top: 0,
 	bottom: 0,
 	width: 0,
-	height: 0
+	height: 0,
 });
 
 export class FakeElement {

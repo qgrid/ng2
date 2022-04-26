@@ -4,7 +4,7 @@ import { ColumnModel } from './column.model';
 
 TemplatePath.register('row-expand-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 export class RowExpandColumnModel extends ColumnModel {

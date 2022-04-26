@@ -46,7 +46,7 @@ export class Model {
 		if (this.accessors.has(name)) {
 			throw new GridError(
 				'model',
-				`${name} accessor already exists`
+				`${name} accessor already exists`,
 			);
 		}
 
@@ -94,7 +94,7 @@ export class Model {
 				if (!hasOwnProperty.call(state, key)) {
 					throw new GridError(
 						`model.${name}`,
-						`"${key}" is not a valid key, only [${Object.keys(state).join(', ')}] keys are supported`
+						`"${key}" is not a valid key, only [${Object.keys(state).join(', ')}] keys are supported`,
 					);
 				}
 
@@ -116,7 +116,7 @@ export class Model {
 
 			if (hasChanges) {
 				state = {
-					...state
+					...state,
 				};
 
 				event.emit({
@@ -124,7 +124,7 @@ export class Model {
 					changes,
 					hasChanges: changes.hasOwnProperty.bind(changes),
 					tag: tag || {},
-					source: 'emit'
+					source: 'emit',
 				});
 			}
 

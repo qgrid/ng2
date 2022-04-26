@@ -2,10 +2,7 @@ import { GRID_PREFIX } from '../definition';
 import { escapeAttr } from '../services/css';
 
 export function bodyCellClassifier(column) {
-	const classList = [
-		`${GRID_PREFIX}-the-${escapeAttr(column.key)}`,
-		`${GRID_PREFIX}-${escapeAttr(column.type)}`,
-	];
+	const classList = [`${GRID_PREFIX}-the-${escapeAttr(column.key)}`, `${GRID_PREFIX}-${escapeAttr(column.type)}`];
 
 	if (column.editor) {
 		classList.push(`${GRID_PREFIX}-${escapeAttr(column.editor)}`);

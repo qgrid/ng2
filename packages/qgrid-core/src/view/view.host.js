@@ -1,7 +1,10 @@
 import { final } from '../infrastructure/final';
 import {
-	checkButtonCode, getButtonCode, LEFT_BUTTON,
-	NO_BUTTON, stringify
+	checkButtonCode,
+	getButtonCode,
+	LEFT_BUTTON,
+	NO_BUTTON,
+	stringify,
 } from '../mouse/mouse.code';
 import { PathService } from '../path/path.service';
 import { PipeUnit } from '../pipe/pipe.unit';
@@ -60,7 +63,7 @@ export class ViewHost {
 		const job = jobLine(timeout);
 		return (source, changes, units) => {
 			model.scene({ status: 'start' }, {
-				source
+				source,
 			});
 
 			session.push(...units);
@@ -73,8 +76,8 @@ export class ViewHost {
 						source,
 						changes,
 						pipe,
-						why: pipe.why || 'refresh'
-					})
+						why: pipe.why || 'refresh',
+					}),
 				);
 			});
 		};
@@ -124,9 +127,9 @@ export class ViewHost {
 		model.mouse({
 			code: stringify(getButtonCode(e)),
 			status: 'down',
-			target: td
+			target: td,
 		}, {
-			source: 'mouse.down'
+			source: 'mouse.down',
 		});
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {
@@ -165,7 +168,7 @@ export class ViewHost {
 			status: 'up',
 			target: td,
 		}, {
-			source: 'mouse.up'
+			source: 'mouse.up',
 		});
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {
@@ -180,7 +183,7 @@ export class ViewHost {
 			target: null,
 			timestamp: Date.now(),
 		}, {
-			source: 'mouse.up'
+			source: 'mouse.up',
 		});
 	}
 
@@ -198,14 +201,14 @@ export class ViewHost {
 
 			const newCell = {
 				rowIndex: td.rowIndex,
-				columnIndex: td.columnIndex
+				columnIndex: td.columnIndex,
 			};
 
 			model.mouse({
 				status: 'move',
-				target: cell || newCell
+				target: cell || newCell,
 			}, {
-				source: 'mouse.move'
+				source: 'mouse.move',
 			});
 
 			if (highlight.cell.canExecute(newCell)) {
@@ -242,7 +245,7 @@ export class ViewHost {
 				status: 'move',
 				target: null,
 			}, {
-				source: 'mouse.move'
+				source: 'mouse.move',
 			});
 		}
 	}
@@ -252,9 +255,9 @@ export class ViewHost {
 		model.mouse({
 			status: 'enter',
 			target: null,
-			code: null
+			code: null,
 		}, {
-			source: 'mouse.enter'
+			source: 'mouse.enter',
 		});
 	}
 
@@ -264,9 +267,9 @@ export class ViewHost {
 		model.mouse({
 			status: 'leave',
 			target: null,
-			code: null
+			code: null,
 		}, {
-			source: 'mouse.leave'
+			source: 'mouse.leave',
 		});
 
 		this.clearHighlight();

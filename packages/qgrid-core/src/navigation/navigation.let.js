@@ -35,21 +35,21 @@ export class NavigationLet {
 							rowIndex,
 							columnIndex,
 							row,
-							column
-						}
+							column,
+						},
 					}, {
 						source: 'navigation.view',
-						behavior
+						behavior,
 					});
 				} else {
 					model.navigation({
-						cell: null
+						cell: null,
 					}, {
 						source: 'navigation.view',
-						behavior
+						behavior,
 					});
 				}
-			}
+			},
 		});
 
 		this.scrollTo = new Command({
@@ -58,7 +58,7 @@ export class NavigationLet {
 				const cell = table.body.cell(row, column);
 				this.scroll(table.view, cell);
 			},
-			canExecute: (row, column) => table.body.cell(row, column).model() !== null
+			canExecute: (row, column) => table.body.cell(row, column).model() !== null,
 		});
 
 		observeReply(model.navigationChanged)
@@ -85,9 +85,9 @@ export class NavigationLet {
 
 					model.focus({
 						rowIndex,
-						columnIndex
+						columnIndex,
 					}, {
-						source: 'navigation.view'
+						source: 'navigation.view',
 					});
 				}
 			});
@@ -130,7 +130,7 @@ export class NavigationLet {
 								this.focus.execute({
 									rowIndex: td ? td.rowIndex : -1,
 									columnIndex: td ? td.columnIndex : -1,
-									behavior: 'core'
+									behavior: 'core',
 								});
 							}
 

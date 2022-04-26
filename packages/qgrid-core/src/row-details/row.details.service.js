@@ -69,7 +69,7 @@ export function invalidateStatus(rows, status, mode) {
 		default: {
 			throw new GridError(
 				'row.details.service',
-				`Invalid mode ${mode}`
+				`Invalid mode ${mode}`,
 			);
 		}
 	}

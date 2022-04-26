@@ -8,22 +8,38 @@ describe('pipe filter', () => {
 		expect(filter).to.be.a('function');
 	});
 
-	it('should pass data to the next stage with match', (done) => {
+	it('should pass data to the next stage with match', done => {
 		model.filter({
-			match: (ctx) => (item) => true,
+			match: () => () => true,
 		});
-		filter([1, 2, 3], { model }, (data) => {
-			expect(data).to.eql([1, 2, 3]);
+		filter([
+			1,
+			2,
+			3,
+		], { model }, data => {
+			expect(data).to.eql([
+				1,
+				2,
+				3,
+			]);
 			done();
 		});
 	});
 
-	it('should pass data to the next stage with custom', (done) => {
+	it('should pass data to the next stage with custom', done => {
 		model.filter({
-			custom: (item) => true,
+			custom: () => true,
 		});
-		filter([1, 2, 3], { model }, (data) => {
-			expect(data).to.eql([1, 2, 3]);
+		filter([
+			1,
+			2,
+			3,
+		], { model }, data => {
+			expect(data).to.eql([
+				1,
+				2,
+				3,
+			]);
 			done();
 		});
 	});

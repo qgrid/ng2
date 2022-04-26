@@ -6,18 +6,26 @@ describe('Middleware', () => {
 		expect(pipeline.run()).to.be.a('promise');
 	});
 
-	it('should call first stage with initial data', (done) => {
+	it('should call first stage with initial data', done => {
 		const pipeline = new Middleware([
 			(data, ctx, next) => {
-				expect(data).to.eql([1, 2, 3]);
+				expect(data).to.eql([
+					1,
+					2,
+					3,
+				]);
 				next(data);
-			}
+			},
 		]);
 
-		pipeline.run({}, [1, 2, 3]).then(() => done());
+		pipeline.run({}, [
+			1,
+			2,
+			3,
+		]).then(() => done());
 	});
 
-	it('should pass handled data to the next stage', (done) => {
+	it('should pass handled data to the next stage', done => {
 		const middleware = new Middleware([
 			(data, ctx, next) => {
 				next(data.slice(1));
@@ -25,16 +33,20 @@ describe('Middleware', () => {
 			(data, ctx, next) => {
 				expect(data).to.eqls([2, 3]);
 				next(data.slice(1));
-			}
+			},
 		]);
 
-		middleware.run({}, [1, 2, 3]).then((data) => {
+		middleware.run({}, [
+			1,
+			2,
+			3,
+		]).then(data => {
 			expect(data).to.eqls([3]);
 			done();
 		});
 	});
 
-	it('should be stopped if stage has exception', (done) => {
+	it('should be stopped if stage has exception', done => {
 		const middleware = new Middleware([
 			(data, ctx, next) => {
 				throw new Error('');
@@ -42,12 +54,16 @@ describe('Middleware', () => {
 			(data, ctx, next) => {
 				expect(true).to.be.equal(false);
 				next(data.slice(1));
-			}
+			},
 		]);
 
 		middleware
-			.run({}, [1, 2, 3])
-			.then((data) => {
+			.run({}, [
+				1,
+				2,
+				3,
+			])
+			.then(data => {
 			})
 			.catch(() => done());
 	});

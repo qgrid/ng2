@@ -5,11 +5,14 @@ import { Selector } from './selector';
 import { UnitFactory } from './unit.factory';
 
 describe('Selector', () => {
-	const row1 = [{
-		colSpan: 1
-	}, {
-		colSpan: 2
-	}];
+	const row1 = [
+		{
+			colSpan: 1,
+		},
+		{
+			colSpan: 2,
+		},
+	];
 	row1.forEach(td => td.parentElement = row1);
 	const row2 = [];
 	const rowRange = new Range(1, 3);
@@ -19,12 +22,12 @@ describe('Selector', () => {
 	bag.addRow({
 		element: row1,
 		model: [1,2],
-		index: 0
+		index: 0,
 	});
 	bag.addRow({
 		element: row2,
 		model: [],
-		index: 1
+		index: 1,
 	});
 	const factory = new UnitFactory(rowRange, columnRange);
 	const selector = new Selector(matrix, bag, factory);
@@ -44,7 +47,7 @@ describe('Selector', () => {
 		it('creates row', () => {
 			const test = {
 				element: row1,
-				index: 1
+				index: 1,
 			};
 
 			const result = selector.row(0);
@@ -54,7 +57,7 @@ describe('Selector', () => {
 		it('creates row using FakeElement', () => {
 			const test = {
 				element: new FakeElement(),
-				index: 4
+				index: 4,
 			};
 
 			const result = selector.row(3);
@@ -68,7 +71,7 @@ describe('Selector', () => {
 			const test = {
 				element: row1[1],
 				rowIndex: 1,
-				columnIndex: 2
+				columnIndex: 2,
 			};
 
 			const result = selector.cell(0, 1);
@@ -79,7 +82,7 @@ describe('Selector', () => {
 			const test = {
 				element: new FakeElement(),
 				rowIndex: 4,
-				columnIndex: 4
+				columnIndex: 4,
 			};
 
 			const result = selector.cell(3, 3);
@@ -93,12 +96,12 @@ describe('Selector', () => {
 			const test1 = {
 				element: row1[0],
 				rowIndex: 1,
-				columnIndex: 1
+				columnIndex: 1,
 			};
 			const test2 = {
 				element: row1[1],
 				rowIndex: 1,
-				columnIndex: 2
+				columnIndex: 2,
 			};
 
 			const result = selector.rowCells(0);
@@ -118,11 +121,11 @@ describe('Selector', () => {
 		it('undefined case', () => {
 			const test1 = {
 				element: row1,
-				index: 1
+				index: 1,
 			};
 			const test2 = {
 				element: row2,
-				index: 2
+				index: 2,
 			};
 
 			const result = selector.rows(undefined);
@@ -134,7 +137,7 @@ describe('Selector', () => {
 		it('rows', () => {
 			const test = {
 				element: row1,
-				index: 1
+				index: 1,
 			};
 
 			const result = selector.rows(1);
@@ -150,8 +153,7 @@ describe('Selector', () => {
 		const row2 = [];
 		const rowRange = new Range(1, 3);
 		const columnRange = new Range(1, 4);
-		const matrix = [[td0, td1],
-	                  [null, td1]];
+		const matrix = [[td0, td1], [null, td1]];
 		const bag = new Bag();
 		bag.addRow(row1);
 		bag.addRow(row2);
@@ -169,7 +171,7 @@ describe('Selector', () => {
 			const test = {
 				element: row1[0],
 				rowIndex: 1,
-				columnIndex: 1
+				columnIndex: 1,
 			};
 
 			const result = selector.columnCells(0);

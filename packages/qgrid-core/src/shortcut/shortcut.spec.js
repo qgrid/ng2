@@ -13,39 +13,43 @@ describe('Shortcut', () => {
 	command2.shortcut = () => 'alt|space';
 	const command3 = new Command();
 	command3.shortcut = () => 'enter|tab';
-	const cmds = [command1, command2, command3];
+	const cmds = [
+		command1,
+		command2,
+		command3,
+	];
 
 	const someKeyCode = {
-		code: 'alt+a+b+c+ctrl'
+		code: 'alt+a+b+c+ctrl',
 	};
 	const everyKeyCode = {
-		code: 'space+ctrl+f11'
+		code: 'space+ctrl+f11',
 	};
 	const incorrectCode = {
-		code: 'enter+a+b'
+		code: 'enter+a+b',
 	};
 	const nonPrintableCode = {
-		code: 'enter+pagedown'
+		code: 'enter+pagedown',
 	};
 	const keyCodeThatExist = {
 		code: 'delete',
-		key: 46
+		key: 46,
 	};
 	const keyCodeThatDoesntExist = {
 		code: 'deleeete',
-		key: 257
+		key: 257,
 	};
 	const event = {
 		keyCode: 27,
-		ctrlKey: true
+		ctrlKey: true,
 	};
 	const eventA = {
 		keyCode: 65,
-		shiftKey: true
+		shiftKey: true,
 	};
 	const shiftCtrl = {
 		keyCode: 16,
-		shiftKey: 'shift'
+		shiftKey: 'shift',
 	};
 
 	describe('isControl', () => {

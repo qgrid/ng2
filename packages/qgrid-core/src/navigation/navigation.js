@@ -90,7 +90,7 @@ export class Navigation {
 					const newRow = this.nextRow;
 					const newColumn = this.currentColumn;
 					return go.execute(this.context('down', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			goUp: new Command({
 				source: 'navigation',
@@ -107,7 +107,7 @@ export class Navigation {
 					const newRow = this.prevRow;
 					const newColumn = this.currentColumn;
 					return go.execute(this.context('up', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			goRight: new Command({
 				source: 'navigation',
@@ -124,7 +124,7 @@ export class Navigation {
 					const newRow = this.currentRow;
 					const newColumn = this.nextColumn;
 					return go.execute(this.context('right', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			goLeft: new Command({
 				source: 'navigation',
@@ -141,7 +141,7 @@ export class Navigation {
 					const newRow = this.currentRow;
 					const newColumn = this.prevColumn;
 					return go.execute(this.context('left', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			goNext: new Command({
 				source: 'navigation',
@@ -160,7 +160,7 @@ export class Navigation {
 					const newColumn = hasNextColumn ? nextColumn : this.firstColumn;
 
 					return go.execute(this.context('next', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			goPrevious: new Command({
 				source: 'navigation',
@@ -178,7 +178,7 @@ export class Navigation {
 					const newColumn = hasPrevColumn ? prevColumn : this.lastColumn;
 					const newRow = hasPrevColumn ? this.currentRow : this.prevRow;
 					return go.execute(this.context('previous', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			home: new Command({
 				source: 'navigation',
@@ -195,7 +195,7 @@ export class Navigation {
 					const newRow = this.currentRow;
 					const newColumn = this.firstColumn;
 					return go.execute(this.context('home', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			end: new Command({
 				source: 'navigation',
@@ -212,7 +212,7 @@ export class Navigation {
 					const newRow = this.currentRow;
 					const newColumn = this.lastColumn;
 					return go.execute(this.context('end', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			upward: new Command({
 				source: 'navigation',
@@ -229,7 +229,7 @@ export class Navigation {
 					const newRow = this.firstRow;
 					const newColumn = this.currentColumn;
 					return go.execute(this.context('upward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			downward: new Command({
 				source: 'navigation',
@@ -246,7 +246,7 @@ export class Navigation {
 					const newRow = this.lastRow;
 					const newColumn = this.currentColumn;
 					return go.execute(this.context('downward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
-				}
+				},
 			}),
 			pageUp: new Command({
 				source: 'navigation',
@@ -270,7 +270,7 @@ export class Navigation {
 					}
 
 					return false;
-				}
+				},
 			}),
 			pageDown: new Command({
 				source: 'navigation',
@@ -294,8 +294,8 @@ export class Navigation {
 					}
 
 					return false;
-				}
-			})
+				},
+			}),
 		};
 
 		return new Map(Object.entries(commands));
@@ -341,9 +341,9 @@ export class Navigation {
 		}
 
 		this.model.navigation({
-			cell
+			cell,
 		}, {
-			source
+			source,
 		});
 
 		return true;
@@ -370,7 +370,7 @@ export class Navigation {
 				rowIndex,
 				columnIndex,
 				row,
-				column
+				column,
 			};
 		}
 
@@ -388,7 +388,7 @@ export class Navigation {
 			type,
 			oldRow,
 			oldColumn,
-			keyCode
+			keyCode,
 		}, settings);
 	}
 }

@@ -12,7 +12,7 @@ describe('ModelBinder', () => {
 
 			return state;
 		},
-		stateChanged: new Event()
+		stateChanged: new Event(),
 	};
 
 	const modelNames = ['state'];
@@ -32,9 +32,9 @@ describe('ModelBinder', () => {
 				changes: {
 					prop: {
 						newValue: 'hostValue',
-						oldValue: model.state().prop
-					}
-				}
+						oldValue: model.state().prop,
+					},
+				},
 			});
 
 			expect(host.stateProp).to.equal('hostValue');

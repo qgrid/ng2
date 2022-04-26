@@ -16,7 +16,9 @@ export class Composite {
 		return new Command({
 			source: 'composite',
 			canExecute: (...args) => list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false),
-			execute: (...args) => list.filter(cmd => cmd.canExecute(...args)).reduce((memo, cmd) => cmd.execute(...args) || memo, undefined)
+			execute: (...args) =>
+				list.filter(cmd => cmd.canExecute(...args))
+					.reduce((memo, cmd) => cmd.execute(...args) || memo, undefined),
 		});
 	}
 

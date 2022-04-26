@@ -8,12 +8,12 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('datetime-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('datetime-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class DateTimeColumnModel extends DataColumnModel {

@@ -15,7 +15,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 
 	const column = columnMap[groupKey];
 	const getValue = getValueFactory(column);
-	return (rows, getRowIndex = (i) => i) => {
+	return (rows, getRowIndex = i => i) => {
 		const keys = [];
 		const nodes = [];
 		const groups = {};
@@ -31,7 +31,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 				nodes.push(node);
 				groups[key] = {
 					node,
-					rows: [row]
+					rows: [row],
 				};
 			} else {
 				const group = groups[key];

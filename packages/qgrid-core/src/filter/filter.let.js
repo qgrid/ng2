@@ -30,7 +30,7 @@ export class FilterLet {
 								kind: 'condition',
 								left: key,
 								op,
-								right: [null, search]
+								right: [null, search],
 							};
 							break;
 						}
@@ -39,7 +39,7 @@ export class FilterLet {
 								kind: 'condition',
 								left: key,
 								op,
-								right: search
+								right: search,
 							};
 							break;
 						}
@@ -49,7 +49,7 @@ export class FilterLet {
 				}
 
 				model.filter({ by }, { source: 'filter.view' });
-			}
+			},
 		});
 	}
 

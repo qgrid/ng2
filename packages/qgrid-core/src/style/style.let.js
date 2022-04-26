@@ -14,12 +14,12 @@ export class StyleLet {
 		this.service = new StyleService(model);
 		this.active = {
 			row: false,
-			cell: false
+			cell: false,
 		};
 
 		this.monitor = {
 			row: new StyleMonitor(model),
-			cell: new StyleMonitor(model)
+			cell: new StyleMonitor(model),
 		};
 
 		observeReply(model.styleChanged)
@@ -50,7 +50,7 @@ export class StyleLet {
 
 		const { invalidate } = model.style();
 		const context = {
-			model
+			model,
 		};
 
 		return invalidate.canExecute(context) && invalidate.execute(context) !== false;
@@ -94,8 +94,8 @@ export class StyleLet {
 			value: null,
 			columns: {
 				map: columnMap,
-				list: columnList
-			}
+				list: columnList,
+			},
 		};
 
 		const cellContext = {
@@ -103,7 +103,7 @@ export class StyleLet {
 			row: -1,
 			column: -1,
 			value: null,
-			columns: rowContext.columns
+			columns: rowContext.columns,
 		};
 
 		// To improve performance take rows and cells directly from the bag and not from the DOM table.

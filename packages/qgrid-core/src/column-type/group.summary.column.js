@@ -4,7 +4,7 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('group-summary-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 export class GroupSummaryColumnModel extends DataColumnModel {

@@ -4,7 +4,7 @@ import { ColumnModel } from './column.model';
 
 TemplatePath.register('row-indicator-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 export class RowIndicatorColumnModel extends ColumnModel {

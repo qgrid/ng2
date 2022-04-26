@@ -6,7 +6,7 @@ describe('Guard', () => {
 		value: 'value',
 		null: null,
 		empty: '',
-		notFunction: 'text'
+		notFunction: 'text',
 	};
 
 	describe('notUndefined', () => {

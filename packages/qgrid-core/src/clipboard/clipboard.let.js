@@ -27,7 +27,7 @@ export class ClipboardLet {
 				}
 
 				return true;
-			}
+			},
 		});
 
 		shortcut.register([this.copy]);

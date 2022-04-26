@@ -3,22 +3,26 @@ import { buildExpression } from './expression.build';
 describe('Expression Build', () => {
 	const test1 = {
 		key: {
-			expression: 'expression'
-		}
+			expression: 'expression',
+		},
 	};
 
 	const test2 = {
 		key: {
 			expression: 'expression',
-			items: ['a', 'b', 'c']
-		}
+			items: [
+				'a',
+				'b',
+				'c',
+			],
+		},
 	};
 
 	const etalon1 = {
 		kind: 'group',
 		op: 'and',
 		left: 'expression',
-		right: null
+		right: null,
 	};
 
 	const etalon2 = {
@@ -35,12 +39,16 @@ describe('Expression Build', () => {
 					kind: 'condition',
 					left: 'key',
 					op: 'in',
-					right: ['a', 'b', 'c']
+					right: [
+						'a',
+						'b',
+						'c',
+					],
 				},
-				right: null
+				right: null,
 			},
-			right: null
-		}
+			right: null,
+		},
 	};
 
 	describe('build', () => {

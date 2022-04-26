@@ -103,7 +103,7 @@ export function widthFactory(table, form) {
 	const rectWidth = new Lazy(() =>
 		table.view.width('head-mid')
 		+ table.view.width('head-left')
-		+ table.view.width('head-right')
+		+ table.view.width('head-right'),
 	);
 
 	function calcWidth(column) {

@@ -237,6 +237,7 @@ export declare class ColumnModel {
 	/**
 	 * If children property is setup the column automatically becomes a group container.
 	 */
+	// eslint-disable-next-line no-use-before-define
 	children?: ColumnModel[];
 
 	/**

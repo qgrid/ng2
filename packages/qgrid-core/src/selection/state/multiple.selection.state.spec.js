@@ -3,27 +3,35 @@ import { SelectionService } from '../selection.service';
 import { MultipleSelectionState } from './multiple.selection.state';
 
 let model;
-const rows = [{
-	'id': 101,
-	'name': 'John Doe',
-	'age': 34
-}, {
-	'id': 102,
-	'name': 'David Smith',
-	'age': 30
-}, {
-	'id': 103,
-	'name': 'Lue Laserna',
-	'age': 25
-}];
+const rows = [
+	{
+		'id': 101,
+		'name': 'John Doe',
+		'age': 34,
+	},
+	{
+		'id': 102,
+		'name': 'David Smith',
+		'age': 30,
+	},
+	{
+		'id': 103,
+		'name': 'Lue Laserna',
+		'age': 25,
+	},
+];
 
-const columns = [{
-	key: 'id'
-}, {
-	key: 'name'
-}, {
-	key: 'age'
-}];
+const columns = [
+	{
+		key: 'id',
+	},
+	{
+		key: 'name',
+	},
+	{
+		key: 'age',
+	},
+];
 
 describe('multiple selection state', () => {
 	before('init model', () => {
@@ -33,10 +41,10 @@ describe('multiple selection state', () => {
 		model
 			.data({
 				rows,
-				columns
+				columns,
 			})
 			.selection({
-				mode: 'multiple'
+				mode: 'multiple',
 			});
 	});
 
@@ -44,13 +52,13 @@ describe('multiple selection state', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'row',
-				rowKey: row => row.id
+				rowKey: row => row.id,
 			});
 		});
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: []
+				items: [],
 			});
 		});
 
@@ -87,13 +95,13 @@ describe('multiple selection state', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'column',
-				columnKey: column => column.key
+				columnKey: column => column.key,
 			});
 		});
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: []
+				items: [],
 			});
 		});
 
@@ -131,7 +139,7 @@ describe('multiple selection state', () => {
 			model.selection({
 				unit: 'cell',
 				columnKey: column => column.key,
-				rowKey: row => row.id
+				rowKey: row => row.id,
 			});
 		});
 
@@ -140,7 +148,7 @@ describe('multiple selection state', () => {
 				columns.forEach(column => {
 					cells.push({
 						row,
-						column
+						column,
 					});
 				});
 			});
@@ -148,17 +156,14 @@ describe('multiple selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: []
+				items: [],
 			});
 		});
 
 		describe('select function', () => {
 			it('should be able to select multiple columns', () => {
 				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
-				selectionState.select([
-					cells[0],
-					cells[cells.length-1]
-				]);
+				selectionState.select([cells[0], cells[cells.length-1]]);
 
 				const entries = selectionState.entries();
 
@@ -178,10 +183,7 @@ describe('multiple selection state', () => {
 			it('should return state of cell', () => {
 				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 				const last = cells.length-1;
-				selectionState.select([
-					cells[0],
-					cells[last]
-				]);
+				selectionState.select([cells[0], cells[last]]);
 
 				const states = cells.map(cell => selectionState.state(cell));
 

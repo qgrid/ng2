@@ -3,14 +3,24 @@ import { EventManager } from './event.manager';
 describe('EventManager', () => {
 
 	const test = {
-		arr: [1, 2, 3],
+		arr: [
+			1,
+			2,
+			3,
+		],
 		checkLength: function () {
 			return this.arr.length;
-		}
+		},
 	};
 
 	const test2 = {
-		arr: [1, 2, 3, 4, 5]
+		arr: [
+			1,
+			2,
+			3,
+			4,
+			5,
+		],
 	};
 
 	const eventManager = new EventManager(test2);

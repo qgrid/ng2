@@ -1,23 +1,23 @@
 import { TableCommandManager } from './table.command.manager';
 
 describe('CompositeCommandManager', () => {
-	const commands = [],
-		i = 5,
-		arr = [],
-		tableWithFocus = {view: {isFocused: () => true}},
-		tableWithoutFocus = {view: {isFocused: () => false}},
-		apply = f => f();
+	const commands = [];
+	const arr = [];
+	const tableWithFocus = {view: {isFocused: () => true}};
+	const tableWithoutFocus = {view: {isFocused: () => false}};
+	const apply = f => f();
+	let i = 5;
 
 	while (i > 0) {
 		if (i % 2 === 0) {
 			commands.push({
 				execute: () => arr.push(1),
-				canExecute: () => true
+				canExecute: () => true,
 			});
 		} else {
 			commands.push({
 				execute: () => arr.push(2),
-				canExecute: () => false
+				canExecute: () => false,
 			});
 		}
 		i--;

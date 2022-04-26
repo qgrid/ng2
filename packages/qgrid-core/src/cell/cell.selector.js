@@ -58,7 +58,7 @@ export class CellSelector {
 
 		for (const item of items) {
 			const rowIndex = rows.indexOf(item.row);
-			const columnIndex = columns.findIndex((c) => c === item.column);
+			const columnIndex = columns.findIndex(c => c === item.column);
 			result.push(table.body.cell(rowIndex, columnIndex));
 		}
 
@@ -70,9 +70,6 @@ export class CellSelector {
 		const rows = entries.filter(item => item.unit === 'row').map(item => item.item);
 		const cells = entries.filter(item => item.unit === 'cell').map(item => item.item);
 
-		return [
-			...this.mapFromRows(rows),
-			...this.mapFromCells(cells)
-		];
+		return [...this.mapFromRows(rows), ...this.mapFromCells(cells)];
 	}
 }

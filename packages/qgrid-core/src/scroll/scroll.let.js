@@ -17,7 +17,7 @@ export class ScrollLet {
 		const rowHeight = row().height;
 		const settings = {
 			threshold: pagination().size,
-			resetTriggers: []
+			resetTriggers: [],
 		};
 
 		if (rowHeight > 0 || isFunction(rowHeight)) {
@@ -43,7 +43,7 @@ export class ScrollLet {
 			if (newCurrent !== current) {
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
-					behavior: 'core'
+					behavior: 'core',
 				});
 			}
 		};
@@ -54,7 +54,7 @@ export class ScrollLet {
 				const count = effect.memo.length;
 				pagination({ count }, {
 					source: 'scroll.view',
-					behavior: 'core'
+					behavior: 'core',
 				});
 
 				return count;
@@ -69,7 +69,7 @@ export class ScrollLet {
 
 			scroll({ cursor: position }, {
 				source: 'scroll.view',
-				behavior: 'core'
+				behavior: 'core',
 			});
 		});
 
@@ -78,7 +78,7 @@ export class ScrollLet {
 				this.y.settings.fetch = (skip, take, d) => {
 					fetch({ skip }, {
 						source: 'scroll.view',
-						behavior: 'core'
+						behavior: 'core',
 					});
 
 					if (skip === 0) {
@@ -87,7 +87,7 @@ export class ScrollLet {
 					} else {
 						service.invalidate({
 							source: 'scroll.view',
-							why: 'refresh'
+							why: 'refresh',
 						}).then(() => {
 							const count = updateTotalCount();
 							d.resolve(count);
@@ -108,7 +108,7 @@ export class ScrollLet {
 									if (resetTriggers.has(startSource)) {
 										fetch({ skip: 0 }, {
 											source: 'scroll.view',
-											behavior: 'core'
+											behavior: 'core',
 										});
 									}
 									break;
@@ -148,11 +148,11 @@ export class ScrollLet {
 							scroll({
 								map: {
 									rowToView: index => index - this.y.container.position,
-									viewToRow: index => index + this.y.container.position
-								}
+									viewToRow: index => index + this.y.container.position,
+								},
 							}, {
 								source: 'scroll.view',
-								behavior: 'core'
+								behavior: 'core',
 							});
 							break;
 						}
@@ -160,8 +160,8 @@ export class ScrollLet {
 							scroll({
 								map: {
 									rowToView: identity,
-									viewToRow: identity
-								}
+									viewToRow: identity,
+								},
 							});
 							break;
 						}

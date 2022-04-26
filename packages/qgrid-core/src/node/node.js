@@ -9,7 +9,7 @@ export class Node {
 		this.value = null;
 
 		this.state = {
-			expand: false
+			expand: false,
 		};
 	}
 }

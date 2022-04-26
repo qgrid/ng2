@@ -7,8 +7,8 @@ export function takeOnce() {
 				next: x => {
 					subscriber.next(x);
 					subscriber.complete();
-				}
-			})
+				},
+			}),
 		);
 }
 
@@ -20,7 +20,7 @@ export function filter(test) {
 					if (test(x)) {
 						subscriber.next(x);
 					}
-				}
-			})
+				},
+			}),
 		);
 }

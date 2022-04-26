@@ -9,5 +9,5 @@ function upload(element) {
 }
 
 export {
-	upload
+	upload,
 };

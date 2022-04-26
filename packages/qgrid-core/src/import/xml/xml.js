@@ -4,7 +4,7 @@ const NODE_TYPE = {
 	ELEMENT: 1,
 	ATTRIBUTE: 2,
 	TEXT: 3,
-	DOCUMENT: 9
+	DOCUMENT: 9,
 };
 
 export class XmlImport {
@@ -78,14 +78,14 @@ export class XmlImport {
 			lastInfo = {
 				isArray: false,
 				isObject: false,
-				isText: false
+				isText: false,
 			};
 		}
 
 		return {
 			isArray: lastInfo.isArray || Array.from(node.parentNode.children).filter(child => child.nodeName === node.nodeName).length > 1,
 			isObject: lastInfo.isObject || node.children.length > 0 || node.attributes.length > 0,
-			isText: lastInfo.isText || this.isTextContainer(node)
+			isText: lastInfo.isText || this.isTextContainer(node),
 		};
 	}
 

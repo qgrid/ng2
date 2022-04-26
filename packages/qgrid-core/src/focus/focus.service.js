@@ -49,9 +49,9 @@ export class FocusService {
 
 		if (current !== target) {
 			pagination({
-				current: target
+				current: target,
 			}, {
-				source: 'focus.service'
+				source: 'focus.service',
 			});
 
 			this.activate(rowIndex, columnIndex);
@@ -63,9 +63,9 @@ export class FocusService {
 		focus({
 			isActive: true,
 			rowIndex,
-			columnIndex
+			columnIndex,
 		}, {
-			source: 'focus.service'
+			source: 'focus.service',
 		});
 	}
 
@@ -84,7 +84,7 @@ export class FocusAfterRenderService {
 		observe(model.sceneChanged)
 			.pipe(
 				filter(e => e.hasChanges('status') && e.state.status === 'stop'),
-				takeOnce()
+				takeOnce(),
 			)
 			.subscribe(() => {
 				table.view.focus();

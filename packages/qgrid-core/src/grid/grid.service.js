@@ -14,7 +14,7 @@ function buildSettings(...args) {
 				source: args[0],
 				changes: args[1] || {},
 				pipe: args[2],
-				why: 'refresh'
+				why: 'refresh',
 			};
 		}
 
@@ -22,7 +22,7 @@ function buildSettings(...args) {
 			source: 'invalidate',
 			changes: {},
 			pipe: null,
-			why: 'refresh'
+			why: 'refresh',
 		}, args[0]);
 	}
 
@@ -30,7 +30,7 @@ function buildSettings(...args) {
 		source: 'invalidate',
 		changes: {},
 		pipe: null,
-		why: 'refresh'
+		why: 'refresh',
 	};
 }
 
@@ -54,7 +54,7 @@ export class GridService {
 			if (!scheduler.next()) {
 				scene({ status: 'pull' }, {
 					source,
-					behavior: 'core'
+					behavior: 'core',
 				});
 			}
 		};
@@ -64,7 +64,7 @@ export class GridService {
 			Log.info('grid', `start task ${source}`);
 			scene({ status: 'start' }, {
 				source,
-				behavior: 'core'
+				behavior: 'core',
 			});
 
 			model.head().cache.clear();

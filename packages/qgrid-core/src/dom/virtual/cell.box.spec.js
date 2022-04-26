@@ -3,7 +3,7 @@ import { CellBox } from './cell.box';
 describe('CellBox', () => {
 	const cell = {
 		dataRowIndex: 10,
-		dataColumnIndex: 20
+		dataColumnIndex: 20,
 	};
 
 	describe('key', () => {

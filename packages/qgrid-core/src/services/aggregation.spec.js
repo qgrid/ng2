@@ -2,7 +2,15 @@ import { Aggregation } from './aggregation';
 
 describe('Aggregation', () => {
 	const getValue = value => value;
-	const testArray = [2, 1, 2, 3, 3, 5, 4]; // sum - 20, uniqsum - 15
+	const testArray = [
+		2,
+		1,
+		2,
+		3,
+		3,
+		5,
+		4,
+	]; // sum - 20, uniqsum - 15
 	const optionsWithoutDistinctProperty = {separator: '|'};
 	const optionsWithDistinctProperty = {distinct: true, separator: '|'};
 	const ContainerOfSet = new Set();

@@ -63,7 +63,7 @@ export class HeadLet {
 										(node, root, parent) => {
 											node.level = (root || parent).level + 1;
 										},
-										target
+										target,
 									);
 
 									columnList({ index: tree }, { source: 'head.view' });
@@ -85,7 +85,7 @@ export class HeadLet {
 						break;
 					}
 				}
-			}
+			},
 		});
 
 		this.drag = new Command({
@@ -116,7 +116,7 @@ export class HeadLet {
 				const key = e.data;
 				const map = table.data.columnMap();
 				return hasOwnProperty.call(map, key) && map[key].canResize !== false;
-			}
+			},
 		});
 
 		observeReply(model.dataChanged)

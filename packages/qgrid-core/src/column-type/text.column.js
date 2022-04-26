@@ -4,17 +4,17 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('text-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('text-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('text-area-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class TextColumnModel extends DataColumnModel {
