@@ -12,7 +12,11 @@ describe('Csv', () => {
 	column3.title = 'Occupation';
 	column3.value = row => row;
 
-	const columns = [column1, column2, column3];
+	const columns = [
+		column1,
+		column2,
+		column3,
+	];
 	const rows = ['Empty','Filled'];
 
 	const csv = new CsvExport();

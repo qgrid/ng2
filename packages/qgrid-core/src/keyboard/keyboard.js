@@ -28,12 +28,10 @@ const controlSet = new Set([
 	'f11',
 	'f12',
 	'numlock',
-	'scrolllock'
+	'scrolllock',
 ]);
 
-const nonPrintableSet = new Set([
-	'enter'
-]);
+const nonPrintableSet = new Set(['enter']);
 
 const codeMap = new Map()
 	.set(8, 'backspace')

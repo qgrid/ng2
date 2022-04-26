@@ -10,7 +10,7 @@ export class RowState {
 		this.height = element => element && element.offsetHeight || 64; // number | function(element, index)
 		this.status = new Map();
 		this.shortcut = {
-			toggle: 'space|enter'
+			toggle: 'space|enter',
 		};
 		this.canMove = false;
 		this.canResize = false;

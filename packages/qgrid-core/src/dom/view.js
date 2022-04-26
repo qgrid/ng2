@@ -220,7 +220,11 @@ export class View extends Unit {
 
 	getElementsCore(key) {
 		const { markup } = this.context;
-		return [`${key}-left`, `${key}-mid`, `${key}-right`]
+		return [
+			`${key}-left`,
+			`${key}-mid`,
+			`${key}-right`,
+		]
 			.filter(key => hasOwnProperty.call(markup, key))
 			.map(key => markup[key]);
 	}

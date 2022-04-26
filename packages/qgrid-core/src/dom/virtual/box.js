@@ -125,8 +125,8 @@ export class VirtualBox extends Box {
 				this.createCellCore(
 					viewIndex,
 					columnIndex,
-					new VirtualElement(createRect(viewIndex, mapper.columnToView(columnIndex)))
-				)
+					new VirtualElement(createRect(viewIndex, mapper.columnToView(columnIndex))),
+				),
 			);
 	}
 
@@ -162,7 +162,7 @@ export class VirtualBox extends Box {
 				top: rect.top + rowHeight * index,
 				bottom: rect.top + rowHeight * (index + 1),
 				width: 0,
-				height: rowHeight
+				height: rowHeight,
 			};
 		};
 	}
@@ -198,7 +198,7 @@ export class VirtualBox extends Box {
 				top,
 				bottom: top + height,
 				width,
-				height
+				height,
 			};
 		};
 	}

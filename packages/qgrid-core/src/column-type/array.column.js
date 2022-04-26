@@ -7,12 +7,12 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('array-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('array-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class ArrayColumnModel extends DataColumnModel {

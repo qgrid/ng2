@@ -19,7 +19,7 @@ export class SelectionState {
 			toggleColumn: 'ctrl+space',
 			toggleNextColumn: 'shift+right',
 			togglePreviousColumn: 'shift+left',
-			selectAll: 'ctrl+a'
+			selectAll: 'ctrl+a',
 		};
 	}
 }

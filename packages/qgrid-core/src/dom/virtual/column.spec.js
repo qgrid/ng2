@@ -5,9 +5,9 @@ describe('VirtualColumn', () => {
 		cell: (value1, value2) => value1 + value2,
 		context: {
 			mapper: {
-				viewToColumn: (value) => value
-			}
-		}
+				viewToColumn: value => value,
+			},
+		},
 	};
 
 	describe('cell', () => {

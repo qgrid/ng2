@@ -22,7 +22,7 @@ class Plan {
 		if (this.isRoot) {
 			return {
 				schema: this.schema,
-				data: data
+				data: data,
 			};
 		} else {
 			return data;

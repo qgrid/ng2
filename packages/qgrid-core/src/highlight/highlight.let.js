@@ -52,7 +52,7 @@ export class HighlightLet {
 						source: 'highlight.view',
 					});
 				}
-			}
+			},
 		});
 
 		this.row = new Command({
@@ -76,16 +76,16 @@ export class HighlightLet {
 
 				if (hasChanges) {
 					model.highlight({ rows }, {
-						source: 'highlight.view'
+						source: 'highlight.view',
 					});
 				}
-			}
+			},
 		});
 
 		this.cell = new Command({
 			source: 'highlight.view',
 			canExecute: () => !this.isRendering,
-			execute: (newCell) => {
+			execute: newCell => {
 				const { cell } = model.highlight();
 				let hasChanges = true;
 				if (newCell === cell) {
@@ -98,10 +98,10 @@ export class HighlightLet {
 
 				if (hasChanges) {
 					model.highlight({ cell: newCell }, {
-						source: 'highlight.view'
+						source: 'highlight.view',
 					});
 				}
-			}
+			},
 		});
 
 		this.clear = new Command({
@@ -113,7 +113,7 @@ export class HighlightLet {
 				if (cell) {
 					this.cell.execute(null, false);
 				}
-			}
+			},
 		});
 
 		observeReply(model.selectionChanged)
@@ -174,9 +174,9 @@ export class HighlightLet {
 						model.highlight({
 							columns: [],
 							rows: [],
-							cell: null
+							cell: null,
 						}, {
-							source: 'highlight.view'
+							source: 'highlight.view',
 						});
 
 						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);

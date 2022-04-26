@@ -16,13 +16,13 @@ export class EditState {
 		this.clear = new Command({ source: 'edit.model' });
 
 		this.cancelShortcuts = {
-			'$default': 'escape'
+			'$default': 'escape',
 		};
 
 		this.enterShortcuts = {
 			'$default': '*',
 			'row': 'F2|Enter',
-			'form': 'F2|Enter'
+			'form': 'F2|Enter',
 		};
 
 		this.commitShortcuts = {
@@ -31,7 +31,7 @@ export class EditState {
 			'row': 'ctrl+s',
 			'form': 'ctrl+s',
 			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
-			'text-area': 'ctrl+s|ctrl+enter'
+			'text-area': 'ctrl+s|ctrl+enter',
 		};
 	}
 }

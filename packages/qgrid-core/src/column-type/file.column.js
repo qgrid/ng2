@@ -6,12 +6,12 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('file-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('file-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class FileColumnModel extends DataColumnModel {

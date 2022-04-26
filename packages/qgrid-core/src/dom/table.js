@@ -39,15 +39,15 @@ export class Table {
 				rowToView: index => scroll().map.rowToView(index),
 				viewToRow: index => scroll().map.viewToRow(index),
 				columnToView: identity,
-				viewToColumn: identity
+				viewToColumn: identity,
 			},
 			layer: () => new FakeLayer(),
 			bag: {
 				head: new Bag(),
 				body: new Bag(),
-				foot: new Bag()
+				foot: new Bag(),
 			},
-			markup: {}
+			markup: {},
 		};
 
 		this.box = assignWith(defaults, box);
@@ -82,7 +82,7 @@ export class Table {
 					bag: bag[source],
 					view,
 					data,
-					markup
+					markup,
 				};
 			}
 			default: {
@@ -91,13 +91,13 @@ export class Table {
 						rowToView: identity,
 						viewToRow: identity,
 						columnToView: identity,
-						viewToColumn: identity
+						viewToColumn: identity,
 					},
 					layer,
 					bag: bag[source],
 					view,
 					data,
-					markup
+					markup,
 				};
 			}
 		}

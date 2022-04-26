@@ -34,7 +34,7 @@ export class BodyHost {
 		if (hasChanges) {
 			scroll(newValue, {
 				source: 'body.core',
-				behavior: 'core'
+				behavior: 'core',
 			});
 		}
 

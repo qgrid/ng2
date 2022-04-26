@@ -5,12 +5,12 @@ import { ColumnModel } from './column.model';
 
 TemplatePath.register('select-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('select-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class SelectColumnModel extends ColumnModel {

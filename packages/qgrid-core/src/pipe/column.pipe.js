@@ -249,10 +249,10 @@ export function columnPipe(memo, context, next) {
 		memo.columns = columns;
 
 		columnList({
-			index
+			index,
 		}, {
 			behavior: 'core',
-			source: 'column.pipe'
+			source: 'column.pipe',
 		});
 
 		next(memo);

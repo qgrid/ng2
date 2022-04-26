@@ -20,7 +20,7 @@ function getAccessor(parts, last) {
 					}
 
 					return null;
-				}
+				},
 			);
 	}
 

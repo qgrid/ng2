@@ -10,7 +10,11 @@ describe('ShortcutDispatcher', () => {
 	command2.shortcut = () => 'alt|shift';
 	const command3 = new Command();
 	command3.shortcut = () => 'enter|tab';
-	const cmds = [command1, command2, command3];
+	const cmds = [
+		command1,
+		command2,
+		command3,
+	];
 	const shortcutDispatcher = new ShortcutDispatcher();
 
 	describe('execute', () => {

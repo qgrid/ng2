@@ -1,5 +1,11 @@
 import { Log } from '../infrastructure//log';
-import { hasOwnProperty, isArray, isUndefined, noop, toCamelCase } from '../utility/kit';
+import {
+	hasOwnProperty,
+	isArray,
+	isUndefined,
+	noop,
+	toCamelCase,
+} from '../utility/kit';
 
 export class ModelBinder {
 	constructor(host, plugin) {
@@ -39,7 +45,7 @@ export class ModelBinder {
 
 				if (track) {
 					this.disposable.add(
-						model[stateName + 'Changed'].on(write)
+						model[stateName + 'Changed'].on(write),
 					);
 				}
 
@@ -98,7 +104,7 @@ export class ModelBinder {
 				const value = state[key];
 				memo[key] = {
 					newValue: value,
-					oldValue: value
+					oldValue: value,
 				};
 				return memo;
 			}, {});

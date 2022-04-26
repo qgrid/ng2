@@ -23,7 +23,7 @@ export class Fetch {
 			if (isFunction(select)) {
 				const deferred = {
 					resolve: resolve,
-					reject: rejectBusy
+					reject: rejectBusy,
 				};
 
 				const args = Array.from(arguments).slice(1) || [];
@@ -64,7 +64,7 @@ export class Fetch {
 						subscription = null;
 					}
 				},
-				reject
+				reject,
 			);
 
 			if (isProcessed) {

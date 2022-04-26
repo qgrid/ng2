@@ -5,7 +5,7 @@ export class Shortcut {
 		this.dispatcher = dispatcher;
 		this.keyCode = {
 			key: null,
-			code: null
+			code: null,
 		};
 	}
 
@@ -64,7 +64,7 @@ export class Shortcut {
 
 	factory(manager) {
 		return {
-			register: commands => this.register(manager, commands)
+			register: commands => this.register(manager, commands),
 		};
 	}
 
@@ -72,7 +72,7 @@ export class Shortcut {
 		const code = Shortcut.translate(e);
 		this.keyCode = {
 			key: e.key,
-			code: code
+			code: code,
 		};
 
 		return this.dispatcher.execute(code, source);

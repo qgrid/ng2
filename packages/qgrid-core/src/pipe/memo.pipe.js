@@ -7,15 +7,15 @@ export function memoPipe(rows, context, next) {
 	const { model } = context;
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { memo: rows })
+		effect: Object.assign({}, model.pipe().effect, { memo: rows }),
 	}, {
 		source: 'memo.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	});
 
 	next({
 		rows,
 		pivot: { head: new Node('$root', 0), rows: [] },
-		nodes: []
+		nodes: [],
 	});
 }

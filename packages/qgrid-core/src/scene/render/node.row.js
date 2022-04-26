@@ -14,7 +14,7 @@ export class NodeRow {
 		const createColumn = columnFactory(model);
 		const reference = {
 			group: createColumn('group'),
-			summary: createColumn('group-summary')
+			summary: createColumn('group-summary'),
 		};
 
 		this.getLabel =
@@ -51,7 +51,7 @@ export class NodeRow {
 					default:
 						throw new GridError(
 							'node.row',
-							`Invalid node type ${node.type}`
+							`Invalid node type ${node.type}`,
 						);
 				}
 			};
@@ -107,7 +107,7 @@ export class NodeRow {
 			return columnList(pin);
 		};
 
-		this.findGroupColumn = (pin) => {
+		this.findGroupColumn = pin => {
 			const columns = columnList();
 			let groupColumn = columns.find(c => c.model.type === 'group');
 			if (!groupColumn) {

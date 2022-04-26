@@ -2,7 +2,7 @@ import { RowBox } from './row.box';
 
 describe('RowBox', () => {
 	const row = {
-		dataIndex: 10
+		dataIndex: 10,
 	};
 
 	describe('key', () => {

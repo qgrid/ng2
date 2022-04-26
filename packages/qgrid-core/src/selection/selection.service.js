@@ -83,7 +83,7 @@ function keySelector(unit, rowKey, columnKey) {
 				if (entry.row && entry.column) {
 					return {
 						row: rowKey(entry.row),
-						column: columnKey(entry.column)
+						column: columnKey(entry.column),
 					};
 				}
 
@@ -140,7 +140,7 @@ function lookupCellFactory(model, selectKey) {
 			rows.forEach(row => {
 				const cell = {
 					column: column,
-					row: row
+					row: row,
 				};
 
 				const index = items.findIndex(item => match(item, selectKey(cell)));
@@ -217,7 +217,7 @@ export class SelectionService {
 			case 'mix':
 				return entries.map(entry => ({
 					unit: entry.unit,
-					item: selectKey(entry)
+					item: selectKey(entry),
 				}));
 			default:
 				throw new GridError('selection.state', `Invalid unit ${selectionState.unit}`);

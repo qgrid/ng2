@@ -17,8 +17,8 @@ describe('column generate', () => {
 		const rows = [
 			{
 				lastName: 'Doe',
-				firstName: 'John'
-			}
+				firstName: 'John',
+			},
 		];
 
 		const columns = generate(rows);
@@ -35,9 +35,9 @@ describe('column generate', () => {
 			{
 				name: {
 					last: 'Doe',
-					first: 'John'
-				}
-			}
+					first: 'John',
+				},
+			},
 		];
 
 		const columns = generate(rows);
@@ -53,12 +53,12 @@ describe('column generate', () => {
 		const rows = [
 			{
 				lastName: 'Doe',
-				firstName: 'John'
+				firstName: 'John',
 			},
 			{
 				lastName: 'Smith',
-				firstName: 'Jeff'
-			}
+				firstName: 'Jeff',
+			},
 		];
 
 		const columns = generate(rows);
@@ -77,10 +77,10 @@ describe('column generate', () => {
 				contacts: {
 					address: {
 						street: 'Lenina',
-						zip: '123456'
-					}
-				}
-			}
+						zip: '123456',
+					},
+				},
+			},
 		];
 
 		const columns = generate(rows);
@@ -99,8 +99,8 @@ describe('column generate', () => {
 		const rows = [
 			{
 				lastName: 'Doe',
-				firstName: 'John'
-			}
+				firstName: 'John',
+			},
 		];
 
 		const columns = generate(rows);
@@ -124,10 +124,10 @@ describe('column generate', () => {
 				contacts: {
 					address: {
 						street: 'Lenina',
-						zip: '123456'
-					}
-				}
-			}
+						zip: '123456',
+					},
+				},
+			},
 		];
 
 		const columns = generate(rows);
@@ -148,8 +148,12 @@ describe('column generate', () => {
 			{
 				lastName: 'Doe',
 				firstName: 'John',
-				likes: ['chatting', 'boxing', 'swimming']
-			}
+				likes: [
+					'chatting',
+					'boxing',
+					'swimming',
+				],
+			},
 		];
 
 		const columns = generate(rows);

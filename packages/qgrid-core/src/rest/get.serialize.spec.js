@@ -7,7 +7,7 @@ describe('Model serialization to post parameters', () => {
 		it('should set skip/take values', () => {
 			const model = modelFactory().pagination({
 				current: 2,
-				size: 50
+				size: 50,
 			});
 			const params = serializeGet(model);
 			expect(params.skip).to.be.equal(100);
@@ -18,7 +18,7 @@ describe('Model serialization to post parameters', () => {
 	describe('sorting', () => {
 		it('should map ascending order to "+"', () => {
 			const model = modelFactory().sort({
-				by: [{ lastName: 'asc' }]
+				by: [ { lastName: 'asc' } ],
 			});
 			const params = serializeGet(model);
 			expect(params.order).to.be.equal('+lastName');
@@ -26,7 +26,7 @@ describe('Model serialization to post parameters', () => {
 
 		it('should map descending order to "-"', () => {
 			const model = modelFactory().sort({
-				by: [{ lastName: 'desc' }]
+				by: [ { lastName: 'desc' } ],
 			});
 			const params = serializeGet(model);
 			expect(params.order).to.be.equal('-lastName');
@@ -34,7 +34,7 @@ describe('Model serialization to post parameters', () => {
 
 		it('should map sorting to comma-separated string', () => {
 			const model = modelFactory().sort({
-				by: [{ firstName: 'asc' }, { lastName: 'desc' }]
+				by: [ { firstName: 'asc' }, { lastName: 'desc' } ],
 			});
 			const params = serializeGet(model);
 			expect(params.order).to.be.equal('+firstName,-lastName');
@@ -44,7 +44,7 @@ describe('Model serialization to post parameters', () => {
 	describe('filtering', () => {
 		it('should be empty string in case of empty filter', () => {
 			const model = modelFactory().filter({
-				by: {}
+				by: {},
 			});
 			const params = serializeGet(model);
 			expect(params.filter).to.be.equal('');
@@ -53,8 +53,8 @@ describe('Model serialization to post parameters', () => {
 		it('should map filter to in operation', () => {
 			const model = modelFactory().filter({
 				by: {
-					lastName: { items: ['Doe'] }
-				}
+					lastName: { items: ['Doe'] },
+				},
 			});
 			const params = serializeGet(model);
 			expect(params.filter).to.be.equal('lastName=in:Doe');
@@ -64,9 +64,9 @@ describe('Model serialization to post parameters', () => {
 			const model = modelFactory().filter({
 				by: {
 					lastName: {
-						items: ['Doe', 'Jones']
-					}
-				}
+						items: ['Doe', 'Jones'],
+					},
+				},
 			});
 			const params = serializeGet(model);
 			expect(params.filter).to.be.equal('lastName=in:Doe,Jones');
@@ -76,12 +76,12 @@ describe('Model serialization to post parameters', () => {
 			const model = modelFactory().filter({
 				by: {
 					lastName: { items: ['Doe', 'Jones'] },
-					firstName: { items: ['John', 'Harry'] }
-				}
+					firstName: { items: ['John', 'Harry'] },
+				},
 			});
 			const params = serializeGet(model);
 			expect(params.filter).to.be.equal(
-				'lastName=in:Doe,Jones;firstName=in:John,Harry'
+				'lastName=in:Doe,Jones;firstName=in:John,Harry',
 			);
 		});
 	});

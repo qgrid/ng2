@@ -33,7 +33,7 @@ export class Scene {
 		const result = {
 			left: [],
 			right: [],
-			mid: []
+			mid: [],
 		};
 
 		for (let i = 0, length = line.length; i < length; i++) {

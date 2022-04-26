@@ -64,7 +64,7 @@ export function columnFactory(model) {
 		'group-summary': GroupSummaryColumn,
 		'text': TextColumn,
 		'time': TimeColumn,
-		'url': UrlColumn
+		'url': UrlColumn,
 	};
 
 	const create = (entityType, columnType, body) => {

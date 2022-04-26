@@ -4,12 +4,12 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('row-options-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('row-options-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class RowOptionsColumnModel extends DataColumnModel {

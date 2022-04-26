@@ -16,7 +16,7 @@ export class GroupState {
 		this.flattenFactory = flattenFactory;
 
 		this.shortcut = {
-			toggle: 'space|enter'
+			toggle: 'space|enter',
 		};
 	}
 }

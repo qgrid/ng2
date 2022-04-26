@@ -2,6 +2,7 @@ import * as columnService from '../column/column.service';
 import { Command } from '../command/command';
 import { GridError } from '../infrastructure/error';
 import * as sortService from '../sort/sort.service';
+import { hasOwnProperty } from '../utility/kit';
 
 export class SortLet {
 	constructor(plugin) {
@@ -14,7 +15,7 @@ export class SortLet {
 			canExecute: column => {
 				const key = column.key;
 				const map = columnService.mapColumns(model.columnList().line);
-				return map.hasOwnProperty(key) && map[key].canSort !== false;
+				return hasOwnProperty.call(map, key) && map[key].canSort !== false;
 			},
 			execute: column => {
 				const key = column.key;
@@ -64,7 +65,7 @@ export class SortLet {
 				}
 
 				sort({ by }, { source: 'sort.view' });
-			}
+			},
 		});
 
 		this.onInit();
@@ -91,7 +92,7 @@ export class SortLet {
 				if (e.hasChanges('columns')) {
 					const { by } = sort();
 					const columnMap = columnService.mapColumns(e.state.columns);
-					const newBy = by.filter(entry => columnMap.hasOwnProperty(sortService.getKey(entry)));
+					const newBy = by.filter(entry => hasOwnProperty.call(columnMap, sortService.getKey(entry)));
 					if (!this.equals(newBy, by)) {
 						sort({ by: newBy }, { source: 'sort.view' });
 					}

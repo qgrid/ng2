@@ -40,7 +40,7 @@ export class EditRowLet {
 
 					this.editor = new RowEditor(row, columns);
 					model.edit({ status: 'edit' }, { source: 'edit.row.view' });
-				}
+				},
 			}),
 			commit: new Command({
 				source: 'edit.row.view',
@@ -62,7 +62,7 @@ export class EditRowLet {
 					this.editor.commit();
 					this.editor = RowEditor.empty;
 					model.edit({ status: 'view' }, { source: 'edit.row.view' });
-				}
+				},
 			}),
 			cancel: new Command({
 				source: 'edit.row.view',
@@ -83,7 +83,7 @@ export class EditRowLet {
 					this.editor.reset();
 					this.editor = RowEditor.empty;
 					model.edit({ status: 'view' }, { source: 'edit.row.view' });
-				}
+				},
 			}),
 			reset: new Command({
 				source: 'edit.row.view',
@@ -104,18 +104,18 @@ export class EditRowLet {
 						this.editor.reset();
 						return false;
 					}
-				}
-			})
+				},
+			}),
 		};
 		return new Map(
-			Object.entries(commands)
+			Object.entries(commands),
 		);
 	}
 
 	contextFactory(row) {
 		return {
 			row: row,
-			unit: 'row'
+			unit: 'row',
 		};
 	}
 

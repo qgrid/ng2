@@ -4,7 +4,7 @@ import { columnFactory } from '../column/column.factory';
 function addDataRows(model, rows) {
 	const tag = {
 		source: 'data.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	};
 
 	model.data({ rows }, tag);
@@ -21,7 +21,7 @@ function addDataColumns(model) {
 	if (hasChanges) {
 		const tag = {
 			source: 'data.pipe',
-			behavior: 'core'
+			behavior: 'core',
 		};
 
 		model.data({ columns: allColumns }, tag);
@@ -35,10 +35,10 @@ export function dataPipe(rows, context, next) {
 	addDataColumns(model);
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { data: rows })
+		effect: Object.assign({}, model.pipe().effect, { data: rows }),
 	}, {
 		source: 'data.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	});
 
 	next(rows);

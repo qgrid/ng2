@@ -32,14 +32,39 @@ describe('sortIndexFactory', function () {
 		const column3 = new ColumnModel();
 		column3.key = 0;
 		const model = modelFactory();
-		const test = [leftPinColumn1, rightPinColumn1, centerPinColumn1, leftPinColumn2, rightPinColumn2, centerPinColumn2];
+		const test = [
+			leftPinColumn1,
+			rightPinColumn1,
+			centerPinColumn1,
+			leftPinColumn2,
+			rightPinColumn2,
+			centerPinColumn2,
+		];
 		model.columnList({
-			index: [1, 2, 3, 5, 6, 10],
-			columns: [column1, column2, column3]
+			index: [
+				1,
+				2,
+				3,
+				5,
+				6,
+				10,
+			],
+			columns: [
+				column1,
+				column2,
+				column3,
+			],
 		});
 
 		const sort = ColumnListSort.sortIndexFactory(model);
 		const result = sort(test);
-		expect(result).to.eql([5,2,6,3,10,1]);
+		expect(result).to.eql([
+			5,
+			2,
+			6,
+			3,
+			10,
+			1,
+		]);
 	});
 });

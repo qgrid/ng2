@@ -1,20 +1,20 @@
 import { CommandManager } from './command.manager';
 
 describe('CommandManager', () => {
-	const arrayOfCommands = [],
-		i = 5,
-		arr = [];
+	const arrayOfCommands = [];
+	const arr = [];
+	let i = 5;
 
 	while (i > 0) {
 		if (i % 2 === 0) {
 			arrayOfCommands.push({
 				execute: () => arr.push(1),
-				canExecute: () => true
+				canExecute: () => true,
 			});
 		} else {
 			arrayOfCommands.push({
 				execute: () => arr.push(2),
-				canExecute: () => false
+				canExecute: () => false,
 			});
 		}
 		i--;

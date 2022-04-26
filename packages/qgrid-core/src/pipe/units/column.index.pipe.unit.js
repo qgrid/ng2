@@ -14,23 +14,23 @@ export const columnIndexPipeUnit = [
 		const columnLine = scene.columnLine(memo.columns);
 		const tag = {
 			source: context.source || 'column.pipe.unit',
-			behavior: 'core'
+			behavior: 'core',
 		};
 
 		model.view({
-			columns: columnLine.map(c => c.model)
+			columns: columnLine.map(c => c.model),
 		}, tag);
 
 		model.scene({
 			column: {
 				rows: scene.columnRows(memo.columns),
 				area: scene.columnArea(memo.columns),
-				line: columnLine
-			}
+				line: columnLine,
+			},
 		}, tag);
 
 		next(memo);
-	}
+	},
 ];
 
 columnIndexPipeUnit.why = 'redraw';

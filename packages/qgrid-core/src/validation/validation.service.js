@@ -7,7 +7,7 @@ function toLIVR(rules, key) {
 			for (const name of Object.keys(rule)) {
 				if (name !== 'key' && name !== 'for') {
 					validationRules.push({
-						[name]: rule[name]
+						[name]: rule[name],
 					});
 				}
 			}
@@ -15,7 +15,7 @@ function toLIVR(rules, key) {
 	});
 	return {
 		hasRules: validationRules.length > 0,
-		rules: { [key]: validationRules }
+		rules: { [key]: validationRules },
 	};
 }
 

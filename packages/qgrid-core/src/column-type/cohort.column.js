@@ -2,9 +2,9 @@ import { ColumnView } from '../scene/view/column.view';
 import { TemplatePath } from '../template/template.path';
 import { ColumnModel } from './column.model';
 
-TemplatePath.register('cohort-cell', (template) => ({
+TemplatePath.register('cohort-cell', template => ({
 	model: template.for,
-	resource: `${template.for}.${template.type}`
+	resource: `${template.for}.${template.type}`,
 }));
 
 export class CohortColumnModel extends ColumnModel {

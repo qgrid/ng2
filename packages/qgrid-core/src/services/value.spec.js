@@ -4,23 +4,23 @@ describe('value service', () => {
 	let row;
 
 	const templateDefinedColumn = {
-		$value: (args) => args.$value === undefined
+		$value: args => args.$value === undefined
 			? args.$row.nested.field
-			: args.$row.nested.field = args.$value
+			: args.$row.nested.field = args.$value,
 	};
 
 	const controllerDefinedColumn = {
 		value: (item, value) => value === undefined
 			? item.nested.field
-			: item.nested.field = value
+			: item.nested.field = value,
 	};
 
 	const pathDefinedColumn = {
-		path: 'nested.field'
+		path: 'nested.field',
 	};
 
 	const keyDefinedColumn = {
-		key: 'field'
+		key: 'field',
 	};
 
 	describe('getter', () => {
@@ -28,8 +28,8 @@ describe('value service', () => {
 			row = {
 				'field': 'field_value',
 				'nested': {
-					'field': 'nested_field_value'
-				}
+					'field': 'nested_field_value',
+				},
 			};
 		});
 
@@ -63,8 +63,8 @@ describe('value service', () => {
 			row = {
 				'field': 'field_value',
 				'nested': {
-					'field': 'nested_field_value'
-				}
+					'field': 'nested_field_value',
+				},
 			};
 		});
 
@@ -94,7 +94,7 @@ describe('value service', () => {
 
 		it('should throw exception if any way isn\'t able', () => {
 			const column = {
-				key: 'wrongKey'
+				key: 'wrongKey',
 			};
 
 			const setter = () => setValue(row, column, 'new_value');

@@ -24,7 +24,7 @@ export class Container {
 		return {
 			add: name => this.addClass(name),
 			remove: name => this.removeClass(name),
-			contains: name => this.hasClass(name)
+			contains: name => this.hasClass(name),
 		};
 	}
 
@@ -44,7 +44,7 @@ export class Container {
 			top: top,
 			left: left,
 			right: right,
-			bottom: bottom
+			bottom: bottom,
 		};
 	}
 

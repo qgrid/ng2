@@ -28,7 +28,7 @@ export class Disposable {
 
 		throw new GridError(
 			'disposable',
-			'Resource is not a disposable'
+			'Resource is not a disposable',
 		);
 	}
 

@@ -22,9 +22,9 @@ describe('Fetch', () => {
 			expect(fetch.result).to.equal(123);
 		});
 
-		it('should set 123 value to fetch.result if Fetch takes a promise as an argument', (done) => {
+		it('should set 123 value to fetch.result if Fetch takes a promise as an argument', done => {
 
-			const select = (item) => new Promise((resolve) => resolve(item));
+			const select = item => new Promise(resolve => resolve(item));
 
 			const fetch = new Fetch(select);
 			fetch.run(123);

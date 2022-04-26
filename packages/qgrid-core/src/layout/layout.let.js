@@ -64,10 +64,10 @@ export class LayoutLet {
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
 					model.layout({
-						columns: new Map()
+						columns: new Map(),
 					}, {
 						source: 'layout.let',
-						behavior: 'core'
+						behavior: 'core',
 					});
 				}
 			});
@@ -153,7 +153,7 @@ export class LayoutLet {
 				const sizeStyle = {
 					'width': size,
 					'min-width': size,
-					'max-width': size
+					'max-width': size,
 				};
 
 				style[`.q-grid-the-${key}`] = sizeStyle;

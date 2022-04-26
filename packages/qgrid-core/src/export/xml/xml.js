@@ -4,8 +4,24 @@ const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
 
 function escape(value) {
 	let result = '' + value;
-	const characters = [/</g, />/g, /&/g, /'/g, /"/g, /\s\s+/g, /\n/g];
-	const replacements = ['&lt;', '&gt;', '&amp;', '&apos;', '&quot;', ' ', '&#xA;'];
+	const characters = [
+		/</g,
+		/>/g,
+		/&/g,
+		/'/g,
+		/"/g,
+		/\s\s+/g,
+		/\n/g,
+	];
+	const replacements = [
+		'&lt;',
+		'&gt;',
+		'&amp;',
+		'&apos;',
+		'&quot;',
+		' ',
+		'&#xA;',
+	];
 	for (let i = 0; i < characters.length; i++) {
 		result = result.replace(characters[i], replacements[i]);
 	}

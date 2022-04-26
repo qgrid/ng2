@@ -8,14 +8,14 @@ export class UnitFactory {
 		return {
 			element,
 			rowIndex: rowIndex + this.rowRange.start,
-			columnIndex: columnIndex + this.columnRange.start
+			columnIndex: columnIndex + this.columnRange.start,
 		};
 	}
 
 	row(element, rowIndex) {
 		return {
 			element,
-			index: rowIndex + this.rowRange.start
+			index: rowIndex + this.rowRange.start,
 		};
 	}
 }

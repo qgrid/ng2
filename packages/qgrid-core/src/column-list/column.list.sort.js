@@ -24,7 +24,7 @@ function compareFactory(scoreFor, templateIndex, viewIndex) {
 		const candidates = [
 			column.index + scoreFor.index(column),
 			viewFind(key) + scoreFor.view(column),
-			templateFind(key) + scoreFor.template(column)
+			templateFind(key) + scoreFor.template(column),
 		];
 
 		const weights = candidates.filter(w => w >= 0);
@@ -63,7 +63,7 @@ function sortIndexFactory(model) {
 			list: column => (column.category === 'data' || column.category === 'cohort') ? 0.1 : 0.3,
 			index: () => 0.2,
 			view: column => length + ((column.category !== 'data' && column.category !== 'cohort') ? 0.1 : 0.3),
-			template: () => length + 0.4
+			template: () => length + 0.4,
 		}, scores);
 
 		const viewIndex = columns.map(c => c.key);
@@ -80,7 +80,7 @@ function sortIndexFactory(model) {
 function running(tree, buildIndex) {
 	const result = {
 		line: [],
-		map: new Map()
+		map: new Map(),
 	};
 
 	preOrderDFS([tree], node => {
@@ -107,7 +107,7 @@ function running(tree, buildIndex) {
 function former(tree, current) {
 	const result = {
 		line: [],
-		set: new Set()
+		set: new Set(),
 	};
 
 	preOrderDFS([tree], node => {

@@ -15,7 +15,7 @@ export class Visitor {
 			default:
 				throw GridError(
 					'expression.visitor',
-					`Invalid kind ${item.kind}`
+					`Invalid kind ${item.kind}`,
 				);
 		}
 	}
@@ -57,7 +57,7 @@ export class Visitor {
 			default:
 				throw new GridError(
 					'expression.visitor',
-					`Invalid operation ${condition.op}`
+					`Invalid operation ${condition.op}`,
 				);
 		}
 	}

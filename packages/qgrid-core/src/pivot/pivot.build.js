@@ -30,7 +30,7 @@ function buildFactory(columnMap, valueFactory) {
 				}
 
 				return true;
-			}
+			},
 		});
 	};
 }

@@ -2,20 +2,20 @@ import { CommandManager } from './command.manager';
 import { CompositeCommandManager } from './composite.command.manager';
 
 describe('CompositeCommandManager', () => {
-	const commands = [],
-		i = 5,
-		arr = [];
+	const commands = [];
+	const arr = [];
+	let i = 5;
 
 	while (i > 0) {
 		if (i % 2 === 0) {
 			commands.push({
 				execute: () => arr.push(1),
-				canExecute: () => true
+				canExecute: () => true,
 			});
 		} else {
 			commands.push({
 				execute: () => arr.push(2),
-				canExecute: () => false
+				canExecute: () => false,
 			});
 		}
 		i--;

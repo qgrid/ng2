@@ -1,3 +1,4 @@
+import { spy } from 'chai';
 import { Event } from './event';
 
 describe('Event', () => {
@@ -7,7 +8,7 @@ describe('Event', () => {
 
 	beforeEach(() => {
 		event = new Event();
-		foo = chai.spy(() => ({}));
+		foo = spy(() => ({}));
 	});
 
 	describe('on/emit', () => {

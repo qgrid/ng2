@@ -34,6 +34,6 @@ export function sheet(id, source) {
 			if (sheet) {
 				sheet.parentNode.removeChild(sheet);
 			}
-		}
+		},
 	};
 }

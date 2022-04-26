@@ -6,7 +6,7 @@ describe('Match', () => {
 
 	const column = {
 		key: 'value',
-		type: 'number'
+		type: 'number',
 	};
 
 	const columns = [column];
@@ -17,8 +17,8 @@ describe('Match', () => {
 				kind: 'condition',
 				op: 'equals',
 				right: 123,
-				left: 'value'
-			}
+				left: 'value',
+			},
 		},
 	};
 
@@ -28,8 +28,8 @@ describe('Match', () => {
 		assertFactory: () => ({
 			equals: (x, y) => x === y,
 			lessThan: (x, y) => x < y,
-			isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x)
-		})
+			isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x),
+		}),
 	});
 	model.data({ columns });
 

@@ -7,7 +7,7 @@ export function viewPipe(memo, context, next) {
 
 	const tag = {
 		source: context.source || 'view.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	};
 
 	const { model } = context;
@@ -27,7 +27,7 @@ export function viewPipe(memo, context, next) {
 		rows,
 		columns: columnLine.map(c => c.model),
 		nodes,
-		pivot
+		pivot,
 	}, tag);
 
 	next(memo);

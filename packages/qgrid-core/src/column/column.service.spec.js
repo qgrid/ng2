@@ -16,15 +16,15 @@ describe('column service', () => {
 	describe('find', () => {
 		const columns = [
 			{
-				key: 'name'
+				key: 'name',
 			},
 			{
 				key: 'age',
-				title: 'Age'
+				title: 'Age',
 			},
 			{
-				key: 'gender'
-			}
+				key: 'gender',
+			},
 		];
 
 		it('should return column object', () => {

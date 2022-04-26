@@ -31,7 +31,7 @@ export class ObservableEvent {
 			observer = {
 				next: args[0],
 				error: args[1],
-				complete: args[2]
+				complete: args[2],
 			};
 		}
 
@@ -129,7 +129,7 @@ export class SubjectLike extends ObservableEvent {
 	constructor() {
 		super(
 			new Event(),
-			new Disposable()
+			new Disposable(),
 		);
 
 		this.isCompleted = false;

@@ -4,12 +4,12 @@ import { ColumnModel } from './column.model';
 
 TemplatePath.register('group-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('group-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class GroupColumnModel extends ColumnModel {

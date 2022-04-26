@@ -10,13 +10,13 @@ export class ScrollState {
 
 		this.map = {
 			rowToView: identity,
-			viewToRow: identity
+			viewToRow: identity,
 		};
 
 		this.resetTriggers = [
 			'sort.view',
 			'column.filter.view',
-			'data.manipulation'
+			'data.manipulation',
 		];
 	}
 }

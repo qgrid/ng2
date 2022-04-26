@@ -4,12 +4,12 @@ import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('time-cell', (template, column) => ({
 	model: template.for,
-	resource: column.key
+	resource: column.key,
 }));
 
 TemplatePath.register('time-cell-edit', (template, column) => ({
 	model: 'edit',
-	resource: column.key
+	resource: column.key,
 }));
 
 export class TimeColumnModel extends DataColumnModel {

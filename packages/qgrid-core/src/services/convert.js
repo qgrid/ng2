@@ -1,7 +1,16 @@
 import {
-	identity, isArray,
+	identity,
+	isArray,
 	isBoolean,
-	isDate, isEmail, isImage, isNumber, isObject, isString, isUndefined, isUrl, matchISO8601
+	isDate,
+	isEmail,
+	isImage,
+	isNumber,
+	isObject,
+	isString,
+	isUndefined,
+	isUrl,
+	matchISO8601,
 } from '../utility/kit';
 
 export function isPrimitive(type) {
@@ -83,7 +92,7 @@ function parseDate(value) {
 			value.getFullYear(),
 			value.getMonth(),
 			value.getDate(),
-			0, 0, 0, 0
+			0, 0, 0, 0,
 		);
 	}
 
@@ -93,7 +102,7 @@ function parseDate(value) {
 			Number.parseInt(yearMonthDay[0], 10),
 			Number.parseInt(yearMonthDay[1], 10) - 1,
 			Number.parseInt(yearMonthDay[2], 10),
-			0, 0, 0, 0
+			0, 0, 0, 0,
 		);
 	}
 

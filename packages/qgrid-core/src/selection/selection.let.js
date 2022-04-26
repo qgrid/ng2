@@ -92,7 +92,7 @@ export class SelectionLet {
 						this.form.clear();
 						if (model.selection().items.length) {
 							model.selection({ items: [] }, {
-								source: 'selection.view'
+								source: 'selection.view',
 							});
 						}
 
@@ -153,7 +153,7 @@ export class SelectionLet {
 				const commit = this.toggle(row);
 				commit();
 			},
-			shortcut: shortcut.toggleRow
+			shortcut: shortcut.toggleRow,
 		});
 
 		const commands = {
@@ -183,7 +183,7 @@ export class SelectionLet {
 							}
 						}
 					}
-				}
+				},
 			}),
 			toggleRow: new Command({
 				source: 'selection.view',
@@ -201,7 +201,7 @@ export class SelectionLet {
 							? model.scene().rows
 							: [row],
 						source: 'custom',
-						kind: 'toggleRow'
+						kind: 'toggleRow',
 					};
 
 					if (!row) {
@@ -209,14 +209,14 @@ export class SelectionLet {
 					}
 
 					return model.selection().toggle.canExecute(e);
-				}
+				},
 			}),
 			toggleColumn: new Command({
 				source: 'selection.view',
 				execute: (item, source) => {
 					const commit = this.toggle(item, source);
 					commit();
-				}
+				},
 			}),
 			commitRow: new Command({
 				source: 'selection.view',
@@ -229,7 +229,7 @@ export class SelectionLet {
 						toggleActiveRow.execute();
 					}
 				},
-				shortcut: model.edit().commitShortcuts['select'] || ''
+				shortcut: model.edit().commitShortcuts['select'] || '',
 			}),
 			toggleActiveRow: toggleActiveRow,
 			togglePrevRow: new Command({
@@ -245,7 +245,7 @@ export class SelectionLet {
 
 					this.navigateTo(rowIndex - 1, columnIndex);
 				},
-				shortcut: shortcut.togglePreviousRow
+				shortcut: shortcut.togglePreviousRow,
 			}),
 			toggleNextRow: new Command({
 				source: 'selection.view',
@@ -260,7 +260,7 @@ export class SelectionLet {
 
 					this.navigateTo(rowIndex + 1, columnIndex);
 				},
-				shortcut: shortcut.toggleNextRow
+				shortcut: shortcut.toggleNextRow,
 			}),
 			toggleActiveColumn: new Command({
 				source: 'selection.view',
@@ -272,7 +272,7 @@ export class SelectionLet {
 					const commit = this.toggle(column);
 					commit();
 				},
-				shortcut: shortcut.toggleColumn
+				shortcut: shortcut.toggleColumn,
 			}),
 			toggleNextColumn: new Command({
 				source: 'selection.view',
@@ -287,7 +287,7 @@ export class SelectionLet {
 
 					this.navigateTo(rowIndex, columnIndex + 1);
 				},
-				shortcut: shortcut.toggleNextColumn
+				shortcut: shortcut.toggleNextColumn,
 			}),
 			togglePrevColumn: new Command({
 				source: 'selection.view',
@@ -302,7 +302,7 @@ export class SelectionLet {
 
 					this.navigateTo(rowIndex, columnIndex - 1);
 				},
-				shortcut: shortcut.togglePreviousColumn
+				shortcut: shortcut.togglePreviousColumn,
 			}),
 			selectAll: new Command({
 				source: 'selection.view',
@@ -340,12 +340,12 @@ export class SelectionLet {
 					const commit = this.select(entries, true);
 					commit();
 				},
-				shortcut: shortcut.selectAll
-			})
+				shortcut: shortcut.selectAll,
+			}),
 		};
 
 		return new Map(
-			Object.entries(commands)
+			Object.entries(commands),
 		);
 	}
 
@@ -374,9 +374,9 @@ export class SelectionLet {
 
 			return () => {
 				model.selection({
-					items: this.selectionService.map(form.entries())
+					items: this.selectionService.map(form.entries()),
 				}, {
-					source: 'selection.view'
+					source: 'selection.view',
 				});
 			};
 		}
@@ -390,7 +390,7 @@ export class SelectionLet {
 		const e = {
 			items,
 			source,
-			kind: 'select'
+			kind: 'select',
 		};
 
 		if (toggle.canExecute(e)) {
@@ -401,7 +401,7 @@ export class SelectionLet {
 			return () => {
 				const items = this.selectionService.map(this.form.entries());
 				model.selection({ items }, {
-					source: 'selection.view'
+					source: 'selection.view',
 				});
 			};
 		} else {
@@ -433,8 +433,8 @@ export class SelectionLet {
 				rowIndex,
 				columnIndex,
 				row,
-				column
-			}
+				column,
+			},
 		}, { source: 'selection.view' });
 	}
 }

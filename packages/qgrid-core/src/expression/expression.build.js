@@ -6,9 +6,9 @@ function toIsEmptyExpression(key) {
 			kind: 'condition',
 			left: key,
 			op: 'isEmpty',
-			right: null
+			right: null,
 		},
-		right: null
+		right: null,
 	};
 }
 
@@ -20,10 +20,10 @@ function toInExpression(key, items) {
 			kind: 'condition',
 			left: key,
 			op: 'in',
-			right: Array.from(items)
+			right: Array.from(items),
 
 		},
-		right: null
+		right: null,
 	};
 }
 
@@ -32,7 +32,7 @@ function compile(expressions, op) {
 		kind: 'group',
 		op,
 		left: null,
-		right: null
+		right: null,
 	};
 
 	let current = root;
@@ -45,7 +45,7 @@ function compile(expressions, op) {
 				kind: 'group',
 				op,
 				left: expr,
-				right: null
+				right: null,
 			};
 
 			current.right = next;

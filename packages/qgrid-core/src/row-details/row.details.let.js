@@ -21,22 +21,22 @@ export class RowDetailsLet {
 				if (toggle.execute({ row }) !== false) {
 					const newStatus = toggleStatus([row], status, mode);
 					model.row({ status: newStatus }, {
-						source: 'row.details.view'
+						source: 'row.details.view',
 					});
 
 					observe(model.sceneChanged)
 						.pipe(
 							filter(e => e.hasChanges('status') && e.state.status === 'stop'),
-							takeOnce()
+							takeOnce(),
 						)
 						.subscribe(() => {
 							const rowStatus = newStatus.get(row);
 							if (rowStatus && rowStatus.expand) {
 								const index = model.view().rows.indexOf(row);
 								model.focus({
-									rowIndex: index + 1
+									rowIndex: index + 1,
 								}, {
-									source: 'row.details.let'
+									source: 'row.details.let',
 								});
 							}
 						});
@@ -53,7 +53,7 @@ export class RowDetailsLet {
 				const { toggle } = model.row();
 				return !!row && toggle.canExecute({ row });
 			},
-			shortcut: model.row().shortcut.toggle
+			shortcut: model.row().shortcut.toggle,
 		});
 
 		observeReply(model.sceneChanged)
@@ -68,11 +68,11 @@ export class RowDetailsLet {
 						invalidateStatus(
 							model.data().rows,
 							status,
-							mode
+							mode,
 						);
 
 					model.row({ status: newStatus }, {
-						source: 'row.details.view'
+						source: 'row.details.view',
 					});
 				}
 			});
@@ -86,7 +86,7 @@ export class RowDetailsLet {
 		};
 
 		disposable.add(
-			unsubscribeCanExecuteCheck
+			unsubscribeCanExecuteCheck,
 		);
 
 		observeReply(model.rowChanged)

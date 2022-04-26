@@ -2,9 +2,9 @@ import { ColumnView } from '../scene/view/column.view';
 import { TemplatePath } from '../template/template.path';
 import { ColumnModel } from './column.model';
 
-TemplatePath.register('pad-cell', (template) => ({
+TemplatePath.register('pad-cell', template => ({
 	model: template.for,
-	resource: `${template.for}.${template.type}`
+	resource: `${template.for}.${template.type}`,
 }));
 
 export class PadColumnModel extends ColumnModel {
