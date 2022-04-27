@@ -10,7 +10,7 @@ import {
 	OnChanges,
 	OnInit,
 	SimpleChanges,
-	ViewEncapsulation
+	ViewEncapsulation,
 } from '@angular/core';
 import {
 	ColumnModel,
@@ -44,7 +44,7 @@ import {
 	StyleRowCallback,
 	StyleState,
 	tableFactory,
-	VisibilityState
+	VisibilityState,
 } from '@qgrid/core';
 import { LayerService } from '../layer/layer.service';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -75,7 +75,7 @@ import { GridRoot } from './grid-root';
 	styleUrls: ['../../../../qgrid-styles/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridComponent implements OnInit, OnChanges {
 	private firstSetup = true;
@@ -99,6 +99,13 @@ export class GridComponent implements OnInit, OnChanges {
 
 	get model(): GridModel {
 		return this.root.model;
+	}
+
+	// @deprecated
+	get visibility(): VisibilityState {
+		// TODO: get rid of that
+		const { model } = this.plugin;
+		return model.visibility();
 	}
 
 	@Input('id') set gridId(id: string) { this.gridState({ id }); }
@@ -153,7 +160,7 @@ export class GridComponent implements OnInit, OnChanges {
 		if (!theme.component) {
 			throw new GridError(
 				'grid.component',
-				'Ensure that grid theme module was included'
+				'Ensure that grid theme module was included',
 			);
 		}
 
@@ -170,9 +177,9 @@ export class GridComponent implements OnInit, OnChanges {
 
 		if (nativeElement.classList.length) {
 			model.style({
-				classList: Array.from(nativeElement.classList)
+				classList: Array.from(nativeElement.classList),
 			}, {
-				source: 'grid.component'
+				source: 'grid.component',
 			});
 		}
 
@@ -185,7 +192,7 @@ export class GridComponent implements OnInit, OnChanges {
 
 		this.zone.runOutsideAngular(() => {
 			disposable.add(
-				docListener.on('focusin', () => host.invalidateActive())
+				docListener.on('focusin', () => host.invalidateActive()),
 			);
 
 			disposable.add(
@@ -195,9 +202,9 @@ export class GridComponent implements OnInit, OnChanges {
 						const clickedOutside = path.every(x => x !== nativeElement && !x.classList.contains('q-grid-editor-part'));
 						if (clickedOutside) {
 							model.edit({
-								status: 'view'
+								status: 'view',
 							}, {
-								source: 'document.click'
+								source: 'document.click',
 							});
 						}
 					}
@@ -205,12 +212,12 @@ export class GridComponent implements OnInit, OnChanges {
 
 
 			disposable.add(
-				listener.on('keyup', e => host.keyUp(e, 'grid'))
+				listener.on('keyup', e => host.keyUp(e, 'grid')),
 			);
 		});
 
 		disposable.add(
-			listener.on('keydown', e => host.keyDown(e, 'grid'))
+			listener.on('keydown', e => host.keyDown(e, 'grid')),
 		);
 
 
@@ -224,13 +231,6 @@ export class GridComponent implements OnInit, OnChanges {
 		}
 
 		this.stateAccessor.write(this.model);
-	}
-
-	// @deprecated
-	get visibility(): VisibilityState {
-		// TODO: get rid of that
-		const { model } = this.plugin;
-		return model.visibility();
 	}
 
 	private setup() {

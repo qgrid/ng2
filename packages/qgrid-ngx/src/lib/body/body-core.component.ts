@@ -1,18 +1,41 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit } from '@angular/core';
-import { BodyHost, ColumnView, EventListener, EventManager, SelectionState } from '@qgrid/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	Input,
+	NgZone,
+	OnInit,
+} from '@angular/core';
+import {
+	BodyHost,
+	ColumnView,
+	EventListener,
+	EventManager,
+	SelectionState,
+} from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from '../table/table-core.service';
+
 @Component({
-	// tslint:disable-next-line
-	selector: 'tbody[q-grid-core-body]',
+	selector: 'tbody[q-grid-core-body]', // eslint-disable-line @angular-eslint/component-selector
 	templateUrl: './body-core.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
+
+	// @deprecated
+	get selection(): SelectionState {
+		return this.model.selection();
+	}
+
+	get model(): GridModel {
+		return this.plugin.model;
+	}
 
 	constructor(
 		public $view: GridLet,
@@ -20,7 +43,7 @@ export class BodyCoreComponent implements OnInit {
 		private elementRef: ElementRef,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef,
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
 	) {
 	}
 
@@ -37,9 +60,9 @@ export class BodyCoreComponent implements OnInit {
 				listener.on('scroll', () =>
 					host.scroll({
 						scrollLeft: this.$table.pin === 'mid' ? nativeElement.scrollLeft : model.scroll().left,
-						scrollTop: nativeElement.scrollTop
+						scrollTop: nativeElement.scrollTop,
 					}),
-					scrollSettings
+				scrollSettings,
 				));
 
 			disposable.add(listener.on('wheel', e => host.wheel(e)));
@@ -70,20 +93,11 @@ export class BodyCoreComponent implements OnInit {
 			});
 	}
 
-	// @deprecated
-	get selection(): SelectionState {
-		return this.model.selection();
-	}
-
-	get model(): GridModel {
-		return this.plugin.model;
-	}
-
 	columnId(index: number, item: ColumnView) {
 		return item.model.key;
 	}
 
-	rowId(index: number, row: any) {
+	rowId(index: number) {
 		return index;
 	}
 

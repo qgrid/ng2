@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
+
 import {
 	Directive,
 	DoCheck,
@@ -5,13 +7,12 @@ import {
 	Input,
 	ViewContainerRef,
 	SimpleChanges,
-	OnChanges
+	OnChanges,
 } from '@angular/core';
 import { TemplateService } from './template.service';
 
 @Directive({
-	// tslint:disable-next-line
-	selector: 'ng-container[key]'
+	selector: 'ng-container[key]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateDirective implements DoCheck, OnChanges {
 	private viewRef: EmbeddedViewRef<any>;
@@ -22,7 +23,7 @@ export class TemplateDirective implements DoCheck, OnChanges {
 
 	constructor(
 		private templateService: TemplateService,
-		private viewContainerRef: ViewContainerRef
+		private viewContainerRef: ViewContainerRef,
 	) { }
 
 	ngOnChanges(changes: SimpleChanges) {

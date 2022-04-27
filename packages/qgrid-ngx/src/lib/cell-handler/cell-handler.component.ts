@@ -1,5 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { CellView, EditService, Fastdom, jobLine, NavigationState, RowDetails } from '@qgrid/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
+import {
+	CellView,
+	EditService,
+	Fastdom,
+	jobLine,
+	NavigationState,
+	RowDetails,
+} from '@qgrid/core';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 
@@ -7,18 +22,19 @@ import { GridPlugin } from '../plugin/grid-plugin';
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [GridPlugin]
+	providers: [GridPlugin],
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private endBatchEdit: () => void;
 
-	canEditBatch = false;
 	@ViewChild('marker', { static: true }) marker: ElementRef;
+
+	canEditBatch = false;
 
 	constructor(
 		private elementRef: ElementRef,
 		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
 	) {
 		this.elementRef.nativeElement.style.display = 'none';
 	}

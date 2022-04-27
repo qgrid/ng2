@@ -1,7 +1,24 @@
 import {
-	ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges, SkipSelf
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Input,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	Optional,
+	SimpleChanges,
+	SkipSelf,
 } from '@angular/core';
-import { ColumnModel, ColumnModelCategory, ColumnModelPin, ColumnModelType, ColumnModelWidthMode, guid, isUndefined } from '@qgrid/core';
+import {
+	ColumnModel,
+	ColumnModelCategory,
+	ColumnModelPin,
+	ColumnModelType,
+	ColumnModelWidthMode,
+	guid,
+	isUndefined,
+} from '@qgrid/core';
 import { ColumnListService } from '../column-list/column-list.service';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TemplateHostService } from '../template/template-host.service';
@@ -9,8 +26,13 @@ import { ColumnHostService } from './column-host.service';
 
 @Component({
 	selector: 'q-grid-column',
-	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService, ColumnHostService, GridPlugin],
+	template: `<ng-content></ng-content>
+`,
+	providers: [
+		TemplateHostService,
+		ColumnHostService,
+		GridPlugin,
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
@@ -130,7 +152,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 			const settings =
 				Object
 					.keys(this)
-					.filter(key => !isUndefined(this[key]) && column.hasOwnProperty(key))
+					.filter(key => !isUndefined(this[key]) && Object.prototype.hasOwnProperty.call(column, key))
 					.reduce((memo, key) => {
 						memo[key] = column[key];
 						return memo;
@@ -148,9 +170,9 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
 				const { model } = this.plugin;
 				model.data({
-					columns: Array.from(model.data().columns)
+					columns: Array.from(model.data().columns),
 				}, {
-					source: 'column.component'
+					source: 'column.component',
 				});
 			}
 		}

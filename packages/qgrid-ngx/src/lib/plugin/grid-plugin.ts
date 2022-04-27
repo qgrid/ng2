@@ -1,5 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Event, GridLet, Lazy, ObservableEvent, ObservableLike, ObservableReplyEvent } from '@qgrid/core';
+import {
+	Event,
+	GridLet,
+	Lazy,
+	ObservableEvent,
+	ObservableLike,
+	ObservableReplyEvent,
+} from '@qgrid/core';
 import { DomTable } from '../dom/dom';
 import { Grid, GridService } from '../grid/grid';
 import { GridLet as NgxGridLet } from '../grid/grid-let';
@@ -12,21 +19,6 @@ export class GridPlugin implements OnDestroy {
 	private serviceLazy = new Lazy(() => this.qgrid.service(this.$root.model));
 
 	readonly disposable = new Disposable();
-
-	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => {
-		return new ObservableEvent(event, this.disposable);
-	}
-
-	readonly observeReply = <TState>(event: Event<TState>): ObservableLike<TState> => {
-		return new ObservableReplyEvent(event, this.disposable);
-	}
-
-	constructor(
-		private $view: NgxGridLet,
-		private $root: GridRoot,
-		private qgrid: Grid
-	) {
-	}
 
 	get model(): GridModel {
 		const { model } = this.$root;
@@ -45,6 +37,17 @@ export class GridPlugin implements OnDestroy {
 	get service(): GridService {
 		return this.serviceLazy.instance;
 	}
+
+	constructor(
+		private $view: NgxGridLet,
+		private $root: GridRoot,
+		private qgrid: Grid,
+	) {
+	}
+
+	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => new ObservableEvent(event, this.disposable);
+
+	readonly observeReply = <TState>(event: Event<TState>): ObservableLike<TState> => new ObservableReplyEvent(event, this.disposable);
 
 	ngOnDestroy() {
 		this.disposable.finalize();

@@ -5,12 +5,12 @@ import { AutoSizeDirective } from './autosize.directive';
 @NgModule({
 	declarations: [
 		ResizeDirective,
-		AutoSizeDirective
+		AutoSizeDirective,
 	],
 	exports: [
 		ResizeDirective,
-		AutoSizeDirective
-	]
+		AutoSizeDirective,
+	],
 })
 export class ResizeModule {
 }

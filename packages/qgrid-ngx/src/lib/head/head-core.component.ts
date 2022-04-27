@@ -1,15 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	NgZone,
+	OnInit,
+} from '@angular/core';
 import { ColumnView, EventListener, EventManager, HeadHost } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from '../table/table-core.service';
 
 @Component({
-	// tslint:disable-next-line
-	selector: 'thead[q-grid-core-head]',
+	selector: 'thead[q-grid-core-head]', // eslint-disable-line @angular-eslint/component-selector
 	templateUrl: './head-core.component.html',
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeadCoreComponent implements OnInit {
 	constructor(

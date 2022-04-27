@@ -3,9 +3,10 @@ import { TemplateHostService } from '../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-toolbar',
-	template: '<ng-content></ng-content>',
+	template: `<ng-content></ng-content>
+`,
 	providers: [TemplateHostService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent {
 	constructor(templateHost: TemplateHostService) {

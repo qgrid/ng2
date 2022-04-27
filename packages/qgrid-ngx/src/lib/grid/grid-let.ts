@@ -18,7 +18,7 @@ import {
 	SelectionLet,
 	SortLet,
 	StyleLet,
-	viewFactory
+	viewFactory,
 } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { ScrollService } from '../scroll/scroll.service';
@@ -46,13 +46,13 @@ export class GridLet {
 
 	constructor(
 		private qgrid: Grid,
-		private scrollService: ScrollService
+		private scrollService: ScrollService,
 	) { }
 
 	init(plugin: GridPlugin, commandManager: CommandManager) {
 		const selectors = {
 			th: 'q-grid-core-th',
-			tr: 'q-grid-core-tr'
+			tr: 'q-grid-core-tr',
 		};
 
 		const injectLetServicesTo = viewFactory(

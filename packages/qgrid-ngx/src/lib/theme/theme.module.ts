@@ -3,7 +3,7 @@ import { ThemeService } from './theme.service';
 
 @NgModule({
 	providers: [
-		ThemeService
+		ThemeService,
 	],
 })
 export class ThemeModule {

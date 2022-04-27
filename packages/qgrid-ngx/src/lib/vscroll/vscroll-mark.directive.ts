@@ -1,14 +1,22 @@
-import { Directive, OnInit, OnDestroy, ElementRef, Input, Optional } from '@angular/core';
+import {
+	Directive,
+	OnInit,
+	OnDestroy,
+	ElementRef,
+	Input,
+	Optional,
+} from '@angular/core';
 import { VscrollPortXDirective } from './vscroll-port-x.directive';
 import { VscrollPortYDirective } from './vscroll-port-y.directive';
 import { VscrollPort } from './vscroll.port';
 
 @Directive({
-	selector: '[q-grid-vscroll-mark]'
+	selector: '[q-grid-vscroll-mark]',
 })
 export class VscrollMarkDirective implements OnInit, OnDestroy {
-	@Input('q-grid-vscroll-mark') key: string;
 	private ports: Array<VscrollPort> = [];
+
+	@Input('q-grid-vscroll-mark') key: string;
 
 	constructor(
 		private elementRef: ElementRef,

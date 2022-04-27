@@ -7,6 +7,14 @@ export class VscrollLink {
 	private box = new VscrollBox();
 	private ticking = false;
 
+	private get settings() {
+		return this.port.context.settings;
+	}
+
+	private get container() {
+		return this.port.context.container;
+	}
+
 	constructor(
 		private port: VscrollPort,
 		private view: VscrollDirective,
@@ -55,7 +63,7 @@ export class VscrollLink {
 			const draw = () => {
 				container.position = port.layout.invalidate(position);
 				container.draw$.emit({
-					position: container.position
+					position: container.position,
 				});
 			};
 
@@ -75,7 +83,7 @@ export class VscrollLink {
 				scrollTop: element.scrollTop,
 				scrollLeft: element.scrollLeft,
 				portWidth: element.clientWidth,
-				portHeight: element.clientHeight
+				portHeight: element.clientHeight,
 			};
 
 			if (force || port.hasChanges(newBox, box)) {
@@ -86,13 +94,5 @@ export class VscrollLink {
 				}
 			}
 		});
-	}
-
-	private get settings() {
-		return this.port.context.settings;
-	}
-
-	private get container() {
-		return this.port.context.container;
 	}
 }

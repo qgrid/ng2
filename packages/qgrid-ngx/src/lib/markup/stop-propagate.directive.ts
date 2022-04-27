@@ -1,8 +1,15 @@
-import { Directive, ElementRef, Input, NgZone, OnInit, Renderer2 } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	NgZone,
+	OnInit,
+	Renderer2,
+} from '@angular/core';
 import { isString, yes } from '@qgrid/core';
 
 @Directive({
-	selector: '[q-grid-stop-propagate]'
+	selector: '[q-grid-stop-propagate]',
 })
 export class StopPropagateDirective implements OnInit {
 	@Input('q-grid-stop-propagate') eventName: string | Array<string> = 'click';
@@ -31,8 +38,8 @@ export class StopPropagateDirective implements OnInit {
 						if (this.needStop()) {
 							e.stopPropagation();
 						}
-					})
-			)
+					}),
+			),
 		);
 	}
 }
