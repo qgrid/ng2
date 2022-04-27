@@ -9,6 +9,6 @@
     "editor.detectIndentation": false,
     "editor.codeActionsOnSave": {
       "source.organizeImports": false,
-			"source.sortImports": false
+      "source.sortImports": false
     }
   }
