@@ -1,7 +1,7 @@
+import { columnFactory } from '../column/column.factory';
+import { GridError } from '../infrastructure/error';
 import { RowDetails } from './row.details';
 import { RowDetailsStatus } from './row.details.status';
-import { GridError } from '../infrastructure/error';
-import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {
 	const { rows } = model.scene();
@@ -69,7 +69,7 @@ export function invalidateStatus(rows, status, mode) {
 		default: {
 			throw new GridError(
 				'row.details.service',
-				`Invalid mode ${mode}`
+				`Invalid mode ${mode}`,
 			);
 		}
 	}

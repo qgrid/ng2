@@ -8,8 +8,8 @@ export class SceneState {
 			area: {
 				left: [],
 				mid: [],
-				right: []
-			}
+				right: [],
+			},
 		};
 	}
 }

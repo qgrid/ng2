@@ -1,4 +1,4 @@
-import { clone } from '../utility/kit';
+import { clone, hasOwnProperty } from '../utility/kit';
 
 // TODO: refactor this to the commands
 export class PersistenceService {
@@ -13,12 +13,14 @@ export class PersistenceService {
 
 		const model = {};
 		for (const key in settings) {
-			const source = gridModel[key]();
-			const target = {};
-			model[key] = target;
-			for (const p of settings[key]) {
-				const value = source[p];
-				target[p] = clone(value);
+			if(hasOwnProperty.call(settings, key)) {
+				const source = gridModel[key]();
+				const target = {};
+				model[key] = target;
+				for (const p of settings[key]) {
+					const value = source[p];
+					target[p] = clone(value);
+				}
 			}
 		}
 
@@ -30,10 +32,12 @@ export class PersistenceService {
 		settings = settings || gridModel.persistence().settings;
 
 		for (const key in settings) {
-			const source = model[key];
-			if (source) {
-				const target = gridModel[key];
-				target(source, { source: 'persistence.service' });
+			if(hasOwnProperty.call(settings, key)) {
+				const source = model[key];
+				if (source) {
+					const target = gridModel[key];
+					target(source, { source: 'persistence.service' });
+				}
 			}
 		}
 
@@ -46,14 +50,16 @@ export class PersistenceService {
 		settings = settings || gridModel.persistence().settings;
 
 		const model = {};
-		for (let key in settings) {
-			model[key] = {};
-			const source = defaultModel[key];
-			const target = gridModel[key];
-			for (const p of settings[key]) {
-				model[key][p] = source()[p];
+		for (const key in settings) {
+			if(hasOwnProperty.call(settings, key)) {
+				model[key] = {};
+				const source = defaultModel[key];
+				const target = gridModel[key];
+				for (const p of settings[key]) {
+					model[key][p] = source()[p];
+				}
+				target(model[key], { source: 'persistence.service' });
 			}
-			target(model[key], { source: 'persistence.service' });
 		}
 
 		return model;

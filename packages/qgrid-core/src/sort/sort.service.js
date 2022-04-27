@@ -2,6 +2,24 @@ import { GridError } from '../infrastructure/error';
 import { preOrderDFS } from '../node/node.service';
 import { isString } from '../utility/kit';
 
+export function getKey(pair) {
+	let key;
+	if (isString(pair)) {
+		const signedKey = pair.split(/[+-]/);
+		key = signedKey[1] || signedKey[0];
+	} else {
+		key = Object.keys(pair)[0];
+	}
+
+	if (!key) {
+		throw new GridError(
+			'sort.service',
+			`Key is not defined in "${pair}"`);
+	}
+
+	return key;
+}
+
 export function orderFactory(model) {
 	const { sort } = model;
 	return by => {
@@ -19,24 +37,6 @@ export function orderFactory(model) {
 
 		return by;
 	};
-}
-
-export function getKey(pair) {
-	let key;
-	if (isString(pair)) {
-		const signedKey = pair.split(/[+-]/);
-		key = signedKey[1] || signedKey[0];
-	} else {
-		key = Object.keys(pair)[0]
-	}
-
-	if (!key) {
-		throw new GridError(
-			'sort.service',
-			`Key is not defined in "${pair}"`);
-	}
-
-	return key;
 }
 
 export function getDirection(pair) {

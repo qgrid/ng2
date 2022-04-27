@@ -11,8 +11,7 @@ export class BoxHost {
 				if (e.hasChanges('isActive')) {
 					if (model.drag().isActive) {
 						host.classList.add(`${GRID_PREFIX}-drag`);
-					}
-					else {
+					} else {
 						host.classList.remove(`${GRID_PREFIX}-drag`);
 					}
 				}

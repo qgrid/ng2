@@ -1,4 +1,4 @@
-import { PipeFolder, PipeCallback, PipeUnitWhy } from '../pipe.types';
+import { PipeCallback, PipeFolder, PipeUnitWhy } from '../pipe.types';
 
 export declare type RowPipeUnit = [
     PipeCallback<any, PipeFolder>,
@@ -6,4 +6,4 @@ export declare type RowPipeUnit = [
     PipeCallback<PipeFolder, any[]>,
 ] & { why: PipeUnitWhy };
 
-export declare const rowPipeUnit: RowPipeUnit; 
+export declare const rowPipeUnit: RowPipeUnit;

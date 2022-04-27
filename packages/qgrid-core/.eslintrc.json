@@ -1,0 +1,16 @@
+{
+  "extends": "../../.eslintrc.json",
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/adjacent-overload-signatures": "warn"
+  }
+}

@@ -13,7 +13,7 @@ function buildFactory(columnMap, valueFactory) {
 				'pivot.build',
 				`Invalid key "${key}"`);
 		}
-		
+
 		const getValue = valueFactory(column);
 
 		return pivot({
@@ -30,7 +30,7 @@ function buildFactory(columnMap, valueFactory) {
 				}
 
 				return true;
-			}
+			},
 		});
 	};
 }

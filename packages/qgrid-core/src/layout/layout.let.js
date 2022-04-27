@@ -5,6 +5,11 @@ import * as css from '../services/css';
 import { Fastdom } from '../services/fastdom';
 
 export class LayoutLet {
+
+	get gridId() {
+		return this.plugin.model.grid().id;
+	}
+
 	constructor(plugin) {
 		const { model, observeReply, disposable } = plugin;
 		const styleRow = this.styleRow.bind(this);
@@ -47,8 +52,7 @@ export class LayoutLet {
 					const rows = Array.from(model.style().rows);
 					if (e.state.canResize) {
 						rows.push(styleRow);
-					}
-					else {
+					} else {
 						const index = model.style.rows.indexOf(styleRow);
 						rows.splice(index, 1);
 					}
@@ -60,10 +64,10 @@ export class LayoutLet {
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
 					model.layout({
-						columns: new Map()
+						columns: new Map(),
 					}, {
 						source: 'layout.let',
-						behavior: 'core'
+						behavior: 'core',
 					});
 				}
 			});
@@ -72,7 +76,8 @@ export class LayoutLet {
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
 					const columns = columnService.flattenColumns(e.state.columns);
-					const hasNonDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null || x.widthMode === 'fit-head';
+					const hasNonDefaultWidth = x => x.width !== null || x.minWidth !== null
+					|| x.maxWidth !== null || x.widthMode === 'fit-head';
 					if (columns.some(hasNonDefaultWidth)) {
 						Fastdom.mutate(() => {
 							const { columns } = model.layout();
@@ -95,7 +100,7 @@ export class LayoutLet {
 		const layout = model.layout().columns;
 
 		const form = new Map();
-		for (let cell of cells) {
+		for (const cell of cells) {
 			const { column, rowIndex, columnIndex } = cell;
 			if (!column.canResize) {
 				continue;
@@ -120,7 +125,7 @@ export class LayoutLet {
 
 		const column = selectColumn(model.navigation());
 		if (column && column.viewWidth) {
-			const viewForm = new Map(form)
+			const viewForm = new Map(form);
 			const columnForm = form.get(column.key);
 			viewForm.set(column.key, { width: columnForm ? Math.max(columnForm.width, column.viewWidth) : column.viewWidth });
 			return viewForm;
@@ -148,7 +153,7 @@ export class LayoutLet {
 				const sizeStyle = {
 					'width': size,
 					'min-width': size,
-					'max-width': size
+					'max-width': size,
 				};
 
 				style[`.q-grid-the-${key}`] = sizeStyle;
@@ -173,9 +178,5 @@ export class LayoutLet {
 
 			context.class(`resized-${style.height}px`, { height: style.height + 'px' });
 		}
-	}
-
-	get gridId() {
-		return this.plugin.model.grid().id;
 	}
 }

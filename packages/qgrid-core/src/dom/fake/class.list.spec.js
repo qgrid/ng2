@@ -1,7 +1,7 @@
-import {FakeClassList} from './class.list';
+import { FakeClassList } from './class.list';
 
 describe('FakeClassList', () => {
-	let fakeClassList = new FakeClassList();
+	const fakeClassList = new FakeClassList();
 
 	describe('add', () => {
 		it('should be undefined', () => {

@@ -1,7 +1,7 @@
 import { GridError } from '../infrastructure/error';
 import { compareParseFactory } from '../services/convert';
+import { identity, isArray, isUndefined, yes } from '../utility/kit';
 import { Visitor } from './expression.visitor';
-import { isArray, identity, yes, isUndefined } from '../utility/kit';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory, assertFactory, getType) {
@@ -19,18 +19,13 @@ export class PredicateVisitor extends Visitor {
 
 			switch (group.op) {
 				case 'and':
-					return value => {
-						return lp(value) && rp(value);
-					};
+					return value => lp(value) && rp(value);
 				case 'or':
-					return value => {
-						return lp(value) || rp(value);
-					};
-
+					return value => lp(value) || rp(value);
 				default:
 					throw GridError(
 						'predicate.visitor',
-						`Invalid operation ${group.op}`
+						`Invalid operation ${group.op}`,
 					);
 			}
 		}
@@ -58,17 +53,11 @@ export class PredicateVisitor extends Visitor {
 
 		const { equals, isNull, lessThan } = assert;
 
-		const lessThanOrEquals = (x, y) => {
-			return equals(x, y) || lessThan(x, y);
-		};
+		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
 
-		const greaterThan = (x, y) => {
-			return !equals(x, y) && !lessThan(x, y)
-		};
+		const greaterThan = (x, y) => !equals(x, y) && !lessThan(x, y);
 
-		const greaterThanOrEquals = (x, y) => {
-			return equals(x, y) || !lessThan(x, y);
-		};
+		const greaterThanOrEquals = (x, y) => equals(x, y) || !lessThan(x, y);
 
 		let predicate;
 		switch (condition.op) {
@@ -122,13 +111,13 @@ export class PredicateVisitor extends Visitor {
 				if (noEnd) {
 					const etalon = parse(start);
 					predicate = actual => greaterThanOrEquals(parse(actual), etalon);
-					break
+					break;
 				}
 
 				if (noStart) {
 					const etalon = parse(end);
 					predicate = actual => lessThanOrEquals(parse(actual), etalon);
-					break
+					break;
 				}
 
 				const etalonStart = parse(start);
@@ -142,10 +131,10 @@ export class PredicateVisitor extends Visitor {
 				break;
 			}
 			case 'in': {
-				predicate = (actual) => {
+				predicate = actual => {
 					if (isArray(actual)) {
 						for (const value of map) {
-							if (actual.some((item) => '' + item === value)) {
+							if (actual.some(item => '' + item === value)) {
 								return true;
 							}
 						}
@@ -183,7 +172,7 @@ export class PredicateVisitor extends Visitor {
 			default:
 				throw new GridError(
 					'predicate.visitor',
-					`Invalid operation ${condition.op}`
+					`Invalid operation ${condition.op}`,
 				);
 		}
 

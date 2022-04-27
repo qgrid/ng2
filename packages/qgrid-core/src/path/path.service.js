@@ -4,7 +4,7 @@ export class PathService {
 	}
 
 	cell(path) {
-		for (let node of path) {
+		for (const node of path) {
 			if (node.nodeName === 'TD' || node.nodeName === 'TH') {
 				const model = this.bag.findModel(node);
 				if (!model) {
@@ -19,7 +19,7 @@ export class PathService {
 	}
 
 	row(path) {
-		for (let node of path) {
+		for (const node of path) {
 			if (node.nodeName === 'TR') {
 				const model = this.bag.findModel(node);
 				if (!model) {

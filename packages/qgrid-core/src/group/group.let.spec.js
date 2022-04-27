@@ -1,7 +1,3 @@
-import { CommandManager } from '../command/command.manager';
-import { GroupLet } from './group.let';
-import { modelFactory } from '../test/model.factory';
-import { GridService } from '../grid/grid.service';
 
 /**
  * API for GroupLet was changed, tests should be skipped

@@ -1,6 +1,6 @@
-import { FakeElement } from '../fake/element';
-import { Container } from '../container';
 import { isUndefined } from '../../utility/kit';
+import { Container } from '../container';
+import { FakeElement } from '../fake/element';
 
 export class Selector {
 	constructor(matrix, bag, factory) {
@@ -53,7 +53,7 @@ export class Selector {
 		const result = [];
 		if (isUndefined(columnIndex)) {
 			const rows = bag.getRowElements();
-			for (let tr of rows) {
+			for (const tr of rows) {
 				result.push(factory.row(tr.element, tr.index));
 			}
 
@@ -104,7 +104,7 @@ export class Selector {
 		const row = this.matrix[rowIndex];
 		if (row) {
 			const set = new Set();
-			for (let td of row) {
+			for (const td of row) {
 				set.add(td.parentElement);
 			}
 

@@ -1,8 +1,8 @@
 export declare class Fetch {
-	constructor(select: any);
-
 	busy: Promise<any>;
 	result: any;
+
+	constructor(select: any);
 
 	run(item?: any): () => void;
 }

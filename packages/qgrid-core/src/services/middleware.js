@@ -1,3 +1,24 @@
+function start(tasks, memo) {
+	tasks = Array.from(tasks);
+	return new Promise((resolve, reject) => {
+		function invoke(memo) {
+			if (tasks.length) {
+				const task = tasks.shift();
+				const promise = task(memo);
+				promise
+					.then(invoke)
+					.catch(ex => {
+						reject(ex);
+						throw ex;
+					});
+			} else {
+				resolve(memo);
+			}
+		}
+
+		invoke(memo);
+	});
+}
 export class Middleware {
 	constructor(pipes) {
 		this.pipes = pipes;
@@ -11,27 +32,4 @@ export class Middleware {
 
 		return start(tasks, memo);
 	}
-}
-
-function start(tasks, memo) {
-	tasks = Array.from(tasks);
-	return new Promise((resolve, reject) => {
-		invoke(memo);
-
-		function invoke(memo) {
-			if (tasks.length) {
-				const task = tasks.shift();
-				const promise = task(memo);
-				promise
-					.then(invoke)
-					.catch(ex => {
-						reject(ex);
-						throw ex;
-					});
-			}
-			else {
-				resolve(memo);
-			}
-		}
-	});
 }

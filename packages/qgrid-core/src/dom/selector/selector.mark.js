@@ -36,7 +36,7 @@ export class SelectorMark {
 				result.push({
 					element,
 					columnRange: new Range(columnStart, columnStart + columnCount),
-					rowRange: new Range(rowStart, rowStart + rowCount)
+					rowRange: new Range(rowStart, rowStart + rowCount),
 				});
 			}
 

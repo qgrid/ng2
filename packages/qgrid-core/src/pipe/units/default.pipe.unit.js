@@ -11,7 +11,7 @@ export const defaultPipeUnit = [
 	Pipe.view,
 	Pipe.pagination,
 	Pipe.animation,
-	Pipe.scene
+	Pipe.scene,
 ];
 
 defaultPipeUnit.why = 'refresh';

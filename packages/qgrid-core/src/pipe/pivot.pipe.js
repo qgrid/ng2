@@ -16,10 +16,10 @@ export function pivotPipe(memo, context, next) {
 	}
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { pivot: memo.pivot })
+		effect: Object.assign({}, model.pipe().effect, { pivot: memo.pivot }),
 	}, {
 		source: 'pivot.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	});
 
 	next(memo);

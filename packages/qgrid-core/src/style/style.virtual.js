@@ -17,7 +17,7 @@ export class VirtualRowStyle {
 			const key = rowBox.key(model);
 			const classList = entries.get(key);
 			if (classList) {
-				for (let cls of classList) {
+				for (const cls of classList) {
 					context.class(cls);
 				}
 			}
@@ -50,7 +50,7 @@ export class VirtualCellStyle {
 			const columnKey = columnBox.key(columnModel);
 			const columnClassList = columnEntries.get(columnKey);
 			if (columnClassList) {
-				for (let cls of columnClassList) {
+				for (const cls of columnClassList) {
 					context.class(cls);
 				}
 			}
@@ -64,7 +64,7 @@ export class VirtualCellStyle {
 			const cellKey = cellBox.key(cellModel);
 			const cellClassList = cellEntries.get(cellKey);
 			if (cellClassList) {
-				for (let cls of cellClassList) {
+				for (const cls of cellClassList) {
 					context.class(cls);
 				}
 			}

@@ -18,7 +18,7 @@ export class PipeState {
 			const schema = new Map([
 				[PU.default, dataPipe],
 				[PU.view, PU.default],
-				[PU.column, PU.view]
+				[PU.column, PU.view],
 			]);
 
 			const shouldKeep = unit => {
@@ -50,17 +50,17 @@ export class PipeState {
 		this.triggers = {
 			'data': {
 				'rows': PU.default,
-				'columns': PU.column
+				'columns': PU.column,
 			},
 			'pagination': {
 				'current': PU.default,
-				'size': PU.default
+				'size': PU.default,
 			},
 			'fetch': {
-				'skip': PU.default
+				'skip': PU.default,
 			},
 			'sort': {
-				'by': PU.default
+				'by': PU.default,
 			},
 			'filter': {
 				'by': PU.default,
@@ -69,26 +69,26 @@ export class PipeState {
 				'unit': PU.column,
 			},
 			'group': {
-				'by': PU.default
+				'by': PU.default,
 			},
 			'pivot': {
-				'by': PU.default
+				'by': PU.default,
 			},
 			'columnList': {
-				'index': PU.columnIndex
+				'index': PU.columnIndex,
 			},
 			'row': {
 				'status': PU.rowDetails,
 				'unit': PU.rowDetails,
 				'canMove': PU.column,
-				'canResize': PU.column
+				'canResize': PU.column,
 			},
 			'rowList': {
-				'index': PU.row
+				'index': PU.row,
 			},
 			'animation': {
-				'rows': PU.default
-			}
+				'rows': PU.default,
+			},
 		};
 
 		this.effect = {};

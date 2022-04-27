@@ -1,12 +1,13 @@
-/*eslint-disable  no-console*/
+/* eslint-disable  no-console*/
+/* eslint-disable @typescript-eslint/no-unused-vars*/
 
 export class Log {
 	static info(source, message) {
-		//console.info(`qgrid.${source}: ${message}`);
+		// console.info(`qgrid.${source}: ${message}`);
 	}
 
 	static warn(source, message) {
-		//console.warn(`qgrid.${source}: ${message}`);
+		// console.warn(`qgrid.${source}: ${message}`);
 	}
 
 	static error(source, message) {
@@ -14,4 +15,4 @@ export class Log {
 	}
 }
 
-/*eslint-enable*/
+/* eslint-enable*/

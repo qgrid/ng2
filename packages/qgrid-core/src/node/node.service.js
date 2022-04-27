@@ -12,6 +12,14 @@ export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 	return memo;
 }
 
+export function copy(node) {
+	const result = new Node(node.key, node.level, node.type);
+	result.value = node.value;
+	result.source = node.source;
+	result.state.expand = node.state.expand;
+	return result;
+}
+
 export function filterNode(node, test, parent = null) {
 	const { children } = node;
 	node = copy(node);
@@ -76,14 +84,6 @@ export function calk(node) {
 	result.state = cloneDeep(node.state);
 	result.source = node.source;
 	result.value = node.value;
-	return result;
-}
-
-export function copy(node) {
-	const result = new Node(node.key, node.level, node.type);
-	result.value = node.value;
-	result.source = node.source;
-	result.state.expand = node.state.expand;
 	return result;
 }
 

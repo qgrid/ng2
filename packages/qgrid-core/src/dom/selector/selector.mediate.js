@@ -1,6 +1,6 @@
-import { FakeElement } from '../fake/element';
+import { isUndefined, max, sumBy, zip } from '../../utility/kit';
 import { Container } from '../container';
-import { zip, sumBy, max, isUndefined } from '../../utility/kit';
+import { FakeElement } from '../fake/element';
 
 export class SelectorMediator {
 	constructor(selectorFactory, factory) {

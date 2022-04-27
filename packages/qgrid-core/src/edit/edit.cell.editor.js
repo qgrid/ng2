@@ -27,6 +27,15 @@ class CellEditorCore {
 const empty = new CellEditorCore(null);
 
 export class CellEditor extends CellEditorCore {
+
+	static get empty() {
+		return empty;
+	}
+
+	get cell() {
+		return this.td;
+	}
+
 	constructor(td) {
 		super(td);
 
@@ -35,8 +44,7 @@ export class CellEditor extends CellEditorCore {
 
 		if (isUndefined(td.value)) {
 			this.value = null;
-		}
-		else {
+		} else {
 			const parse = parseFactory(td.column.type, td.column.editor);
 			const typedValue = parse(clone(td.value));
 			this.value = typedValue === null ? td.value : typedValue;
@@ -76,13 +84,5 @@ export class CellEditor extends CellEditorCore {
 		}
 
 		return new Fetch(this.td.value);
-	}
-
-	get cell() {
-		return this.td;
-	}
-
-	static get empty() {
-		return empty;
 	}
 }

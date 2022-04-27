@@ -1,5 +1,6 @@
 import { GridError } from '../infrastructure/error';
 import { getValueFactory } from '../services/value';
+import { hasOwnProperty } from '../utility/kit';
 import { Node } from './node';
 
 export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
@@ -8,13 +9,13 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 	}
 
 	const groupKey = groupBy[0];
-	if (!columnMap.hasOwnProperty(groupKey)) {
+	if (!hasOwnProperty.call(columnMap, groupKey)) {
 		throw new GridError('node.build', `can't find column "${groupKey}"`);
 	}
 
 	const column = columnMap[groupKey];
 	const getValue = getValueFactory(column);
-	return (rows, getRowIndex = (i) => i) => {
+	return (rows, getRowIndex = i => i) => {
 		const keys = [];
 		const nodes = [];
 		const groups = {};
@@ -22,7 +23,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 			const row = rows[i];
 			const index = getRowIndex(i);
 			const key = getValue(row);
-			if (!groups.hasOwnProperty(key)) {
+			if (!hasOwnProperty.call(groups, key)) {
 				const node = new Node(key, level);
 				node.source = groupKey;
 				node.rows.push(index);
@@ -30,10 +31,9 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 				nodes.push(node);
 				groups[key] = {
 					node,
-					rows: [row]
+					rows: [row],
 				};
-			}
-			else {
+			} else {
 				const group = groups[key];
 				group.node.rows.push(index);
 				group.rows.push(row);

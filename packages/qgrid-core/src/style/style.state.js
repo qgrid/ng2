@@ -1,5 +1,5 @@
-import { noop } from '../utility/kit';
 import { Command } from '../command/command';
+import { noop } from '../utility/kit';
 
 export class StyleState {
 	constructor() {
@@ -12,7 +12,7 @@ export class StyleState {
 
 		this.invalidate = new Command({
 			source: 'style.model',
-			canExecute: context => context.model.edit().status === 'view'
+			canExecute: context => context.model.edit().status === 'view',
 		});
 	}
 }

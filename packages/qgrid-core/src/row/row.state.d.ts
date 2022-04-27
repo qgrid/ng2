@@ -3,7 +3,7 @@ import { RowDetailsStatus } from '../row-details/row.details.status';
 
 /**
  * Indicates how many detail items could be shown on the screen.
- * 
+ *
  * * `all` every row is opened and showing details.
  * * `single` only one row per time could show details.
  * * `multiple` several rows could show details.
@@ -50,8 +50,8 @@ export declare class RowState {
 	/**
 	 * Indicates min size of rows for resize.
 	 */
-	 minHeight: number;
-	
+	minHeight: number;
+
 	/**
 	 * All data rows in this list will be pinned to top.
 	 */

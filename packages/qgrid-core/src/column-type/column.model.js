@@ -1,19 +1,15 @@
-import { identity, compare } from '../utility/kit';
 import { TemplatePath } from '../template/template.path';
+import { compare, identity } from '../utility/kit';
 
-TemplatePath.register('custom-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('custom-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key,
+}));
 
-TemplatePath.register('custom-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('custom-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key,
+}));
 
 export class ColumnModel {
 	constructor(type = 'text') {
@@ -36,7 +32,7 @@ export class ColumnModel {
 			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
-			actions: []
+			actions: [],
 		};
 
 		this.width = null;

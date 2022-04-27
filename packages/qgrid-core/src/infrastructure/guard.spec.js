@@ -1,4 +1,4 @@
-import {Guard} from './guard';
+import { Guard } from './guard';
 
 describe('Guard', () => {
 
@@ -6,7 +6,7 @@ describe('Guard', () => {
 		value: 'value',
 		null: null,
 		empty: '',
-		notFunction: 'text'
+		notFunction: 'text',
 	};
 
 	describe('notUndefined', () => {

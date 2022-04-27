@@ -1,10 +1,21 @@
-import { PathService } from '../path/path.service';
 import { Command } from '../command/command';
-import { isNumber } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
+import { PathService } from '../path/path.service';
 import { eventPath } from '../services/dom';
+import { isNumber } from '../utility/kit';
 
 export class RowLet {
+
+	get canMove() {
+		const { model } = this.plugin;
+		return model.row().canMove;
+	}
+
+	get canResize() {
+		const { model } = this.plugin;
+		return model.row().canResize;
+	}
+
 	constructor(plugin, tagName) {
 		const { model, table, observe } = plugin;
 
@@ -42,7 +53,7 @@ export class RowLet {
 
 							const tr = table.body.row(oldIndex).model();
 							const entries = [];
-							for (let entry of model.rowList().index.entries()) {
+							for (const entry of model.rowList().index.entries()) {
 								const index = entry[1];
 								if (oldIndex < index && index <= newIndex) {
 									entry[1] = index - 1;
@@ -70,7 +81,7 @@ export class RowLet {
 						break;
 					}
 				}
-			}
+			},
 		});
 
 		this.drag = new Command({
@@ -91,11 +102,11 @@ export class RowLet {
 				}
 
 				return false;
-			}
+			},
 		});
 
 		this.resize = new Command({
-			source: 'row.view'
+			source: 'row.view',
 		});
 
 		observe(model.dataChanged)
@@ -105,19 +116,9 @@ export class RowLet {
 						index: new Map(),
 					}, {
 						source: 'row.view',
-						behavior: 'core'
+						behavior: 'core',
 					});
 				}
-			})
-	}
-
-	get canMove() {
-		const { model } = this.plugin;
-		return model.row().canMove;
-	}
-
-	get canResize() {
-		const { model } = this.plugin;
-		return model.row().canResize;
+			});
 	}
 }

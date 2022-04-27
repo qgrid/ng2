@@ -1,8 +1,8 @@
+import { Model } from '../model/model';
+import { ColumnView } from '../scene/view/column.view';
+import { BoxContext } from './box';
 import { Rect } from './rect';
 import { Unit } from './unit';
-import { BoxContext } from './box';
-import { ColumnView } from '../scene/view/column.view';
-import { Model } from '../model/model';
 
 export declare class View extends Unit {
 	constructor(context: BoxContext, model: Model);
