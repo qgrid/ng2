@@ -45,16 +45,16 @@ import {
 	TemplateModule,
 	ThemeService,
 	ValidationModule,
-	VisibilityModule
+	VisibilityModule,
 } from 'ng2-qgrid';
 import { ThemeComponent } from './theme.component';
 
 @NgModule({
     declarations: [
-        ThemeComponent
+        ThemeComponent,
     ],
     exports: [
-        ThemeComponent
+        ThemeComponent,
     ],
     imports: [
         CommonModule,
@@ -102,7 +102,7 @@ import { ThemeComponent } from './theme.component';
         TabTrapModule,
         ValidationModule,
         VisibilityModule,
-    ]
+    ],
 })
 export class ThemeModule {
 	constructor(theme: ThemeService) {
