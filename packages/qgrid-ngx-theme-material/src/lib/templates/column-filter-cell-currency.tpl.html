@@ -1,5 +1,9 @@
-<ng-template key="column-filter-cell-currency.tpl.html"
-             let-$item
-             let-$list="itemList">
-    <span [innerHTML]="$item.value | qGridCurrency: $list.column.code | qGridHighlight: $list.search"></span>
+<ng-template
+	key="column-filter-cell-currency.tpl.html"
+	let-$item
+	let-$list="itemList"
+>
+	<span
+		[innerHTML]="$item.value | qGridCurrency: $list.column.code | qGridHighlight: $list.search"
+	></span>
 </ng-template>
