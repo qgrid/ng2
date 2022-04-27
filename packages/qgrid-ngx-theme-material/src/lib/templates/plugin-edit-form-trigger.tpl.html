@@ -1,22 +1,22 @@
-<ng-template key="plugin-edit-form-trigger.tpl.html"
-			 let-$trigger>
-	<button mat-icon-button
-			class="q-grid-icon-button"
-			#trigger="matMenuTrigger"
-			[matMenuTriggerFor]="menu"
-			aria-label="Edit form">
-		<mat-icon class="q-grid-icon">
-			edit
-		</mat-icon>
+<ng-template key="plugin-edit-form-trigger.tpl.html" let-$trigger>
+	<button
+		mat-icon-button
+		class="q-grid-icon-button"
+		#trigger="matMenuTrigger"
+		[matMenuTriggerFor]="menu"
+		aria-label="Edit form"
+	>
+		<mat-icon class="q-grid-icon"> edit </mat-icon>
 	</button>
-	<mat-menu #menu="matMenu"
-			  class="q-grid-edit-form q-grid-menu">
-		<q-grid-edit-form q-grid-menu
-						  *ngIf="trigger.menuOpen"
-						  [caption]="$trigger.caption"
-						  [row]="$trigger.row"
-						  (cancel)="trigger.closeMenu()"
-						  (submit)="trigger.closeMenu()">
+	<mat-menu #menu="matMenu" class="q-grid-edit-form q-grid-menu">
+		<q-grid-edit-form
+			q-grid-menu
+			*ngIf="trigger.menuOpen"
+			[caption]="$trigger.caption"
+			[row]="$trigger.row"
+			(cancel)="trigger.closeMenu()"
+			(submit)="trigger.closeMenu()"
+		>
 		</q-grid-edit-form>
 	</mat-menu>
 </ng-template>

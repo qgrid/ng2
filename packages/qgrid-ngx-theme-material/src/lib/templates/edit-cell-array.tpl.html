@@ -1,39 +1,46 @@
-<ng-template key="edit-cell-array.tpl.html"
-			 let-$cell
-			 let-$view="$view">
-	<q-grid-cell-editor class="q-grid-array q-grid-editor q-grid-position"
-						(close)="$view.edit.cell.exit.execute($cell)"
-						q-grid-position="td"
-						q-grid-chips>
+<ng-template key="edit-cell-array.tpl.html" let-$cell let-$view="$view">
+	<q-grid-cell-editor
+		class="q-grid-array q-grid-editor q-grid-position"
+		(close)="$view.edit.cell.exit.execute($cell)"
+		q-grid-position="td"
+		q-grid-chips
+	>
 		<div class="q-grid-array-view">
 			<mat-chip-list #chipList>
-				<ng-container *ngFor="let value of $view.edit.cell.value;let $index = index"
-							  (q-grid-chips-remove)="$view.edit.cell.value.splice($index, 1)">
-					<mat-chip class="q-grid-array-item"
-							  selectable="true"
-							  removable="true">
+				<ng-container
+					*ngFor="let value of $view.edit.cell.value;let $index = index"
+					(q-grid-chips-remove)="$view.edit.cell.value.splice($index, 1)"
+				>
+					<mat-chip
+						class="q-grid-array-item"
+						selectable="true"
+						removable="true"
+					>
 						{{value}}
-						<mat-icon class="q-grid-icon"
-								  matChipRemove>
-							cancel
-						</mat-icon>
+						<mat-icon class="q-grid-icon" matChipRemove> cancel </mat-icon>
 					</mat-chip>
 				</ng-container>
 			</mat-chip-list>
 		</div>
-		<mat-form-field (q-grid-chips-push)="($view.edit.cell.value || []).push($event)"
-						[floatLabel]="'never'">
-			<input class="q-grid-array-input"
-				   matInput
-				   type={{$cell.column.itemType}}
-				   #qGridInput
-				   q-grid-focus
-				   [matChipInputFor]="chipList" />
+		<mat-form-field
+			(q-grid-chips-push)="($view.edit.cell.value || []).push($event)"
+			[floatLabel]="'never'"
+		>
+			<input
+				class="q-grid-array-input"
+				matInput
+				type="{{$cell.column.itemType}}"
+				#qGridInput
+				q-grid-focus
+				[matChipInputFor]="chipList"
+			/>
 		</mat-form-field>
-		<q-grid-validator class="q-grid-validator"
-						  [key]="$cell.column.key"
-						  [type]="$cell.column.type"
-						  [value]="$view.edit.cell.value">
+		<q-grid-validator
+			class="q-grid-validator"
+			[key]="$cell.column.key"
+			[type]="$cell.column.type"
+			[value]="$view.edit.cell.value"
+		>
 		</q-grid-validator>
 	</q-grid-cell-editor>
 </ng-template>

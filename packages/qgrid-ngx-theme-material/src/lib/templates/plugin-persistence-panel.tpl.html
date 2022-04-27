@@ -1,5 +1,4 @@
-<ng-template key="plugin-persistence-panel.tpl.html"
-			 let-$persistence>
+<ng-template key="plugin-persistence-panel.tpl.html" let-$persistence>
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>Save/Load</mat-card-title>
@@ -8,28 +7,36 @@
 			<div class="q-grid-flex-none q-grid-layout-row">
 				<div class="q-grid-flex-100 q-grid-persistence-title">
 					<mat-form-field>
-						<input matInput
-							   type="text"
-							   q-grid-focus
-							   placeholder="Save As..."
-							   [(ngModel)]="$persistence.title" />
+						<input
+							matInput
+							type="text"
+							q-grid-focus
+							placeholder="Save As..."
+							[(ngModel)]="$persistence.title"
+						/>
 					</mat-form-field>
 				</div>
 				<div class="q-grid-flex-none q-grid-persistence-save">
-					<button mat-button
-							color="primary"
-							[q-grid-command]="$persistence.create">
+					<button
+						mat-button
+						color="primary"
+						[q-grid-command]="$persistence.create"
+					>
 						Save
 					</button>
 				</div>
 			</div>
 			<mat-list class="q-grid-persistence-list">
-				<mat-list-item [ngClass]="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}"
-							   class="q-grid-persistence-list-item">
+				<mat-list-item
+					[ngClass]="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}"
+					class="q-grid-persistence-list-item"
+				>
 					<div class="q-grid-persistence-default-icon"></div>
-					<button mat-button
-							matTooltip="No settings"
-							[q-grid-command]="$persistence.reset">
+					<button
+						mat-button
+						matTooltip="No settings"
+						[q-grid-command]="$persistence.reset"
+					>
 						<mat-list dense>
 							<mat-list-item>
 								<h3 matLine>{{$persistence.blank.title}}</h3>
@@ -40,55 +47,70 @@
 				</mat-list-item>
 				<ng-container *ngFor="let group of $persistence.groups">
 					<h3 mat-subheader>{{group.key}}</h3>
-					<mat-list-item *ngFor="let item of group.items"
-								   [ngClass]="{'q-grid-persistence-selected': $persistence.isActive(item)}"
-								   class="q-grid-persistence-list-item">
+					<mat-list-item
+						*ngFor="let item of group.items"
+						[ngClass]="{'q-grid-persistence-selected': $persistence.isActive(item)}"
+						class="q-grid-persistence-list-item"
+					>
 						<div class="q-grid-persistence-default-icon">
-							<mat-icon class="q-grid-icon"
-									  *ngIf="item.isDefault">star</mat-icon>
+							<mat-icon class="q-grid-icon" *ngIf="item.isDefault"
+								>star</mat-icon
+							>
 						</div>
-						<button mat-button
-								matTooltip="{{$persistence.stringify(item)}}"
-								*ngIf="$persistence.state.editItem !== item"
-								[q-grid-command]="$persistence.load"
-								[q-grid-command-arg]="item">
+						<button
+							mat-button
+							matTooltip="{{$persistence.stringify(item)}}"
+							*ngIf="$persistence.state.editItem !== item"
+							[q-grid-command]="$persistence.load"
+							[q-grid-command-arg]="item"
+						>
 							<mat-list dense>
 								<mat-list-item>
 									<h3 matLine>{{item.title}}</h3>
-									<span matLine
-										  class="q-grid-selected-item-modified">{{item.modified | qGridDate: 'MM/dd/yyyy h:mm a'}}</span>
+									<span matLine class="q-grid-selected-item-modified"
+										>{{item.modified | qGridDate: 'MM/dd/yyyy h:mm a'}}</span
+									>
 								</mat-list-item>
 							</mat-list>
 						</button>
-						<mat-form-field *ngIf="$persistence.state.editItem === item"
-										class="q-grid-persistence-item-edit">
-							<input matInput
-								   #input
-								   (blur)="$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)"
-								   [(ngModel)]="item.title"
-								   q-grid-focus />
+						<mat-form-field
+							*ngIf="$persistence.state.editItem === item"
+							class="q-grid-persistence-item-edit"
+						>
+							<input
+								matInput
+								#input
+								(blur)="$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)"
+								[(ngModel)]="item.title"
+								q-grid-focus
+							/>
 						</mat-form-field>
 						<div class="q-grid-more">
-							<button mat-button
-									[matMenuTriggerFor]="menu">
+							<button mat-button [matMenuTriggerFor]="menu">
 								<mat-icon>more_vert</mat-icon>
 							</button>
 							<mat-menu #menu="matMenu">
-								<button mat-menu-item
-										[q-grid-command]="$persistence.setDefault"
-										[q-grid-command-arg]="item">
+								<button
+									mat-menu-item
+									[q-grid-command]="$persistence.setDefault"
+									[q-grid-command-arg]="item"
+								>
 									<mat-icon class="q-grid-icon">star</mat-icon>
 									Default
 								</button>
-								<button mat-menu-item
-										[q-grid-command]="$persistence.edit.enter"
-										[q-grid-command-arg]="item">
+								<button
+									mat-menu-item
+									[q-grid-command]="$persistence.edit.enter"
+									[q-grid-command-arg]="item"
+								>
 									<mat-icon class="q-grid-icon">mode_edit</mat-icon>
 									Edit
 								</button>
-								<button mat-menu-item
-										[q-grid-command]="$persistence.remove"
-										[q-grid-command-arg]="item">
+								<button
+									mat-menu-item
+									[q-grid-command]="$persistence.remove"
+									[q-grid-command-arg]="item"
+								>
 									<mat-icon class="q-grid-icon">close</mat-icon>
 									Remove
 								</button>

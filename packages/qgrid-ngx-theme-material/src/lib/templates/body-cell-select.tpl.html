@@ -1,14 +1,14 @@
-<ng-template key="body-cell-select.tpl.html"
-			 let-$cell
-			 let-$view="$view">
+<ng-template key="body-cell-select.tpl.html" let-$cell let-$view="$view">
 	<ng-container [q-grid-dirty]="$view.selection.stateCheck | async">
-		<mat-checkbox [indeterminate]="$view.selection.isIndeterminate($cell.row)"
-					  [checked]="$view.selection.state($cell.row)"
-					  [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
-					  (change)="$view.selection.toggleRow.execute($cell.row)"
-					  tabindex="-1"
-					  aria-label="Select"
-					  class="q-grid-checkbox">
+		<mat-checkbox
+			[indeterminate]="$view.selection.isIndeterminate($cell.row)"
+			[checked]="$view.selection.state($cell.row)"
+			[disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
+			(change)="$view.selection.toggleRow.execute($cell.row)"
+			tabindex="-1"
+			aria-label="Select"
+			class="q-grid-checkbox"
+		>
 		</mat-checkbox>
 	</ng-container>
 </ng-template>

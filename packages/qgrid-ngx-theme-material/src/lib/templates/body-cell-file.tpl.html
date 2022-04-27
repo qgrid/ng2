@@ -1,18 +1,15 @@
-<ng-template key="body-cell-file.tpl.html"
-             let-$cell
-             let-$view="$view">
-    <a [href]="$cell.value"
-       tabindex="-1">
-        {{$cell.label || $cell.value}}
-    </a>
-    <button *ngIf="$view.edit.cell.canEdit($cell)"
-            mat-icon-button
-            class="q-grid-file-edit q-grid-edit-trigger"
-            matTooltip="Upload"
-            [q-grid-command]="$view.edit.cell.enter"
-            [q-grid-command-arg]="$cell"
-            aria-label="Upload file"
-            tabindex="-1">
-        <mat-icon class="q-grid-icon">file_upload</mat-icon>
-    </button>
+<ng-template key="body-cell-file.tpl.html" let-$cell let-$view="$view">
+	<a [href]="$cell.value" tabindex="-1"> {{$cell.label || $cell.value}} </a>
+	<button
+		*ngIf="$view.edit.cell.canEdit($cell)"
+		mat-icon-button
+		class="q-grid-file-edit q-grid-edit-trigger"
+		matTooltip="Upload"
+		[q-grid-command]="$view.edit.cell.enter"
+		[q-grid-command-arg]="$cell"
+		aria-label="Upload file"
+		tabindex="-1"
+	>
+		<mat-icon class="q-grid-icon">file_upload</mat-icon>
+	</button>
 </ng-template>

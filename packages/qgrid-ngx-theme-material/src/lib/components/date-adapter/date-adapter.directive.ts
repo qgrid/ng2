@@ -5,10 +5,7 @@ import { FormatDateAdapter } from './format-date-adapter';
 
 @Directive({
 	selector: '[q-grid-date-adapter]',
-	providers: [
-		DatePipe,
-		{ provide: DateAdapter, useClass: FormatDateAdapter }
-	]
+	providers: [DatePipe, { provide: DateAdapter, useClass: FormatDateAdapter } ],
 })
 export class DateAdapterDirective implements OnChanges {
 	@Input('q-grid-date-adapter') format: string;

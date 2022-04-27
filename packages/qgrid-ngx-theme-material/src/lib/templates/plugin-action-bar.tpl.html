@@ -1,11 +1,15 @@
-<ng-template key="plugin-action-bar.tpl.html"
-             let-$actionBar>
+<ng-template key="plugin-action-bar.tpl.html" let-$actionBar>
 	<div class="q-grid-layout-row">
-		<div class="q-grid-flex-100 q-grid-layout-row q-grid-layout-align-start-center">
-		</div>
-		<div class="q-grid-actions q-grid-flex-none q-grid-layout-row q-grid-layout-align-end-center">
-			<q-grid-action-core *ngFor="let action of $actionBar.actions"
-			                    [action]="action">
+		<div
+			class="q-grid-flex-100 q-grid-layout-row q-grid-layout-align-start-center"
+		></div>
+		<div
+			class="q-grid-actions q-grid-flex-none q-grid-layout-row q-grid-layout-align-end-center"
+		>
+			<q-grid-action-core
+				*ngFor="let action of $actionBar.actions"
+				[action]="action"
+			>
 			</q-grid-action-core>
 		</div>
 	</div>
