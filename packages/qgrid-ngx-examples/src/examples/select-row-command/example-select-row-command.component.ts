@@ -3,17 +3,14 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Grid, GridModel, Command } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'select-row-command',
-	'Rows can be selected using checkboxes. Only one row can be selected in the same time'
-];
+const EXAMPLE_TAGS = ['select-row-command', 'Rows can be selected using checkboxes. Only one row can be selected in the same time'];
 
 @Component({
 	selector: 'example-select-row-command',
 	templateUrl: 'example-select-row-command.component.html',
 	styleUrls: ['example-select-row-command.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectRowCommandComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
@@ -25,39 +22,37 @@ export class ExampleSelectRowCommandComponent implements AfterViewInit {
 	selectAll = new Command({
 		execute: () => {
 			this.gridModel.selection({
-				items: this.gridModel.scene().rows
+				items: this.gridModel.scene().rows,
 			});
-		}
+		},
 	});
 
 	unselectAll = new Command({
 		execute: () => {
 			this.gridModel.selection({
-				items: []
+				items: [],
 			});
-		}
+		},
 	});
 
 	reloadData = new Command({
 		execute: () => {
-		}
+		},
 	});
 
 	selectionToggle = new Command({
-		canExecute: e => {
-			return e.items[0] !== this.gridModel.selection().items[0];
-		}
+		canExecute: e => e.items[0] !== this.gridModel.selection().items[0],
 	});
 
 	constructor(private dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.gridModel = qgrid.model();
 	}
 
 	ngAfterViewInit() {
 		this.gridModel.selection({
-			toggle: this.selectionToggle
+			toggle: this.selectionToggle,
 		});
 	}
 }

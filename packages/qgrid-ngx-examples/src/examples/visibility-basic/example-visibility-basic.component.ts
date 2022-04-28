@@ -7,7 +7,7 @@ import { Atom, DataService } from '../data.service';
 	templateUrl: 'example-visibility-basic.component.html',
 	styleUrls: ['example-visibility-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleVisibilityBasicComponent {
 	static id = 'visibility-basic';

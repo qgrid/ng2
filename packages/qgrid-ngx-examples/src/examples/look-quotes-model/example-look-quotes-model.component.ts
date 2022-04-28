@@ -7,7 +7,7 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	templateUrl: 'example-look-quotes-model.component.html',
 	styleUrls: ['example-look-quotes-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookQuotesModelComponent {
 	static id = 'look-quotes-model';

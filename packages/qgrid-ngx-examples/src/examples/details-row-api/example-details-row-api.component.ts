@@ -3,17 +3,14 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'details-row-api',
-	'Details section of every row can be expanded/collapsed using UI buttons in toolbar and chevron buttons'
-];
+const EXAMPLE_TAGS = ['details-row-api', 'Details section of every row can be expanded/collapsed using UI buttons in toolbar and chevron buttons'];
 
 @Component({
 	selector: 'example-details-row-api',
 	templateUrl: 'example-details-row-api.component.html',
 	styleUrls: ['example-details-row-api.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowApiComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
@@ -29,9 +26,9 @@ export class ExampleDetailsRowApiComponent implements AfterViewInit {
 			const { model } = this.grid;
 			const { rows } = model.data();
 			model.row({
-				status: new Map(rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(true)]))
+				status: new Map(rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(true)])),
 			});
-		}
+		},
 	});
 
 	collapseAllCommand = new Command({
@@ -39,9 +36,9 @@ export class ExampleDetailsRowApiComponent implements AfterViewInit {
 			const { model } = this.grid;
 			const { rows } = model.data();
 			model.row({
-				status: new Map(rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(false)]))
+				status: new Map(rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(false)])),
 			});
-		}
+		},
 	});
 
 	expandSecondCommand = new Command({
@@ -51,27 +48,27 @@ export class ExampleDetailsRowApiComponent implements AfterViewInit {
 			const theSecondRow = model.data().rows[1];
 
 			model.row({
-				status: new Map([[theSecondRow, new RowDetailsStatus(true)]])
+				status: new Map([[theSecondRow, new RowDetailsStatus(true)]]),
 			});
-		}
+		},
 	});
 
 	toggle = new Command({
-		canExecute: () => this.canExpand
+		canExecute: () => this.canExpand,
 	});
 
 	disableExpand = new Command({
 		execute: () => {
 			this.canExpand = false;
 			this.toggle.canExecuteCheck.next();
-		}
+		},
 	});
 
 	enableExpand = new Command({
 		execute: () => {
 			this.canExpand = true;
 			this.toggle.canExecuteCheck.next();
-		}
+		},
 	});
 
 	constructor(dataService: DataService) {
@@ -81,7 +78,7 @@ export class ExampleDetailsRowApiComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		const { model } = this.grid;
 		model.row({
-			toggle: this.toggle
+			toggle: this.toggle,
 		});
 	}
 }

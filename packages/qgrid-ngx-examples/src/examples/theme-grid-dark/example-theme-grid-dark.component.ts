@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-theme-grid-dark.component.html',
 	styleUrls: ['example-theme-grid-dark.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleThemeGridDarkComponent {
 	static id = 'theme-grid-dark';

@@ -3,17 +3,14 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'edit-row-custom',
-	'Selected row can be edited using UI button "Open pane"'
-];
+const EXAMPLE_TAGS = ['edit-row-custom', 'Selected row can be edited using UI button "Open pane"'];
 
 @Component({
 	selector: 'example-edit-row-custom',
 	templateUrl: './example-edit-row-custom.component.html',
 	styleUrls: ['./example-edit-row-custom.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ExampleEditRowCustomComponent implements AfterViewInit {

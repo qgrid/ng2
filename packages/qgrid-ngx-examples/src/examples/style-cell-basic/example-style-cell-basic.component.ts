@@ -3,17 +3,14 @@ import { Observable } from 'rxjs';
 import { DataService, Atom } from '../data.service';
 import { StyleCellContext, Column } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'style-cell-basic',
-	'Some cells have custom style'
-];
+const EXAMPLE_TAGS = ['style-cell-basic', 'Some cells have custom style'];
 
 @Component({
 	selector: 'example-style-cell-basic',
 	templateUrl: 'example-style-cell-basic.component.html',
 	styleUrls: ['example-style-cell-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleStyleCellBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -29,7 +26,7 @@ export class ExampleStyleCellBasicComponent {
 		if (column.key === 'symbol') {
 			context.class(row.symbol, {
 				'color': `#${row.color}`,
-				'background': '#3f51b5'
+				'background': '#3f51b5',
 			});
 		}
 	}

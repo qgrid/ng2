@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'hierarchy-browser-basic',
-	'Table content is folder tree'
-];
+const EXAMPLE_TAGS = ['hierarchy-browser-basic', 'Table content is folder tree'];
 
 @Component({
 	selector: 'example-hierarchy-browser-basic',
 	templateUrl: 'example-hierarchy-browser-basic.component.html',
 	styleUrls: ['example-hierarchy-browser-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleHierarchyBrowserBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -38,8 +35,8 @@ export class ExampleHierarchyBrowserBasicComponent {
 					treePipe,
 					qgrid.pipe.column,
 					qgrid.pipe.view,
-					qgrid.pipe.scene
-				]
+					qgrid.pipe.scene,
+				],
 			})
 			.group({
 				toggle: new Command({
@@ -59,14 +56,14 @@ export class ExampleHierarchyBrowserBasicComponent {
 						];
 
 						gridService.invalidate();
-					}
-				})
+					},
+				}),
 			})
 			.selection({
 				mode: 'multiple',
 				unit: 'row',
 				area: 'custom',
-				rowKey: node => node.key
+				rowKey: node => node.key,
 			});
 	}
 }

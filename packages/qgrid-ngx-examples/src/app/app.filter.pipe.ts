@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { escapeRegExp } from './app.utils';
 
 @Pipe({
-	name: 'appFilter'
+	name: 'appFilter',
 })
 export class FilterSearchPipe implements PipeTransform {
 	transform(items: any[], search: string) {

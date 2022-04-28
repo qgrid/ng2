@@ -348,13 +348,13 @@ export const EXAMPLES: any[] = [
 export const APP_ROUTES: Routes = EXAMPLES
 	.map<Route>(example => ({
 		path: (example.tags && example.tags[0]) || example.id,
-		component: example
+		component: example,
 	}));
 
 @NgModule({
 	declarations: [
 		...EXAMPLES,
-		ExamplePluginMyPagerComponent
+		ExamplePluginMyPagerComponent,
 	],
 	exports: EXAMPLES,
 	imports: [
@@ -368,6 +368,6 @@ export const APP_ROUTES: Routes = EXAMPLES
 
 		GridModule,
 		ThemeModule,
-	]
+	],
 })
 export class ExampleModule { }

@@ -3,17 +3,14 @@ import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 import { BehaviorSubject } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'destroy-grid-model',
-	'Table content can be destroyed/restored using UI button'
-];
+const EXAMPLE_TAGS = ['destroy-grid-model', 'Table content can be destroyed/restored using UI button'];
 
 @Component({
 	selector: 'example-destroy-grid-model',
 	templateUrl: 'example-destroy-grid-model.component.html',
 	styleUrls: ['example-destroy-grid-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDestroyGridModelComponent {
 	static tags = EXAMPLE_TAGS;

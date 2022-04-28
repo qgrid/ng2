@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-select-row-edit.component.html',
 	styleUrls: ['example-select-row-edit.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectRowEditComponent {
 	static id = 'select-row-edit';

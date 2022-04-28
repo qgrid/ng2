@@ -7,7 +7,7 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	templateUrl: 'example-look-people-model.component.html',
 	styleUrls: ['example-look-people-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookPeopleModelComponent {
 	static id = 'look-people-model';
@@ -15,7 +15,7 @@ export class ExampleLookPeopleModelComponent {
 	gridModel: GridModel = this.qgrid
 		.model()
 		.columnList({
-			generation: 'deep'
+			generation: 'deep',
 		});
 
 	constructor(dataService: DataService, private qgrid: Grid) {

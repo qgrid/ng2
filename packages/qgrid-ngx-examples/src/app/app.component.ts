@@ -8,14 +8,9 @@ import {
 	ViewChildren,
 	QueryList,
 	AfterViewInit,
-	NgZone
+	NgZone,
 } from '@angular/core';
-import {
-	Router,
-	Routes,
-	RouterLinkActive,
-	ActivatedRoute
-} from '@angular/router';
+import { Router, Routes, RouterLinkActive, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { APP_ROUTES } from '../examples/example.module';
@@ -33,7 +28,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	examples: Routes = APP_ROUTES;
 
 	@ViewChildren(RouterLinkActive, { read: ElementRef })
-	menuItems: QueryList<ElementRef>;
+		menuItems: QueryList<ElementRef>;
 
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
@@ -81,7 +76,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 		this.location.go(
 			this.router.url.split('?')[0],
-			query.join('&')
+			query.join('&'),
 		);
 	}
 

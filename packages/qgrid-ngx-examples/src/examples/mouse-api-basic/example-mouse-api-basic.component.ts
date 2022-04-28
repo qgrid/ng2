@@ -4,7 +4,7 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	AfterViewInit,
-	ChangeDetectorRef
+	ChangeDetectorRef,
 } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
@@ -31,7 +31,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 	constructor(
 		dataService: DataService,
 		private cdr: ChangeDetectorRef,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.gridModel = qgrid.model();
 		this.rows = dataService.getPeople();
@@ -49,7 +49,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 			this.logEntries.unshift({
 				status: status,
 				code: code,
-				target: targetString
+				target: targetString,
 			});
 
 			this.cdr.detectChanges();

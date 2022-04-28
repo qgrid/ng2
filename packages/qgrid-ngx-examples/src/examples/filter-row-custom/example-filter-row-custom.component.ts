@@ -3,17 +3,14 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, Grid, GridModel } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'filter-row-custom',
-	'Table data can be filtered using custom filter inputs'
-];
+const EXAMPLE_TAGS = ['filter-row-custom', 'Table data can be filtered using custom filter inputs'];
 
 @Component({
 	selector: 'example-filter-row-custom',
 	templateUrl: 'example-filter-row-custom.component.html',
 	styleUrls: ['example-filter-row-custom.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFilterRowCustomComponent {
 	static tags = EXAMPLE_TAGS;
@@ -25,7 +22,7 @@ export class ExampleFilterRowCustomComponent {
 
 	search = {
 		name: '',
-		phase: ''
+		phase: '',
 	};
 
 	constructor(dataService: DataService, private qgrid: Grid) {
@@ -47,7 +44,7 @@ export class ExampleFilterRowCustomComponent {
 			}, x => true);
 
 		this.gridModel.filter({
-			custom
+			custom,
 		});
 	}
 }

@@ -3,17 +3,14 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Column } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'define-column-hybrid',
-	'Columns can be created both in html and typescript'
-];
+const EXAMPLE_TAGS = ['define-column-hybrid', 'Columns can be created both in html and typescript'];
 
 @Component({
 	selector: 'example-define-column-hybrid',
 	templateUrl: 'example-define-column-hybrid.component.html',
 	styleUrls: ['example-define-column-hybrid.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDefineColumnHybridComponent {
 	static tags = EXAMPLE_TAGS;
@@ -21,18 +18,21 @@ export class ExampleDefineColumnHybridComponent {
 
 	rows: Observable<Atom[]>;
 
-	columns: Column[] = [{
-		key: 'mass',
-		title: 'should be js Mass',
-		canFilter: false,
-		canSort: false,
-	}, {
-		key: 'symbol',
-		title: 'should not be js Symbol',
-		width: 200,
-		canSort: false,
-		canFilter: false
-	}];
+	columns: Column[] = [
+		{
+			key: 'mass',
+			title: 'should be js Mass',
+			canFilter: false,
+			canSort: false,
+		},
+		{
+			key: 'symbol',
+			title: 'should not be js Symbol',
+			width: 200,
+			canSort: false,
+			canFilter: false,
+		},
+	];
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();

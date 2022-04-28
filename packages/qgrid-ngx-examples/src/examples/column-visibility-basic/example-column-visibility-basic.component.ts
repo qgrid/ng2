@@ -3,17 +3,14 @@ import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Grid, GridModel } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'column-visibility-basic',
-	'Columns can be hidden/shown using UI buttons'
-];
+const EXAMPLE_TAGS = ['column-visibility-basic', 'Columns can be hidden/shown using UI buttons'];
 
 @Component({
 	selector: 'example-column-visibility-basic',
 	templateUrl: 'example-column-visibility-basic.component.html',
 	styleUrls: ['example-column-visibility-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnColumnVisibilityBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -26,7 +23,7 @@ export class ExampleColumnColumnVisibilityBasicComponent {
 	showFirstName = true;
 
 	constructor(private dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.gridModel = qgrid.model();
 	}

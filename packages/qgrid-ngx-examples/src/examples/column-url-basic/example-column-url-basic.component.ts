@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-url-basic',
-	'Cell value is an url'
-];
+const EXAMPLE_TAGS = ['column-url-basic', 'Cell value is an url'];
 
 @Component({
 	selector: 'example-column-url-basic',
 	templateUrl: 'example-column-url-basic.component.html',
 	styleUrls: ['example-column-url-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnUrlBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -23,8 +20,8 @@ export class ExampleColumnUrlBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'http://github.com/qgrid/ng2'
-		}
+			'customTemplate': 'http://github.com/qgrid/ng2',
+		},
 	];
 
 	private label = 'QGRID';

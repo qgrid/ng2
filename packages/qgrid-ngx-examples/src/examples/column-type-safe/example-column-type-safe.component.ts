@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-type-safe',
-	'Grid is stable despite of wrong cell data type'
-];
+const EXAMPLE_TAGS = ['column-type-safe', 'Grid is stable despite of wrong cell data type'];
 
 @Component({
 	selector: 'example-column-type-safe',
 	templateUrl: 'example-column-type-safe.component.html',
 	styleUrls: ['example-column-type-safe.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnTypeSafeComponent {
 	static tags = EXAMPLE_TAGS;
@@ -24,7 +21,11 @@ export class ExampleColumnTypeSafeComponent {
 			notEmail: 'john@mail.com',
 			notTime: '12:00',
 			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg',
-			notArray: ['1', '2', '3']
+			notArray: [
+				'1',
+				'2',
+				'3',
+			],
 		},
 		{
 			notNumber: 'some text',
@@ -34,7 +35,7 @@ export class ExampleColumnTypeSafeComponent {
 			notEmail: 'some text',
 			notTime: 'some text',
 			notImage: 'some text',
-			notArray: 'some text'
-		}
+			notArray: 'some text',
+		},
 	];
 }

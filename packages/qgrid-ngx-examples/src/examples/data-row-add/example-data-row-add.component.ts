@@ -3,17 +3,14 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, Command, Grid } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'data-row-add',
-	'New row can be added using UI button "add row"'
-];
+const EXAMPLE_TAGS = ['data-row-add', 'New row can be added using UI button "add row"'];
 
 @Component({
 	selector: 'example-data-row-add',
 	templateUrl: 'example-data-row-add.component.html',
 	styleUrls: ['example-data-row-add.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDataRowAddComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
@@ -38,7 +35,7 @@ export class ExampleDataRowAddComponent implements AfterViewInit {
 				name: {
 					first: '',
 					last: '',
-				}
+				},
 			};
 
 			const rows = Array.from(model.data().rows).concat([human]);
@@ -47,7 +44,7 @@ export class ExampleDataRowAddComponent implements AfterViewInit {
 			// focus last row, second column
 			const service = this.qgrid.service(model);
 			service.focus(rows.length - 1);
-		}
+		},
 	});
 
 	constructor(dataService: DataService, private qgrid: Grid) {
@@ -57,7 +54,7 @@ export class ExampleDataRowAddComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		const { model } = this.grid;
 		model.edit({
-			mode: 'cell'
+			mode: 'cell',
 		});
 	}
 }

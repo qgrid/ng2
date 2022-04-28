@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-select-row-single-only.component.html',
 	styleUrls: ['example-select-row-single-only.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectRowSingleOnlyComponent {
 	static id = 'select-row-single-only';

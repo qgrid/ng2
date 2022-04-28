@@ -3,17 +3,14 @@ import { Command, Grid, GridComponent } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 import { DataService, Human } from '../data.service';
 
-const EXAMPLE_TAGS = [
-	'data-row-delete-selection',
-	'Table rows can be deleted and not break selection'
-];
+const EXAMPLE_TAGS = ['data-row-delete-selection', 'Table rows can be deleted and not break selection'];
 
 @Component({
 	selector: 'example-data-row-delete-selection',
 	templateUrl: 'example-data-row-delete-selection.component.html',
 	styleUrls: ['example-data-row-delete-selection.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDataRowDeleteSelectionComponent {
 	static tags = EXAMPLE_TAGS;
@@ -26,7 +23,7 @@ export class ExampleDataRowDeleteSelectionComponent {
 
 			const rows = model.data().rows.filter(x => x !== row);
 			model.data({ rows });
-		}
+		},
 	});
 
 	constructor(dataService: DataService, private qgrid: Grid) {

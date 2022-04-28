@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-scroll-virtual-edit.component.html',
 	styleUrls: ['example-scroll-virtual-edit.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualEditComponent {
 	static id = 'scroll-virtual-edit';

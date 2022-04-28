@@ -8,7 +8,7 @@ import { Grid, GridModel } from 'ng2-qgrid';
 	templateUrl: 'example-look-atoms-id.component.html',
 	styleUrls: ['example-look-atoms-id.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookAtomsIdComponent implements AfterViewInit {
 	static id = 'look-atoms-id';
@@ -17,7 +17,7 @@ export class ExampleLookAtomsIdComponent implements AfterViewInit {
 	gridModel: GridModel;
 
 	constructor(dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.gridModel = qgrid.model();
 		this.rows = dataService.getAtoms();
@@ -27,7 +27,7 @@ export class ExampleLookAtomsIdComponent implements AfterViewInit {
 		this.gridModel.dataChanged.watch((e, off) => {
 			if (e.hasChanges('columns')) {
 				this.gridModel.sort({
-					by: ['number']
+					by: ['number'],
 				});
 
 				off();
