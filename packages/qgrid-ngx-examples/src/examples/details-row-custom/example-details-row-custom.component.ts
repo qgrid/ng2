@@ -9,7 +9,8 @@ import {
 	Grid,
 } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = ['details-row-custom', 'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'];
+const EXAMPLE_TAGS =
+	['details-row-custom', 'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'];
 
 @Component({
 	selector: 'example-details-row-custom',

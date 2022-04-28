@@ -3,7 +3,11 @@ import { Observable } from 'rxjs';
 import { Grid, GridModel, PaneComponent } from 'ng2-qgrid';
 import { DataService, Atom } from '../data.service';
 
-const EXAMPLE_TAGS = ['pane-with-selection', 'Pane for each row can be opened by clicking on the corresponding row. Also you can select rows on left selection column'];
+const EXAMPLE_TAGS = [
+	// eslint-disable-next-line array-element-newline
+	'pane-with-selection',
+	'Pane for each row can be opened by clicking on the corresponding row. Also you can select rows on left selection column',
+];
 
 @Component({
 	selector: 'example-pane-with-selection-mode',
