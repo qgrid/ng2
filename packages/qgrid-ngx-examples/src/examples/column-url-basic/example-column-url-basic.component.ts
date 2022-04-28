@@ -29,9 +29,10 @@ export class ExampleColumnUrlBasicComponent {
 	myLabel: (row: any, value?: any) => string | undefined;
 
 	constructor() {
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const self = this;
 		this.myLabel = (...args) => {
-			const value = args[1];
+			const [, value] = args;
 			if (args.length > 1) {
 				self.label = value;
 				return;

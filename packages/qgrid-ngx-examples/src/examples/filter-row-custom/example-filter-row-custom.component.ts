@@ -41,7 +41,7 @@ export class ExampleFilterRowCustomComponent {
 				}
 
 				return memo;
-			}, x => true);
+			}, () => true);
 
 		this.gridModel.filter({
 			custom,

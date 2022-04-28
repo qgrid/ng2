@@ -5,6 +5,12 @@ import { Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['mouse-api-basic', 'Mouse api example'];
 
+export declare class LogEntry {
+	status: string;
+	code: string;
+	target: string;
+}
+
 @Component({
 	selector: 'example-mouse-api-basic',
 	templateUrl: 'example-mouse-api-basic.component.html',
@@ -48,10 +54,4 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 			this.cdr.detectChanges();
 		});
 	}
-}
-
-export declare class LogEntry {
-	status: string;
-	code: string;
-	target: string;
 }
