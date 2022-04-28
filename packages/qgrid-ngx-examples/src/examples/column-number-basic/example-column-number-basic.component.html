@@ -1,55 +1,55 @@
 <q-grid [caption]="title"
-        [rows]="rows"
-        editMode="cell">
+				[rows]="rows"
+				editMode="cell">
 	<q-grid-columns>
 		<q-grid-column key="number"
-		               title="Number"
-		               type="number">
+									title="Number"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="format3.1-5"
-		               title="Format3.1-5"
-		               format="3.1-5"
-		               type="number">
+									title="Format3.1-5"
+									format="3.1-5"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="max"
-		               title="Max"
-		               type="number">
+									title="Max"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="min"
-		               title="Min"
-		               type="number">
+									title="Min"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="null"
-		               title="Null"
-		               type="number">
+									title="Null"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="undefined"
-		               title="Undefined"
-		               type="number">
+									title="Undefined"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="empty"
-		               title="Empty"
-		               type="number">
+									title="Empty"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="string"
-		               title="String"
-		               type="number">
+									title="String"
+									type="number">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
-		               title="Custom Template"
-		               type="number">
+									title="Custom Template"
+									type="number">
 			<ng-template for="body"
-			             let-$cell>
+									let-$cell>
 				value: {{$cell.value}}
 			</ng-template>
 			<ng-template for="edit"
-			             let-$cell
-			             let-$view="$view">
+									let-$cell
+									let-$view="$view">
 				<input type="number"
-				       style="width: 100%"
-				       q-grid-focus
-				       [(ngModel)]="$view.edit.cell.value"
-				       (blur)="$view.edit.cell.exit.execute($cell)" />
+							style="width: 100%"
+							q-grid-focus
+							[(ngModel)]="$view.edit.cell.value"
+							(blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>
 		</q-grid-column>
 	</q-grid-columns>

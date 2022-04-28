@@ -1,16 +1,16 @@
 Name: <input type="search"
-       (input)="filter('name', $any($event.target).value)"
-       placeholder="Filter by name" />
+			(input)="filter('name', $any($event.target).value)"
+			placeholder="Filter by name" />
 
 Phase: <input type="search"
-       (input)="filter('phase', $any($event.target).value)"
-       placeholder="Filter by phase" />
+			(input)="filter('phase', $any($event.target).value)"
+			placeholder="Filter by phase" />
 
 
 <q-grid [caption]="title"
-        [rows]="rows | async"
-        [model]="gridModel">
-       <q-grid-columns generation="deep">
-       </q-grid-columns>
+				[rows]="rows | async"
+				[model]="gridModel">
+			<q-grid-columns generation="deep">
+			</q-grid-columns>
 
 </q-grid>

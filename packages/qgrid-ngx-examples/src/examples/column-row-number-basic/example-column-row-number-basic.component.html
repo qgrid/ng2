@@ -3,14 +3,14 @@
 		editMode="cell">
 	<q-grid-columns>
 		<q-grid-column key="number"
-					   type="row-number">
+						type="row-number">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
-					   title="Custom Template"
-					   [width]="150"
-					   type="row-number">
+						title="Custom Template"
+						[width]="150"
+						type="row-number">
 			<ng-template for="body"
-						 let-$cell>
+						let-$cell>
 				<strong>{{$cell.rowIndex + 1}}</strong>
 			</ng-template>
 		</q-grid-column>

@@ -4,35 +4,35 @@
 
 	<q-grid-columns *ngSwitchCase="'name'">
 		<q-grid-column key="firstName"
-					   path="name.first"
-					   title="First Name">
+						path="name.first"
+						title="First Name">
 		</q-grid-column>
 		<q-grid-column key="lastName"
-					   path="name.last"
-					   title="Last Name">
+						path="name.last"
+						title="Last Name">
 		</q-grid-column>
 	</q-grid-columns>
 
 	<q-grid-columns *ngSwitchCase="'address'">
 		<q-grid-column key="city"
-					   path="contact.address.city"
-					   title="City">
+						path="contact.address.city"
+						title="City">
 		</q-grid-column>
 		<q-grid-column key="state"
-					   path="contact.address.state"
-					   title="State">
+						path="contact.address.state"
+						title="State">
 		</q-grid-column>
 	</q-grid-columns>
 
 	<q-grid-columns *ngSwitchCase="'gender'">
 		<q-grid-column key="gender"
-					   title="Gender">
+						title="Gender">
 		</q-grid-column>
 	</q-grid-columns>
 
 	<q-grid-columns *ngSwitchDefault>
 		<q-grid-column key="rowNumber"
-					   type="row-number">
+						type="row-number">
 		</q-grid-column>
 	</q-grid-columns>
 

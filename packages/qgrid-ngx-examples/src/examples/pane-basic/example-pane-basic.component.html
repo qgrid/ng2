@@ -4,14 +4,14 @@
 		selectionUnit="row">
 	<q-grid-columns generation="deep">
 		<q-grid-column type="select"
-					   [isVisible]="false">
+						[isVisible]="false">
 		</q-grid-column>
 	</q-grid-columns>
 
 	<q-grid-pane trigger="selection.items">
 		<ng-template for="right"
-					 let-$pane
-					 let-$items="value">
+					let-$pane
+					let-$items="value">
 			<div style="width: 300px;">
 				<button mat-icon-button
 						style="float: right;"

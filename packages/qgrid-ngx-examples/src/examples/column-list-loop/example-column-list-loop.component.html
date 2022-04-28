@@ -1,9 +1,9 @@
 <q-grid [caption]="title"
-        [rows]="rows | async">
+				[rows]="rows | async">
 	<q-grid-columns>
 		<q-grid-column *ngFor="let column of columns"
-		               [key]="column.key"
-		               [title]="column.title">
+									[key]="column.key"
+									[title]="column.title">
 		</q-grid-column>
 	</q-grid-columns>
 
