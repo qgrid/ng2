@@ -23,7 +23,7 @@ export class ChipsPushDirective implements AfterViewInit {
 	constructor(private zone: NgZone, private chipsDirective: ChipsDirective) { }
 
 	ngAfterViewInit() {
-		this.inputComponent.chipEnd.subscribe(e => {
+		this.inputComponent.chipEnd.subscribe(() => {
 			// we need to override it to prevent default behavior
 		});
 
