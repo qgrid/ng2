@@ -29,6 +29,17 @@ export class ColumnChooserPlugin {
 		this.submitEvent = new Event();
 		this.dropEvent = new Event();
 
+		let applyFilter = identity;
+		const updateView = () => {
+			this.listView = [];
+			this.treeView = applyFilter(this.tree);
+			preOrderDFS([this.treeView], n => {
+				if (n.value.isVisible) {
+					this.listView.push(n.value.column);
+				}
+			});
+		};
+
 		const setup = () => {
 			const { model: gridModel } = this.plugin;
 			const { index } = gridModel.columnList();
@@ -60,17 +71,6 @@ export class ColumnChooserPlugin {
 			}, copy(index));
 
 			updateView();
-		};
-
-		let applyFilter = identity;
-		const updateView = () => {
-			this.listView = [];
-			this.treeView = applyFilter(this.tree);
-			preOrderDFS([this.treeView], n => {
-				if (n.value.isVisible) {
-					this.listView.push(n.value.column);
-				}
-			});
 		};
 
 		this.search = value => {
