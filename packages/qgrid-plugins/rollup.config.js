@@ -11,8 +11,7 @@ export default [
 	},
 	{
 		input: './public-api.d.ts',
-		output:
-		{
+		output: {
 			file: './dist/public-api.d.ts',
 		},
 		plugins: [dts()],

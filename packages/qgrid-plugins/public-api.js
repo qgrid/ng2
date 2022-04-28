@@ -38,4 +38,3 @@ export { PositionPlugin } from './src/position/position.plugin';
 export { RestPlugin } from './src/rest/rest.plugin';
 // validation
 export { ValidatorPlugin } from './src/validation/validator.plugin';
-

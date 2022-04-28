@@ -24,11 +24,13 @@ export { ImportPlugin } from './src/import/import.plugin';
 // pager
 export { PagerPlugin } from './src/pager/pager.plugin';
 // persistence
-export { PersistenceItem, PersistencePlugin } from './src/persistence/persistence.plugin';
+export {
+	PersistenceItem,
+	PersistencePlugin,
+} from './src/persistence/persistence.plugin';
 // position
 export { PositionPlugin } from './src/position/position.plugin';
 // rest
 export { RestPlugin } from './src/rest/rest.plugin';
 // validation
 export { ValidatorPlugin } from './src/validation/validator.plugin';
-
