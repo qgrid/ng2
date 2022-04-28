@@ -2,16 +2,16 @@
 		[model]="gridModel">
 	<q-grid-columns generation="deep">
 		<q-grid-column title="Name"
-					   offset="40"
-					   type="group"
-					   width="90%"
-					   widthMode="relative">
+						offset="40"
+						type="group"
+						width="90%"
+						widthMode="relative">
 			<ng-template for="body"
-						 let-$cell
-						 let-$view="$view">
+						let-$cell
+						let-$view="$view">
 
 				<div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
-					 *ngIf="$view.group.isVisible($cell.row, $cell.column)">
+					*ngIf="$view.group.isVisible($cell.row, $cell.column)">
 					<button mat-icon-button
 							[q-grid-command]="$view.group.toggleStatus"
 							[q-grid-command-arg]="[$cell.row, $cell.column]"

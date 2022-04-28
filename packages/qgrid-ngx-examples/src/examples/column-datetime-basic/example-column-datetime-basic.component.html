@@ -3,56 +3,56 @@
 		editMode="cell">
 	<q-grid-columns>
 		<q-grid-column key="number"
-					   title="Number"
-					   type="datetime">
+						title="Number"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="bool"
-					   title="Bool"
-					   type="datetime">
+						title="Bool"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="date"
-					   title="Date"
-					   type="datetime">
+						title="Date"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="null"
-					   title="Null"
-					   type="datetime">
+						title="Null"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="undefined"
-					   title="Undefined"
-					   type="datetime">
+						title="Undefined"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="empty"
-					   title="Empty"
-					   type="datetime">
+						title="Empty"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="format"
-					   title="Format"
-					   format="short"
-					   type="datetime">
+						title="Format"
+						format="short"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="text"
-					   title="Text"
-					   type="datetime">
+						title="Text"
+						type="datetime">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
-					   title="Custom Template"
-					   [width]="200"
-					   format="MM/dd/yyyy h:mm:ss"
-					   type="datetime">
+						title="Custom Template"
+						[width]="200"
+						format="MM/dd/yyyy h:mm:ss"
+						type="datetime">
 			<ng-template for="body"
-						 let-$cell>
+						let-$cell>
 				<em>{{$cell.label}}</em>
 			</ng-template>
 			<ng-template for="edit"
-						 let-$cell
-						 let-$view="$view">
+						let-$cell
+						let-$view="$view">
 				<input type="date"
-					   style="width: 100%"
-					   q-grid-focus
-					   [ngModel]="$view.edit.cell.value"
-					   (ngModelChange)="$view.edit.cell.value = $event"
-					   (blur)="$view.edit.cell.exit.execute($cell)" />
+						style="width: 100%"
+						q-grid-focus
+						[ngModel]="$view.edit.cell.value"
+						(ngModelChange)="$view.edit.cell.value = $event"
+						(blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>
 		</q-grid-column>
 	</q-grid-columns>

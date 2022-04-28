@@ -7,7 +7,7 @@
 
 	<q-grid-export type="json">
 		<ng-template for="trigger"
-					 let-$action>
+					let-$action>
 			<button mat-button
 					[q-grid-command]="$action.command">
 				Export to JSON
@@ -16,7 +16,7 @@
 	</q-grid-export>
 	<q-grid-export type="csv">
 		<ng-template for="trigger"
-					 let-$action>
+					let-$action>
 			<button mat-button
 					[q-grid-command]="$action.command">
 				Export to CSV
@@ -25,7 +25,7 @@
 	</q-grid-export>
 	<q-grid-export type="xml">
 		<ng-template for="trigger"
-					 let-$action>
+					let-$action>
 			<button mat-button
 					[q-grid-command]="$action.command">
 				Export to XML
@@ -34,7 +34,7 @@
 	</q-grid-export>
 	<q-grid-export type="xlsx">
 		<ng-template for="trigger"
-					 let-$action>
+					let-$action>
 			<button mat-button
 					[q-grid-command]="$action.command">
 				Export to XLSX

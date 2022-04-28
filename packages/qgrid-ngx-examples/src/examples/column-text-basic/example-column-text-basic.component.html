@@ -3,54 +3,54 @@
 		editMode="cell">
 	<q-grid-columns>
 		<q-grid-column key="textArea"
-					   title="Text Area"
-					   editor="text-area"
-					   [viewWidth]="300"
-					   type="text">
+						title="Text Area"
+						editor="text-area"
+						[viewWidth]="300"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="number"
-					   title="Number"
-					   type="text">
+						title="Number"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="bool"
-					   title="Bool"
-					   type="text">
+						title="Bool"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="date"
-					   title="Date"
-					   type="text">
+						title="Date"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="null"
-					   title="Null"
-					   type="text">
+						title="Null"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="undefined"
-					   title="Undefined"
-					   type="text">
+						title="Undefined"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="empty"
-					   title="Empty"
-					   type="text">
+						title="Empty"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="maxLength2"
-					   title="Max Length 2"
-					   [maxLength]="2"
-					   type="text">
+						title="Max Length 2"
+						[maxLength]="2"
+						type="text">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
-					   title="Custom Template"
-					   type="text">
+						title="Custom Template"
+						type="text">
 			<ng-template for="body"
-						 let-$cell>
+						let-$cell>
 				<strong>{{$cell.value}}</strong>
 			</ng-template>
 			<ng-template for="edit"
-						 let-$cell
-						 let-$view="$view">
+						let-$cell
+						let-$view="$view">
 				<input style="width: 100%"
-					   q-grid-focus
-					   [(ngModel)]="$view.edit.cell.value"
-					   (blur)="$view.edit.cell.exit.execute($cell)" />
+						q-grid-focus
+						[(ngModel)]="$view.edit.cell.value"
+						(blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>
 		</q-grid-column>
 	</q-grid-columns>

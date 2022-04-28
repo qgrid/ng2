@@ -3,65 +3,65 @@
 		[sortBy]="['-last']">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="metal"
-					   [width]="290">
+						[width]="290">
 		</q-grid-column>
 		<q-grid-column key="ldn1"
-					   title="LDN"
-					   [width]="120">
+						title="LDN"
+						[width]="120">
 			<ng-template for="change"
-						 let-$cell>
+						let-$cell>
 				<q-grid-live-cell [cell]="$cell"
-								  [duration]="1500">
+									[duration]="1500">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="last"
-					   type="currency"
-					   [width]="240">
+						type="currency"
+						[width]="240">
 			<ng-template for="change"
-						 let-$cell>
+						let-$cell>
 				<q-grid-live-cell [cell]="$cell"
-								  [duration]="3000">
+									[duration]="3000">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="ask"
-					   [width]="180">
+						[width]="180">
 			<ng-template for="change"
-						 let-$cell>
+						let-$cell>
 				<q-grid-live-cell [cell]="$cell"
-								  [duration]="2000">
+									[duration]="2000">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="ldn2"
-					   title="LDN"
-					   [width]="100">
+						title="LDN"
+						[width]="100">
 			<ng-template for="change"
-						 let-$cell>
+						let-$cell>
 				<q-grid-live-cell [cell]="$cell"
-								  [duration]="1500">
+									[duration]="1500">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="ldn3"
-					   title="LDN"
-					   [width]="70"></q-grid-column>
+						title="LDN"
+						[width]="70"></q-grid-column>
 		<q-grid-column key="high"
-					   [width]="100"
-					   type="currency"></q-grid-column>
+						[width]="100"
+						type="currency"></q-grid-column>
 		<q-grid-column key="low"
-					   [width]="100"
-					   type="currency"></q-grid-column>
+						[width]="100"
+						type="currency"></q-grid-column>
 		<q-grid-column key="volume"
-					   [width]="100"
-					   type="currency"></q-grid-column>
+						[width]="100"
+						type="currency"></q-grid-column>
 		<q-grid-column key="settle"
-					   [width]="100"
-					   type="currency"></q-grid-column>
+						[width]="100"
+						type="currency"></q-grid-column>
 		<q-grid-column key="ldn4"
-					   title="LDN"
-					   [width]="70"></q-grid-column>
+						title="LDN"
+						[width]="70"></q-grid-column>
 	</q-grid-columns>
 	<q-grid-live-rows>
 	</q-grid-live-rows>

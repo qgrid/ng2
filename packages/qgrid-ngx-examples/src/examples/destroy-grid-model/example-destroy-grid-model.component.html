@@ -1,20 +1,20 @@
 <button mat-button
-        (click)="toggleVisibility()">
+				(click)="toggleVisibility()">
 	{{ isVisible? 'Hide' : 'Show' }} [handler counter: {{handlerCount$ | async}}]
 </button>
 <ng-container *ngIf="isVisible">
 	<q-grid [caption]="title"
-	        [model]="gridModel"
-	        id="example-destroy-grid-model"
-	        editMode="cell"
-	        selectionUnit="row"
-	        selectionMode="multiple">
+					[model]="gridModel"
+					id="example-destroy-grid-model"
+					editMode="cell"
+					selectionUnit="row"
+					selectionMode="multiple">
 		<q-grid-columns generation="deep">
 			<q-grid-column type="row-indicator"
-			               key="rowIndicator">
+										key="rowIndicator">
 			</q-grid-column>
 			<q-grid-column type="row-options"
-			               key="rowOptions">
+										key="rowOptions">
 			</q-grid-column>
 		</q-grid-columns>
 
@@ -31,7 +31,7 @@
 		<q-grid-import></q-grid-import>
 
 		<q-grid-row [canResize]="true"
-		            [canMove]="true">
+								[canMove]="true">
 		</q-grid-row>
 	</q-grid>
 </ng-container>

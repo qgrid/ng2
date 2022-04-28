@@ -3,28 +3,28 @@
 		editMode="cell">
 	<q-grid-columns>
 		<q-grid-column type="reference"
-					   key="notEditable"
-					   title="Not Editable"
-					   [editorOptions]="notEditableOptions"
-					   label="Click to show">
+						key="notEditable"
+						title="Not Editable"
+						[editorOptions]="notEditableOptions"
+						label="Click to show">
 		</q-grid-column>
 		<q-grid-column type="reference"
-					   key="editable"
-					   title="Editable"
-					   [editorOptions]="editableOptions">
+						key="editable"
+						title="Editable"
+						[editorOptions]="editableOptions">
 		</q-grid-column>
 		<q-grid-column type="reference"
-					   key="singleValue"
-					   title="Single Value"
-					   [editorOptions]="singleValueOptions">
+						key="singleValue"
+						title="Single Value"
+						[editorOptions]="singleValueOptions">
 		</q-grid-column>
 		<q-grid-column type="reference"
-					   key="customTemplate"
-					   title="Custom Template"
-					   [editorOptions]="editableOptions">
+						key="customTemplate"
+						title="Custom Template"
+						[editorOptions]="editableOptions">
 			<ng-template for="body"
-						 let-$cell
-						 let-$view="$view">
+						let-$cell
+						let-$view="$view">
 				<button style="width: 100%;text-overflow: ellipsis;overflow: hidden;"
 						mat-button
 						[q-grid-command]="$view.edit.cell.enter"
@@ -34,10 +34,10 @@
 			</ng-template>
 		</q-grid-column>
 		<q-grid-column type="reference"
-					   key="complexValues"
-					   title="Complex Values"
-					   [label]="complexValuesLabel"
-					   [editorOptions]="complexValuesOptions">
+						key="complexValues"
+						title="Complex Values"
+						[label]="complexValuesLabel"
+						[editorOptions]="complexValuesOptions">
 		</q-grid-column>
 	</q-grid-columns>
 </q-grid>

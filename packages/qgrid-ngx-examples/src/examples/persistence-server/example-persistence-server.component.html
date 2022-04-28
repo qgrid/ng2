@@ -1,15 +1,15 @@
 <q-grid [caption]="title"
-        [rows]="rows | async"
-        [model]="gridModel"
-        id="persistence-server">
+				[rows]="rows | async"
+				[model]="gridModel"
+				id="persistence-server">
 	<q-grid-toolbar>
 		<ng-template for="top">
 			<div class="persistence-server-toolbar">
 				<mat-form-field>
 					<mat-select [(value)]="currentUser"
-					            placeholder="Select user">
+											placeholder="Select user">
 						<mat-option *ngFor="let user of users | async"
-						            [value]="user">{{user}}</mat-option>
+												[value]="user">{{user}}</mat-option>
 					</mat-select>
 				</mat-form-field>
 				<q-grid-action-bar>

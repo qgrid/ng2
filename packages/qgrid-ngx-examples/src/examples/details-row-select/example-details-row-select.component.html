@@ -2,30 +2,30 @@
 		[rows]="rows | async">
 	<q-grid-columns>
 		<q-grid-column key="name"
-					   title="Name">
+						title="Name">
 		</q-grid-column>
 		<q-grid-column key="groupBlock"
-					   title="Group">
+						title="Group">
 		</q-grid-column>
 		<q-grid-column key="phase"
-					   title="Phase"
-					   [width]="80">
+						title="Phase"
+						[width]="80">
 		</q-grid-column>
 		<q-grid-column key="appearance"
-					   title="Appearance"
-					   [viewWidth]="300">
+						title="Appearance"
+						[viewWidth]="300">
 		</q-grid-column>
 		<q-grid-column key="melt"
-					   title="Melt(℃)"
-					   type="number">
+						title="Melt(℃)"
+						type="number">
 		</q-grid-column>
 		<q-grid-column key="boil"
-					   title="Boil(℃)"
-					   type="number">
+						title="Boil(℃)"
+						type="number">
 		</q-grid-column>
 		<q-grid-column key="shells"
-					   title="Shells"
-					   type="array">
+						title="Shells"
+						type="array">
 		</q-grid-column>
 	</q-grid-columns>
 
@@ -33,10 +33,10 @@
 				mode="single"
 				[behavior]="['expandOnClick', 'expandOnShortcut']">
 		<ng-template for="details"
-					 let-$cell>
+					let-$cell>
 			<div class="atom-details">
 				<div class="atom-box"
-					 [style.background-color]="'#' + $cell.row.item.color">
+					[style.background-color]="'#' + $cell.row.item.color">
 					<div class="atom-number">
 						{{$cell.row.item.number}}
 					</div>
@@ -57,10 +57,10 @@
 				<div class="atom-info">
 					<p class="atom-description">
 						<a href={{$cell.row.item.source}}
-						   target="_blank">{{$cell.row.item.name}}
+							target="_blank">{{$cell.row.item.name}}
 						</a> was discovered by
 						<a href="http://www.google.com/search?q={{$cell.row.item.discoveredBy}}"
-						   target="_blank">
+							target="_blank">
 							{{$cell.row.item.discoveredBy}}
 						</a> in
 						<em>{{$cell.row.item.discoveredIn}}</em>. {{$cell.row.item.summary}}

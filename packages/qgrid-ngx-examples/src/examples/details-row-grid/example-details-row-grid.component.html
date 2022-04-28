@@ -6,22 +6,22 @@
 	<q-grid-row unit="details"
 				mode="multiple">
 		<ng-template for="details"
-					 let-$cell>
+					let-$cell>
 			<q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
 					[rows]="getTheSamePhaseRows($cell.row.item) | async"
 					class="q-grid-compact">
 				<q-grid-columns>
 					<q-grid-column [canSort]="false"
-								   [canFilter]="false">
+									[canFilter]="false">
 					</q-grid-column>
 					<q-grid-column key="number"
-								   title="Number">
+									title="Number">
 					</q-grid-column>
 					<q-grid-column key="symbol"
-								   title="Symbol">
+									title="Symbol">
 					</q-grid-column>
 					<q-grid-column key="name"
-								   title="Name">
+									title="Name">
 					</q-grid-column>
 				</q-grid-columns>
 

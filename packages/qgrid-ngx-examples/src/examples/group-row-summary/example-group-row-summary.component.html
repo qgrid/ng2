@@ -1,13 +1,13 @@
 <q-grid [caption]="title"
-        [rows]="rows | async"
-        [groupBy]="['bondingType', 'groupBlock']"
-        groupMode="subhead"
-        groupSummary="leaf">
+				[rows]="rows | async"
+				[groupBy]="['bondingType', 'groupBlock']"
+				groupMode="subhead"
+				groupSummary="leaf">
 	<q-grid-columns generation="deep">
 		<q-grid-column type="group-summary"
-		               aggregation="count">
+									aggregation="count">
 			<ng-template for="body"
-			             let-$cell>
+									let-$cell>
 				Count: {{$cell.value}}
 			</ng-template>
 		</q-grid-column>

@@ -1,11 +1,11 @@
 <q-grid [caption]="title"
-        [rows]="rows | async"
+				[rows]="rows | async"
 	[pivotBy]="['discoveredIn']"
 	[groupBy]="['bondingType', 'groupBlock']">
 	<q-grid-columns>
 		<q-grid-column key="name"
-		               [width]="90"
-		               title="Name">
+									[width]="90"
+									title="Name">
 		</q-grid-column>
 		<q-grid-column key="bondingType">
 		</q-grid-column>

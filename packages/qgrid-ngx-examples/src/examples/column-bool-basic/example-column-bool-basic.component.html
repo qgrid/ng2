@@ -3,11 +3,11 @@
 		[model]="gridModel"
 		editMode="cell">
 	<ng-template qGridColumnBody="customTemplate"
-				 let-$cell>
+				let-$cell>
 		{{$cell.value === null ? 'NULL' : $cell.value ? 'YES' : 'NO'}}
 	</ng-template>
 	<ng-template qGridColumnEdit="customTemplate"
-				 let-$view="$view">
+				let-$view="$view">
 		<button mat-button
 				(click)="$view.edit.cell.value = true">
 			SET YES

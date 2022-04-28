@@ -3,21 +3,21 @@
 		[model]="gridModel">
 	<q-grid-columns>
 		<q-grid-column key="firstName"
-					   path="name.first"
-					   title="First Name"
-					   [index]="0"
-					   *ngIf="showFirstName">
+						path="name.first"
+						title="First Name"
+						[index]="0"
+						*ngIf="showFirstName">
 		</q-grid-column>
 		<q-grid-column key="lastName"
-					   path="name.last"
-					   title="Last Name"
-					   [index]="1"
-					   [isVisible]="showLastName">
+						path="name.last"
+						title="Last Name"
+						[index]="1"
+						[isVisible]="showLastName">
 		</q-grid-column>
 		<q-grid-column key="city"
-					   path="contact.address.city"
-					   [index]="2"
-					   title="City">
+						path="contact.address.city"
+						[index]="2"
+						title="City">
 		</q-grid-column>
 	</q-grid-columns>
 
