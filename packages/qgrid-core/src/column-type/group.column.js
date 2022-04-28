@@ -1,20 +1,16 @@
 import { ColumnView } from '../scene/view/column.view';
-import { ColumnModel } from './column.model';
 import { TemplatePath } from '../template/template.path';
+import { ColumnModel } from './column.model';
 
-TemplatePath.register('group-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.type
-	};
-});
+TemplatePath.register('group-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key,
+}));
 
-TemplatePath.register('group-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('group-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key,
+}));
 
 export class GroupColumnModel extends ColumnModel {
 	constructor() {

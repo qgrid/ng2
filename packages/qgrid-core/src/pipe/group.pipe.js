@@ -22,10 +22,10 @@ export function groupPipe(memo, context, next) {
 	}
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { group: memoNodes })
+		effect: Object.assign({}, model.pipe().effect, { group: memoNodes }),
 	}, {
 		source: 'group.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	});
 
 	next(memo);

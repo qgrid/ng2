@@ -21,7 +21,7 @@ export function viewFactory(
 	plugin,
 	commandManager,
 	vscroll,
-	selectors
+	selectors,
 ) {
 	const { model, disposable } = plugin;
 	const { shortcut } = model.action();
@@ -32,15 +32,15 @@ export function viewFactory(
 			disposable.add(
 				shortcut.register(
 					commandManager,
-					commands
-				)
+					commands,
+				),
 			),
 	};
 
 	const selectionCommandManager =
 		new SelectionCommandManager(
 			model,
-			commandManager
+			commandManager,
 		);
 
 	const selectionShortcut = {
@@ -48,10 +48,10 @@ export function viewFactory(
 			disposable.add(
 				shortcut.register(
 					selectionCommandManager,
-					commands
-				)
+					commands,
+				),
 			);
-		}
+		},
 	};
 
 	return host => {

@@ -34,4 +34,3 @@ export function selectRowIndex(state) {
 
 	return -1;
 }
-

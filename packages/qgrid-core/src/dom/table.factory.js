@@ -4,12 +4,12 @@ import { Table } from './table';
 export function tableFactory(model, layer) {
 	const box = {
 		markup: {
-			document
+			document,
 		},
 		bag: {
 			head: new Bag(),
 			body: new Bag(),
-			foot: new Bag()
+			foot: new Bag(),
 		},
 		layer,
 	};

@@ -62,7 +62,12 @@
     "no-underscore-dangle": "off",
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
-    "no-use-before-define": "off",
+    "no-use-before-define": ["error", {
+        "functions": false,
+        "variables": true,
+        "classes": true
+      }
+    ],
     "no-var": "error",
     "prefer-const": "error",
     "quotes": ["error", "single"],
@@ -116,9 +121,7 @@
     "@typescript-eslint/no-misused-new": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
     "@typescript-eslint/no-unused-expressions": "error",
-    "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error",

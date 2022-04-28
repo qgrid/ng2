@@ -6,6 +6,7 @@ import { Log } from '../infrastructure/log';
 import { calk, findLeaves, findNode, preOrderDFS } from '../node/node.service';
 import { PathService } from '../path/path.service';
 import { eventPath } from '../services/dom';
+import { hasOwnProperty } from '../utility/kit';
 
 export class HeadLet {
 	constructor(plugin, tagName) {
@@ -43,7 +44,7 @@ export class HeadLet {
 							const tree = calk(columnList().index);
 							const oldPos = findNode(tree, node => node.key.model.key === sourceKey);
 							const newPos = findNode(tree, node => node.key.model.key === targetKey);
-              
+
 							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
 								const queue = oldPos.path.reverse();
 								const hostIndex = queue.findIndex(node => node.children.length > 1);
@@ -56,13 +57,13 @@ export class HeadLet {
 									newPos.parent.children.splice(newPos.index, 0, target);
 
 									target.level = newPos.parent.level + 1;
-                  
+
 									preOrderDFS(
 										target.children,
 										(node, root, parent) => {
 											node.level = (root || parent).level + 1;
 										},
-										target
+										target,
 									);
 
 									columnList({ index: tree }, { source: 'head.view' });
@@ -76,7 +77,7 @@ export class HeadLet {
 						const { index } = model.columnList();
 						const oldPos = findNode(index, node => node.key.model.key === sourceKey);
 						if (oldPos) {
-							for (let leaf of findLeaves(oldPos.node)) {
+							for (const leaf of findLeaves(oldPos.node)) {
 								const oldColumn = table.body.column(leaf.key.columnIndex);
 								oldColumn.removeClass(`${GRID_PREFIX}-drag`);
 							}
@@ -84,7 +85,7 @@ export class HeadLet {
 						break;
 					}
 				}
-			}
+			},
 		});
 
 		this.drag = new Command({
@@ -100,7 +101,7 @@ export class HeadLet {
 				const { index } = model.columnList();
 				const pos = findNode(index, node => node.key.model.key === sourceKey);
 				if (pos) {
-					for (let leaf of findLeaves(pos.node)) {
+					for (const leaf of findLeaves(pos.node)) {
 						const column = table.body.column(leaf.key.columnIndex);
 						column.addClass(`${GRID_PREFIX}-drag`);
 						return () => table.head.cell;
@@ -114,8 +115,8 @@ export class HeadLet {
 			canExecute: e => {
 				const key = e.data;
 				const map = table.data.columnMap();
-				return map.hasOwnProperty(key) && map[key].canResize !== false;
-			}
+				return hasOwnProperty.call(map, key) && map[key].canResize !== false;
+			},
 		});
 
 		observeReply(model.dataChanged)

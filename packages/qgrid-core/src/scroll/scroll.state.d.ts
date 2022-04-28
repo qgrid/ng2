@@ -32,8 +32,8 @@ export declare class ScrollState {
 	cursor: number;
 
 	map: {
-		rowToView: (index: number) => number,
-		viewToRow: (index: number) => number,
+		rowToView: (index: number) => number;
+		viewToRow: (index: number) => number;
 	};
 
 	resetTriggers: Array<string>;

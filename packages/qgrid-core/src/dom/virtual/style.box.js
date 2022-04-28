@@ -20,7 +20,7 @@ export class StyleBox {
 	removeClass(item, name) {
 		const key = this.key(item);
 		if (key !== null) {
-			let entry = this.entries.get(key);
+			const entry = this.entries.get(key);
 			if (entry) {
 				entry.delete(name);
 				if (!entry.size) {

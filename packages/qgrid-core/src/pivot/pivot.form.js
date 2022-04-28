@@ -1,10 +1,10 @@
-import { flatten } from '../utility/kit';
 import { Node } from '../node/node';
+import { flatten, hasOwnProperty } from '../utility/kit';
 
 function injectData(schema, source, target) {
 	return Object
 		.keys(source)
-		.filter(key => !schema.hasOwnProperty(key))
+		.filter(key => !hasOwnProperty.call(schema, key))
 		.reduce((memo, key) => {
 			memo[key] = source[key];
 			return memo;
@@ -16,7 +16,7 @@ function expandData(schema, source) {
 		Object.keys(schema)
 			.map(key => {
 				const node = schema[key];
-				return source && source.hasOwnProperty(key)
+				return source && hasOwnProperty.call(source, key)
 					? expandData(node, source[key])
 					: expandData(node);
 			});
@@ -24,37 +24,6 @@ function expandData(schema, source) {
 	return baseline.length
 		? flatten(baseline, true)
 		: [source];
-}
-
-function liftSchema(schema) {
-	const baseline = [];
-
-	function lift(schema, depth) {
-		const derivatives =
-			schema
-				? Object.keys(schema)
-					.map(key => {
-						const node = schema[key];
-						return {
-							key: key,
-							value: lift(node, depth + 1)
-						};
-					})
-				: [];
-
-		if (derivatives.length > 0)
-			if (!baseline[depth]) {
-				baseline[depth] = derivatives;
-			}
-			else {
-				baseline[depth].push(...derivatives);
-			}
-
-		return (derivatives.length && derivatives.reduce((memo, d) => memo + d.value, 0)) || 1;
-	}
-
-	lift(schema, 0);
-	return baseline;
 }
 
 function sortSchema(schema, comparator) {
@@ -69,8 +38,6 @@ function sortSchema(schema, comparator) {
 
 
 function reduceSchema(schema) {
-	const baseline = [];
-
 	function lift(schema, node) {
 		if (schema) {
 			Object
@@ -80,7 +47,7 @@ function reduceSchema(schema) {
 					node.children.push(child);
 					lift(schema[key], child);
 					return child;
-				})
+				});
 		}
 
 		return node;

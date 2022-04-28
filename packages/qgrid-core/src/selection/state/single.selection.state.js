@@ -14,8 +14,7 @@ export class SingleSelectionState extends SubSelectionState {
 	selectCore(item, state) {
 		if (state) {
 			this.item = item;
-		}
-		else {
+		} else {
 			this.item = null;
 		}
 	}

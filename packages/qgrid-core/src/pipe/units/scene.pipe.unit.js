@@ -7,7 +7,7 @@ export const scenePipeUnit = [
 	Pipe.view,
 	Pipe.pagination,
 	Pipe.animation,
-	Pipe.scene
+	Pipe.scene,
 ];
 
 scenePipeUnit.why = 'redraw';

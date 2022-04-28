@@ -1,5 +1,5 @@
-import {EventListener} from './event.listener';
-import {EventManager} from './event.manager';
+import { EventListener } from './event.listener';
+import { EventManager } from './event.manager';
 
 describe('Event', () => {
 	let input;
@@ -20,7 +20,7 @@ describe('Event', () => {
 		});
 
 		it('should return false if eventListener was detached from element', () => {
-			let result = eventListener.on('click', () => input.classList.add('someClass'));
+			const result = eventListener.on('click', () => input.classList.add('someClass'));
 			result();
 			input.click();
 

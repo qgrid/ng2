@@ -1,6 +1,6 @@
 import { Resource } from '../resource/resource';
-import { match } from './match';
 import { noop, yes } from '../utility/kit';
+import { match } from './match';
 
 export class FilterState {
 	constructor() {
@@ -15,10 +15,10 @@ export class FilterState {
 		this.assertFactory = () => ({
 			equals: (x, y) => x === y,
 			lessThan: (x, y) => x < y,
-			isNull: x => x === '' || x === null || x === undefined
+			isNull: x => x === '' || x === null || x === undefined,
 		});
 
-		this.operatorFactory = (column) => {
+		this.operatorFactory = column => {
 			switch (column.type) {
 				case 'text':
 				case 'url':
@@ -66,6 +66,6 @@ export class FilterState {
 					return ['contains'];
 				}
 			}
-		}
+		};
 	}
 }

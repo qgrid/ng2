@@ -10,14 +10,14 @@ export class VisibilityState {
 			top: true,
 			bottom: true,
 			right: false,
-			left: false
+			left: false,
 		};
 
 		this.pin = {
 			left: false,
 			right: false,
 			top: false,
-			bottom: false
+			bottom: false,
 		};
 
 		this.plugin = {};

@@ -16,7 +16,7 @@ export class NavigationState {
 			pageUp: 'pageUp',
 			pageDown: 'pageDown',
 			upward: 'shift+pageUp',
-			downward: 'shift+pageDown'
+			downward: 'shift+pageDown',
 		};
 
 		this.go = new Command({ source: 'navigation.model' });
@@ -33,7 +33,7 @@ export class NavigationState {
 			'pageUp',
 			'pageDown',
 			'shift+pageDown',
-			'shift+pageUp'
+			'shift+pageUp',
 		]);
 	}
 }

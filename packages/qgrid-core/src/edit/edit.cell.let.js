@@ -1,17 +1,51 @@
 import { Command } from '../command/command';
+import { Td } from '../dom/td';
 import { Log } from '../infrastructure/log';
 import { parseFactory } from '../services/convert';
 import { getLabelFactory } from '../services/label';
 import { getValueFactory } from '../services/value';
 import { Shortcut } from '../shortcut/shortcut';
+import { hasOwnProperty } from '../utility/kit';
 import * as validationService from '../validation/validation.service';
 import { CellEditor } from './edit.cell.editor';
 
-// do not delete this importing it's required in the bundle
-// TODO: investigate how to avoid it
-import { Td } from '../dom/td';
-
 export class EditCellLet {
+	get fetch() {
+		return this.editor.fetch;
+	}
+
+	get value() {
+		return this.editor.value;
+	}
+
+	set value(value) {
+		this.editor.value = value;
+	}
+
+	get label() {
+		return this.editor.label;
+	}
+
+	set label(label) {
+		this.editor.label = label;
+	}
+
+	get row() {
+		return this.cell.row;
+	}
+
+	get column() {
+		return this.cell.column;
+	}
+
+	get cell() {
+		return this.editor.td;
+	}
+
+	get options() {
+		return this.column.options;
+	}
+
 	constructor(plugin, shortcut) {
 		const { model, observeReply } = plugin;
 
@@ -39,9 +73,9 @@ export class EditCellLet {
 						// this is a trick to go back to the view mode and trigger enter
 						// TODO: make it better
 						model.edit({
-							status: 'view'
+							status: 'view',
 						}, {
-							source: 'edit.cell.view'
+							source: 'edit.cell.view',
 						});
 
 						if (this.enter.canExecute()) {
@@ -51,9 +85,9 @@ export class EditCellLet {
 						// this is a trick to go back to the edit mode and trigger cancel
 						// TODO: make it better
 						model.edit({
-							status: 'edit'
+							status: 'edit',
 						}, {
-							source: 'edit.cell.view'
+							source: 'edit.cell.view',
 						});
 
 						if (this.requestClose) {
@@ -124,15 +158,15 @@ export class EditCellLet {
 
 					cell = cell || model.navigation().cell;
 
-          //cell is an array when using custom template
-          if(Array.isArray(cell)) {
-            if(cell.length > 0) {
-              if (cell[0].constructor.name == 'TdCoreDirective') {
-                cell = cell[0];
-              }
-            }
-          }
-          
+					// cell is an array when using custom template
+					if (Array.isArray(cell)) {
+						if (cell.length > 0) {
+							if (cell[0].constructor.name === 'TdCoreDirective') {
+								cell = cell[0];
+							}
+						}
+					}
+
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
@@ -167,7 +201,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			commit: new Command({
 				priority: 1,
@@ -207,7 +241,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			push: new Command({
 				priority: 1,
@@ -240,7 +274,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			cancel: new Command({
 				priority: 1,
@@ -273,7 +307,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			reset: new Command({
 				priority: 1,
@@ -299,7 +333,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			exit: new Command({
 				priority: 1,
@@ -328,7 +362,7 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 			clear: new Command({
 				priority: 1,
@@ -354,12 +388,12 @@ export class EditCellLet {
 					}
 
 					return false;
-				}
+				},
 			}),
 		};
 
 		return new Map(
-			Object.entries(commands)
+			Object.entries(commands),
 		);
 	}
 
@@ -377,44 +411,8 @@ export class EditCellLet {
 			unit: 'cell',
 			tag,
 			getValueFactory,
-			getLabelFactory
+			getLabelFactory,
 		};
-	}
-
-	get fetch() {
-		return this.editor.fetch;
-	}
-
-	get value() {
-		return this.editor.value;
-	}
-
-	set value(value) {
-		this.editor.value = value;
-	}
-
-	get label() {
-		return this.editor.label;
-	}
-
-	set label(label) {
-		this.editor.label = label;
-	}
-
-	get row() {
-		return this.cell.row;
-	}
-
-	get column() {
-		return this.cell.column;
-	}
-
-	get cell() {
-		return this.editor.td;
-	}
-
-	get options() {
-		return this.column.options;
 	}
 
 	canEdit(cell) {
@@ -435,7 +433,7 @@ export class EditCellLet {
 			const { td } = this.editor;
 			if (td) {
 				const type = td.column && td.column.editor ? td.column.editor : td.column.type;
-				if (shortcuts && shortcuts.hasOwnProperty(type)) {
+				if (shortcuts && hasOwnProperty.call(shortcuts, type)) {
 					return shortcuts[type];
 				}
 			}

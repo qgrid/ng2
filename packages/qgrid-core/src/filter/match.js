@@ -14,10 +14,10 @@ export function match(context) {
 
 		const columnMap = columnService.mapColumns(model.columnList().line);
 
-		const valueColumnFactory = (key) => {
+		const valueColumnFactory = key => {
 			const column = columnMap[key];
 			if (column.type === 'array') {
-				return (row) => getValue(row, column);
+				return row => getValue(row, column);
 			}
 
 			return labelFactory(columnMap[key]);
@@ -33,7 +33,7 @@ export function match(context) {
 			new PredicateVisitor(
 				valueColumnFactory,
 				assertColumnFactory,
-				getType
+				getType,
 			);
 
 		return visitor.visit(expression);

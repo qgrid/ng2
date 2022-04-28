@@ -1,6 +1,6 @@
-import { Row } from './row';
-import { Column } from './column';
 import { Cell } from './cell';
+import { Column } from './column';
+import { Row } from './row';
 import { SelectorFactory } from './selector/selector.factory';
 
 export class Box {

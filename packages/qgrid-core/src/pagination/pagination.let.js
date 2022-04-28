@@ -1,7 +1,16 @@
 export class PaginationLet {
+
+	get current() {
+		return this.model.pagination().current;
+	}
+
+	get size() {
+		return this.model.pagination().size;
+	}
+
 	constructor(plugin) {
 		this.model = plugin.model;
-		
+
 		const { model, observe } = plugin;
 		const { resetTriggers } = model.pagination();
 
@@ -24,13 +33,5 @@ export class PaginationLet {
 							}
 						}
 					}));
-	}
-
-	get current() {
-		return this.model.pagination().current;
-	}
-
-	get size() {
-		return this.model.pagination().size;
 	}
 }

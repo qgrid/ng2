@@ -1,12 +1,9 @@
-import { Cell } from '../cell';
-import { Td } from '../td';
 import { GridError } from '../../infrastructure/error';
+import { Cell } from '../cell';
 import { FakeElement } from '../fake/element';
+import { Td } from '../td';
 
 class VirtualTd {
-	constructor(selector) {
-		this.selector = selector;
-	}
 
 	get model() {
 		const td = this.selector();
@@ -15,10 +12,6 @@ class VirtualTd {
 		}
 
 		return td;
-	}
-
-	mode(value) {
-		return this.model.mode(value);
 	}
 
 	get value() {
@@ -39,6 +32,14 @@ class VirtualTd {
 
 	get element() {
 		return this.model.element || new FakeElement();
+	}
+
+	constructor(selector) {
+		this.selector = selector;
+	}
+
+	mode(value) {
+		return this.model.mode(value);
 	}
 }
 

@@ -58,7 +58,7 @@ export class GroupLet {
 					service.invalidate({
 						source: 'group.view',
 						pipe: PipeUnit.group,
-						why: PipeUnit.group.why
+						why: PipeUnit.group.why,
 					});
 				}
 			},
@@ -75,7 +75,7 @@ export class GroupLet {
 				const { toggle } = model.group();
 				return node && node.type === 'group' && toggle.canExecute(node);
 			},
-			shortcut: model.group().shortcut.toggle
+			shortcut: model.group().shortcut.toggle,
 		});
 
 		let shouldExpand = true;
@@ -99,11 +99,11 @@ export class GroupLet {
 					service.invalidate({
 						source: 'group.view',
 						pipe: PipeUnit.group,
-						why: PipeUnit.group.why
+						why: PipeUnit.group.why,
 					});
 				}
 			},
-			canExecute: () => model.group().toggleAll.canExecute()
+			canExecute: () => model.group().toggleAll.canExecute(),
 		});
 
 		this.toggleStatus = toggleStatus;
@@ -113,7 +113,7 @@ export class GroupLet {
 
 		const createColumn = columnFactory(model);
 		this.reference = {
-			group: createColumn('group')
+			group: createColumn('group'),
 		};
 
 		this.getNode = identity;
@@ -150,7 +150,7 @@ export class GroupLet {
 		};
 
 		disposable.add(
-			unsubscribeCanExecuteCheck
+			unsubscribeCanExecuteCheck,
 		);
 
 		observeReply(model.rowChanged)

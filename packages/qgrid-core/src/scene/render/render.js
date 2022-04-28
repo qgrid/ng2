@@ -84,7 +84,7 @@ export class Renderer {
 		this.rows = {
 			left: [],
 			right: [],
-			mid: []
+			mid: [],
 		};
 
 		const invalidateRows = () => {
@@ -94,9 +94,9 @@ export class Renderer {
 			this.rows = {
 				top: pinTop,
 				body: rows,
-				bottom: pinBottom
+				bottom: pinBottom,
 			};
-		}
+		};
 
 		observeReply(model.sceneChanged)
 			.subscribe(e => {

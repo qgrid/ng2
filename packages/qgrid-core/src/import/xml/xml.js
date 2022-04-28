@@ -4,7 +4,7 @@ const NODE_TYPE = {
 	ELEMENT: 1,
 	ATTRIBUTE: 2,
 	TEXT: 3,
-	DOCUMENT: 9
+	DOCUMENT: 9,
 };
 
 export class XmlImport {
@@ -28,7 +28,7 @@ export class XmlImport {
 	arrayFromChildren(node, statistics, path, tag) {
 		const result = [];
 		const children = Array.from(node.children).filter(child => child.nodeName === tag);
-		for (let child of children) {
+		for (const child of children) {
 			result.push(this.buildNonArray(child, statistics, path));
 		}
 
@@ -49,11 +49,11 @@ export class XmlImport {
 		if (st.isObject) {
 			const result = {};
 			const visited = new Set();
-			for (let attr of Array.from(node.attributes)) {
+			for (const attr of Array.from(node.attributes)) {
 				result[attr.name] = attr.value;
 			}
 
-			for (let child of Array.from(node.children)) {
+			for (const child of Array.from(node.children)) {
 				const childPath = this.getPath(path, child.nodeName);
 				if (visited.has(childPath)) {
 					continue;
@@ -78,14 +78,14 @@ export class XmlImport {
 			lastInfo = {
 				isArray: false,
 				isObject: false,
-				isText: false
+				isText: false,
 			};
 		}
 
 		return {
 			isArray: lastInfo.isArray || Array.from(node.parentNode.children).filter(child => child.nodeName === node.nodeName).length > 1,
 			isObject: lastInfo.isObject || node.children.length > 0 || node.attributes.length > 0,
-			isText: lastInfo.isText || this.isTextContainer(node)
+			isText: lastInfo.isText || this.isTextContainer(node),
 		};
 	}
 
@@ -94,7 +94,7 @@ export class XmlImport {
 
 		const children = Array.from(node.children);
 		if (children.length > 0) {
-			for (let child of children) {
+			for (const child of children) {
 				const childPath = this.getPath(path, child.nodeName);
 				this.getStatistics(child, childPath, statistics);
 			}

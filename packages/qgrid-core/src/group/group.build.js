@@ -1,6 +1,7 @@
 import { mapColumns } from '../column/column.service';
 import { GridError } from '../infrastructure/error';
 import { Aggregation } from '../services/aggregation';
+import { hasOwnProperty } from '../utility/kit';
 
 export function groupBuilder(model) {
 	const { rows } = model.data();
@@ -29,7 +30,7 @@ export function groupBuilder(model) {
 			}
 
 			const aggregation = column.aggregation || 'count';
-			if (!Aggregation.hasOwnProperty(aggregation)) {
+			if (!hasOwnProperty.call(Aggregation, aggregation)) {
 				throw new GridError(
 					'group.build',
 					`Aggregation ${aggregation} is not registered`);

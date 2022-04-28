@@ -14,8 +14,7 @@ export class MultipleSelectionState extends SubSelectionState {
 	selectCore(item, state, key) {
 		if (state) {
 			this.items.set(key(item), item);
-		}
-		else {
+		} else {
 			this.items.delete(key(item));
 		}
 	}

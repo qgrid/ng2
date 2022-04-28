@@ -1,5 +1,47 @@
 import { binarySearch } from '../utility/kit';
 
+function layout(columns) {
+	const mx = [];
+
+	columns.sort((x, y) => {
+		const xc = x.rowIndex - y.rowIndex;
+		if (xc === 0) {
+			return x.columnIndex - y.columnIndex;
+		}
+
+		return xc;
+	});
+
+	for (const column of columns) {
+		if (!mx[column.rowIndex]) {
+			mx[column.rowIndex] = [];
+		}
+		mx[column.rowIndex].push(column);
+	}
+
+	return mx;
+}
+
+function rowsToUseFactory() {
+	const cache = new Map();
+	return function rowsToUse(node, depth = 0) {
+		const { model } = node.key;
+		if (cache.has(model.key)) {
+			return cache.get(model.key);
+		}
+
+		const { children } = node;
+		let count = children.length === 0 ? 0 : 1;
+		for (const child of children) {
+			count = Math.max(count, rowsToUse(child, depth + 1));
+		}
+
+		const result = 1 + count;
+		cache.set(model.key, result);
+		return result;
+	};
+}
+
 export function flattenRows(root) {
 	const rowsToUse = rowsToUseFactory();
 
@@ -14,7 +56,7 @@ export function flattenRows(root) {
 		if (children.length) {
 			let width = 0;
 			const childResult = [];
-			for (let child of children) {
+			for (const child of children) {
 				const childView = markup(child, rowIndex + rowspan, columnIndex, rowsLeft - rowspan, childResult);
 				if (!childView) {
 					continue;
@@ -39,53 +81,10 @@ export function flattenRows(root) {
 
 	const result = [];
 	markup(root, 0, 0, rowsToUse(root), result);
-	// remove root 
+	// remove root
 	result.splice(0, 1);
 	return layout(result);
 }
-
-function layout(columns) {
-	const mx = [];
-
-	columns.sort((x, y) => {
-		const xc = x.rowIndex - y.rowIndex;
-		if (xc === 0) {
-			return x.columnIndex - y.columnIndex;
-		}
-
-		return xc;
-	});
-
-	for (let column of columns) {
-		if (!mx[column.rowIndex]) {
-			mx[column.rowIndex] = [];
-		}
-		mx[column.rowIndex].push(column);
-	}
-
-	return mx;
-}
-
-function rowsToUseFactory() {
-	const cache = new Map();
-	return function rowsToUse(node, depth = 0) {
-		const { model } = node.key;
-		if (cache.has(model.key)) {
-			return cache.get(model.key);
-		}
-
-		const { children } = node;
-		let count = children.length == 0 ? 0 : 1;
-		for (let child of children) {
-			count = Math.max(count, rowsToUse(child, depth + 1));
-		}
-
-		const result = 1 + count;
-		cache.set(model.key, result);
-		return result;
-	}
-}
-
 
 export function expand(rows) {
 	const mx = [];
@@ -110,8 +109,7 @@ export function expand(rows) {
 				const index = binarySearch(gaps, current);
 				if (row[next]) {
 					gaps.splice(index, 1);
-				}
-				else {
+				} else {
 					const xi = gaps[index];
 					gaps.splice(index, row[xi] ? 1 : 0, next);
 				}

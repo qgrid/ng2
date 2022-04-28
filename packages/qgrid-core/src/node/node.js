@@ -7,9 +7,9 @@ export class Node {
 		this.type = type;
 		this.source = null;
 		this.value = null;
-		
+
 		this.state = {
-			expand: false
+			expand: false,
 		};
 	}
 }

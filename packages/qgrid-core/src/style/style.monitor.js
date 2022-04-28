@@ -32,8 +32,8 @@ export class StyleMonitor {
 	enter() {
 		const newSheets = this.newSheets;
 		let entries = this.entries;
-		for (let entry of entries) {
-			for (let cls of entry.list) {
+		for (const entry of entries) {
+			for (const cls of entry.list) {
 				entry.element.removeClass(cls, true);
 			}
 		}
@@ -49,8 +49,8 @@ export class StyleMonitor {
 
 	exit() {
 		const entries = this.entries;
-		for (let entry of entries) {
-			for (let cls of entry.list) {
+		for (const entry of entries) {
+			for (const cls of entry.list) {
 				entry.element.addClass(cls, true);
 			}
 		}
@@ -58,14 +58,14 @@ export class StyleMonitor {
 		const newSheets = this.newSheets;
 		const oldSheets = this.oldSheets;
 		const id = this.model.grid().id;
-		for (let cls of oldSheets.keys()) {
+		for (const cls of oldSheets.keys()) {
 			if (!newSheets.has(cls)) {
 				const sheet = css.sheet(id, cls);
 				sheet.remove();
 			}
 		}
 
-		for (let [cls, style] of newSheets.entries()) {
+		for (const [cls, style] of newSheets.entries()) {
 			if (!oldSheets.has(cls)) {
 				const sheet = css.sheet(id, cls);
 				sheet.set({ [`.${cls}`]: style });

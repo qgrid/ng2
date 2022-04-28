@@ -146,7 +146,7 @@ export class Aggregation {
 		}
 
 		if (options.distinct) {
-			let set = new Set();
+			const set = new Set();
 			while (length--) {
 				const count = Number(getValue(rows[length]));
 				set.add(count);

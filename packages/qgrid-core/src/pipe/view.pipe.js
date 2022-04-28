@@ -1,13 +1,13 @@
-import { Scene } from '../scene/scene';
 import { Guard } from '../infrastructure/guard';
 import { sortFactory } from '../row-list/row.list.sort';
+import { Scene } from '../scene/scene';
 
 export function viewPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
 
 	const tag = {
 		source: context.source || 'view.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	};
 
 	const { model } = context;
@@ -27,7 +27,7 @@ export function viewPipe(memo, context, next) {
 		rows,
 		columns: columnLine.map(c => c.model),
 		nodes,
-		pivot
+		pivot,
 	}, tag);
 
 	next(memo);

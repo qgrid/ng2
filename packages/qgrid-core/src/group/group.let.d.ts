@@ -1,12 +1,13 @@
-import { Command } from '../command/command';
 import { ColumnModel } from '../column-type/column.model';
+import { Command } from '../command/command';
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export class GroupLet {
-	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
-
 	readonly toggleStatus: Command<[any, ColumnModel]>;
 	readonly toggleAllStatus: Command;
+
+	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
+
 
 	count(node: Node, column: ColumnModel): number;
 	status(node: Node, column: ColumnModel): 'expand' | 'collapse';

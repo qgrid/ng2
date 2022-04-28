@@ -5,18 +5,18 @@ export class ScrollState {
 		this.mode = 'default';
 
 		this.top = 0;
-		this.left = 0;		
+		this.left = 0;
 		this.cursor = 0;
 
 		this.map = {
 			rowToView: identity,
-			viewToRow: identity
+			viewToRow: identity,
 		};
 
 		this.resetTriggers = [
 			'sort.view',
 			'column.filter.view',
-			'data.manipulation'
+			'data.manipulation',
 		];
 	}
 }

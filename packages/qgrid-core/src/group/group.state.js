@@ -1,5 +1,5 @@
-import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
+import { Resource } from '../resource/resource';
 import { flattenFactory } from './group.service';
 
 export class GroupState {
@@ -16,7 +16,7 @@ export class GroupState {
 		this.flattenFactory = flattenFactory;
 
 		this.shortcut = {
-			toggle: 'space|enter'
+			toggle: 'space|enter',
 		};
 	}
 }

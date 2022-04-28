@@ -1,28 +1,36 @@
-import {SelectionService} from './selection.service';
-import {modelFactory} from '../test/model.factory';
+import { modelFactory } from '../test/model.factory';
+import { SelectionService } from './selection.service';
 
 let model;
-const rows = [{
-	'id': 101,
-	'name': 'John Doe',
-	'age': 34
-}, {
-	'id': 102,
-	'name': 'David Smith',
-	'age': 30
-}, {
-	'id': 103,
-	'name': 'Lue Laserna',
-	'age': 25
-}];
+const rows = [
+	{
+		'id': 101,
+		'name': 'John Doe',
+		'age': 34,
+	},
+	{
+		'id': 102,
+		'name': 'David Smith',
+		'age': 30,
+	},
+	{
+		'id': 103,
+		'name': 'Lue Laserna',
+		'age': 25,
+	},
+];
 
-const columns = [{
-	key: 'id'
-}, {
-	key: 'name'
-}, {
-	key: 'age'
-}];
+const columns = [
+	{
+		key: 'id',
+	},
+	{
+		key: 'name',
+	},
+	{
+		key: 'age',
+	},
+];
 
 describe('selection service', () => {
 	before('init model', () => {
@@ -30,25 +38,25 @@ describe('selection service', () => {
 		model = modelFactory();
 
 		model.data({
-			rows
+			rows,
 		});
 
 		model.columnList({
-			line: columns
-		})
+			line: columns,
+		});
 	});
 
 	describe('row unit', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'row',
-				rowKey: row => row.id
+				rowKey: row => row.id,
 			});
 		});
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: []
+				items: [],
 			});
 		});
 
@@ -84,13 +92,13 @@ describe('selection service', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'column',
-				columnKey: column => column.key
+				columnKey: column => column.key,
 			});
 		});
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: []
+				items: [],
 			});
 		});
 
@@ -125,13 +133,13 @@ describe('selection service', () => {
 			model.selection({
 				unit: 'cell',
 				rowKey: row => row.id,
-				columnKey: column => column.key
+				columnKey: column => column.key,
 			});
 		});
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: []
+				items: [],
 			});
 		});
 
@@ -139,13 +147,16 @@ describe('selection service', () => {
 			it('should return cells by keys', () => {
 				const service = new SelectionService(model);
 
-				const entries = service.lookup([{
-					row: 102,
-					column: 'name'
-				}, {
-					row: 103,
-					column: 'age'
-				}]);
+				const entries = service.lookup([
+					{
+						row: 102,
+						column: 'name',
+					},
+					{
+						row: 103,
+						column: 'age',
+					},
+				]);
 
 				expect(entries.length).to.equal(2);
 				expect(entries[0].row.id).to.equal(102);
@@ -164,7 +175,7 @@ describe('selection service', () => {
 				const service = new SelectionService(model);
 				const cell = {
 					row: rows[1],
-					column: columns[1]
+					column: columns[1],
 				};
 
 				const key = service.hashFactory('cell')(cell);

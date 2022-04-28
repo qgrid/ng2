@@ -1,8 +1,8 @@
-import { takeWhile, dropWhile, sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
-import { Aggregation } from '../../services/aggregation';
-import { GridError } from '../../infrastructure/error';
 import { findFirstLeaf } from '../../group/group.service';
+import { GridError } from '../../infrastructure/error';
+import { Aggregation } from '../../services/aggregation';
+import { dropWhile, hasOwnProperty, sumBy, takeWhile } from '../../utility/kit';
 
 export class NodeRow {
 	constructor(model, dataRow) {
@@ -14,7 +14,7 @@ export class NodeRow {
 		const createColumn = columnFactory(model);
 		const reference = {
 			group: createColumn('group'),
-			summary: createColumn('group-summary')
+			summary: createColumn('group-summary'),
 		};
 
 		this.getLabel =
@@ -29,7 +29,7 @@ export class NodeRow {
 					case 'summary': {
 						const agg = column.aggregation;
 						if (agg) {
-							if (!Aggregation.hasOwnProperty(agg)) {
+							if (!hasOwnProperty.call(Aggregation, agg)) {
 								throw new GridError(
 									'node.row',
 									`Aggregation ${agg} is not supported`);
@@ -51,7 +51,7 @@ export class NodeRow {
 					default:
 						throw new GridError(
 							'node.row',
-							`Invalid node type ${node.type}`
+							`Invalid node type ${node.type}`,
 						);
 				}
 			};
@@ -107,7 +107,7 @@ export class NodeRow {
 			return columnList(pin);
 		};
 
-		this.findGroupColumn = (pin) => {
+		this.findGroupColumn = pin => {
 			const columns = columnList();
 			let groupColumn = columns.find(c => c.model.type === 'group');
 			if (!groupColumn) {
@@ -131,14 +131,14 @@ export class RowspanNodeRow {
 		this.setLabel = nodeRow.setLabel;
 		this.colspan = nodeRow.colspan;
 		this.columnList = columnList;
-		
+
 		const rowspan = (node, column, isRoot = true) => {
 			switch (node.type) {
 				case 'group': {
 					if (column.model.type === 'group') {
 						if (node.state.expand) {
 							if (!isRoot || node.source === column.model.by) {
-								return node.children.reduce((memo, child, i) => memo + rowspan(child, column, false), 0);
+								return node.children.reduce((memo, child) => memo + rowspan(child, column, false), 0);
 							} else {
 								if (node.children.length) {
 									return rowspan(node.children[0], column, false);

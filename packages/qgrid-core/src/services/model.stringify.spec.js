@@ -1,4 +1,4 @@
-import {stringifyFactory} from './model.stringify';
+import { stringifyFactory } from './model.stringify';
 
 describe('model stringify', () => {
 	let stringify;
@@ -7,12 +7,12 @@ describe('model stringify', () => {
 		const model = {
 			by: {
 				lastName: {
-					items: ['Smith', 'Doe']
+					items: ['Smith', 'Doe'],
 				},
 				gender: {
-					items: ['male']
-				}
-			}
+					items: ['male'],
+				},
+			},
 		};
 
 		const empty = {by: {}};
@@ -36,10 +36,12 @@ describe('model stringify', () => {
 
 	describe('sort', () => {
 		const model = {
-			by: [{
-				lastName: 'asc',
-				age: 'desc'
-			}]
+			by: [
+				{
+					lastName: 'asc',
+					age: 'desc',
+				},
+			],
 		};
 
 		const empty = {by: []};
@@ -63,7 +65,7 @@ describe('model stringify', () => {
 
 	describe('transform by', () => {
 		const model = {
-			by: ['lastName', 'gender']
+			by: ['lastName', 'gender'],
 		};
 
 		const empty = {by: []};
