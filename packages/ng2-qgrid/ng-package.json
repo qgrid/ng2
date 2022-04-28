@@ -4,10 +4,10 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-	"allowedNonPeerDependencies": [
-		"@qgrid/core",
-		"@qgrid/plugins",
-		"@qgrid/ngx",
-		"@qgrid/ngx-plugins"
-	]
+  "allowedNonPeerDependencies": [
+    "@qgrid/core",
+    "@qgrid/plugins",
+    "@qgrid/ngx",
+    "@qgrid/ngx-plugins"
+  ]
 }
