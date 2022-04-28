@@ -81,7 +81,7 @@ export class DataService {
 	getAtomPresets(id, user): Observable<any> {
 		const commonPresets = this.http.get<any[]>('assets/presets/atoms.json');
 		const items = JSON.parse(localStorage.getItem(id));
-		if (items && items.hasOwnProperty(user)) {
+		if (items && Object.prototype.hasOwnProperty.call(items, user)) {
 			return combineLatest([commonPresets, of(items[user] as any[])]).pipe(
 				map((...lists) => lists.reduce((memo, list) => memo.concat(list), [])),
 			);

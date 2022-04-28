@@ -37,7 +37,7 @@ export class ExampleDestroyGridModelComponent {
 		const model = this.gridModel as { [key: string]: any };
 		let count = 0;
 		for (const key in model) {
-			if (model.hasOwnProperty(key) && key.endsWith('Changed')) {
+			if (Object.prototype.hasOwnProperty.call(model, key) && key.endsWith('Changed')) {
 				const event = model[key];
 
 				// `handlers` is private really

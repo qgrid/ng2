@@ -92,7 +92,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							})
 							.data({
 								pipe: [
-									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {
+									(_: any[], context: PipeContext, next: (r: any[]) => void) => {
 										this.dataService.getPeople(10).subscribe(people => next(people));
 									},
 								].concat(this.qgrid.pipeUnit.default as any[]),
