@@ -18,17 +18,13 @@ class RowEditorCore {
 
 
 class TdView {
-	constructor(row, column) {
-		this.row = row;
-		this.column = column;
-	}
 
 	get value() {
 		return getValue(this.row, this.column);
 	}
 
 	set value(value) {
-		return setValue(this.row, this.column, value);
+		setValue(this.row, this.column, value);
 	}
 
 	get label() {
@@ -36,12 +32,22 @@ class TdView {
 	}
 
 	set label(value) {
-		return setLabel(this.row, this.column, value);
+		setLabel(this.row, this.column, value);
+	}
+
+	constructor(row, column) {
+		this.row = row;
+		this.column = column;
 	}
 }
 
 const empty = new RowEditorCore();
 export class RowEditor extends RowEditorCore {
+
+	static get empty() {
+		return empty;
+	}
+
 	constructor(row, columns) {
 		super();
 
@@ -62,9 +68,5 @@ export class RowEditor extends RowEditorCore {
 	reset() {
 		this.editors.forEach(editor => editor.reset());
 		this.value = cloneDeep(this.row);
-	}
-
-	static get empty() {
-		return empty;
 	}
 }

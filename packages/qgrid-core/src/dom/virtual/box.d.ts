@@ -1,13 +1,13 @@
+import { Event } from '../../event/event';
 import { Box } from '../box';
 import { Cell } from '../cell';
-import { Row } from '../row';
 import { Column } from '../column';
-import { Event } from '../../event/event';
+import { Row } from '../row';
 
 export declare class VirtualBox extends Box {
-	constructor();
-
 	changed: Event;
+
+	constructor();
 	addCellClass(cell: Cell, name: string, force: boolean): void;
 	removeCellClass(cell: Cell, name: string, force: boolean): void;
 	addRowClass(row: Row, name: string, force: boolean): void;

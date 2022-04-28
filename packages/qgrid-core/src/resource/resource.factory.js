@@ -1,5 +1,6 @@
-import {Resource} from './resource';
-import {EnumerableResource} from './resource.enumerable';
+import { hasOwnProperty } from '../utility/kit';
+import { Resource } from './resource';
+import { EnumerableResource } from './resource.enumerable';
 
 export function factory(resource, key) {
 	const data = resource.data;
@@ -8,7 +9,7 @@ export function factory(resource, key) {
 		let keyIndex = 1;
 		let count = resource.count;
 		const originKey = key;
-		while (data.hasOwnProperty(key)) {
+		while (hasOwnProperty.call(data, key)) {
 			key = originKey + keyIndex++;
 		}
 

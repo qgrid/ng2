@@ -18,6 +18,9 @@
     "release:example": "node ./scripts/build.example"
   },
   "devDependencies": {
+    "@angular-eslint/eslint-plugin": "^13.2.1",
+    "@angular-eslint/eslint-plugin-template": "^13.2.1",
+    "@angular-eslint/template-parser": "^13.2.1",
     "codelyzer": "^6.0.2",
     "command-line-args": "^5.2.0",
     "copyfiles": "^2.4.1",

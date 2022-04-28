@@ -1,4 +1,4 @@
-import { PipeCallback, MemoPipe, PipeFolder, PipeUnitWhy } from '../pipe.types';
+import { MemoPipe, PipeCallback, PipeFolder, PipeUnitWhy } from '../pipe.types';
 
 export declare type ScenePipeUnit = [
     PipeCallback<any[], any[]>,

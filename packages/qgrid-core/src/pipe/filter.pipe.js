@@ -13,11 +13,11 @@ export function filterPipe(rows, context, next) {
 
 		let test;
 		if (matchPredicate !== yes && custom !== yes) {
-			test = (row) => matchPredicate(row) && custom(row);
+			test = row => matchPredicate(row) && custom(row);
 		} else if (matchPredicate !== yes) {
-			test = (row) => matchPredicate(row);
+			test = row => matchPredicate(row);
 		} else if (custom !== yes) {
-			test = (row) => custom(row);
+			test = row => custom(row);
 		}
 
 		if (test) {
@@ -32,10 +32,10 @@ export function filterPipe(rows, context, next) {
 	}
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { filter: result })
+		effect: Object.assign({}, model.pipe().effect, { filter: result }),
 	}, {
 		source: 'filter.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	});
 
 	next(result);

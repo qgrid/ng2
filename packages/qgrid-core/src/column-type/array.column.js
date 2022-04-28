@@ -5,19 +5,15 @@ import { TemplatePath } from '../template/template.path';
 import { isArray } from '../utility/kit';
 import { DataColumnModel } from './data.column.model';
 
-TemplatePath.register('array-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('array-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key,
+}));
 
-TemplatePath.register('array-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('array-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key,
+}));
 
 export class ArrayColumnModel extends DataColumnModel {
 	constructor() {

@@ -19,5 +19,5 @@ function alphaTitle(index) {
 export {
 	firstRowTitle,
 	numericTitle,
-	alphaTitle
+	alphaTitle,
 };

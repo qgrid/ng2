@@ -32,6 +32,6 @@ export function serializeGet(model) {
 			.filter(part => !!part)
 			.join(';'),
 		skip: paginationState.current * paginationState.size,
-		take: paginationState.size
+		take: paginationState.size,
 	};
 }

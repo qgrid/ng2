@@ -73,8 +73,7 @@ export class CsvImport {
 
 			if (c === '"') {
 				term = this.readEscapedValue(reader, term);
-			}
-			else {
+			} else {
 				term = this.readUnescapedValue(reader, term);
 			}
 		}
@@ -106,8 +105,9 @@ export class CsvImport {
 		let c = reader.peek();
 		while (c !== CharReader.eof) {
 			if (c === delimiter || c === '\n' ||
-				(c === '\r' && reader.peekPeek() === '\n'))
+			(c === '\r' && reader.peekPeek() === '\n')) {
 				break;
+			}
 
 			term += reader.read();
 			c = reader.peek();

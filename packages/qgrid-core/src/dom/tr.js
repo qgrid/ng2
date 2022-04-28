@@ -1,12 +1,6 @@
 import { GridError } from '../infrastructure/error';
 
 export class Tr {
-	constructor(tr) {
-		this.tr = tr;
-
-		// We need to cache it due to possible virtual mode;
-		this.index = tr.index;
-	}
 
 	get model() {
 		if (!Tr.equals(this, this.tr)) {
@@ -22,6 +16,13 @@ export class Tr {
 		}
 
 		return this.tr.element;
+	}
+
+	constructor(tr) {
+		this.tr = tr;
+
+		// We need to cache it due to possible virtual mode;
+		this.index = tr.index;
 	}
 
 	static equals(x, y) {

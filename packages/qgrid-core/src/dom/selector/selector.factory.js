@@ -1,8 +1,9 @@
+import { Range } from '../../infrastructure/range';
+import { hasOwnProperty } from '../../utility/kit';
 import { Matrix } from './matrix';
 import { Selector } from './selector';
 import { SelectorMediator } from './selector.mediate';
 import { UnitFactory } from './unit.factory';
-import { Range } from '../../infrastructure/range';
 
 export class SelectorFactory {
 	constructor(bag, selectorMark) {
@@ -20,11 +21,11 @@ export class SelectorFactory {
 				.map(({ element, rowRange, columnRange }) => ({
 					matrix: matrix.build(element),
 					rowRange,
-					columnRange
+					columnRange,
 				}));
 
-		const selectorFactory = context => {
-			return entries.map(entry => ({
+		const selectorFactory = context =>
+			entries.map(entry => ({
 				invoke: f => {
 					const unitFactory = new UnitFactory(entry.rowRange, entry.columnRange);
 					const selector = new Selector(entry.matrix, bag, unitFactory);
@@ -32,18 +33,17 @@ export class SelectorFactory {
 					const args = [];
 					args.push(selector);
 
-					if (context.hasOwnProperty('row')) {
+					if (hasOwnProperty.call(context, 'row')) {
 						args.push(context.row - entry.rowRange.start);
 					}
 
-					if (context.hasOwnProperty('column')) {
+					if (hasOwnProperty.call(context, 'column')) {
 						args.push(context.column - entry.columnRange.start);
 					}
 
 					return f(...args);
-				}
+				},
 			}));
-		};
 
 		const unitFactory = new UnitFactory(new Range(0, 0), new Range(0, 0));
 		return new SelectorMediator(selectorFactory, unitFactory);

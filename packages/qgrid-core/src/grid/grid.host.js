@@ -38,21 +38,21 @@ export class GridHost {
 		const index = codes.indexOf(code);
 		if (index >= 0) {
 			const newCodes = Array.from(codes);
-			newCodes.splice(index, 1)
+			newCodes.splice(index, 1);
 			model.keyboard({
 				code,
 				codes: newCodes,
-				status: 'up'
+				status: 'up',
 			}, {
-				source: 'key.up'
+				source: 'key.up',
 			});
 		}
 
 		model.keyboard({
 			code: null,
-			status: 'release'
+			status: 'release',
 		}, {
-			source: 'key.up'
+			source: 'key.up',
 		});
 	}
 
@@ -78,9 +78,9 @@ export class GridHost {
 		model.keyboard({
 			code,
 			codes: uniq(model.keyboard().codes.concat(code)),
-			status: 'down'
+			status: 'down',
 		}, {
-			source: 'key.down'
+			source: 'key.down',
 		});
 
 		return result;
@@ -96,14 +96,14 @@ export class GridHost {
 			left: left.length > 0,
 			right: right.length > 0,
 			top: pinTop.length > 0,
-			bottom: pinBottom.length > 0
+			bottom: pinBottom.length > 0,
 		};
 
 		if (!same(oldPin, newPin)) {
 			model.visibility({
-				pin: newPin
+				pin: newPin,
 			}, {
-				source: 'grid.host'
+				source: 'grid.host',
 			});
 		}
 	}
@@ -116,17 +116,16 @@ export class GridHost {
 				&& (model.focus().rowIndex < 0 || model.focus().columnIndex < 0);
 			if (needFocusCell) {
 				service.focus(
-					model.pagination().size * model.pagination().current
+					model.pagination().size * model.pagination().current,
 				);
 			} else {
 				model.focus({
-					isActive: true
+					isActive: true,
 				}, {
-					source: 'grid.host'
+					source: 'grid.host',
 				});
 			}
-		}
-		else {
+		} else {
 			model.focus({ isActive: false }, { source: 'grid.host' });
 		}
 	}

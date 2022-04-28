@@ -8,7 +8,7 @@ describe('pipe pagination', () => {
 		model = modelFactory();
 		model.pagination({
 			current: 1,
-			size: 1
+			size: 1,
 		});
 	});
 
@@ -16,21 +16,33 @@ describe('pipe pagination', () => {
 		expect(pagination).to.be.a('function');
 	});
 
-	it('should pass paginated data to the next stage', (done) => {
-		pagination([1, 2, 3], { model },
-			data => {
-				expect(data).to.eql([2]);
-				done();
-			});
+	it('should pass paginated data to the next stage', done => {
+		pagination([
+			1,
+			2,
+			3,
+		], { model },
+		data => {
+			expect(data).to.eql([2]);
+			done();
+		});
 	});
 
-	it('should pass the whole collection to the next stage in virtual mode', (done) => {
+	it('should pass the whole collection to the next stage in virtual mode', done => {
 		model.scroll({ mode: 'virtual' });
 
-		pagination([1, 2, 3], { model },
-			data => {
-				expect(data).to.eql([1, 2, 3]);
-				done();
-			});
+		pagination([
+			1,
+			2,
+			3,
+		], { model },
+		data => {
+			expect(data).to.eql([
+				1,
+				2,
+				3,
+			]);
+			done();
+		});
 	});
 });

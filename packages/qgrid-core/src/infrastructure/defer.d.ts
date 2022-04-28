@@ -8,4 +8,3 @@ export declare class Defer<T> {
 	reject(): void;
 	resolve(value: T): void;
 }
-

@@ -13,8 +13,8 @@ describe('path service', () => {
 			const item = {
 				name: {
 					last: 'Doe',
-					first: 'John'
-				}
+					first: 'John',
+				},
 			};
 
 			const value = compile(path);
@@ -27,8 +27,8 @@ describe('path service', () => {
 			const item = {
 				name: {
 					last: 'Doe',
-					first: 'John'
-				}
+					first: 'John',
+				},
 			};
 
 			const value = compile(path);

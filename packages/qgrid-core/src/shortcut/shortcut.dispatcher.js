@@ -15,14 +15,14 @@ export class ShortcutDispatcher {
 		if (!context) {
 			context = {
 				commands: [],
-				shortcuts: new Map()
+				shortcuts: new Map(),
 			};
 
 			this.managerMap.set(manager, context);
 		}
 
 		const disposes = [];
-		for (let cmd of commands) {
+		for (const cmd of commands) {
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					context.commands.push(cmd);
@@ -32,8 +32,7 @@ export class ShortcutDispatcher {
 							context.commands.splice(index, 1);
 						}
 					});
-				}
-				else {
+				} else {
 					cmd.shortcut
 						.toLowerCase()
 						.split('|')
@@ -76,7 +75,7 @@ export class ShortcutDispatcher {
 		return activities.reduce((memo, activity) => {
 			const commands = activity.commands;
 			const manager = activity.manager;
-			const result = manager.invoke(commands, null, source) || result;
+			const result = manager.invoke(commands, null, source);
 			if (result) {
 				memo.push(...commands.map(cmd => cmd.source));
 			}
@@ -96,7 +95,7 @@ export class ShortcutDispatcher {
 			.from(this.managerMap.entries())
 			.map(([manager, context]) => ({
 				manager,
-				commands: manager.filter(search(context), source)
+				commands: manager.filter(search(context), source),
 			}));
 
 		// Skip wildcard commands if there are some explicit shortcuts

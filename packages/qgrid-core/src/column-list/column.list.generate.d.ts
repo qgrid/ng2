@@ -12,5 +12,5 @@ export declare interface ColumnListGenerationSettings {
 	title: (text: string) => string;
 }
 
-export declare function generateFactory(model: Model): () => { hasChanges: boolean, columns: any[] };
+export declare function generateFactory(model: Model): () => { hasChanges: boolean; columns: any[] };
 export declare function generate(settings: Partial<ColumnListGenerationSettings>): ColumnModel[];

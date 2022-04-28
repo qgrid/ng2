@@ -1,20 +1,30 @@
-import {EventManager} from './event.manager';
+import { EventManager } from './event.manager';
 
 describe('EventManager', () => {
 
-	let test = {
-		arr: [1, 2, 3],
+	const test = {
+		arr: [
+			1,
+			2,
+			3,
+		],
 		checkLength: function () {
 			return this.arr.length;
-		}
+		},
 	};
 
-	let test2 = {
-		arr: [1, 2, 3, 4, 5]
+	const test2 = {
+		arr: [
+			1,
+			2,
+			3,
+			4,
+			5,
+		],
 	};
 
-	let eventManager = new EventManager(test2);
-	let result = eventManager.bind(test.checkLength);
+	const eventManager = new EventManager(test2);
+	const result = eventManager.bind(test.checkLength);
 
 	describe('bind', () => {
 
@@ -23,7 +33,4 @@ describe('EventManager', () => {
 		});
 
 	});
-	
 });
-
-

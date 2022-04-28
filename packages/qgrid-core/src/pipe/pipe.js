@@ -1,15 +1,15 @@
+import { animationPipe } from './animation.pipe';
+import { columnIndexPipe } from './column.index.pipe';
+import { columnPipe } from './column.pipe';
 import { dataPipe } from './data.pipe';
 import { filterPipe } from './filter.pipe';
-import { paginationPipe } from './pagination.pipe';
-import { sortPipe } from './sort.pipe';
-import { memoPipe } from './memo.pipe';
 import { groupPipe } from './group.pipe';
+import { memoPipe } from './memo.pipe';
+import { paginationPipe } from './pagination.pipe';
 import { pivotPipe } from './pivot.pipe';
-import { columnPipe } from './column.pipe';
-import { columnIndexPipe } from './column.index.pipe'
-import { animationPipe } from './animation.pipe';
-import { viewPipe } from './view.pipe';
 import { scenePipe } from './scene.pipe';
+import { sortPipe } from './sort.pipe';
+import { viewPipe } from './view.pipe';
 
 export class Pipe {
 	static get data() {

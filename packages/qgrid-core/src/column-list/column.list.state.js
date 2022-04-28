@@ -1,5 +1,5 @@
-import { Node } from '../node/node';
 import { CohortColumn, CohortColumnModel } from '../column-type/cohort.column';
+import { Node } from '../node/node';
 
 export class ColumnListState {
 	constructor() {
@@ -10,7 +10,7 @@ export class ColumnListState {
 		root.key = '$root';
 
 		this.index = new Node(new CohortColumn(root), 0);
-		
+
 		this.columns = [];
 		this.reference = {};
 		this.line = [];

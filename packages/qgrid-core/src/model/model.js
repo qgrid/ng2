@@ -1,8 +1,8 @@
-import { GridError } from '../infrastructure/error';
 import { Event } from '../event/event';
+import { GridError } from '../infrastructure/error';
 import { Guard } from '../infrastructure/guard';
-import { isArray, isObject, getTypeName } from '../utility/kit';
 import { Log } from '../infrastructure/log';
+import { getTypeName, hasOwnProperty, isArray, isObject } from '../utility/kit';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm
@@ -46,7 +46,7 @@ export class Model {
 		if (this.accessors.has(name)) {
 			throw new GridError(
 				'model',
-				`${name} accessor already exists`
+				`${name} accessor already exists`,
 			);
 		}
 
@@ -91,10 +91,10 @@ export class Model {
 			const keys = Object.keys(newState);
 			for (let i = 0, keysLength = keys.length; i < keysLength; i++) {
 				const key = keys[i];
-				if (!state.hasOwnProperty(key)) {
+				if (!hasOwnProperty.call(state, key)) {
 					throw new GridError(
 						`model.${name}`,
-						`"${key}" is not a valid key, only [${Object.keys(state).join(', ')}] keys are supported`
+						`"${key}" is not a valid key, only [${Object.keys(state).join(', ')}] keys are supported`,
 					);
 				}
 
@@ -109,15 +109,14 @@ export class Model {
 					changes[key] = { newValue, oldValue };
 
 					changeSet.add(key);
-				}
-				else {
+				} else {
 					Log.warn('model', `value was not changed - "${name}.${key}"`);
 				}
 			}
 
 			if (hasChanges) {
 				state = {
-					...state
+					...state,
 				};
 
 				event.emit({
@@ -125,12 +124,12 @@ export class Model {
 					changes,
 					hasChanges: changes.hasOwnProperty.bind(changes),
 					tag: tag || {},
-					source: 'emit'
+					source: 'emit',
 				});
 			}
 
 			return this;
-		}
+		};
 
 		const accessor = (...args) => {
 			if (args.length) {

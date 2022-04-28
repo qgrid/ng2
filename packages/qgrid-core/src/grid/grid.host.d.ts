@@ -1,5 +1,4 @@
 import { GridPlugin } from '../plugin/grid.plugin';
-import { GridService } from './grid.service';
 
 export declare class GridHost {
 	constructor(

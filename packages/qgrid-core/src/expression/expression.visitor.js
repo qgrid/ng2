@@ -15,7 +15,7 @@ export class Visitor {
 			default:
 				throw GridError(
 					'expression.visitor',
-					`Invalid kind ${item.kind}`
+					`Invalid kind ${item.kind}`,
 				);
 		}
 	}
@@ -57,7 +57,7 @@ export class Visitor {
 			default:
 				throw new GridError(
 					'expression.visitor',
-					`Invalid operation ${condition.op}`
+					`Invalid operation ${condition.op}`,
 				);
 		}
 	}
@@ -66,7 +66,7 @@ export class Visitor {
 		this.visitLeft(condition.left);
 	}
 
-	visitBinary(condition/*, depth*/) {
+	visitBinary(condition/* , depth*/) {
 		this.visitLeft(condition.left);
 		this.visitRight(condition.right);
 	}
@@ -80,13 +80,13 @@ export class Visitor {
 		}
 	}
 
-	visitBetween(/*condition, depth*/) {
+	visitBetween(/* condition, depth*/) {
 	}
 
-	visitIn(/*condition, depth*/) {
+	visitIn(/* condition, depth*/) {
 	}
 
-	visitFunction(/*fn*/) {
+	visitFunction(/* fn*/) {
 	}
 
 	visitArguments(args) {

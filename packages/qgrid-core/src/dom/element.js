@@ -1,4 +1,4 @@
-import {Unit} from './unit';
+import { Unit } from './unit';
 
 export class Element extends Unit {
 	constructor(element) {

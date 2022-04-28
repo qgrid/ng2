@@ -1,5 +1,5 @@
-import { GridError } from '../infrastructure/error';
 import { lineView } from '../column/column.service';
+import { GridError } from '../infrastructure/error';
 import { Node } from '../node/node';
 
 export class Scene {
@@ -33,13 +33,13 @@ export class Scene {
 		const result = {
 			left: [],
 			right: [],
-			mid: []
+			mid: [],
 		};
 
 		for (let i = 0, length = line.length; i < length; i++) {
 			const column = line[i];
 			const { pin } = column.model;
-			let area = result[pin];
+			const area = result[pin];
 			if (!area) {
 				throw new GridError('scene', `Unsupported pin ${pin}`);
 			}

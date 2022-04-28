@@ -8,6 +8,12 @@ import * as sortService from '../sort/sort.service';
 import { noop } from '../utility/kit';
 
 export class HighlightLet {
+
+	get isRendering() {
+		const { model } = this.plugin;
+		return model.scene().status !== 'stop' || model.drag().isActive;
+	}
+
 	constructor(plugin) {
 		const { model, table, observeReply, observe } = plugin;
 		this.plugin = plugin;
@@ -34,8 +40,7 @@ export class HighlightLet {
 						columns.push(column.key);
 						hasChanges = true;
 					}
-				}
-				else {
+				} else {
 					if (index >= 0) {
 						columns.splice(index, 1);
 						hasChanges = true;
@@ -47,7 +52,7 @@ export class HighlightLet {
 						source: 'highlight.view',
 					});
 				}
-			}
+			},
 		});
 
 		this.row = new Command({
@@ -62,8 +67,7 @@ export class HighlightLet {
 						rows.push(row);
 						hasChanges = true;
 					}
-				}
-				else {
+				} else {
 					if (index >= 0) {
 						rows.splice(index, 1);
 						hasChanges = true;
@@ -72,22 +76,21 @@ export class HighlightLet {
 
 				if (hasChanges) {
 					model.highlight({ rows }, {
-						source: 'highlight.view'
+						source: 'highlight.view',
 					});
 				}
-			}
+			},
 		});
 
 		this.cell = new Command({
 			source: 'highlight.view',
 			canExecute: () => !this.isRendering,
-			execute: (newCell, state) => {
-				let { cell } = model.highlight();
+			execute: newCell => {
+				const { cell } = model.highlight();
 				let hasChanges = true;
 				if (newCell === cell) {
 					hasChanges = false;
-				}
-				else if (newCell && cell) {
+				} else if (newCell && cell) {
 					hasChanges =
 						newCell.rowIndex !== cell.rowIndex
 						|| newCell.columnIndex !== cell.columnIndex;
@@ -95,10 +98,10 @@ export class HighlightLet {
 
 				if (hasChanges) {
 					model.highlight({ cell: newCell }, {
-						source: 'highlight.view'
+						source: 'highlight.view',
 					});
 				}
-			}
+			},
 		});
 
 		this.clear = new Command({
@@ -110,7 +113,7 @@ export class HighlightLet {
 				if (cell) {
 					this.cell.execute(null, false);
 				}
-			}
+			},
 		});
 
 		observeReply(model.selectionChanged)
@@ -171,9 +174,9 @@ export class HighlightLet {
 						model.highlight({
 							columns: [],
 							rows: [],
-							cell: null
+							cell: null,
 						}, {
-							source: 'highlight.view'
+							source: 'highlight.view',
 						});
 
 						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
@@ -181,12 +184,7 @@ export class HighlightLet {
 						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
 					}
 				}
-			})
-	}
-
-	get isRendering() {
-		const { model } = this.plugin;
-		return model.scene().status !== 'stop' || model.drag().isActive;
+			});
 	}
 
 	invalidateColumnHover(dispose) {
@@ -207,7 +205,7 @@ export class HighlightLet {
 
 		dispose = [];
 		const keys = Object.keys(by);
-		for (let key of keys) {
+		for (const key of keys) {
 			if (key === '$expression') {
 				continue;
 			}
@@ -251,7 +249,7 @@ export class HighlightLet {
 		const sortBy = model.sort().by;
 
 		dispose = [];
-		for (let entry of sortBy) {
+		for (const entry of sortBy) {
 			const key = sortService.getKey(entry);
 			dispose.push(this.highlightColumn(key, 'sorted'));
 		}
@@ -295,7 +293,7 @@ export class HighlightLet {
 		const { head, body, foot } = table;
 		Fastdom.mutate(() => {
 			const isLeaf = position.length === 1;
-			for (let index of position) {
+			for (const index of position) {
 				if (isLeaf) {
 					head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 					head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
@@ -325,7 +323,7 @@ export class HighlightLet {
 		const { head, body, foot } = table;
 		return () => {
 			Fastdom.mutate(() => {
-				for (let index of position) {
+				for (const index of position) {
 					head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 					head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
 					head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);

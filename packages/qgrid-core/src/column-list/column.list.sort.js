@@ -1,40 +1,13 @@
 import { bend, copy, preOrderDFS } from '../node/node.service';
+import { hasOwnProperty } from '../utility/kit';
 
-export { sortIndexFactory, mergeTree };
+function findFactory(index) {
+	const map = index.reduce((memo, key, i) => {
+		memo.set(key, i);
+		return memo;
+	}, new Map());
 
-function sortIndexFactory(model) {
-	const templateIndex = model.columnList().columns.map(c => c.key);
-
-	return (columns, scores) => {
-		const { length } = columns;
-		scores = Object.assign({
-			list: column => (column.category === 'data' || column.category === 'cohort') ? 0.1 : 0.3,
-			index: () => 0.2,
-			view: column => length + ((column.category !== 'data' && column.category !== 'cohort') ? 0.1 : 0.3),
-			template: () => length + 0.4
-		}, scores);
-
-		const viewIndex = columns.map(c => c.key);
-
-		const sort = sortFactory(scores)(templateIndex, viewIndex);
-		const left = sort(columns.filter(c => c.pin === 'left'));
-		const middle = sort(columns.filter(c => c.pin === 'mid'));
-		const right = sort(columns.filter(c => c.pin === 'right'));
-
-		return left.concat(middle).concat(right);
-	};
-}
-
-function sortFactory(scores) {
-	return (templateIndex, viewIndex) => {
-		const compare = compareFactory(scores, templateIndex, viewIndex);
-		return columns => {
-			const columnIndex = Array.from(columns);
-			columnIndex.sort(compare);
-
-			return columnIndex.map(c => c.key);
-		};
-	};
+	return key => (map.has(key) ? map.get(key) : -1);
 }
 
 function compareFactory(scoreFor, templateIndex, viewIndex) {
@@ -44,14 +17,14 @@ function compareFactory(scoreFor, templateIndex, viewIndex) {
 	const weightCache = {};
 	const getWeight = column => {
 		const key = column.key;
-		if (weightCache.hasOwnProperty(key)) {
+		if (hasOwnProperty.call(weightCache, key)) {
 			return weightCache[key];
 		}
 
 		const candidates = [
 			column.index + scoreFor.index(column),
 			viewFind(key) + scoreFor.view(column),
-			templateFind(key) + scoreFor.template(column)
+			templateFind(key) + scoreFor.template(column),
 		];
 
 		const weights = candidates.filter(w => w >= 0);
@@ -69,49 +42,45 @@ function compareFactory(scoreFor, templateIndex, viewIndex) {
 	};
 }
 
-function findFactory(index) {
-	const map = index.reduce((memo, key, i) => {
-		memo.set(key, i);
-		return memo;
-	}, new Map());
+function sortFactory(scores) {
+	return (templateIndex, viewIndex) => {
+		const compare = compareFactory(scores, templateIndex, viewIndex);
+		return columns => {
+			const columnIndex = Array.from(columns);
+			columnIndex.sort(compare);
 
-	return key => (map.has(key) ? map.get(key) : -1);
+			return columnIndex.map(c => c.key);
+		};
+	};
 }
 
-function mergeTree(newTree, oldTree, buildIndex) {
-	const current = running(newTree, buildIndex);
-	const screen = former(oldTree, current);
-	const insertNear = insertFactory(current, screen);
-	const insertCohort = insertCohortFactory(current, screen);
+function sortIndexFactory(model) {
+	const templateIndex = model.columnList().columns.map(c => c.key);
 
-	const root = current.line[0];
-	if (!screen.set.has(root.key.model.key)) {
-		screen.line.unshift(copy(root));
-		screen.line.forEach(n => n.level++);
-	}
+	return (columns, scores) => {
+		const { length } = columns;
+		scores = Object.assign({
+			list: column => (column.category === 'data' || column.category === 'cohort') ? 0.1 : 0.3,
+			index: () => 0.2,
+			view: column => length + ((column.category !== 'data' && column.category !== 'cohort') ? 0.1 : 0.3),
+			template: () => length + 0.4,
+		}, scores);
 
-	for (let i = 1, length = current.line.length; i < length; i++) {
-		const node = current.line[i];
-		const { model } = node.key;
-		if (screen.set.has(model.key)) {
-			continue;
-		}
+		const viewIndex = columns.map(c => c.key);
 
-		const prevNode = current.line[i - 1];
-		if (model.type === 'cohort') {
-			insertCohort(prevNode, node);
-		} else {
-			insertNear(prevNode, node, i);
-		}
-	}
+		const sort = sortFactory(scores)(templateIndex, viewIndex);
+		const left = sort(columns.filter(c => c.pin === 'left'));
+		const middle = sort(columns.filter(c => c.pin === 'mid'));
+		const right = sort(columns.filter(c => c.pin === 'right'));
 
-	return bend(screen.line);
+		return left.concat(middle).concat(right);
+	};
 }
 
 function running(tree, buildIndex) {
 	const result = {
 		line: [],
-		map: new Map()
+		map: new Map(),
 	};
 
 	preOrderDFS([tree], node => {
@@ -138,7 +107,7 @@ function running(tree, buildIndex) {
 function former(tree, current) {
 	const result = {
 		line: [],
-		set: new Set()
+		set: new Set(),
 	};
 
 	preOrderDFS([tree], node => {
@@ -156,10 +125,23 @@ function former(tree, current) {
 	return result;
 }
 
+function everyNextIsNew(current, screen, index) {
+	const { line } = current;
+
+	let n;
+	while ((n = line[++index])) {
+		if (screen.set.has(n.key.model.key)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 function insertFactory(current, screen) {
 	const { line } = screen;
 	return (prevNode, node, i) => {
-		let pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
+		const pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
 
 		const target = copy(node);
 		target.level = node.level;
@@ -202,15 +184,34 @@ function insertCohortFactory(current, screen) {
 	};
 }
 
-function everyNextIsNew(current, screen, index) {
-	const { line } = current;
+function mergeTree(newTree, oldTree, buildIndex) {
+	const current = running(newTree, buildIndex);
+	const screen = former(oldTree, current);
+	const insertNear = insertFactory(current, screen);
+	const insertCohort = insertCohortFactory(current, screen);
 
-	let n;
-	while ((n = line[++index])) {
-		if (screen.set.has(n.key.model.key)) {
-			return false;
+	const root = current.line[0];
+	if (!screen.set.has(root.key.model.key)) {
+		screen.line.unshift(copy(root));
+		screen.line.forEach(n => n.level++);
+	}
+
+	for (let i = 1, length = current.line.length; i < length; i++) {
+		const node = current.line[i];
+		const { model } = node.key;
+		if (screen.set.has(model.key)) {
+			continue;
+		}
+
+		const prevNode = current.line[i - 1];
+		if (model.type === 'cohort') {
+			insertCohort(prevNode, node);
+		} else {
+			insertNear(prevNode, node, i);
 		}
 	}
 
-	return true;
+	return bend(screen.line);
 }
+
+export { sortIndexFactory, mergeTree };

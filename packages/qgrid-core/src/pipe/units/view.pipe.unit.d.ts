@@ -1,4 +1,4 @@
-import { RowsPipe, MemoPipe, PipeFolder, PipeUnitWhy } from '../pipe.types';
+import { MemoPipe, PipeFolder, PipeUnitWhy, RowsPipe } from '../pipe.types';
 
 export declare type ViewPipeUnit = [
     RowsPipe,

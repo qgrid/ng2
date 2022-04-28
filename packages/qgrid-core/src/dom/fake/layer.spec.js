@@ -1,7 +1,7 @@
-import {FakeLayer} from './layer';
+import { FakeLayer } from './layer';
 
 describe('FakeLayer', () => {
-	let fakeLayer = new FakeLayer();
+	const fakeLayer = new FakeLayer();
 
 	describe('resource', () => {
 		it('should be undefined', () => {
@@ -16,4 +16,3 @@ describe('FakeLayer', () => {
 	});
 
 });
-

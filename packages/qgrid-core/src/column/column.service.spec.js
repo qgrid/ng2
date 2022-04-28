@@ -1,14 +1,14 @@
-import {findColumn, getCellValue} from './column.service';
+import { findColumn, getCellValue } from './column.service';
 
 describe('column service', () => {
 	describe('value', function () {
 		it('should return field by key', () => {
-			let value = getCellValue({ key: 'name' })({ name: 'John' });
+			const value = getCellValue({ key: 'name' })({ name: 'John' });
 			expect(value).to.be.equal('John');
 		});
 
 		it('should return value according to value function', () => {
-			let value = getCellValue({ key: 'name', value: row => row.name + ' Jr.' })({ name: 'John' });
+			const value = getCellValue({ key: 'name', value: row => row.name + ' Jr.' })({ name: 'John' });
 			expect(value).to.be.equal('John Jr.');
 		});
 	});
@@ -16,15 +16,15 @@ describe('column service', () => {
 	describe('find', () => {
 		const columns = [
 			{
-				key: 'name'
+				key: 'name',
 			},
 			{
 				key: 'age',
-				title: 'Age'
+				title: 'Age',
 			},
 			{
-				key: 'gender'
-			}
+				key: 'gender',
+			},
 		];
 
 		it('should return column object', () => {
@@ -32,7 +32,7 @@ describe('column service', () => {
 		});
 
 		it('should return null if key is not found', () => {
-			expect(findColumn(columns, 'missingKey')).to.be.null;
+			expect(findColumn(columns, 'missingKey')).to.equal(null);
 		});
 	});
 });

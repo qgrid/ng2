@@ -1,6 +1,5 @@
-import { GridError } from '../../infrastructure/error';
-import { sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
+import { sumBy } from '../../utility/kit';
 
 export class DetailsRow {
 	constructor(model, dataRow) {
@@ -10,9 +9,7 @@ export class DetailsRow {
 		this.columns = dataRow.getColumns;
 		this.rowspan = dataRow.rowspan;
 
-		this.colspan = (rowDetails, column) => {
-			return sumBy(dataRow.columnList(column.model.pin), c => c.colspan);
-		};
+		this.colspan = (rowDetails, column) => sumBy(dataRow.columnList(column.model.pin), c => c.colspan);
 
 		this.columns = (rowDetails, pin) => {
 			if (rowDetails.column.model.pin === pin) {
