@@ -11,7 +11,7 @@ import {
 	TemplateModule,
 	ThemeModule,
 	ToolbarModule,
-	VscrollModule
+	VscrollModule,
 } from '@qgrid/ngx';
 import {
 	ActionBarModule,
@@ -52,10 +52,8 @@ import {
 	StatusBarModule,
 	TabTrapModule,
 	ValidationModule,
-	VisibilityModule
+	VisibilityModule,
 } from '@qgrid/ngx-plugins';
-
-
 
 @NgModule({
 	exports: [
@@ -112,5 +110,4 @@ import {
 		VisibilityModule,
 	],
 })
-export class Ng2GridModule {
-}
+export class Ng2GridModule {}
