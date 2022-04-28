@@ -13,10 +13,11 @@ const EXAMPLE_TAGS = ['validation-basic', 'Cell inputs have validation rules app
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleValidationBasicComponent {
+	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

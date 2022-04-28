@@ -4,6 +4,16 @@
     "project": ["./tsconfig.app.json"],
     "createDefaultProgram": true
   },
+  "rules": {
+    "@angular-eslint/component-selector": [
+      "error",
+      {
+        "type": "element",
+        "prefix": "example",
+        "style": "kebab-case"
+      }
+    ]
+  },
   "overrides": [
     {
       "files": ["*.html"],

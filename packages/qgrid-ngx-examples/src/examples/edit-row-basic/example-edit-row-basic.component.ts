@@ -19,10 +19,10 @@ const EXAMPLE_TAGS = ['edit-row-basic', 'Entire row can be edited in separate me
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleEditRowBasicComponent implements OnInit {
+	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
-
-	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 
 	rows$: Observable<Human[]> = this.dataService.getPeople();
 	columns: Array<Column | BoolColumn>;

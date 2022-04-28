@@ -13,22 +13,21 @@ const EXAMPLE_TAGS = ['pane-with-selection', 'Pane for each row can be opened by
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePaneWithSelectionComponent implements AfterViewInit {
+	@ViewChild(PaneComponent) pane: PaneComponent;
 
-	constructor(dataService: DataService,
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
+
+	rows$: Observable<Atom[]>;
+	gridModel: GridModel;
+
+	constructor(
+		dataService: DataService,
 		private qgrid: Grid,
 	) {
 		this.rows$ = dataService.getAtoms();
 		this.gridModel = qgrid.model();
 	}
-
-	static tags = EXAMPLE_TAGS;
-
-	@ViewChild(PaneComponent) pane: PaneComponent;
-
-	title = EXAMPLE_TAGS[1];
-
-	rows$: Observable<Atom[]>;
-	gridModel: GridModel;
 
 	ngAfterViewInit(): void {
 		this.gridModel.mouseChanged.on(({ state }) => {

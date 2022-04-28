@@ -23,15 +23,6 @@ export class ExamplePersistenceServerComponent {
 	currentUser = 'user1';
 	users: Observable<string[]>;
 
-	constructor(private dataService: DataService, private qgrid: Grid) {
-		this.rows = dataService.getAtoms();
-		this.users = dataService.getUsers();
-		this.gridModel = this.qgrid.model();
-		this.gridModel.persistence({
-			storage: this.storage,
-		});
-	}
-
 	get storage(): PersistenceStorage {
 		return {
 			getItem: id => new Promise(resolve => {
@@ -45,5 +36,17 @@ export class ExamplePersistenceServerComponent {
 					.subscribe(resolve);
 			}),
 		};
+	}
+
+	constructor(
+		private dataService: DataService,
+		private qgrid: Grid,
+	) {
+		this.rows = dataService.getAtoms();
+		this.users = dataService.getUsers();
+		this.gridModel = this.qgrid.model();
+		this.gridModel.persistence({
+			storage: this.storage,
+		});
 	}
 }

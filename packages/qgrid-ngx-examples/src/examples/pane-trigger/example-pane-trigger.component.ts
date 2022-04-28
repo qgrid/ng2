@@ -13,10 +13,11 @@ const EXAMPLE_TAGS = ['pane-trigger', 'Pane for selected row can be opened by cl
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePaneTriggerComponent implements AfterViewInit {
+	@ViewChild(PaneComponent) pane: PaneComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(PaneComponent) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
 	gridModel: GridModel;

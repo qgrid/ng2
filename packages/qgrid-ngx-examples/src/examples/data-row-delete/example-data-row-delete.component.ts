@@ -13,10 +13,11 @@ const EXAMPLE_TAGS = ['data-row-delete', 'Table rows can be deleted using corres
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDataRowDeleteComponent {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Human[]>;
 
 	deleteRow = new Command({

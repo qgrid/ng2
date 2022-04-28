@@ -13,10 +13,11 @@ const EXAMPLE_TAGS = ['focus-cell-custom', 'Cell can be focused by entering its 
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFocusCellCustomComponent {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService, private qgrid: Grid) {

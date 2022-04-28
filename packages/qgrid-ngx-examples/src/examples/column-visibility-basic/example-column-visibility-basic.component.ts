@@ -1,5 +1,5 @@
 import { DataService, Human } from '../data.service';
-import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Grid, GridModel } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 

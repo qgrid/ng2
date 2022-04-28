@@ -13,10 +13,10 @@ const EXAMPLE_TAGS = ['details-row-api', 'Details section of every row can be ex
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowApiComponent implements AfterViewInit {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
-
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 
 	rows$: Observable<Atom[]>;
 	canExpand = true;
