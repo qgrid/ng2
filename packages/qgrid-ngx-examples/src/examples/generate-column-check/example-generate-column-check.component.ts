@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'generate-column-check',
-	'Column generation based on data source'
-];
+const EXAMPLE_TAGS = ['generate-column-check', 'Column generation based on data source'];
 
 @Component({
 	selector: 'example-generate-column-check',
 	templateUrl: 'example-generate-column-check.component.html',
 	styleUrls: ['example-generate-column-check.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGenerateColumnCheckComponent {
 	static tags = EXAMPLE_TAGS;
@@ -24,7 +21,11 @@ export class ExampleGenerateColumnCheckComponent {
 			notEmail: 'john@mail.com',
 			notTime: '12:00',
 			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg',
-			notArray: ['1', '2', '3']
+			notArray: [
+				'1',
+				'2',
+				'3',
+			],
 		},
 		{
 			number: '',
@@ -34,7 +35,7 @@ export class ExampleGenerateColumnCheckComponent {
 			notEmail: 'some text',
 			notTime: 'some text',
 			notImage: 'some text',
-			notArray: 'some text'
-		}
+			notArray: 'some text',
+		},
 	];
 }

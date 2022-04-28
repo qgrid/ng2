@@ -1,16 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GridModel, Grid } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'column-bool-basic',
-	'Cell value is boolean'
-];
+const EXAMPLE_TAGS = ['column-bool-basic', 'Cell value is boolean'];
 
 @Component({
 	selector: 'example-column-bool-basic',
 	templateUrl: 'example-column-bool-basic.component.html',
 	styleUrls: ['example-column-bool-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnBoolBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -27,14 +24,14 @@ export class ExampleColumnBoolBasicComponent {
 			'nullYesNo': null,
 			'triggerFocus': true,
 			'triggerClick': false,
-			'customTemplate': true
-		}
+			'customTemplate': true,
+		},
 	];
 
 	gridModel: GridModel = this.qgrid
 		.model()
 		.columnList({
-			generation: 'deep'
+			generation: 'deep',
 		})
 		.data({
 			columns: [
@@ -42,25 +39,25 @@ export class ExampleColumnBoolBasicComponent {
 					key: 'true',
 					title: 'True',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'false',
 					title: 'False',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'undefined',
 					title: 'Undefined',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'null',
 					title: 'Null',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'yesNo',
@@ -68,7 +65,7 @@ export class ExampleColumnBoolBasicComponent {
 					trueValue: 'yes',
 					falseValue: 'no',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'noYes',
@@ -76,7 +73,7 @@ export class ExampleColumnBoolBasicComponent {
 					trueValue: 'yes',
 					falseValue: 'no',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'nullYesNo',
@@ -84,25 +81,25 @@ export class ExampleColumnBoolBasicComponent {
 					trueValue: 'yes',
 					falseValue: 'no',
 					width: '100',
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'triggerFocus',
 					title: 'Trigger Focus',
 					width: '120',
 					editorOptions: {
-						trigger: 'focus'
+						trigger: 'focus',
 					},
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'triggerClick',
 					title: 'Trigger click',
 					width: '120',
 					editorOptions: {
-						trigger: 'click'
+						trigger: 'click',
 					},
-					type: 'bool'
+					type: 'bool',
 				},
 				{
 					key: 'customTemplate',
@@ -110,11 +107,11 @@ export class ExampleColumnBoolBasicComponent {
 					width: '120',
 					viewWidth: 300,
 					editorOptions: {
-						trigger: 'focus'
+						trigger: 'focus',
 					},
-					type: 'bool'
-				}
-			]
+					type: 'bool',
+				},
+			],
 		});
 
 	constructor(private qgrid: Grid) { }

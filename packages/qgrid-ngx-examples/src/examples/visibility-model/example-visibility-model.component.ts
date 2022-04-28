@@ -8,7 +8,7 @@ import { Atom, DataService } from '../data.service';
 	templateUrl: 'example-visibility-model.component.html',
 	styleUrls: ['example-visibility-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleVisibilityStateComponent implements AfterViewInit {
 	static id = 'visibility-model';
@@ -17,7 +17,7 @@ export class ExampleVisibilityStateComponent implements AfterViewInit {
 	gridModel: GridModel;
 
 	constructor(dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.rows = dataService.getAtoms();
 		this.gridModel = qgrid.model();
@@ -29,8 +29,8 @@ export class ExampleVisibilityStateComponent implements AfterViewInit {
 				bottom: false,
 				left: false,
 				right: false,
-				top: false
-			}
+				top: false,
+			},
 		});
 	}
 }

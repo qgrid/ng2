@@ -6,24 +6,24 @@ import { GridPlugin, Command } from 'ng2-qgrid';
 	templateUrl: 'example-plugin-my-pager.component.html',
 	styleUrls: ['example-plugin-my-pager.component.scss'],
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePluginMyPagerComponent implements OnInit {
 	goto = new Command({
 		execute: page => this.currentPage = page,
-		canExecute: page => page >= 0 && page < this.numberOfPages
+		canExecute: page => page >= 0 && page < this.numberOfPages,
 	});
 
 	gotoNext = new Command({
 		execute: () => this.currentPage = this.currentPage + 1,
 		canExecute: () => this.currentPage < this.numberOfPages - 1,
-		shortcut: 'ctrl+right'
+		shortcut: 'ctrl+right',
 	});
 
 	gotoPrev = new Command({
 		execute: () => this.currentPage = this.currentPage - 1,
 		canExecute: () => this.currentPage > 0,
-		shortcut: 'ctrl+left'
+		shortcut: 'ctrl+left',
 	});
 
 	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {
@@ -31,10 +31,7 @@ export class ExamplePluginMyPagerComponent implements OnInit {
 
 	ngOnInit() {
 		const { shortcut, manager } = this.model.action();
-		shortcut.register(manager, [
-			this.gotoNext,
-			this.gotoPrev
-		]);
+		shortcut.register(manager, [this.gotoNext, this.gotoPrev]);
 
 		// If onPush is used, need to trigger change detection manually.
 		this.model.paginationChanged.on(() => this.cd.detectChanges());

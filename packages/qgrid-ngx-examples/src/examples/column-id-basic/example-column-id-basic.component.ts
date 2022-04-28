@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-id-basic',
-	'Columns with id-type work with different data'
-];
+const EXAMPLE_TAGS = ['column-id-basic', 'Columns with id-type work with different data'];
 
 @Component({
 	selector: 'example-column-id-basic',
 	templateUrl: 'example-column-id-basic.component.html',
 	styleUrls: ['example-column-id-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnIdBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -24,7 +21,7 @@ export class ExampleColumnIdBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'my id'
-		}
+			'customTemplate': 'my id',
+		},
 	];
 }

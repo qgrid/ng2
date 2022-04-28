@@ -8,7 +8,7 @@ import { Column, StyleCellContext } from 'ng2-qgrid';
 	templateUrl: 'example-scroll-virtual-style.component.html',
 	styleUrls: ['example-scroll-virtual-style.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualStyleComponent {
 	static id = 'scroll-virtual-style';

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-size-column-basic.component.html',
 	styleUrls: ['example-size-column-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSizeColumnBasicComponent {
 	static id = 'size-column-basic';

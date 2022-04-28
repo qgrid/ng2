@@ -5,17 +5,14 @@ import { GridModel, Grid, PersistenceStorage } from 'ng2-qgrid';
 
 import { DataService, Atom } from '../data.service';
 
-const EXAMPLE_TAGS = [
-	'persistence-server',
-	'Settings are stored on server and can be saved/loaded in the save/load menu'
-];
+const EXAMPLE_TAGS = ['persistence-server', 'Settings are stored on server and can be saved/loaded in the save/load menu'];
 
 @Component({
 	selector: 'example-persistence-server',
 	templateUrl: 'example-persistence-server.component.html',
 	styleUrls: ['example-persistence-server.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePersistenceServerComponent {
 	static tags = EXAMPLE_TAGS;
@@ -31,26 +28,22 @@ export class ExamplePersistenceServerComponent {
 		this.users = dataService.getUsers();
 		this.gridModel = this.qgrid.model();
 		this.gridModel.persistence({
-			storage: this.storage
+			storage: this.storage,
 		});
 	}
 
 	get storage(): PersistenceStorage {
 		return {
-			getItem: id => {
-				return new Promise(resolve => {
-					this.dataService
-						.getAtomPresets(id, this.currentUser)
-						.subscribe(resolve);
-				});
-			},
-			setItem: (id, items) => {
-				return new Promise(resolve => {
-					this.dataService
-						.setAtomPresets(id, this.currentUser, items)
-						.subscribe(resolve);
-				});
-			}
+			getItem: id => new Promise(resolve => {
+				this.dataService
+					.getAtomPresets(id, this.currentUser)
+					.subscribe(resolve);
+			}),
+			setItem: (id, items) => new Promise(resolve => {
+				this.dataService
+					.setAtomPresets(id, this.currentUser, items)
+					.subscribe(resolve);
+			}),
 		};
 	}
 }

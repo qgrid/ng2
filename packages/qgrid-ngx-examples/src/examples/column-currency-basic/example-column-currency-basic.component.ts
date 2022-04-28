@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-currency-basic',
-	'Cell value contains currency sign'
-];
+const EXAMPLE_TAGS = ['column-currency-basic', 'Cell value contains currency sign'];
 
 @Component({
 	selector: 'example-column-currency-basic',
 	templateUrl: 'example-column-currency-basic.component.html',
 	styleUrls: ['example-column-currency-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnCurrencyBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -23,7 +20,7 @@ export class ExampleColumnCurrencyBasicComponent {
 			'undefined': undefined,
 			'empty': '',
 			'string': '120',
-			'customTemplate': 30
-		}
+			'customTemplate': 30,
+		},
 	];
 }

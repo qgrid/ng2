@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'group-row-edit',
-	'Cells in grouped rows can be edited'
-];
+const EXAMPLE_TAGS = ['group-row-edit', 'Cells in grouped rows can be edited'];
 
 @Component({
 	selector: 'example-group-row-edit',
 	templateUrl: 'example-group-row-edit.component.html',
 	styleUrls: ['example-group-row-edit.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGroupRowEditComponent {
 	static tags = EXAMPLE_TAGS;

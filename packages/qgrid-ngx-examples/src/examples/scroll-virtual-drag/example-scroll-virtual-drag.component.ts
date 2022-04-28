@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-scroll-virtual-drag.component.html',
 	styleUrls: ['example-scroll-virtual-drag.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualDragComponent {
 	static id = 'scroll-virtual-drag';

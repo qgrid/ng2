@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-email-basic',
-	'Cell value is email'
-];
+const EXAMPLE_TAGS = ['column-email-basic', 'Cell value is email'];
 
 @Component({
 	selector: 'example-column-email-basic',
 	templateUrl: 'example-column-email-basic.component.html',
 	styleUrls: ['example-column-email-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnEmailBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -23,8 +20,8 @@ export class ExampleColumnEmailBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'qgrid.team@gmail.com'
-		}
+			'customTemplate': 'qgrid.team@gmail.com',
+		},
 	];
 
 	private label = 'QGRID';

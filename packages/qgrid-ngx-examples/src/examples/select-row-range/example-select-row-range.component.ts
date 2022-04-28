@@ -8,7 +8,7 @@ import { DataService, Human } from '../data.service';
 	templateUrl: 'example-select-row-range.component.html',
 	styleUrls: ['example-select-row-range.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectRowRangeComponent {
 	static id = 'select-row-range';
@@ -18,7 +18,7 @@ export class ExampleSelectRowRangeComponent {
 
 	constructor(
 		private dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 	}
 }

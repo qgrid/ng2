@@ -1,16 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GridModel, Grid } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'dynamic-column-model',
-	'Table can be created by adding columns and groups using UI buttons'
-];
+const EXAMPLE_TAGS = ['dynamic-column-model', 'Table can be created by adding columns and groups using UI buttons'];
 
 @Component({
 	selector: 'example-dynamic-column-model',
 	templateUrl: 'example-dynamic-column-model.component.html',
 	styleUrls: ['example-dynamic-column-model.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDynamicColumnModelComponent {
 	static tags = EXAMPLE_TAGS;
@@ -28,7 +25,7 @@ export class ExampleDynamicColumnModelComponent {
 		const column = {
 			type: 'text',
 			key: id,
-			title: `${side} - ${id}`
+			title: `${side} - ${id}`,
 		};
 
 		const dataState = this.gridModel.data();
@@ -58,14 +55,14 @@ export class ExampleDynamicColumnModelComponent {
 				key: `${groupId}Child${i}`,
 				path: `${groupId}.child${i}`,
 				title: `child - ${groupId} - ${i}`,
-				value: () => `value - ${i}`
+				value: () => `value - ${i}`,
 			});
 		}
 		const groupColumn = {
 			type: 'cohort',
 			key: groupId,
 			children: childColumns,
-			title: `group - ${groupId}`
+			title: `group - ${groupId}`,
 		};
 
 		const dataState = this.gridModel.data();
@@ -77,7 +74,7 @@ export class ExampleDynamicColumnModelComponent {
 	reset() {
 		this.gridModel.data({
 			columns: [],
-			rows: new Array(100).fill({})
+			rows: new Array(100).fill({}),
 		});
 	}
 

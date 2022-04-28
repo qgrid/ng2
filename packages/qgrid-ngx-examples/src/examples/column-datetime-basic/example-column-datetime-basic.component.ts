@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-datetime-basic',
-	'Cell value is date and time'
-];
+const EXAMPLE_TAGS = ['column-datetime-basic', 'Cell value is date and time'];
 
 @Component({
 	selector: 'example-column-datetime-basic',
 	templateUrl: 'example-column-datetime-basic.component.html',
 	styleUrls: ['example-column-datetime-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnDateTimeBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -26,7 +23,7 @@ export class ExampleColumnDateTimeBasicComponent {
 			'text': '2018/3/28',
 			'maxLength2': 'PI',
 			'format': new Date(2018, 9, 12, 1, 25, 0),
-			'customTemplate': new Date(2018, 13, 33)
-		}
+			'customTemplate': new Date(2018, 13, 33),
+		},
 	];
 }

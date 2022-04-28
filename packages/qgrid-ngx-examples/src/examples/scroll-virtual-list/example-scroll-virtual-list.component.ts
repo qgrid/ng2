@@ -5,7 +5,7 @@ import { VscrollService } from 'ng2-qgrid';
 	selector: 'example-scroll-virtual-list',
 	templateUrl: 'example-scroll-virtual-list.component.html',
 	styleUrls: ['example-scroll-virtual-list.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualListComponent {
 	static id = 'scroll-virtual-list';

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-scroll-virtual-group.component.html',
 	styleUrls: ['example-scroll-virtual-group.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualGroupComponent {
 	static id = 'scroll-virtual-group';

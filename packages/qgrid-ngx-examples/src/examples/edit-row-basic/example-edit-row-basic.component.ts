@@ -1,19 +1,22 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { Column, BoolColumn, Grid, PipeContext, GridComponent } from 'ng2-qgrid';
+import {
+	Column,
+	BoolColumn,
+	Grid,
+	PipeContext,
+	GridComponent,
+} from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'edit-row-basic',
-	'Entire row can be edited in separate menu'
-];
+const EXAMPLE_TAGS = ['edit-row-basic', 'Entire row can be edited in separate menu'];
 
 @Component({
 	selector: 'example-edit-row-basic',
 	templateUrl: 'example-edit-row-basic.component.html',
 	styleUrls: ['example-edit-row-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleEditRowBasicComponent implements OnInit {
 	static tags = EXAMPLE_TAGS;
@@ -26,7 +29,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 
 	constructor(
 		private dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 	}
 
@@ -40,42 +43,40 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				type: 'image',
 				width: 80,
 				value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value,
-				labelPath: 'avatarFileName'
+				labelPath: 'avatarFileName',
 			},
 			{
 				key: 'name.last',
 				title: 'Last Name',
 				type: 'text',
-				path: 'name.last'
+				path: 'name.last',
 			},
 			{
 				key: 'name.first',
 				title: 'First Name',
 				type: 'text',
-				path: 'name.first'
+				path: 'name.first',
 			},
 			{
 				key: 'gender',
 				title: 'Is Female',
 				type: 'bool',
 				trueValue: 'female',
-				falseValue: 'male'
+				falseValue: 'male',
 			},
 			{
 				key: 'birthday',
 				title: 'Birthday',
-				type: 'date'
+				type: 'date',
 			},
 			{
 				key: 'teammates',
 				title: 'Teammates',
 				type: 'reference',
 				value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
-				label: (item) => {
-					return (item.teammates || [])
-						.map(x => `${x.name.last} ${x.name.first}`)
-						.join(', ');
-				},
+				label: item => (item.teammates || [])
+					.map(x => `${x.name.last} ${x.name.first}`)
+					.join(', '),
 				editorOptions: {
 					modelFactory: () => {
 						const { rows } = this.qgrid.model().data();
@@ -84,82 +85,82 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							.selection({
 								mode: 'multiple',
 								unit: 'row',
-								rowKey: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first)
+								rowKey: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first),
 							})
 							.columnList({
-								generation: 'deep'
+								generation: 'deep',
 							})
 							.data({
 								pipe: [
 									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {
 										this.dataService.getPeople(10).subscribe(people => next(people));
-									}
-								].concat(this.qgrid.pipeUnit.default as any[])
+									},
+								].concat(this.qgrid.pipeUnit.default as any[]),
 							});
 
 						return model;
-					}
-				}
+					},
+				},
 			},
 			{
 				key: 'comment',
 				title: 'Comment',
 				type: 'text',
 				value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
-				editor: 'text-area'
+				editor: 'text-area',
 			},
 			{
 				key: 'password',
 				title: 'Password',
 				type: 'password',
-				value: (item, value) => isUndef(value) ? item.password || '' : item.password = value
+				value: (item, value) => isUndef(value) ? item.password || '' : item.password = value,
 			},
 			{
 				key: 'contact.address.zip',
 				title: 'Zip',
 				type: 'id',
-				path: 'contact.address.zip'
+				path: 'contact.address.zip',
 			},
 			{
 				key: 'contact.address.state',
 				title: 'State',
 				type: 'text',
-				path: 'contact.address.state'
+				path: 'contact.address.state',
 			},
 			{
 				key: 'contact.address.city',
 				title: 'City',
 				type: 'text',
-				path: 'contact.address.city'
+				path: 'contact.address.city',
 			},
 			{
 				key: 'contact.phone',
 				title: 'Contact Phones',
 				type: 'array',
-				path: 'contact.phone'
+				path: 'contact.phone',
 			},
 			{
 				key: 'contact.email.primary',
 				title: 'Primary Email',
 				type: 'email',
 				label: (item, label) => isUndef(label) ? item.emailLabel || item.contact.email[0] : item.emailLabel = label,
-				value: (item, value) => isUndef(value) ? item.contact.email[0] : item.contact.email[0] = value
+				value: (item, value) => isUndef(value) ? item.contact.email[0] : item.contact.email[0] = value,
 			},
 			{
 				key: 'likes',
 				title: 'Likes',
-				type: 'array'
+				type: 'array',
 			},
 			{
 				key: 'memberSince',
 				title: 'Member Since',
-				type: 'date'
+				type: 'date',
 			},
 			{
 				key: 'modifiedTime',
 				title: 'Modified Time',
 				type: 'time',
-				value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value
+				value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value,
 			},
 			{
 				key: 'webPage',
@@ -170,15 +171,15 @@ export class ExampleEditRowBasicComponent implements OnInit {
 					: item.webPage = value,
 				label: (item, label) => isUndef(label)
 					? item.webPageLabel || `${item.name.last} ${item.name.first}`
-					: item.webPageLabel = label
+					: item.webPageLabel = label,
 			},
 			{
 				key: 'attachment',
 				title: 'Attachment',
 				type: 'file',
 				value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
-				label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label
-			}
+				label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
+			},
 		];
 	}
 }

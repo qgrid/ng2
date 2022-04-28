@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-theme-grid-embed.component.html',
 	styleUrls: ['example-theme-grid-embed.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleThemeGridEmbedComponent {
 	static id = 'theme-grid-embed';

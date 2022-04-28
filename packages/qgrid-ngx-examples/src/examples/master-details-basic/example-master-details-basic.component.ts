@@ -4,17 +4,14 @@ import { Observable } from 'rxjs';
 import { GridModel, Grid } from 'ng2-qgrid';
 import { map } from 'rxjs/operators';
 
-const EXAMPLE_TAGS = [
-	'master-details-basic',
-	'Bottom table shows data, related to selected row from upper table'
-];
+const EXAMPLE_TAGS = ['master-details-basic', 'Bottom table shows data, related to selected row from upper table'];
 
 @Component({
 	selector: 'example-master-details-basic',
 	templateUrl: 'example-master-details-basic.component.html',
 	styleUrls: ['example-master-details-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleMasterDetailsBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -43,7 +40,7 @@ export class ExampleMasterDetailsBasicComponent {
 							.pipe(
 								map(people => people
 									.filter(human => this.likes
-										.every(like => human.likes.indexOf(like) >= 0)))
+										.every(like => human.likes.indexOf(like) >= 0))),
 							);
 					}
 				}

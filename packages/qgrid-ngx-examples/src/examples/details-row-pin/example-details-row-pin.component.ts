@@ -2,10 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'details-row-pin',
-	'Details section of every row is pinned in the middle of the row'
-];
+const EXAMPLE_TAGS = ['details-row-pin', 'Details section of every row is pinned in the middle of the row'];
 
 @Component({
 	selector: 'example-details-row-pin',
@@ -13,7 +10,7 @@ const EXAMPLE_TAGS = [
 	styleUrls: ['example-details-row-pin.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
 export class ExampleDetailsRowPinComponent {
 	static tags = EXAMPLE_TAGS;

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-scroll-virtual-infinite.component.html',
 	styleUrls: ['example-scroll-virtual-infinite.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	static id = 'scroll-virtual-infinite';
@@ -17,7 +17,7 @@ export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	gridModel: GridModel;
 
 	constructor(private dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.gridModel = qgrid.model();
 	}
@@ -36,7 +36,8 @@ export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 							next(rows.concat(newPage));
 						});
 
-				}].concat(this.qgrid.pipeUnit.view)
+				},
+			].concat(this.qgrid.pipeUnit.view),
 		});
 	}
 }
