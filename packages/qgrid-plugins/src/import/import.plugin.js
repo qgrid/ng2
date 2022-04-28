@@ -13,8 +13,8 @@ export class ImportPlugin {
 
 	load(e) {
 		const { files } = e.target;
-		for (let file of files) {
-			const reader = new FileReader();
+		for (const file of files) {
+			const reader = new window.FileReader();
 			reader.onload = e => readFile(e, file, this.model, this.options);
 			reader.readAsBinaryString(file);
 		}

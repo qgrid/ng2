@@ -1,4 +1,10 @@
-import { GridError, isFunction, PipeUnit, serializeGet, serializePost } from '@qgrid/core';
+import {
+	GridError,
+	isFunction,
+	PipeUnit,
+	serializeGet,
+	serializePost,
+} from '@qgrid/core';
 
 export class RestPlugin {
 	constructor(model, { get, post }) {
@@ -17,8 +23,8 @@ export class RestPlugin {
 				(data, context, next) => {
 					fetch(url, doSerialize(model)).then(data => next(data));
 				},
-				...PipeUnit.view
-			]
+				...PipeUnit.view,
+			],
 		}, { source: 'rest.view' });
 	}
 

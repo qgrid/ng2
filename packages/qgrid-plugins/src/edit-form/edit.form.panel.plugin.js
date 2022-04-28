@@ -1,6 +1,38 @@
 import { Command, Event, isUndefined, RowEditor } from '@qgrid/core';
 
 export class EditFormPanelPlugin {
+
+	get editors() {
+		return this.editor.editors;
+	}
+
+	get commands() {
+		const commands = {
+			submit: new Command({
+				source: 'edit.form.panel',
+				shortcut: this.shortcutFactory('commit'),
+				execute: () => {
+					this.editor.commit();
+					this.submitEvent.emit();
+				},
+			}),
+			cancel: new Command({
+				source: 'edit.form.panel',
+				shortcut: this.shortcutFactory('cancel'),
+				execute: () => this.cancelEvent.emit(),
+			}),
+			reset: new Command({
+				source: 'edit.form.panel',
+				execute: () => {
+					this.editor.editors.forEach(e => e.reset());
+					this.resetEvent.emit();
+				},
+			}),
+		};
+
+		return commands;
+	}
+
 	constructor(plugin, context) {
 		const { model, disposable } = plugin;
 
@@ -21,37 +53,6 @@ export class EditFormPanelPlugin {
 				Object.entries(this.commands)
 			)));
 		}
-	}
-
-	get editors() {
-		return this.editor.editors;
-	}
-
-	get commands() {
-		const commands = {
-			submit: new Command({
-				source: 'edit.form.panel',
-				shortcut: this.shortcutFactory('commit'),
-				execute: () => {
-					this.editor.commit();
-					this.submitEvent.emit();
-				}
-			}),
-			cancel: new Command({
-				source: 'edit.form.panel',
-				shortcut: this.shortcutFactory('cancel'),
-				execute: () => this.cancelEvent.emit()
-			}),
-			reset: new Command({
-				source: 'edit.form.panel',
-				execute: () => {
-					this.editor.editors.forEach(e => e.reset());
-					this.resetEvent.emit();
-				}
-			})
-		};
-
-		return commands;
 	}
 
 	shortcutFactory(type) {

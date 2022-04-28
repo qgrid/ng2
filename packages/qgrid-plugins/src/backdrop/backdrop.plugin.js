@@ -1,4 +1,12 @@
-import { checkButtonCode, elementFromPoint, Event, EventListener, EventManager, LEFT_BUTTON, MIDDLE_BUTTON } from '@qgrid/core';
+import {
+	checkButtonCode,
+	elementFromPoint,
+	Event,
+	EventListener,
+	EventManager,
+	LEFT_BUTTON,
+	MIDDLE_BUTTON,
+} from '@qgrid/core';
 
 export class BackdropPlugin {
 	constructor(context) {

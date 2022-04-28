@@ -1,36 +1,9 @@
 import { Command, FocusAfterRenderService } from '@qgrid/core';
 
 export class PagerPlugin {
-	constructor(plugin) {
-		const { model } = plugin;
-
-		this.plugin = plugin;
-
-		const { shortcut } = model.pagination();
-
-		this.next = new Command({
-			source: 'pager',
-			shortcut: shortcut.next,
-			execute: () => {
-				new FocusAfterRenderService(plugin);
-				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
-			},
-			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
-		});
-
-		this.prev = new Command({
-			source: 'pager',
-			shortcut: shortcut.prev,
-			execute: () => {
-				new FocusAfterRenderService(plugin);
-				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
-			},
-			canExecute: () => model.pagination().current > 0
-		});
-	}
 
 	get theme() {
-		return this.plugin.model.style().classList
+		return this.plugin.model.style().classList;
 	}
 
 	get resource() {
@@ -54,7 +27,7 @@ export class PagerPlugin {
 	}
 
 	set current(value) {
-		return this.plugin.model.pagination({ current: value }, { source: 'pager.view' });
+		this.plugin.model.pagination({ current: value }, { source: 'pager.view' });
 	}
 
 	get from() {
@@ -81,5 +54,33 @@ export class PagerPlugin {
 
 	get mode() {
 		return this.plugin.model.pagination().mode;
+	}
+
+	constructor(plugin) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
+
+		const { shortcut } = model.pagination();
+
+		this.next = new Command({
+			source: 'pager',
+			shortcut: shortcut.next,
+			execute: () => {
+				new FocusAfterRenderService(plugin);
+				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' });
+			},
+			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count,
+		});
+
+		this.prev = new Command({
+			source: 'pager',
+			shortcut: shortcut.prev,
+			execute: () => {
+				new FocusAfterRenderService(plugin);
+				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
+			},
+			canExecute: () => model.pagination().current > 0,
+		});
 	}
 }
