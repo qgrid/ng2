@@ -7,15 +7,19 @@ describe('Convert', () => {
 			expect(Convert.getType('123')).to.equal('text');
 			expect(Convert.getType('foo')).to.equal('text');
 			expect(Convert.getType('123$')).to.equal('text');
-			expect(Convert.getType(new String('bar'))).to.equal('text');
+			expect(Convert.getType('bar')).to.equal('text');
 			expect(Convert.getType('2017-01-01')).to.equal('text');
 			expect(Convert.getType(new Date())).to.equal('datetime');
 			expect(Convert.getType(true)).to.equal('bool');
 			expect(Convert.getType('false')).to.equal('text');
 			expect(Convert.getType({})).to.equal('object');
 			expect(Convert.getType('qgrid@gmail.com')).to.equal('text');
-			expect(Convert.getType([1, 2, 3])).to.equal('array');
-			expect(Convert.getType([{}, {}])).to.equal('collection');
+			expect(Convert.getType([
+				1,
+				2,
+				3,
+			])).to.equal('array');
+			expect(Convert.getType([ {}, {} ])).to.equal('collection');
 		});
 	});
 

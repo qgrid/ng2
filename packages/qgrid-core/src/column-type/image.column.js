@@ -4,19 +4,15 @@ import { TemplatePath } from '../template/template.path';
 import { yes } from '../utility/kit';
 import { DataColumnModel } from './data.column.model';
 
-TemplatePath.register('image-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('image-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key,
+}));
 
-TemplatePath.register('image-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('image-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key,
+}));
 
 export class ImageColumnModel extends DataColumnModel {
 	constructor() {

@@ -19,7 +19,7 @@ export class EditService {
 			model.edit({ status: editStatus });
 			this.doBatch(startCell);
 			model.selection({ mode: selectionMode });
-		}
+		};
 	}
 
 	doBatch(startCell) {

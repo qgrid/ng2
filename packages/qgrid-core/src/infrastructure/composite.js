@@ -15,14 +15,10 @@ export class Composite {
 	static command(list) {
 		return new Command({
 			source: 'composite',
-			canExecute: (...args) => {
-				return list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false);
-			},
-			execute: (...args) => {
-				return list
-					.filter(cmd => cmd.canExecute(...args))
-					.reduce((memo, cmd) => cmd.execute(...args) || memo, undefined);
-			}
+			canExecute: (...args) => list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false),
+			execute: (...args) =>
+				list.filter(cmd => cmd.canExecute(...args))
+					.reduce((memo, cmd) => cmd.execute(...args) || memo, undefined),
 		});
 	}
 

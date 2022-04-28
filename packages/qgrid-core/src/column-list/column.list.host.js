@@ -53,14 +53,14 @@ export class ColumnListHost {
 		const columns = columnList().columns.concat([column]);
 		columnList({ columns }, {
 			source: 'column.list.host',
-			behavior: 'core'
+			behavior: 'core',
 		});
 
 		if (scene().status !== 'idle') {
 			data({
-				columns: Array.from(data().columns)
+				columns: Array.from(data().columns),
 			}, {
-				source: 'column.list.host'
+				source: 'column.list.host',
 			});
 		}
 	}
@@ -72,7 +72,7 @@ export class ColumnListHost {
 		reference[column.type || '$default'] = column;
 		columnList({ reference }, {
 			source: 'column.list.host',
-			behavior: 'core'
+			behavior: 'core',
 		});
 	}
 

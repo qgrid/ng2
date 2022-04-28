@@ -1,20 +1,20 @@
-import {CommandManager} from './command.manager';
+import { CommandManager } from './command.manager';
 
 describe('CommandManager', () => {
-	let arrayOfCommands = [],
-		i = 5,
-		arr = [];
+	const arrayOfCommands = [];
+	const arr = [];
+	let i = 5;
 
 	while (i > 0) {
 		if (i % 2 === 0) {
 			arrayOfCommands.push({
 				execute: () => arr.push(1),
-				canExecute: () => true
+				canExecute: () => true,
 			});
 		} else {
 			arrayOfCommands.push({
 				execute: () => arr.push(2),
-				canExecute: () => false
+				canExecute: () => false,
 			});
 		}
 		i--;
@@ -22,7 +22,7 @@ describe('CommandManager', () => {
 
 	describe('invoke', () => {
 		it('should invoke each command', () => {
-			let commandManager = new CommandManager();
+			const commandManager = new CommandManager();
 			commandManager.invoke(arrayOfCommands);
 			expect(arr.join(',')).to.equal('2,1,2,1,2');
 		});
@@ -30,8 +30,8 @@ describe('CommandManager', () => {
 
 	describe('filter', () => {
 		it('should return filtered commands', () => {
-			let commandManager = new CommandManager();
-			let filtered = commandManager.filter(arrayOfCommands);
+			const commandManager = new CommandManager();
+			const filtered = commandManager.filter(arrayOfCommands);
 			expect(filtered.length).to.equal(2);
 		});
 	});

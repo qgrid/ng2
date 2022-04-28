@@ -24,8 +24,8 @@ export class EventListener {
 	off() {
 		const handlers = this.handlers;
 		const element = this.element;
-		for (let key of Object.keys(handlers)) {
-			for (let handler of Array.from(handlers[key])) {
+		for (const key of Object.keys(handlers)) {
+			for (const handler of Array.from(handlers[key])) {
 				element.removeEventListener(key, handler);
 			}
 		}

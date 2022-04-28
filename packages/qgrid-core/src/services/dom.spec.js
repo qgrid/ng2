@@ -1,4 +1,4 @@
-import {css} from './dom';
+import { css } from './dom';
 
 describe('dom utility', () => {
 
@@ -47,5 +47,4 @@ describe('dom utility', () => {
 			expect(value).to.equal(expectedValue);
 		});
 	});
-
 });

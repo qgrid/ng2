@@ -5,7 +5,7 @@ export const viewPipeUnit = [
 	Pipe.memo,
 	Pipe.column,
 	Pipe.view,
-	Pipe.scene
+	Pipe.scene,
 ];
 
 viewPipeUnit.why = 'refresh';

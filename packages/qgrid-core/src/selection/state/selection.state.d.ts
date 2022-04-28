@@ -2,10 +2,10 @@ import { Model } from '../../model/model';
 import { SelectionService } from '../selection.service';
 
 export declare class SubSelectionState {
-	constructor(model: Model, service: SelectionService);
-
 	model: Model;
 	service: SelectionService;
+
+	constructor(model: Model, service: SelectionService);
 
 	select(item: any | any[], state: boolean, key: string): void;
 	canSelect(item: any | any[], state: boolean, key: string): void;

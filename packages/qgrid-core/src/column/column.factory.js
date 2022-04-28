@@ -1,5 +1,3 @@
-import { assignWith, clone, isUndefined } from '../utility/kit';
-import { ColumnView as CustomColumn } from '../scene/view/column.view';
 import { ArrayColumn } from '../column-type/array.column';
 import { BoolColumn } from '../column-type/bool.column';
 import { CohortColumn } from '../column-type/cohort.column';
@@ -26,6 +24,8 @@ import { SelectColumn } from '../column-type/select.column';
 import { TextColumn } from '../column-type/text.column';
 import { TimeColumn } from '../column-type/time.column';
 import { UrlColumn } from '../column-type/url.column';
+import { ColumnView as CustomColumn } from '../scene/view/column.view';
+import { assignWith, clone, hasOwnProperty, isUndefined } from '../utility/kit';
 
 function merge(target, source) {
 	if (target && source) {
@@ -64,19 +64,19 @@ export function columnFactory(model) {
 		'group-summary': GroupSummaryColumn,
 		'text': TextColumn,
 		'time': TimeColumn,
-		'url': UrlColumn
+		'url': UrlColumn,
 	};
 
 	const create = (entityType, columnType, body) => {
-		const Type = columnMap[entityType];
+		const type = columnMap[entityType];
 		const { reference } = columnList();
 		const defaultSettings = reference['$default'];
 		body = merge(body, defaultSettings);
 		const typeSettings = reference[columnType];
 		body = merge(body, typeSettings);
 
-		const model = Type.model(body);
-		return new Type(model);
+		const model = type.model(body);
+		return new type(model);
 	};
 
 	return (type, body = null) => {
@@ -84,7 +84,7 @@ export function columnFactory(model) {
 			type = 'text';
 		}
 
-		if (columnMap.hasOwnProperty(type)) {
+		if (hasOwnProperty.call(columnMap, type)) {
 			return create(type, type, body);
 		}
 

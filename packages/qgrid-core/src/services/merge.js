@@ -1,9 +1,9 @@
-﻿import {assignWith} from '../utility/kit';
+﻿import { assignWith } from '../utility/kit';
 
 export function merge(settings) {
 	const context = assignWith({
 		equals: (l, r) => l === r,
-		update: (l, r /*left, i*/) => {
+		update: (l, r /* left, i*/) => {
 			assignWith(l, r);
 			return l;
 		},
@@ -14,7 +14,7 @@ export function merge(settings) {
 		insert: (r, left) => {
 			left.push(r);
 			return r;
-		}
+		},
 	}, settings);
 
 	return (left, right, result) => {

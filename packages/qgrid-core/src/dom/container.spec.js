@@ -1,12 +1,12 @@
-import {Container} from './container';
+import { Container } from './container';
 
 describe('Container', () => {
-	let elements = [];
+	const elements = [];
 	let container;
 
 	beforeEach(function() {
 		for (let i = 0; i < 5; i++) {
-			let div = document.createElement('div');
+			const div = document.createElement('div');
 			elements.push(div);
 		}
 		container = new Container(elements);
@@ -36,7 +36,7 @@ describe('Container', () => {
 
 	describe('get classList', () => {
 		it('testing classList methods', () => {
-			let result = container.classList;
+			const result = container.classList;
 			result.add('someClass');
 			expect(result.contains('someClass')).to.equal(true);
 			result.remove('someClass');
@@ -45,5 +45,3 @@ describe('Container', () => {
 
 	});
 });
-
-

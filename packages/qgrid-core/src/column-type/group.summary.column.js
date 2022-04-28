@@ -1,13 +1,11 @@
 import { ColumnView } from '../scene/view/column.view';
-import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
+import { DataColumnModel } from './data.column.model';
 
-TemplatePath.register('group-summary-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('group-summary-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key,
+}));
 
 export class GroupSummaryColumnModel extends DataColumnModel {
 	constructor() {

@@ -1,4 +1,3 @@
-import { ColumnModel } from '../column-type/column.model';
 
 /**
  * A class contains rewritten widths and heights of rows and columns

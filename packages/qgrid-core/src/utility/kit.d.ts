@@ -6,6 +6,7 @@ export declare function identity<T>(x: T): T;
 export declare function toCamelCase(...names: string[]): string;
 export declare function escapeRegexp(text: string): string;
 export declare function orderBy(data: any[], selectors: ((x: any) => any)[], compares: ((x: any, y: any) => number)[]): void;
+export declare function hasOwnProperty(): boolean;
 export declare function htmlEncode(text: string): string;
 export declare function startCase(text: string): string;
 export declare function uniq<T>(collection: Array<T>): Array<T>;

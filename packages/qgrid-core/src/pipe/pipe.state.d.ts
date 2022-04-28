@@ -1,5 +1,5 @@
-import { PipeUnit } from './pipe.unit';
 import { Model } from '../model/model';
+import { PipeUnit } from './pipe.unit';
 
 /**
  * A class that contains setting to control when and how q-grid should be updated.
@@ -57,5 +57,5 @@ export declare class PipeState {
 	 */
 	triggers: { [modelName: string]: { [modelProperty: string]: PipeUnit } };
 
-	effect: { [key: string]: any }
+	effect: { [key: string]: any };
 }

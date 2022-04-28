@@ -29,7 +29,7 @@ export function castFactory(r) {
 			default:
 				throw GridError(
 					'cast.factory',
-					`Unsupported format ${lt}`
+					`Unsupported format ${lt}`,
 				);
 		}
 	};

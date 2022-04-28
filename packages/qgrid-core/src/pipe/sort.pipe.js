@@ -45,10 +45,10 @@ export function sortPipe(rows, context, next) {
 	}
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { sort: result })
+		effect: Object.assign({}, model.pipe().effect, { sort: result }),
 	}, {
 		source: 'sort.pipe',
-		behavior: 'core'
+		behavior: 'core',
 	});
 
 	next(result);

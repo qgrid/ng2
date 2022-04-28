@@ -1,10 +1,8 @@
 import { generate as doGenerate } from '../column-list/column.list.generate';
 import { columnFactory } from '../column/column.factory';
 
-const createColumn = columnFactory({ columnList: () => ({ columns: [], reference: {} }) });
-const generate = rows => {
-	return rows ? doGenerate({ rows, columnFactory: createColumn }) : doGenerate({ columnFactory: createColumn });
-};
+const createColumn = columnFactory({ columnList: () => ({ columns: [], eference: {} }) });
+const generate = rows => rows ? doGenerate({ rows, columnFactory: createColumn }) : doGenerate({ columnFactory: createColumn });
 
 describe('column generate', () => {
 	it('should return empty array when input is not defined', () => {
@@ -19,8 +17,8 @@ describe('column generate', () => {
 		const rows = [
 			{
 				lastName: 'Doe',
-				firstName: 'John'
-			}
+				firstName: 'John',
+			},
 		];
 
 		const columns = generate(rows);
@@ -37,9 +35,9 @@ describe('column generate', () => {
 			{
 				name: {
 					last: 'Doe',
-					first: 'John'
-				}
-			}
+					first: 'John',
+				},
+			},
 		];
 
 		const columns = generate(rows);
@@ -55,12 +53,12 @@ describe('column generate', () => {
 		const rows = [
 			{
 				lastName: 'Doe',
-				firstName: 'John'
+				firstName: 'John',
 			},
 			{
 				lastName: 'Smith',
-				firstName: 'Jeff'
-			}
+				firstName: 'Jeff',
+			},
 		];
 
 		const columns = generate(rows);
@@ -79,10 +77,10 @@ describe('column generate', () => {
 				contacts: {
 					address: {
 						street: 'Lenina',
-						zip: '123456'
-					}
-				}
-			}
+						zip: '123456',
+					},
+				},
+			},
 		];
 
 		const columns = generate(rows);
@@ -101,8 +99,8 @@ describe('column generate', () => {
 		const rows = [
 			{
 				lastName: 'Doe',
-				firstName: 'John'
-			}
+				firstName: 'John',
+			},
 		];
 
 		const columns = generate(rows);
@@ -126,10 +124,10 @@ describe('column generate', () => {
 				contacts: {
 					address: {
 						street: 'Lenina',
-						zip: '123456'
-					}
-				}
-			}
+						zip: '123456',
+					},
+				},
+			},
 		];
 
 		const columns = generate(rows);
@@ -150,8 +148,12 @@ describe('column generate', () => {
 			{
 				lastName: 'Doe',
 				firstName: 'John',
-				likes: ['chatting', 'boxing', 'swimming']
-			}
+				likes: [
+					'chatting',
+					'boxing',
+					'swimming',
+				],
+			},
 		];
 
 		const columns = generate(rows);

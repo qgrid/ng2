@@ -1,34 +1,35 @@
-import * as Match from './match';
 import { modelFactory } from '../test/model.factory';
+import { identity } from '../utility/kit';
+import * as Match from './match';
 
 describe('Match', () => {
 
-	let column = {
+	const column = {
 		key: 'value',
-		type: 'number'
+		type: 'number',
 	};
 
-	let columns = [column];
+	const columns = [column];
 
-	let test = {
+	const test = {
 		key: {
 			expression: {
 				kind: 'condition',
 				op: 'equals',
 				right: 123,
-				left: 'value'
-			}
+				left: 'value',
+			},
 		},
 	};
 
-	let model = modelFactory();
+	const model = modelFactory();
 	model.filter({
 		by: test,
 		assertFactory: () => ({
 			equals: (x, y) => x === y,
 			lessThan: (x, y) => x < y,
-			isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x)
-		})
+			isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x),
+		}),
 	});
 	model.data({ columns });
 
@@ -36,22 +37,22 @@ describe('Match', () => {
 		line: columns,
 	});
 
-	let context = {
+	const context = {
 		model,
-		valueFactory: value => value => value,
-		labelFactory: value => value => value,
+		valueFactory: () => identity,
+		labelFactory: () => identity,
 	};
 
 	describe('match', () => {
 		it('should return true if there are matching entities', () => {
-			let test = Match.match(context);
-			let result = test(123);
+			const test = Match.match(context);
+			const result = test(123);
 			expect(result).to.equal(true);
 		});
 
 		it('should return false if there are no matching entities', () => {
-			let test = Match.match(context);
-			let result = test(321);
+			const test = Match.match(context);
+			const result = test(321);
 			expect(result).to.equal(false);
 		});
 	});

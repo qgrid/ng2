@@ -4,7 +4,7 @@ export const rowDetailsPipeUnit = [
 	(_, context, next) => {
 		const tag = {
 			source: context.source || 'row.details.pipe.unit',
-			behavior: 'core'
+			behavior: 'core',
 		};
 
 		const { model } = context;
@@ -14,7 +14,7 @@ export const rowDetailsPipeUnit = [
 		model.scene({ rows }, tag);
 
 		next(rows);
-	}
+	},
 ];
 
 rowDetailsPipeUnit.why = 'redraw';

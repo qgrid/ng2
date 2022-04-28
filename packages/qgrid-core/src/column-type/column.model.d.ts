@@ -30,9 +30,9 @@ export declare type ColumnModelSource = 'generation' | 'template' | 'user';
 export declare type ColumnModelOrigin = 'specific' | 'custom';
 /**
  * Indicates how to calculate column width:
- * 
+ *
  * * `relative` get whole grid width minus static px widths and apply percents.
- * * `absolute` get whole grid width and apply percents.  
+ * * `absolute` get whole grid width and apply percents.
  * * `fit-head` column width will be equal to the text head width.
  */
 export declare type ColumnModelWidthMode = 'relative' | 'absolute' | 'fit-head';
@@ -164,9 +164,9 @@ export declare class ColumnModel {
 
 	/**
 	 * Indicates how to calculate column width:
-	 * 
+	 *
 	 * * `relative` get whole grid width minus static px widths and apply percents.
-	 * * `absolute` get whole grid width and apply percents.  
+	 * * `absolute` get whole grid width and apply percents.
 	 */
 	widthMode?: ColumnModelWidthMode;
 
@@ -237,7 +237,8 @@ export declare class ColumnModel {
 	/**
 	 * If children property is setup the column automatically becomes a group container.
 	 */
-	children?: ColumnModel[]
+	// eslint-disable-next-line no-use-before-define
+	children?: ColumnModel[];
 
 	/**
 	 * Start index number for columns with type 'row-number'.

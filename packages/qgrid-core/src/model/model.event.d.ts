@@ -6,7 +6,7 @@ export declare interface ModelTag {
 	isBusy?: boolean;
 }
 
-export declare type ModelChanges<TState> = { [key in keyof TState]: { newValue: TState[key] | null, oldValue: TState[key] | null } };
+export declare type ModelChanges<TState> = { [key in keyof TState]: { newValue: TState[key] | null; oldValue: TState[key] | null } };
 
 export declare interface ModelEventArg<TState> {
 	state: TState;

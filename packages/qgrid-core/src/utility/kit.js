@@ -24,6 +24,8 @@ const noop = () => { };
 const yes = () => true;
 const no = () => false;
 const identity = x => x;
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -40,7 +42,7 @@ const toCamelCase = (...names) => {
 
 const isEmail = value => {
 	if (value) {
-		const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; // eslint-disable-line no-useless-escape
+		const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 		return re.test(value);
 	}
 
@@ -120,8 +122,9 @@ function htmlEncode(s) {
 }
 
 function escapeRegexp(text) {
-	if (!text)
+	if (!text) {
 		return text;
+	}
 
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
@@ -132,10 +135,9 @@ function binarySearch(list, value) {
 	while (low < high) {
 		const mid = (low + high) >>> 1;
 		if (list[mid] < value) {
-			low = mid + 1
-		}
-		else {
-			high = mid
+			low = mid + 1;
+		} else {
+			high = mid;
 		}
 	}
 
@@ -143,17 +145,17 @@ function binarySearch(list, value) {
 }
 
 function isUrl(value) {
-	var a = document.createElement('a');
+	const a = document.createElement('a');
 	a.href = value;
-	return (a.host && a.host != window.location.host);
+	return (a.host && a.host !== window.location.host);
 }
 
 function isImage(value) {
-	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
+	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) !== null;
 }
 
 function matchISO8601(date) {
-	return /^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/.test('' + date)
+	return /^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/.test('' + date);
 }
 
 function getTypeName(type) {
@@ -163,45 +165,45 @@ function getTypeName(type) {
 
 	const nameRegexp = /function (.{1,})\(/;
 	const results = (nameRegexp).exec(type.constructor.toString());
-	return (results && results.length > 1) ? results[1] : "";
-};
+	return (results && results.length > 1) ? results[1] : '';
+}
 
 export {
-  assignWith,
-  binarySearch,
-  clone,
-  cloneDeep,
-  compare,
-  dropWhile,
-  escapeRegexp,
-  flatten,
-  getTypeName,
-  htmlEncode,
-  identity,
-  isArray,
-  isBoolean,
-  isDate,
-  isEmail,
-  isEqual as same,
-  isFunction,
-  isImage,
-  isNumber,
-  isObject,
-  isString,
-  matchISO8601,
-  isUndefined,
-  isUrl,
-  max,
-  min,
-  no,
-  noop,
-  orderBy,
-  startCase,
-  sumBy,
-  takeWhile,
-  toCamelCase,
-  uniq,
-  yes,
-  zip,
+	assignWith,
+	binarySearch,
+	clone,
+	cloneDeep,
+	compare,
+	dropWhile,
+	escapeRegexp,
+	flatten,
+	getTypeName,
+	hasOwnProperty,
+	htmlEncode,
+	identity,
+	isArray,
+	isBoolean,
+	isDate,
+	isEmail,
+	isEqual as same,
+	isFunction,
+	isImage,
+	isNumber,
+	isObject,
+	isString,
+	matchISO8601,
+	isUndefined,
+	isUrl,
+	max,
+	min,
+	no,
+	noop,
+	orderBy,
+	startCase,
+	sumBy,
+	takeWhile,
+	toCamelCase,
+	uniq,
+	yes,
+	zip,
 };
-

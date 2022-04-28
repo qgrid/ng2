@@ -1,6 +1,6 @@
-import { Assert } from './assert';
-import { FetchContext } from '../fetch/fetch.context';
 import { ColumnModel } from '../column-type/column.model';
+import { FetchContext } from '../fetch/fetch.context';
+import { Assert } from './assert';
 
 /**
  * A class to setup data filters and expressions.
@@ -30,8 +30,8 @@ import { ColumnModel } from '../column-type/column.model';
 
 export declare function match(context: any): (x: any, value: any) => boolean;
 
-export declare type FilterStateMatch = () => FilterStatePredicate;
 export declare type FilterStatePredicate = (x: any, value: any) => boolean;
+export declare type FilterStateMatch = () => FilterStatePredicate;
 export declare type FilterStateFetch = (key: string, context: FetchContext) => any | Promise<any>;
 
 /**

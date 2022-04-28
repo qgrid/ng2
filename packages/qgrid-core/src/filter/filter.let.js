@@ -1,5 +1,5 @@
 import { Command } from '../command/command';
-import { clone, isUndefined, isArray } from '../utility/kit';
+import { clone, hasOwnProperty, isArray, isUndefined } from '../utility/kit';
 
 export class FilterLet {
 	constructor(plugin) {
@@ -12,7 +12,8 @@ export class FilterLet {
 			execute: (column, search) => {
 				const { key } = column;
 
-				let { by, operatorFactory } = model.filter();
+				let { by } = model.filter();
+				const { operatorFactory } = model.filter();
 				by = clone(by);
 
 				const filter = by[key] || (by[key] = {});
@@ -29,7 +30,7 @@ export class FilterLet {
 								kind: 'condition',
 								left: key,
 								op,
-								right: [null, search]
+								right: [null, search],
 							};
 							break;
 						}
@@ -38,25 +39,24 @@ export class FilterLet {
 								kind: 'condition',
 								left: key,
 								op,
-								right: search
+								right: search,
 							};
 							break;
 						}
 					}
-				}
-				else {
+				} else {
 					delete by[key];
 				}
 
 				model.filter({ by }, { source: 'filter.view' });
-			}
+			},
 		});
 	}
 
 	has(column) {
 		const { model } = this.plugin;
 		const { by } = model.filter();
-		return by.hasOwnProperty(column.key);
+		return hasOwnProperty.call(by, column.key);
 	}
 
 	value(column) {

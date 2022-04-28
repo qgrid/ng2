@@ -1,27 +1,31 @@
-import { buildExpression } from "./expression.build";
+import { buildExpression } from './expression.build';
 
 describe('Expression Build', () => {
-	let test1 = {
-		key: {
-			expression: 'expression'
-		}
-	};
-
-	let test2 = {
+	const test1 = {
 		key: {
 			expression: 'expression',
-			items: ['a', 'b', 'c']
-		}
+		},
 	};
 
-	let etalon1 = {
+	const test2 = {
+		key: {
+			expression: 'expression',
+			items: [
+				'a',
+				'b',
+				'c',
+			],
+		},
+	};
+
+	const etalon1 = {
 		kind: 'group',
 		op: 'and',
 		left: 'expression',
-		right: null
+		right: null,
 	};
 
-	let etalon2 = {
+	const etalon2 = {
 		kind: 'group',
 		op: 'and',
 		left: 'expression',
@@ -35,22 +39,26 @@ describe('Expression Build', () => {
 					kind: 'condition',
 					left: 'key',
 					op: 'in',
-					right: ['a', 'b', 'c']
+					right: [
+						'a',
+						'b',
+						'c',
+					],
 				},
-				right: null
+				right: null,
 			},
-			right: null
-		}
+			right: null,
+		},
 	};
 
 	describe('build', () => {
 		it('should built expression into root object', () => {
-			let root = buildExpression(test1);
+			const root = buildExpression(test1);
 			expect(JSON.stringify(root)).to.equal(JSON.stringify(etalon1));
 		});
 
 		it('should check whether items were built into root object', () => {
-			let root = buildExpression(test2);
+			const root = buildExpression(test2);
 			expect(JSON.stringify(root)).to.equal(JSON.stringify(etalon2));
 		});
 	});

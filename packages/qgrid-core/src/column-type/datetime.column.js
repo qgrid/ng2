@@ -6,19 +6,15 @@ import { getValue } from '../services/value';
 import { TemplatePath } from '../template/template.path';
 import { DataColumnModel } from './data.column.model';
 
-TemplatePath.register('datetime-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('datetime-cell', (template, column) => ({
+	model: template.for,
+	resource: column.key,
+}));
 
-TemplatePath.register('datetime-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+TemplatePath.register('datetime-cell-edit', (template, column) => ({
+	model: 'edit',
+	resource: column.key,
+}));
 
 export class DateTimeColumnModel extends DataColumnModel {
 	constructor() {

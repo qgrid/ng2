@@ -2,16 +2,6 @@ import { flattenRows } from '../column/column.matrix';
 import { Guard } from '../infrastructure/guard';
 import { Node } from '../node/node';
 
-export function columnIndexPipe(root, context, next) {
-	Guard.notNull(root, 'root');
-
-	const { model } = context;
-	const filteredIndex = filter(model, root);
-	const columnRows = flattenRows(filteredIndex);
-
-	next({ columns: columnRows, index: root });
-}
-
 function filter(model, root) {
 	const groupBy = new Set(model.group().by);
 	const pivotBy = new Set(model.pivot().by);
@@ -33,4 +23,14 @@ function filter(model, root) {
 	}
 
 	return doFilter(root, new Node(root.key, root.level));
+}
+
+export function columnIndexPipe(root, context, next) {
+	Guard.notNull(root, 'root');
+
+	const { model } = context;
+	const filteredIndex = filter(model, root);
+	const columnRows = flattenRows(filteredIndex);
+
+	next({ columns: columnRows, index: root });
 }

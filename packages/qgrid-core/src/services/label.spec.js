@@ -1,4 +1,4 @@
-import {getLabel, setLabel} from "./label";
+import { getLabel, setLabel } from './label';
 
 describe('label service', () => {
 	let row;
@@ -6,15 +6,15 @@ describe('label service', () => {
 	const controllerDefinedColumn = {
 		label: (item, label) => label === undefined
 			? `${item.nested.fieldLabel}: ${item.nested.field}`
-			: item.nested.fieldLabel = label
+			: item.nested.fieldLabel = label,
 	};
 
 	const pathDefinedColumn = {
-		labelPath: 'nested.fieldLabel'
+		labelPath: 'nested.fieldLabel',
 	};
 
 	const keyDefinedColumn = {
-		key: 'field'
+		key: 'field',
 	};
 
 	describe('getter', () => {
@@ -23,8 +23,8 @@ describe('label service', () => {
 				'field': 'field_value',
 				'nested': {
 					'field': 'nested_field_value',
-					'fieldLabel': 'label'
-				}
+					'fieldLabel': 'label',
+				},
 			};
 		});
 
@@ -52,8 +52,8 @@ describe('label service', () => {
 			row = {
 				'field': 'field_value',
 				'nested': {
-					'field': 'nested_field_value'
-				}
+					'field': 'nested_field_value',
+				},
 			};
 		});
 

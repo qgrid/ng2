@@ -11,14 +11,14 @@ export const groupPipeUnit = [
 		const { model } = context;
 		const tag = {
 			source: context.source || 'group.pipe.unit',
-			behavior: 'core'
+			behavior: 'core',
 		};
 
-		const { rows } = memo;		
+		const { rows } = memo;
 		model.scene({ rows }, tag);
 
 		next(memo);
-	}
+	},
 ];
 
 groupPipeUnit.why = 'redraw';

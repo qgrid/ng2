@@ -1,5 +1,5 @@
-import { MultipleSelectionState } from './multiple.selection.state';
 import { isArray } from '../../utility/kit';
+import { MultipleSelectionState } from './multiple.selection.state';
 
 export class RangeSelectionState extends MultipleSelectionState {
 	constructor(model, service) {

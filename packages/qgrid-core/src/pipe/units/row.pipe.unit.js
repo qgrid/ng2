@@ -21,14 +21,14 @@ export const rowPipeUnit = [
 
 		const tag = {
 			source: context.source || 'row.pipe.unit',
-			behavior: 'core'
+			behavior: 'core',
 		};
 
 		model.view({ rows }, tag);
 		model.scene({ rows }, tag);
 
 		next(rows);
-	}
+	},
 ];
 
 rowPipeUnit.why = 'redraw';

@@ -1,5 +1,11 @@
-import { noop, toCamelCase, isUndefined, isArray } from '../utility/kit';
 import { Log } from '../infrastructure//log';
+import {
+	hasOwnProperty,
+	isArray,
+	isUndefined,
+	noop,
+	toCamelCase,
+} from '../utility/kit';
 
 export class ModelBinder {
 	constructor(host, plugin) {
@@ -25,7 +31,7 @@ export class ModelBinder {
 	bound(model, stateNames, run = true, track = true) {
 		if (model) {
 			const commits = [];
-			for (let stateName of stateNames) {
+			for (const stateName of stateNames) {
 				const state = model[stateName];
 				const pack = this.packFactory(stateName);
 				const write = this.writeFactory(stateName);
@@ -39,7 +45,7 @@ export class ModelBinder {
 
 				if (track) {
 					this.disposable.add(
-						model[stateName + 'Changed'].on(write)
+						model[stateName + 'Changed'].on(write),
 					);
 				}
 
@@ -62,9 +68,9 @@ export class ModelBinder {
 		const host = this.host;
 		return e => {
 			const changes = Object.keys(e.changes);
-			for (let diffKey of changes) {
+			for (const diffKey of changes) {
 				const hostKey = toCamelCase(name, diffKey);
-				if (host.hasOwnProperty(hostKey)) {
+				if (hasOwnProperty.call(host, hostKey)) {
 					const diff = e.changes[diffKey];
 					host[hostKey] = diff.newValue;
 				}
@@ -76,9 +82,9 @@ export class ModelBinder {
 		return state => {
 			const host = this.host;
 			const newState = {};
-			for (let stateKey of Object.keys(state)) {
+			for (const stateKey of Object.keys(state)) {
 				const hostKey = toCamelCase(name, stateKey);
-				if (host.hasOwnProperty(hostKey)) {
+				if (hasOwnProperty.call(host, hostKey)) {
 					const oldValue = state[stateKey];
 					const newValue = host[hostKey];
 					if (this.canWrite(oldValue, newValue, stateKey)) {
@@ -98,9 +104,9 @@ export class ModelBinder {
 				const value = state[key];
 				memo[key] = {
 					newValue: value,
-					oldValue: value
+					oldValue: value,
 				};
 				return memo;
-			}, {})
+			}, {});
 	}
 }

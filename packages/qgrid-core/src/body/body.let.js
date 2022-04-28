@@ -4,7 +4,7 @@ import { TextSelection } from '../services/text.selection';
 
 export class BodyLet {
 	constructor(plugin) {
-		const { model, observe, disposable } = plugin;
+		const { model, observe } = plugin;
 		const render = new Renderer(plugin);
 
 		this.plugin = plugin;
@@ -21,8 +21,8 @@ export class BodyLet {
 		observe(model.mouseChanged)
 			.subscribe(({ state }) => {
 				const { code, status, target } = state;
-				
-        if (target && code === 'right' && status === 'up') {
+
+				if (target && code === 'right' && status === 'up') {
 					this.targetElement = target.element;
 					this.targetElement.classList.add('q-grid-can-select-text');
 					TextSelection.set(this.targetElement);
@@ -33,7 +33,7 @@ export class BodyLet {
 					if (this.targetElement.classList) {
 						this.targetElement.classList.remove('q-grid-can-select-text');
 					}
-          
+
 					this.targetElement = null;
 				}
 

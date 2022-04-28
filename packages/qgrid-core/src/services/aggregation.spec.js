@@ -1,8 +1,16 @@
-import {Aggregation} from './aggregation';
+import { Aggregation } from './aggregation';
 
 describe('Aggregation', () => {
 	const getValue = value => value;
-	const testArray = [2, 1, 2, 3, 3, 5, 4]; // sum - 20, uniqsum - 15
+	const testArray = [
+		2,
+		1,
+		2,
+		3,
+		3,
+		5,
+		4,
+	]; // sum - 20, uniqsum - 15
 	const optionsWithoutDistinctProperty = {separator: '|'};
 	const optionsWithDistinctProperty = {distinct: true, separator: '|'};
 	const ContainerOfSet = new Set();
@@ -13,7 +21,7 @@ describe('Aggregation', () => {
 		});
 		it('should return first row, if rows are not empty ', () => {
 			expect(Aggregation.first(testArray, getValue)).to.be.equal(2);
-		});		
+		});
 	});
 
 	describe('last', () => {

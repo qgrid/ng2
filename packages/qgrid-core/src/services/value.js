@@ -1,5 +1,5 @@
 import { GridError } from '../infrastructure/error';
-import { isFunction } from '../utility/kit';
+import { hasOwnProperty, isFunction } from '../utility/kit';
 import { compileGet, compileSet } from './path';
 
 export function getValue(row, column) {
@@ -37,12 +37,12 @@ export function setValue(row, column, value) {
 		return compileSet(column.path)(row, value);
 	}
 
-	if (row.hasOwnProperty(column.key)) {
+	if (hasOwnProperty.call(row, column.key)) {
 		return row[column.key] = value;
 	}
 
 	throw new GridError(
 		'value',
-		`Row can't be edit on "${column.key}" column`
+		`Row can't be edit on "${column.key}" column`,
 	);
 }

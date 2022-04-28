@@ -13,8 +13,8 @@ export class CsvExport {
 	write(rows, columns) {
 		const result = [];
 		const values = [];
-		let head = [];
-		for (let column of columns) {
+		const head = [];
+		for (const column of columns) {
 			if (column.category === 'data') {
 				values.push(getValueFactory(column));
 				head.push(escape(column.title));
@@ -22,9 +22,9 @@ export class CsvExport {
 		}
 		result.push(head.join(DELIMITER));
 
-		for (let row of rows) {
+		for (const row of rows) {
 			const line = [];
-			for (let getValue of values) {
+			for (const getValue of values) {
 				line.push(escape(getValue(row)));
 			}
 			result.push(line.join(DELIMITER));

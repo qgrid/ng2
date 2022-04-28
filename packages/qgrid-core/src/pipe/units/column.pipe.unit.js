@@ -1,6 +1,5 @@
-import { Pipe } from '../pipe';
 import { Scene } from '../../scene/scene';
-import { Guard } from '../../infrastructure/guard';
+import { Pipe } from '../pipe';
 
 export const columnPipeUnit = [
 	(_, context, next) => {
@@ -15,23 +14,23 @@ export const columnPipeUnit = [
 		const columnLine = scene.columnLine(memo.columns);
 		const tag = {
 			source: context.source || 'column.pipe.unit',
-			behavior: 'core'
+			behavior: 'core',
 		};
 
 		model.view({
-			columns: columnLine.map(c => c.model)
+			columns: columnLine.map(c => c.model),
 		}, tag);
 
 		context.model.scene({
 			column: {
 				rows: scene.columnRows(memo.columns),
 				area: scene.columnArea(memo.columns),
-				line: columnLine
-			}
+				line: columnLine,
+			},
 		}, tag);
 
 		next(memo);
-	}
+	},
 ];
 
 columnPipeUnit.why = 'redraw';
