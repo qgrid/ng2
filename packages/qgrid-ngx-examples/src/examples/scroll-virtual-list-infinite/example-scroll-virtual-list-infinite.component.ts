@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { VscrollContext, VscrollService } from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { VscrollService } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-scroll-virtual-list-infinite',

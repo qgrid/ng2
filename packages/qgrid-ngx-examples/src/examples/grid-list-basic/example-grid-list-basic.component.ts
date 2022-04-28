@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Atom, DataService } from '../data.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Column } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['grid-list-basic', 'Grid list based on *ngFor directive'];
