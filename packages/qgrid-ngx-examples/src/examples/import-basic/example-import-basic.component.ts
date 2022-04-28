@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as XLSX from 'xlsx';
 

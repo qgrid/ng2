@@ -1,10 +1,4 @@
-import {
-	Component,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	ViewEncapsulation,
-	OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
@@ -24,7 +18,9 @@ export class ExampleLiveRowsBasicComponent {
 
 	rows: Observable<Atom[]>;
 
-	constructor(private dataService: DataService) {
+	constructor(
+		private dataService: DataService,
+	) {
 		this.rows = dataService.getAtoms();
 	}
 }

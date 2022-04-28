@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Grid, GridModel } from 'ng2-qgrid';

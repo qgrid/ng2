@@ -31,7 +31,7 @@ export class ExampleColumnUrlBasicComponent {
 	constructor() {
 		const self = this;
 		this.myLabel = (...args) => {
-			const [_, value] = args;
+			const value = args[1];
 			if (args.length > 1) {
 				self.label = value;
 				return;

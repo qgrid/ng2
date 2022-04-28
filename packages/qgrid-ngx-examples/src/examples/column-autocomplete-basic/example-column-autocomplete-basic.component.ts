@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 const EXAMPLE_TAGS = ['column-autocomplete-basic', 'Cell value can be entered using autocomplete feature'];
 

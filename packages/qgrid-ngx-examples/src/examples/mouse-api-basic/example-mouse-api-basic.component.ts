@@ -1,11 +1,4 @@
-import {
-	ElementRef,
-	ViewChild,
-	Component,
-	ChangeDetectionStrategy,
-	AfterViewInit,
-	ChangeDetectorRef,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Grid, GridModel } from 'ng2-qgrid';
