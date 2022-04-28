@@ -16,23 +16,22 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { APP_ROUTES } from '../examples/example.module';
 
 @Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-	@HostBinding('class.app-is-mobile') isMobile: boolean;
-	@HostBinding('class.app-env-test') isTestEnv: boolean;
-
-	examples: Routes = APP_ROUTES;
-
-	@ViewChildren(RouterLinkActive, { read: ElementRef })
-		menuItems: QueryList<ElementRef>;
-
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
 
+	@HostBinding('class.app-is-mobile') isMobile: boolean;
+	@HostBinding('class.app-env-test') isTestEnv: boolean;
+
+	@ViewChildren(RouterLinkActive, { read: ElementRef }) menuItems: QueryList<ElementRef>;
+
+	examples: Routes = APP_ROUTES;
 	search: string;
 
 	constructor(
@@ -107,16 +106,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		});
 	}
 
+	ngOnDestroy(): void {
+		this.mobileQuery.removeListener(this.mobileQueryListener);
+	}
+
 	private findRequestedItem() {
 		return this.menuItems.find(item => item.nativeElement.getAttribute('href').includes(this.router.url.split('?')[0]));
 	}
 
 	private findActiveItem() {
 		return this.menuItems.find(item => item.nativeElement.classList.contains('app-active'));
-	}
-
-	ngOnDestroy(): void {
-		// tslint:disable-next-line: deprecation
-		this.mobileQuery.removeListener(this.mobileQueryListener);
 	}
 }

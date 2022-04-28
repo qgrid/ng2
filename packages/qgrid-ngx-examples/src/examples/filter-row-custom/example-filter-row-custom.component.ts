@@ -13,10 +13,10 @@ const EXAMPLE_TAGS = ['filter-row-custom', 'Table data can be filtered using cus
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFilterRowCustomComponent {
+	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 	gridModel: GridModel = this.qgrid.model();
 

@@ -9,6 +9,8 @@ const EXAMPLE_TAGS = ['column-url-basic', 'Cell value is an url'];
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnUrlBasicComponent {
+	private label = 'QGRID';
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
@@ -23,8 +25,6 @@ export class ExampleColumnUrlBasicComponent {
 			'customTemplate': 'http://github.com/qgrid/ng2',
 		},
 	];
-
-	private label = 'QGRID';
 
 	myLabel: (row: any, value?: any) => string | undefined;
 

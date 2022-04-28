@@ -13,10 +13,11 @@ const EXAMPLE_TAGS = ['data-row-add', 'New row can be added using UI button "add
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDataRowAddComponent implements AfterViewInit {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Human[]>;
 
 	addRow = new Command({

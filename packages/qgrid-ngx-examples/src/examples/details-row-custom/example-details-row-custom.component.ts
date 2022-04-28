@@ -19,10 +19,11 @@ const EXAMPLE_TAGS = ['details-row-custom', 'Details section of every row can be
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowCustomComponent implements AfterViewInit {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows$: Observable<Atom[]>;
 
 	toggleExpand = new Command({

@@ -163,8 +163,8 @@ export class ExampleColumnReferenceBasicComponent {
 		},
 	};
 
+	constructor(private qgrid: Grid) { }
+
 	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
 	convert = rows => rows.map(value => ({ value }));
-
-	constructor(private qgrid: Grid) { }
 }

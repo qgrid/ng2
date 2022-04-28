@@ -14,13 +14,13 @@ const EXAMPLE_TAGS = ['edit-row-custom', 'Selected row can be edited using UI bu
 })
 
 export class ExampleEditRowCustomComponent implements AfterViewInit {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
 	rows$: Observable<Human[]>;
-
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
 
 	selectedRow: Human;
 

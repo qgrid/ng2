@@ -9,6 +9,8 @@ const EXAMPLE_TAGS = ['column-email-basic', 'Cell value is email'];
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnEmailBasicComponent {
+	private label = 'QGRID';
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
@@ -23,8 +25,6 @@ export class ExampleColumnEmailBasicComponent {
 			'customTemplate': 'qgrid.team@gmail.com',
 		},
 	];
-
-	private label = 'QGRID';
 
 	myLabel: (row: any, value?: any) => string | undefined;
 
