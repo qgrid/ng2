@@ -1,5 +1,3 @@
-import { Blob } from 'buffer';
-
 export function downloadFactory(fileSaver) {
 	return function download(name, data, mimeType, extension) {
 		const blob = new Blob([data], {type: mimeType});
