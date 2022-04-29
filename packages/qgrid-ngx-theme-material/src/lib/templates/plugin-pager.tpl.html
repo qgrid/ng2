@@ -41,7 +41,8 @@
 					[q-grid-command]="$pager.prev"
 					[q-grid-command-use-shortcut]="true"
 					[matTooltip]="'Previous Page' + ' (' + ($pager.prev.shortcut | uppercase) + ')'"
-					[matTooltipShowDelay]="800">
+					[matTooltipShowDelay]="800"
+					aria-label="Previous page">
 				<mat-icon class="q-grid-icon">keyboard_arrow_left</mat-icon>
 			</button>
 
@@ -55,7 +56,8 @@
 					[q-grid-command]="$pager.next"
 					[q-grid-command-use-shortcut]="true"
 					[matTooltip]="'Next Page' + ' (' + ($pager.next.shortcut | uppercase) + ')'"
-					[matTooltipShowDelay]="800">
+					[matTooltipShowDelay]="800"
+					aria-label="Next page">
 				<mat-icon class="q-grid-icon">keyboard_arrow_right</mat-icon>
 			</button>
 		</div>

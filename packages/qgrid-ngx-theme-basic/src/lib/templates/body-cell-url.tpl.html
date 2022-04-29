@@ -3,7 +3,8 @@
              let-$view="$view">
    <a [attr.href]="$cell.value"
       tabindex="-1"
-      target="_blank">
+      target="_blank"
+			[attr.alt]="$cell.value">
       {{$cell.label || $cell.value}}
    </a>
 </ng-template>

@@ -14,15 +14,17 @@
 				[q-grid-command-use-shortcut]="true"
 				[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
 				[matTooltipShowDelay]="800"
-				tabindex="-1">
-			<mat-icon>{{$action.icon}}</mat-icon>
+				tabindex="-1"
+				[attr.aria-label]="$action.title">
+			<mat-icon alt="">{{$action.icon}}</mat-icon>
 		</button>
 
 		<button *ngSwitchCase="'text'"
 				mat-button
 				[q-grid-command]="$action.command"
 				[q-grid-command-use-shortcut]="true"
-				tabindex="-1">
+				tabindex="-1"
+				[attr.aria-label]="$action.title">
 			{{$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' :
 			'')}}
 		</button>
