@@ -15,10 +15,11 @@
     "copy:theme:material": "copyfiles -u 3 packages/qgrid-ngx-theme-material/dist/**/* packages/ng2-qgrid/theme/material",
     "copy:theme:basic": "copyfiles -u 3 packages/qgrid-ngx-theme-basic/dist/**/* packages/ng2-qgrid/theme/basic",
     "publish:alpha": "yarn copy:theme:material && yarn copy:theme:basic && lerna publish --canary --preid alpha --force-publish=*",
-    "release:github": "npm run build:app && ng deploy --repo=https://github.com/qgrid/qgrid.github.io",
+    "release:github": "npx angular-cli-ghpages --dir=packages/qgrid-ngx-examples/dist/",
     "release:example": "node ./scripts/build.example"
   },
   "devDependencies": {
+    "angular-cli-ghpages": "^1.0.0",
     "codelyzer": "^6.0.2",
     "command-line-args": "^5.2.0",
     "copyfiles": "^2.4.1",
