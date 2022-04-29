@@ -1,17 +1,17 @@
 <q-grid [caption]="title"
-		[rows]="rows$ | async"
-		[columns]="columns">
-	<q-grid-columns>
-		<q-grid-column key="editForm"
-						type="row-options"
-						[canEdit]="false"
-						pin="left">
-			<ng-template for="body"
-						let-$cell>
-				<q-grid-edit-form-trigger caption="{{$cell.row.name.last}}, {{$cell.row.name.first}}"
-											[row]="$cell.row">
-				</q-grid-edit-form-trigger>
-			</ng-template>
-	</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows$ | async"
+        [columns]="columns">
+  <q-grid-columns>
+    <q-grid-column key="editForm"
+                   type="row-options"
+                   [canEdit]="false"
+                   pin="left">
+      <ng-template for="body"
+                   let-$cell>
+        <q-grid-edit-form-trigger caption="{{$cell.row.name.last}}, {{$cell.row.name.first}}"
+                                  [row]="$cell.row">
+        </q-grid-edit-form-trigger>
+      </ng-template>
+    </q-grid-column>
+  </q-grid-columns>
 </q-grid>

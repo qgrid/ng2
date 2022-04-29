@@ -1,40 +1,40 @@
 <q-grid [caption]="title"
-		[model]="gridModel">
-	<q-grid-columns generation="deep">
-		<q-grid-column title="Name"
-						offset="40"
-						type="group"
-						width="90%"
-						widthMode="relative">
-			<ng-template for="body"
-						let-$cell
-						let-$view="$view">
+        [model]="gridModel">
+  <q-grid-columns generation="deep">
+    <q-grid-column title="Name"
+                   offset="40"
+                   type="group"
+                   width="90%"
+                   widthMode="relative">
+      <ng-template for="body"
+                   let-$cell
+                   let-$view="$view">
 
-				<div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
-					*ngIf="$view.group.isVisible($cell.row, $cell.column)">
-					<button mat-icon-button
-							[q-grid-command]="$view.group.toggleStatus"
-							[q-grid-command-arg]="[$cell.row, $cell.column]"
-							[ngClass]="'q-grid-' + $view.group.status($cell.row, $cell.column)"
-							tabindex="-1">
-						<mat-icon class="q-grid-icon">
-							{{$view.group.status($cell.row, $cell.column) === 'expand' ? 'folder_open' : 'folder'}}
-						</mat-icon>
+        <div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
+             *ngIf="$view.group.isVisible($cell.row, $cell.column)">
+          <button mat-icon-button
+                  [q-grid-command]="$view.group.toggleStatus"
+                  [q-grid-command-arg]="[$cell.row, $cell.column]"
+                  [ngClass]="'q-grid-' + $view.group.status($cell.row, $cell.column)"
+                  tabindex="-1">
+            <mat-icon class="q-grid-icon">
+              {{$view.group.status($cell.row, $cell.column) === 'expand' ? 'folder_open' : 'folder'}}
+            </mat-icon>
 
-						<span class="q-grid-group-label">
-							{{$view.group.value($cell.row, $cell.column)}}
-						</span>
+            <span class="q-grid-group-label">
+              {{$view.group.value($cell.row, $cell.column)}}
+            </span>
 
-						<span class="q-grid-group-count">
-							({{$view.group.count($cell.row, $cell.column)}})
-						</span>
-					</button>
-				</div>
+            <span class="q-grid-group-count">
+              ({{$view.group.count($cell.row, $cell.column)}})
+            </span>
+          </button>
+        </div>
 
-			</ng-template>
-		</q-grid-column>
-	</q-grid-columns>
+      </ng-template>
+    </q-grid-column>
+  </q-grid-columns>
 
-	<q-grid-visibility [toolbarBottom]="false">
-	</q-grid-visibility>
+  <q-grid-visibility [toolbarBottom]="false">
+  </q-grid-visibility>
 </q-grid>

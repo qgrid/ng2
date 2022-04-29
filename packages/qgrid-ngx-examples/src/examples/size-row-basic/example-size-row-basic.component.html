@@ -1,7 +1,8 @@
 <q-grid caption="Size Row Basic"
-				[rows]="rows | async">
-				<q-grid-columns generation="deep">
-				</q-grid-columns>
+        [rows]="rows | async">
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-				<q-grid-row [canResize]="true" [minHeight]="48"></q-grid-row>
+  <q-grid-row [canResize]="true"
+              [minHeight]="48"></q-grid-row>
 </q-grid>

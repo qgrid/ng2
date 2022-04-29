@@ -1,24 +1,24 @@
 <q-grid [caption]="title"
-		[rows]="rows$ | async"
-		class="define-column-basic">
-	<q-grid-columns>
-		<q-grid-column key="number"
-									title="#"
-									[width]="60"
-									type="id">
-		</q-grid-column>
-		<q-grid-column key="symbol"
-									title="Symbol"
-									[width]="80"
-									type="text">
-		</q-grid-column>
-		<q-grid-column key="name"
-									title="Name">
-		</q-grid-column>
-		<q-grid-column key="source"
-									title="Wiki"
-									class="example-source"
-									type="url">
-		</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows$ | async"
+        class="define-column-basic">
+  <q-grid-columns>
+    <q-grid-column key="number"
+                   title="#"
+                   [width]="60"
+                   type="id">
+    </q-grid-column>
+    <q-grid-column key="symbol"
+                   title="Symbol"
+                   [width]="80"
+                   type="text">
+    </q-grid-column>
+    <q-grid-column key="name"
+                   title="Name">
+    </q-grid-column>
+    <q-grid-column key="source"
+                   title="Wiki"
+                   class="example-source"
+                   type="url">
+    </q-grid-column>
+  </q-grid-columns>
 </q-grid>

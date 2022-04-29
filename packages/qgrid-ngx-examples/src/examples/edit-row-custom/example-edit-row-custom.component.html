@@ -1,32 +1,32 @@
 <q-grid [caption]="title"
-				[rows]="rows$ | async"
-				selectionMode="singleOnly"
-				selectionUnit="row">
-		<q-grid-columns generation="deep">
-		</q-grid-columns>
+        [rows]="rows$ | async"
+        selectionMode="singleOnly"
+        selectionUnit="row">
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-		<q-grid-actions>
-				<q-grid-action icon="edit"
-											title="Open Pane"
-											[command]="openPane">
-				</q-grid-action>
-		</q-grid-actions>
+  <q-grid-actions>
+    <q-grid-action icon="edit"
+                   title="Open Pane"
+                   [command]="openPane">
+    </q-grid-action>
+  </q-grid-actions>
 
-		<q-grid-pane>
-				<ng-template for="right"
-										let-$pane>
-						<button mat-icon-button
-										style="float: right; z-index: 1;"
-										(click)="$pane.close('right')">
-								<mat-icon>close</mat-icon>
-						</button>
+  <q-grid-pane>
+    <ng-template for="right"
+                 let-$pane>
+      <button mat-icon-button
+              style="float: right; z-index: 1;"
+              (click)="$pane.close('right')">
+        <mat-icon>close</mat-icon>
+      </button>
 
-						<q-grid-edit-form [row]="selectedRow"
-															caption="{{selectedRow.name.last}}, {{selectedRow.name.first}}"
-															(cancel)="$pane.close('right')"
-															(submit)="$pane.close('right')">
-						</q-grid-edit-form>
-				</ng-template>
-		</q-grid-pane>
+      <q-grid-edit-form [row]="selectedRow"
+                        caption="{{selectedRow.name.last}}, {{selectedRow.name.first}}"
+                        (cancel)="$pane.close('right')"
+                        (submit)="$pane.close('right')">
+      </q-grid-edit-form>
+    </ng-template>
+  </q-grid-pane>
 
 </q-grid>

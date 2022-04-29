@@ -1,58 +1,58 @@
 <mat-toolbar>
-	<button mat-icon-button
-			(click)="sidenav.toggle()">
-		<mat-icon>menu</mat-icon>
-	</button>
-	<h1>qgrid</h1>
+  <button mat-icon-button
+          (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>qgrid</h1>
 </mat-toolbar>
 <mat-sidenav-container>
-	<mat-sidenav #sidenav
-				[mode]="isMobile ? 'over' : 'side'"
-				[opened]="!isMobile"
-				[fixedInViewport]="isMobile">
-		<a routerLink="/"
-			class="logo"
-			*ngIf="!isMobile"></a>
-		<mat-form-field class="app-search">
-			<input matInput
-						[(ngModel)]="search"
-						(ngModelChange)="onSearchChange()"
-						placeholder="Search in q-grid examples"
-						autocomplete="off"
-						type="search" />
-		</mat-form-field>
-		<mat-nav-list>
-			<a *ngFor="let example of examples | appFilter: search"
-					mat-list-item
-					[routerLink]="example.path"
-					[queryParams]="activatedRoute.queryParams | async"
-					routerLinkActive="app-active"
-					(click)="isMobile ? sidenav.toggle() : null">
-				<span [innerHTML]="example.path | appHighlight: search"></span>
-			</a>
-		</mat-nav-list>
-	</mat-sidenav>
-	<mat-sidenav-content>
-		<mat-card>
-			<router-outlet></router-outlet>
-			<mat-card-footer>
-				<div class="app-source-links">
-					<a mat-raised-button
-						[href]="getGithubUrl()"
-						class="app-source-github"
-						title="GitHub"
-						target="_blank">
-						GitHub
-					</a>
-					<a mat-raised-button
-						[href]="getStackblitzUrl()"
-						class="app-source-stackblitz"
-						title="StackBlitz"
-						target="_blank">
-						StackBlitz
-					</a>
-				</div>
-			</mat-card-footer>
-		</mat-card>
-	</mat-sidenav-content>
+  <mat-sidenav #sidenav
+               [mode]="isMobile ? 'over' : 'side'"
+               [opened]="!isMobile"
+               [fixedInViewport]="isMobile">
+    <a routerLink="/"
+       class="logo"
+       *ngIf="!isMobile"></a>
+    <mat-form-field class="app-search">
+      <input matInput
+             [(ngModel)]="search"
+             (ngModelChange)="onSearchChange()"
+             placeholder="Search in q-grid examples"
+             autocomplete="off"
+             type="search" />
+    </mat-form-field>
+    <mat-nav-list>
+      <a *ngFor="let example of examples | appFilter: search"
+         mat-list-item
+         [routerLink]="example.path"
+         [queryParams]="activatedRoute.queryParams | async"
+         routerLinkActive="app-active"
+         (click)="isMobile ? sidenav.toggle() : null">
+        <span [innerHTML]="example.path | appHighlight: search"></span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-card>
+      <router-outlet></router-outlet>
+      <mat-card-footer>
+        <div class="app-source-links">
+          <a mat-raised-button
+             [href]="getGithubUrl()"
+             class="app-source-github"
+             title="GitHub"
+             target="_blank">
+            GitHub
+          </a>
+          <a mat-raised-button
+             [href]="getStackblitzUrl()"
+             class="app-source-stackblitz"
+             title="StackBlitz"
+             target="_blank">
+            StackBlitz
+          </a>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </mat-sidenav-content>
 </mat-sidenav-container>

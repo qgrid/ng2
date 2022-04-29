@@ -1,78 +1,78 @@
 <q-grid [caption]="title"
-		[rows]="rows | async"
-		editMode="cell">
-	<q-grid-columns>
-		<q-grid-column key="number"
-						title="Required">
-		</q-grid-column>
-		<q-grid-column key="name"
-						title="Length from 3 to 40">
-		</q-grid-column>
-		<q-grid-column key="phase"
-						title="One of ['Gas', 'Solid']">
-		</q-grid-column>
-		<q-grid-column key="color"
-						title="Pattern">
-		</q-grid-column>
-		<q-grid-column key="summary"
-						title="Length > 5">
-		</q-grid-column>
-		<q-grid-column key="radius"
-						title="Positive integer">
-		</q-grid-column>
-		<q-grid-column key="period"
-						title="Positive integer with length equal to 1">
-		</q-grid-column>
-		<q-grid-column key="mass"
-						title="Positive decimal">
-		</q-grid-column>
-		<q-grid-column key="source"
-						title="Url">
-		</q-grid-column>
-	</q-grid-columns>
-	<q-grid-validation>
-		<q-grid-rule for="cell"
-					key="number"
-					required>
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="name"
-					required
-					[lengthBetween]="[3, 40]">
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="phase"
-					required
-					[oneOf]="['Gas', 'Solid']">
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="color"
-					pattern="^[\da-fA-F]{6}$">
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="summary"
-					required
-					[minLength]="5">
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="period"
-					required
-					positiveInteger
-					[lengthEqual]="1">
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="radius"
-					required
-					positiveInteger>
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="mass"
-					positiveDecimal>
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-					key="source"
-					url>
-		</q-grid-rule>
-	</q-grid-validation>
+        [rows]="rows | async"
+        editMode="cell">
+  <q-grid-columns>
+    <q-grid-column key="number"
+                   title="Required">
+    </q-grid-column>
+    <q-grid-column key="name"
+                   title="Length from 3 to 40">
+    </q-grid-column>
+    <q-grid-column key="phase"
+                   title="One of ['Gas', 'Solid']">
+    </q-grid-column>
+    <q-grid-column key="color"
+                   title="Pattern">
+    </q-grid-column>
+    <q-grid-column key="summary"
+                   title="Length > 5">
+    </q-grid-column>
+    <q-grid-column key="radius"
+                   title="Positive integer">
+    </q-grid-column>
+    <q-grid-column key="period"
+                   title="Positive integer with length equal to 1">
+    </q-grid-column>
+    <q-grid-column key="mass"
+                   title="Positive decimal">
+    </q-grid-column>
+    <q-grid-column key="source"
+                   title="Url">
+    </q-grid-column>
+  </q-grid-columns>
+  <q-grid-validation>
+    <q-grid-rule for="cell"
+                 key="number"
+                 required>
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="name"
+                 required
+                 [lengthBetween]="[3, 40]">
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="phase"
+                 required
+                 [oneOf]="['Gas', 'Solid']">
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="color"
+                 pattern="^[\da-fA-F]{6}$">
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="summary"
+                 required
+                 [minLength]="5">
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="period"
+                 required
+                 positiveInteger
+                 [lengthEqual]="1">
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="radius"
+                 required
+                 positiveInteger>
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="mass"
+                 positiveDecimal>
+    </q-grid-rule>
+    <q-grid-rule for="cell"
+                 key="source"
+                 url>
+    </q-grid-rule>
+  </q-grid-validation>
 
 </q-grid>

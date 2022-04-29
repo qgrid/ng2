@@ -1,12 +1,12 @@
 <q-grid [caption]="title"
-				[rows]="rows | async">
-	<q-grid-columns generation="deep">
-		<q-grid-column key="source"
-									[isVisible]="false">
-		</q-grid-column>
-		<q-grid-column key="rowOptions"
-									type="row-options"
-									[editorOptions]="{actions: rowActions}">
-		</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows | async">
+  <q-grid-columns generation="deep">
+    <q-grid-column key="source"
+                   [isVisible]="false">
+    </q-grid-column>
+    <q-grid-column key="rowOptions"
+                   type="row-options"
+                   [editorOptions]="{actions: rowActions}">
+    </q-grid-column>
+  </q-grid-columns>
 </q-grid>
