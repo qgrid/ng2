@@ -1,27 +1,28 @@
-<ng-template key="plugin-edit-form.tpl.html" let-$editForm>
-	<mat-card
-		class="mat-elevation-z q-grid-edit-form-card"
-		(keydown)="$event.stopPropagation()"
-	>
-		<mat-card-header>
-			<mat-card-title> {{$editForm.caption}} </mat-card-title>
-		</mat-card-header>
-		<mat-card-content class="q-grid-edit-form-content">
-			<q-grid-edit-form-control
-				*ngFor="let editor of $editForm.editors"
-				class="q-grid-edit-form-control"
-				[ngClass]="'q-grid-edit-form-control-' + (editor.cell.column.editor || editor.cell.column.type)"
-				[editor]="editor"
-			>
-			</q-grid-edit-form-control>
-		</mat-card-content>
-		<mat-card-actions>
-			<button mat-button q-grid-focus [q-grid-command]="$editForm.cancel">
-				Cancel
-			</button>
-			<button mat-button color="primary" [q-grid-command]="$editForm.submit">
-				Save
-			</button>
-		</mat-card-actions>
-	</mat-card>
+<ng-template key="plugin-edit-form.tpl.html"
+             let-$editForm>
+  <mat-card class="mat-elevЖation-z q-grid-edit-form-card"
+            (keydown)="$event.stopPropagation()">
+    <mat-card-header>
+      <mat-card-title> {{$editForm.caption}} </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="q-grid-edit-form-content">
+      <q-grid-edit-form-control *ngFor="let editor of $editForm.editors"
+                                class="q-grid-edit-form-control"
+                                [ngClass]="'q-grid-edit-form-control-' + (editor.cell.column.editor || editor.cell.column.type)"
+                                [editor]="editor">
+      </q-grid-edit-form-control>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button
+              q-grid-focus
+              [q-grid-command]="$editForm.cancel">
+        Cancel
+      </button>
+      <button mat-button
+              color="primary"
+              [q-grid-command]="$editForm.submit">
+        Save
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </ng-template>

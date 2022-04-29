@@ -1,8 +1,7 @@
-<ng-template key="plugin-progress.tpl.html" let-$progress>
-	<mat-progress-bar
-		class="q-grid-progress-linear"
-		*ngIf="$progress.isBusy"
-		mode="indeterminate"
-	>
-	</mat-progress-bar>
+<ng-template key="plugin-progress.tpl.html"
+             let-$progress>
+  <mat-progress-bar class="q-grid-progress-linear"
+                    *ngIf="$progress.isBusy"
+                    mode="indeterminate">
+  </mat-progress-bar>
 </ng-template>

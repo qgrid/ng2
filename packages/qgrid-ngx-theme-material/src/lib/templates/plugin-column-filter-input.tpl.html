@@ -1,16 +1,12 @@
-<ng-template
-	key="plugin-column-filter-input.tpl.html"
-	let-$columnFilter
-	let-$plugin="plugin"
-	let-$vscroll="vscroll"
->
-	<mat-form-field class="q-grid-column-filter-input">
-		<input
-			matInput
-			[type]="$columnFilter.column.type"
-			[placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
-			[(ngModel)]="$columnFilter.value"
-			q-grid-focus
-		/>
-	</mat-form-field>
+<ng-template key="plugin-column-filter-input.tpl.html"
+             let-$columnFilter
+             let-$plugin="plugin"
+             let-$vscroll="vscroll">
+  <mat-form-field class="q-grid-column-filter-input">
+    <input matInput
+           [type]="$columnFilter.column.type"
+           [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
+           [(ngModel)]="$columnFilter.value"
+           q-grid-focus />
+  </mat-form-field>
 </ng-template>
