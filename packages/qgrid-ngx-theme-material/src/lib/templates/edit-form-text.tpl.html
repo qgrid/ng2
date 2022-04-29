@@ -1,14 +1,13 @@
-<ng-template key="edit-form-text.tpl.html" let-$editor>
-	<mat-form-field class="edit-form-text">
-		<input
-			matInput
-			#input
-			maxlength="{{$editor.cell.column.maxLength}}"
-			[(ngModel)]="$editor.value"
-			[placeholder]="$editor.cell.column.title"
-		/>
-		<mat-hint align="end"
-			>{{input.value.length}} / {{$editor.cell.column.maxLength}}</mat-hint
-		>
-	</mat-form-field>
+<ng-template key="edit-form-text.tpl.html"
+             let-$editor>
+  <mat-form-field class="edit-form-text">
+    <input matInput
+           #input
+           maxlength="{{$editor.cell.column.maxLength}}"
+           [(ngModel)]="$editor.value"
+           [placeholder]="$editor.cell.column.title" />
+    <mat-hint align="end">
+      {{input.value.length}} / {{$editor.cell.column.maxLength}}
+    </mat-hint>
+  </mat-form-field>
 </ng-template>

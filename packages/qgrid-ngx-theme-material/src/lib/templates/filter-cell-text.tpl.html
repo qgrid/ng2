@@ -1,23 +1,21 @@
-<ng-template key="filter-cell-text.tpl.html" let-$cell let-$view="$view">
-	<mat-form-field *ngIf="$cell.column.canFilter" floatLabel="never">
-		<mat-placeholder>
-			<mat-icon class="q-grid-icon q-grid-placeholder"> filter_list </mat-icon>
-		</mat-placeholder>
-		<input
-			type="search"
-			matInput
-			#input
-			[value]="$view.filter.value($cell.column.model)"
-			(change)="$view.filter.column.execute($cell.column.model, input.value)"
-		/>
-
-		<mat-icon
-			*ngIf="!!$view.filter.value($cell.column.model)"
-			(click)="$view.filter.column.execute($cell.column.model, null)"
-			class="q-grid-icon q-grid-close"
-			matSuffix
-		>
-			close
-		</mat-icon>
-	</mat-form-field>
+<ng-template key="filter-cell-text.tpl.html"
+             let-$cell
+             let-$view="$view">
+  <mat-form-field *ngIf="$cell.column.canFilter"
+                  floatLabel="never">
+    <mat-placeholder>
+      <mat-icon class="q-grid-icon q-grid-placeholder"> filter_list</mat-icon>
+    </mat-placeholder>
+    <input type="search"
+           matInput
+           #input
+           [value]="$view.filter.value($cell.column.model)"
+           (change)="$view.filter.column.execute($cell.column.model, input.value)" />
+    <mat-icon *ngIf="!!$view.filter.value($cell.column.model)"
+              (click)="$view.filter.column.execute($cell.column.model, null)"
+              class="q-grid-icon q-grid-close"
+              matSuffix>
+      close
+   </mat-icon>
+  </mat-form-field>
 </ng-template>

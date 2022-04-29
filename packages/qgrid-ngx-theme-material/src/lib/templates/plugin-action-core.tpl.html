@@ -1,40 +1,34 @@
-<ng-template key="plugin-action-core.tpl.html" let-$action>
-	<div class="q-grid-action" [ngSwitch]="$action.mode">
-		<ng-container
-			*ngSwitchCase="'template'"
-			[key]="$action.templateUrl"
-			[context]="{$implicit: $action}"
-		>
-		</ng-container>
+<ng-template key="plugin-action-core.tpl.html"
+             let-$action>
+  <div class="q-grid-action"
+       [ngSwitch]="$action.mode">
+    <ng-container *ngSwitchCase="'template'"
+                  [key]="$action.templateUrl"
+                  [context]="{$implicit: $action}">
+    </ng-container>
 
-		<button
-			*ngSwitchCase="'icon'"
-			mat-icon-button
-			[q-grid-command]="$action.command"
-			[q-grid-command-use-shortcut]="true"
-			[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
-			[matTooltipShowDelay]="800"
-			tabindex="-1"
-		>
-			<mat-icon>{{$action.icon}}</mat-icon>
-		</button>
+    <button *ngSwitchCase="'icon'"
+            mat-icon-button
+            [q-grid-command]="$action.command"
+            [q-grid-command-use-shortcut]="true"
+            [matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
+            [matTooltipShowDelay]="800"
+            tabindex="-1">
+      <mat-icon>{{$action.icon}}</mat-icon>
+    </button>
 
-		<button
-			*ngSwitchCase="'text'"
-			mat-button
-			[q-grid-command]="$action.command"
-			[q-grid-command-use-shortcut]="true"
-			tabindex="-1"
-		>
-			{{$action.title + ($action.command.shortcut ? ' (' +
-			($action.command.shortcut | uppercase) + ')' : '')}}
-		</button>
+    <button *ngSwitchCase="'text'"
+            mat-button
+            [q-grid-command]="$action.command"
+            [q-grid-command-use-shortcut]="true"
+            tabindex="-1">
+      {{$action.title + ($action.command.shortcut ? ' (' +
+      ($action.command.shortcut | uppercase) + ')' : '')}}
+    </button>
 
-		<ng-container
-			*ngSwitchDefault
-			[q-grid-command]="$action.command"
-			[q-grid-command-use-shortcut]="true"
-		>
-		</ng-container>
-	</div>
+    <ng-container *ngSwitchDefault
+                  [q-grid-command]="$action.command"
+                  [q-grid-command-use-shortcut]="true">
+    </ng-container>
+  </div>
 </ng-template>

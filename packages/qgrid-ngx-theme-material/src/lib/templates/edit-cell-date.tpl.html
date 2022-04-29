@@ -1,40 +1,38 @@
-<ng-template key="edit-cell-date.tpl.html" let-$cell let-$view="$view">
-	<q-grid-cell-editor
-		class="q-grid-date q-grid-editor q-grid-position q-grid-text"
-		(close)="$view.edit.cell.exit.execute($cell)"
-		q-grid-position="td"
-	>
-		<mat-form-field
-			*q-grid-date="let qGridDate"
-			[q-grid-date-adapter]="$cell.column.format"
-			[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $cell.column.format)}"
-		>
-			<mat-label> </mat-label>
+<ng-template key="edit-cell-date.tpl.html"
+             let-$cell
+             let-$view="$view">
+<q-grid-cell-editor class="q-grid-date q-grid-editor q-grid-position q-grid-text"
+                    (close)="$view.edit.cell.exit.execute($cell)"
+                    q-grid-position="td">
+    <mat-form-field *q-grid-date="let qGridDate"
+                    [q-grid-date-adapter]="$cell.column.format"
+                    [ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $cell.column.format)}">
+      <mat-label></mat-label>
 
-			<input
-				#input
-				q-grid-focus
-				matInput
-				[q-grid-date-mask]="$cell.column.format"
-				[placeholder]="$cell.column.format"
-				[matDatepicker]="picker"
-				[value]="$view.edit.cell.value | qGridConvert: 'date'"
-				(dateChange)="$view.edit.cell.value = qGridDate.dateLow($event.value)"
-				(input)="qGridDate.isValid(input.value, $cell.column.format) &&
-				($view.edit.cell.value = qGridDate.dateLow(input.value, $cell.column.format))"
-			/>
+      <input #input
+             q-grid-focus
+             matInput
+             [q-grid-date-mask]="$cell.column.format"
+             [placeholder]="$cell.column.format"
+             [matDatepicker]="picker"
+             [value]="$view.edit.cell.value | qGridConvert: 'date'"
+             (dateChange)="$view.edit.cell.value = qGridDate.dateLow($event.value)"
+             (input)="qGridDate.isValid(input.value, $cell.column.format) &&
+             ($view.edit.cell.value = qGridDate.dateLow(input.value, $cell.column.format))" />
 
-			<mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix
+                             [for]="picker">
+      </mat-datepicker-toggle>
 
-			<mat-datepicker #picker panelClass="q-grid-editor-part"> </mat-datepicker>
-		</mat-form-field>
+      <mat-datepicker #picker
+                      panelClass="q-grid-editor-part">
+      </mat-datepicker>
+    </mat-form-field>
 
-		<q-grid-validator
-			class="q-grid-validator"
-			[key]="$cell.column.key"
-			[type]="$cell.column.type"
-			[value]="$view.edit.cell.value"
-		>
-		</q-grid-validator>
-	</q-grid-cell-editor>
+    <q-grid-validator class="q-grid-validator"
+                      [key]="$cell.column.key"
+                      [type]="$cell.column.type"
+                      [value]="$view.edit.cell.value">
+    </q-grid-validator>
+  </q-grid-cell-editor>
 </ng-template>

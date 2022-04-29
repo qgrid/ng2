@@ -1,34 +1,35 @@
-<ng-template key="edit-cell-row-options.tpl.html" let-$cell let-$view="$view">
-	<ng-container (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
-		<mat-icon [matMenuTriggerFor]="menu" class="q-grid-icon">
-			more_vert
-		</mat-icon>
-	</ng-container>
+<ng-template key="edit-cell-row-options.tpl.html"
+             let-$cell
+             let-$view="$view">
+  <ng-container (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
+    <mat-icon [matMenuTriggerFor]="menu"
+              class="q-grid-icon">
+      more_vert
+   </mat-icon>
+  </ng-container>
 
-	<mat-menu #menu="matMenu" class="q-grid-row-options">
-		<ng-container
-			*ngFor="let $action of $cell.column.editorOptions.actions"
-			[ngSwitch]="$action.title"
-		>
-			<mat-divider *ngSwitchCase="'---'"> </mat-divider>
+  <mat-menu #menu="matMenu"
+            class="q-grid-row-options">
+    <ng-container *ngFor="let $action of $cell.column.editorOptions.actions"
+                  [ngSwitch]="$action.title">
+      <mat-divider *ngSwitchCase="'---'"></mat-divider>
 
-			<button
-				*ngSwitchDefault
-				mat-menu-item
-				[q-grid-command]="$action.command"
-				q-grid-command-event="mousedown"
-				q-grid-command-host="document"
-				[q-grid-command-arg]="$cell"
-				[q-grid-command-use-shortcut]="true"
-				(keydown.enter)="$action.command.canExecute($cell) === true && $action.command.execute($cell)"
-				(q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)"
-			>
-				<mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
-				<span>{{$action.title}}</span>
-				<span *ngIf="$action.command.shortcut" class="q-grid-shortcut">
-					{{$action.command.shortcut}}
-				</span>
-			</button>
-		</ng-container>
-	</mat-menu>
+      <button *ngSwitchDefault
+              mat-menu-item
+              [q-grid-command]="$action.command"
+              q-grid-command-event="mousedown"
+              q-grid-command-host="document"
+              [q-grid-command-arg]="$cell"
+              [q-grid-command-use-shortcut]="true"
+              (keydown.enter)="$action.command.canExecute($cell) === true && $action.command.execute($cell)"
+              (q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)">
+        <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
+        <span>{{$action.title}}</span>
+        <span *ngIf="$action.command.shortcut"
+              class="q-grid-shortcut">
+          {{$action.command.shortcut}}
+        </span>
+      </button>
+    </ng-container>
+  </mat-menu>
 </ng-template>

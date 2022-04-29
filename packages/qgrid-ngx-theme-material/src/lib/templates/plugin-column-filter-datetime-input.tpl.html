@@ -1,44 +1,36 @@
-<ng-template
-	key="plugin-column-filter-datetime-input.tpl.html"
-	let-$columnFilter
-	let-$plugin="plugin"
-	let-$vscroll="vscroll"
->
-	<q-grid-tab-trap>
-		<mat-form-field
-			*q-grid-date="let qGridDate"
-			class="q-grid-column-filter-input q-grid-column-filter-input-half"
-			[q-grid-date-adapter]="$columnFilter.column.dateFormat"
-			[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $columnFilter.column.dateFormat)}"
-		>
-			<input
-				q-grid-focus
-				matInput
-				#input
-				[q-grid-date-mask]="$columnFilter.column.dateFormat"
-				[placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
-				[matDatepicker]="picker"
-				[value]="$columnFilter.value | qGridConvert: 'date'"
-				(dateChange)="$columnFilter.value = qGridDate.datetime($columnFilter.value, $event.value, $columnFilter.column.dateFormat)"
-				(input)="qGridDate.isValid(input.value, $columnFilter.column.dateFormat) &&
-				($columnFilter.value = qGridDate.datetime($columnFilter.value, input.value, $columnFilter.column.dateFormat))"
-			/>
+<ng-template key="plugin-column-filter-datetime-input.tpl.html"
+             let-$columnFilter
+             let-$plugin="plugin"
+             let-$vscroll="vscroll">
+  <q-grid-tab-trap>
+    <mat-form-field *q-grid-date="let qGridDate"
+                    class="q-grid-column-filter-input q-grid-column-filter-input-half"
+                    [q-grid-date-adapter]="$columnFilter.column.dateFormat"
+                    [ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $columnFilter.column.dateFormat)}">
+      <input q-grid-focus
+             matInput
+             #input
+             [q-grid-date-mask]="$columnFilter.column.dateFormat"
+             [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
+             [matDatepicker]="picker"
+             [value]="$columnFilter.value | qGridConvert: 'date'"
+             (dateChange)="$columnFilter.value = qGridDate.datetime($columnFilter.value, $event.value, $columnFilter.column.dateFormat)"
+             (input)="qGridDate.isValid(input.value, $columnFilter.column.dateFormat) &&
+             ($columnFilter.value = qGridDate.datetime($columnFilter.value, input.value, $columnFilter.column.dateFormat))" />
 
-			<mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix
+                             [for]="picker">
+      </mat-datepicker-toggle>
 
-			<mat-datepicker #picker> </mat-datepicker>
-		</mat-form-field>
-		<mat-form-field
-			*q-grid-time="let qGridTime"
-			class="q-grid-column-filter-input q-grid-column-filter-input-half"
-		>
-			<input
-				matInput
-				type="time"
-				#input
-				[value]="$columnFilter.value | qGridTime: 'HH:mm'"
-				(change)="$columnFilter.value = qGridTime.time($columnFilter.value, input.value)"
-			/>
-		</mat-form-field>
-	</q-grid-tab-trap>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *q-grid-time="let qGridTime"
+                    class="q-grid-column-filter-input q-grid-column-filter-input-half">
+      <input matInput
+             type="time"
+             #input
+             [value]="$columnFilter.value | qGridTime: 'HH:mm'"
+             (change)="$columnFilter.value = qGridTime.time($columnFilter.value, input.value)" />
+    </mat-form-field>
+  </q-grid-tab-trap>
 </ng-template>
