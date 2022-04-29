@@ -1,16 +1,16 @@
 <q-grid [caption]="title"
-		[rows]="rows$ | async">
-	<q-grid-columns generation="deep">
-	</q-grid-columns>
+        [rows]="rows$ | async">
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-	<q-grid-actions>
-		<q-grid-action icon="refresh"
-							title="Load Data"
-							[command]="loadCommand">
-		</q-grid-action>
-		<q-grid-action icon="clear_all"
-						title="Clear Data"
-						[command]="clearCommand">
-		</q-grid-action>
-	</q-grid-actions>
+  <q-grid-actions>
+    <q-grid-action icon="refresh"
+                   title="Load Data"
+                   [command]="loadCommand">
+    </q-grid-action>
+    <q-grid-action icon="clear_all"
+                   title="Clear Data"
+                   [command]="clearCommand">
+    </q-grid-action>
+  </q-grid-actions>
 </q-grid>

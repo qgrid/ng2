@@ -1,34 +1,34 @@
 <q-grid [caption]="title"
-		[rows]="rows$ | async"
-		[model]="gridModel"
-		selectionUnit="row"
-		class="q-grid-compact">
+        [rows]="rows$ | async"
+        [model]="gridModel"
+        selectionUnit="row"
+        class="q-grid-compact">
 
-	<q-grid-columns generation="deep">
-	</q-grid-columns>
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-	<q-grid-actions>
-		<q-grid-action icon="details"
-						title="Open Pane"
-						[command]="openPane">
-		</q-grid-action>
-	</q-grid-actions>
+  <q-grid-actions>
+    <q-grid-action icon="details"
+                   title="Open Pane"
+                   [command]="openPane">
+    </q-grid-action>
+  </q-grid-actions>
 
-	<q-grid-pane>
-		<ng-template for="right"
-					let-$pane
-					let-$cell="cell">
-			<div style="width: 300px;">
-				<button mat-icon-button
-						style="float: right;"
-						(click)="$pane.close('right')">
-					<mat-icon>close</mat-icon>
-				</button>
+  <q-grid-pane>
+    <ng-template for="right"
+                 let-$pane
+                 let-$cell="cell">
+      <div style="width: 300px;">
+        <button mat-icon-button
+                style="float: right;"
+                (click)="$pane.close('right')">
+          <mat-icon>close</mat-icon>
+        </button>
 
-				<h2>
-					{{selectedRow?.name.last}}, {{selectedRow?.name.first}}
-				</h2>
-			</div>
-		</ng-template>
-	</q-grid-pane>
+        <h2>
+          {{selectedRow?.name.last}}, {{selectedRow?.name.first}}
+        </h2>
+      </div>
+    </ng-template>
+  </q-grid-pane>
 </q-grid>

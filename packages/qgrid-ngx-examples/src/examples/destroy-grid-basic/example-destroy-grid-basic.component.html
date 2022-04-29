@@ -1,11 +1,11 @@
 <button mat-button
-				(click)="isVisible = !isVisible">
-	{{ isVisible? 'Hide' : 'Show' }}
+        (click)="isVisible = !isVisible">
+  {{ isVisible? 'Hide' : 'Show' }}
 </button>
 <ng-container *ngIf="isVisible">
-	<q-grid [caption]="title"
-					[rows]="rows | async">
-		<q-grid-columns generation="deep">
-		</q-grid-columns>
-	</q-grid>
+  <q-grid [caption]="title"
+          [rows]="rows | async">
+    <q-grid-columns generation="deep">
+    </q-grid-columns>
+  </q-grid>
 </ng-container>
