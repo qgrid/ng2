@@ -14,18 +14,18 @@ export class PdfWriter {
 				overflow: 'linebreak',
 				fontSize: 8,
 				columnWidth: 'auto',
-				overflowColumns: true
+				overflowColumns: true,
 			},
 			headerStyles: {
 				overflow: 'ellipsize',
 			},
 			pageBreak: 'auto',
-			margin: 0
+			margin: 0,
 		};
-		for (let column of columns) {
+		for (const column of columns) {
 			titles.push({title: column.title, dataKey: column.path});
 		}
-		for (let row of rows) {
+		for (const row of rows) {
 			values.push(graphFlatView(row));
 		}
 

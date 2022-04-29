@@ -1,6 +1,32 @@
-import { clone, Command, CommandManager, Event, PersistenceService, serialize, Shortcut, ShortcutDispatcher, stringifyFactory } from '@qgrid/core';
+import {
+	clone,
+	Command,
+	CommandManager,
+	Event,
+	PersistenceService,
+	serialize,
+	Shortcut,
+	ShortcutDispatcher,
+	stringifyFactory,
+} from '@qgrid/core';
 
 export class PersistencePlugin {
+
+	get blank() {
+		return {
+			title: 'Blank',
+			modified: Date.now(),
+			model: {},
+			isDefault: false,
+			group: 'blank',
+			canEdit: false,
+		};
+	}
+
+	get sortedItems() {
+		return this.items.sort((a, b) => b.modified - a.modified);
+	}
+
 	constructor(plugin, createDefaultModel) {
 		const { model, observeReply } = plugin;
 
@@ -10,7 +36,7 @@ export class PersistencePlugin {
 		this.items = [];
 		this.state = {
 			editItem: null,
-			oldValue: null
+			oldValue: null,
 		};
 
 		const { persistence } = model;
@@ -42,7 +68,7 @@ export class PersistencePlugin {
 					model: this.service.save(),
 					isDefault: false,
 					group: persistence().defaultGroup,
-					canEdit: true
+					canEdit: true,
 				};
 
 				if (persistence().create.execute(item) !== false) {
@@ -61,14 +87,14 @@ export class PersistencePlugin {
 						model: this.service.save(),
 						isDefault: false,
 						group: persistence().defaultGroup,
-						canEdit: true
+						canEdit: true,
 					};
 
 					return persistence().create.canExecute(item);
 				}
 
 				return false;
-			}
+			},
 		});
 
 		this.edit = {
@@ -81,11 +107,11 @@ export class PersistencePlugin {
 					}
 					this.state = {
 						editItem: item,
-						oldValue: clone(item)
+						oldValue: clone(item),
 					};
 					return true;
 				},
-				canExecute: item => this.state.editItem === null && item.canEdit
+				canExecute: item => this.state.editItem === null && item.canEdit,
 			}),
 			commit: new Command({
 				source: 'persistence.view',
@@ -107,7 +133,7 @@ export class PersistencePlugin {
 				},
 				canExecute: () =>
 					this.state.editItem !== null &&
-					persistence().modify.canExecute(this.state.editItem)
+					persistence().modify.canExecute(this.state.editItem),
 			}),
 			cancel: new Command({
 				source: 'persistence.view',
@@ -122,8 +148,8 @@ export class PersistencePlugin {
 						this.closeEvent.emit();
 					}
 					return true;
-				}
-			})
+				},
+			}),
 		};
 
 		this.load = new Command({
@@ -136,7 +162,7 @@ export class PersistencePlugin {
 				}
 
 				return false;
-			}
+			},
 		});
 
 		this.reset = new Command({
@@ -147,7 +173,7 @@ export class PersistencePlugin {
 				}
 				return false;
 			},
-			canExecute: () => persistence().reset.canExecute()
+			canExecute: () => persistence().reset.canExecute(),
 		});
 
 		this.remove = new Command({
@@ -165,7 +191,7 @@ export class PersistencePlugin {
 				return false;
 			},
 			canExecute: item =>
-				item.canEdit && persistence().remove.canExecute(item)
+				item.canEdit && persistence().remove.canExecute(item),
 		});
 
 		this.setDefault = new Command({
@@ -191,7 +217,7 @@ export class PersistencePlugin {
 				}
 
 				return false;
-			}
+			},
 		});
 
 		const commandManager = new CommandManager();
@@ -202,23 +228,8 @@ export class PersistencePlugin {
 		shortcut.register(commandManager, [
 			this.edit.enter,
 			this.edit.commit,
-			this.edit.cancel
+			this.edit.cancel,
 		]);
-	}
-
-	get blank() {
-		return {
-			title: 'Blank',
-			modified: Date.now(),
-			model: {},
-			isDefault: false,
-			group: 'blank',
-			canEdit: false
-		};
-	}
-
-	get sortedItems() {
-		return this.items.sort((a, b) => b.modified - a.modified);
 	}
 
 	buildGroups(items) {
@@ -230,7 +241,7 @@ export class PersistencePlugin {
 				} else {
 					memo.push({
 						key: item.group,
-						items: [item]
+						items: [item],
 					});
 				}
 				return memo;
@@ -238,7 +249,7 @@ export class PersistencePlugin {
 	}
 
 	isActive(item) {
-		return serialize(item.model) === serialize(this.service.save()); // eslint-disable-line angular/json-functions
+		return serialize(item.model) === serialize(this.service.save());
 	}
 
 	persist() {
@@ -257,7 +268,7 @@ export class PersistencePlugin {
 		const model = item ? item.model : this.service.save();
 		const targets = [];
 
-		for (let key in settings) {
+		for (const key in settings) {
 			if (!model[key]) {
 				continue;
 			}

@@ -1,20 +1,11 @@
 import { createValidator, hasRules, isString, same } from '@qgrid/core';
 
 export class ValidatorPlugin {
-	constructor(model, context) {
-		this.model = model;
-		this.context = context;
-
-		this.oldErrors = [];
-		if (hasRules(this.rules, this.key)) {
-			this.validator = createValidator(this.rules, this.key);
-		}
-	}
 
 	get errors() {
 		if (this.validator) {
 			const target = {
-				[this.key]: this.value
+				[this.key]: this.value,
 			};
 
 			const isValid = this.validator.validate(target);
@@ -30,6 +21,8 @@ export class ValidatorPlugin {
 
 			return this.stringify(this.oldErrors);
 		}
+
+		return '';
 	}
 
 	get rules() {
@@ -48,6 +41,16 @@ export class ValidatorPlugin {
 		return this.context.key;
 	}
 
+	constructor(model, context) {
+		this.model = model;
+		this.context = context;
+
+		this.oldErrors = [];
+		if (hasRules(this.rules, this.key)) {
+			this.validator = createValidator(this.rules, this.key);
+		}
+	}
+
 	stringify(errors) {
 		const customErrors = [];
 		let rules = {};
@@ -57,11 +60,11 @@ export class ValidatorPlugin {
 
 		for (const error of errors) {
 			switch (error) {
-				case 'REQUIRED': { customErrors.push(`Can't be empty`); break; }
+				case 'REQUIRED': { customErrors.push('Can\'t be empty'); break; }
 				case 'FORMAT_ERROR': { customErrors.push('Wrong format'); break; }
 				case 'TOO_LOW': { customErrors.push(`Must be > ${rules.min_number}`); break; }
 				case 'TOO_HIGH': { customErrors.push(`Must be < ${rules.max_number}`); break; }
-				case 'CANNOT BE EMPTY': { customErrors.push(`Can't be empty`); break; }
+				case 'CANNOT BE EMPTY': { customErrors.push('Can\'t be empty'); break; }
 				case 'WRONG_FORMAT': { customErrors.push('Must match the pattern'); break; }
 				case 'WRONG_EMAIL': { customErrors.push('Must be an email'); break; }
 				case 'WRONG_URL': { customErrors.push('Must be a url'); break; }
@@ -72,10 +75,9 @@ export class ValidatorPlugin {
 				case 'NOT_DECIMAL': { customErrors.push('Must be a decimal'); break; }
 				case 'NOT_POSITIVE_DECIMAL': { customErrors.push('Must be a positive decimal'); break; }
 				case 'NOT_ALLOWED_VALUE': {
-					if (rules.eq && rules.eq != this.value) {
+					if (rules.eq && rules.eq !== this.value) {
 						customErrors.push(`Must be equal to ${rules.eq}`);
-					}
-					else {
+					} else {
 						customErrors.push(`Must be one of ${rules.one_of}`);
 					}
 					break;
@@ -83,11 +85,9 @@ export class ValidatorPlugin {
 				case 'TOO_LONG': {
 					if (rules.max_length && rules.max_length < this.value.length) {
 						customErrors.push(`Length must be < ${rules.max_length}`);
-					}
-					else if (rules.length_equal && rules.length_equal != this.value.length) {
+					} else if (rules.length_equal && rules.length_equal !== this.value.length) {
 						customErrors.push(`Length must be equal to ${rules.length_equal}`);
-					}
-					else {
+					} else {
 						customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
 					}
 					break;
@@ -95,11 +95,9 @@ export class ValidatorPlugin {
 				case 'TOO_SHORT': {
 					if (rules.min_length && rules.min_length > this.value.length) {
 						customErrors.push(`Length must be > ${rules.min_length}`);
-					}
-					else if (rules.length_equal && rules.length_equal != this.value.length) {
+					} else if (rules.length_equal && rules.length_equal !== this.value.length) {
 						customErrors.push(`Length must be equal to ${rules.length_equal}`);
-					}
-					else {
+					} else {
 						customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
 					}
 					break;

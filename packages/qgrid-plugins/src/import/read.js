@@ -1,4 +1,15 @@
-import { alphaTitle, columnFactory, CsvImport, firstRowTitle, generate, GridError, JsonImport, numericTitle, PluginService, XmlImport } from '@qgrid/core';
+import {
+	alphaTitle,
+	columnFactory,
+	CsvImport,
+	firstRowTitle,
+	generate,
+	GridError,
+	JsonImport,
+	numericTitle,
+	PluginService,
+	XmlImport,
+} from '@qgrid/core';
 import { XlsxReader } from './xlsx';
 
 function getType(name) {
@@ -23,11 +34,11 @@ function readFile(e, file, model, options = {}) {
 			const columns = generate({
 				rows,
 				columnFactory: (type, body) => createColumn('text', body),
-				deep: false
+				deep: false,
 			});
 			model.data({
 				columns,
-				rows
+				rows,
 			}, { source: 'read' });
 			break;
 		}
@@ -41,11 +52,11 @@ function readFile(e, file, model, options = {}) {
 				const columns = generate({
 					rows,
 					columnFactory: (type, body) => createColumn('text', body),
-					deep: true
+					deep: true,
 				});
 				model.data({
 					columns,
-					rows
+					rows,
 				}, { source: 'read' });
 			} else {
 				throw new GridError('import', 'JSON for input should be an array of objects');
@@ -60,11 +71,11 @@ function readFile(e, file, model, options = {}) {
 			const columns = generate({
 				rows,
 				columnFactory: columnFactory(model),
-				deep: true
+				deep: true,
 			});
 			model.data({
 				columns,
-				rows
+				rows,
 			}, { source: 'read' });
 			break;
 		}
@@ -86,7 +97,7 @@ function readFile(e, file, model, options = {}) {
 				rows,
 				columnFactory: columnFactory(model),
 				deep: false,
-				title
+				title,
 			});
 
 			if (title === firstRowTitle) {
@@ -94,7 +105,7 @@ function readFile(e, file, model, options = {}) {
 			}
 			model.data({
 				columns,
-				rows
+				rows,
 			}, { source: 'read' });
 			break;
 		}
@@ -105,6 +116,6 @@ function readFile(e, file, model, options = {}) {
 }
 
 export {
-  readFile
+	readFile,
 };
 
