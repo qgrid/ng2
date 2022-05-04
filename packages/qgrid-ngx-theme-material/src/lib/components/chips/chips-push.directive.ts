@@ -5,14 +5,14 @@ import {
 	AfterViewInit,
 	Output,
 	EventEmitter,
-	NgZone
+	NgZone,
 } from '@angular/core';
 import { MatChipInput } from '@angular/material/chips';
 import { Shortcut } from 'ng2-qgrid';
 import { ChipsDirective } from './chips.directive';
 
 @Directive({
-	selector: '[q-grid-chips-push]'
+	selector: '[q-grid-chips-push]',
 })
 export class ChipsPushDirective implements AfterViewInit {
 	@ContentChild(MatChipInput) inputComponent: MatChipInput;
@@ -23,7 +23,7 @@ export class ChipsPushDirective implements AfterViewInit {
 	constructor(private zone: NgZone, private chipsDirective: ChipsDirective) { }
 
 	ngAfterViewInit() {
-		this.inputComponent.chipEnd.subscribe(e => {
+		this.inputComponent.chipEnd.subscribe(() => {
 			// we need to override it to prevent default behavior
 		});
 
@@ -42,7 +42,7 @@ export class ChipsPushDirective implements AfterViewInit {
 						this.chipsDirective.tick();
 					}
 				}
-			})
+			}),
 		);
 	}
 }

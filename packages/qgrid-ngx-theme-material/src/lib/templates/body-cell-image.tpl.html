@@ -1,9 +1,9 @@
 <ng-template key="body-cell-image.tpl.html"
              let-$cell>
-	<img *ngIf="$cell.value"
-	     [src]="$cell.value" />
-	<mat-icon class="q-grid-icon"
-	          *ngIf="!$cell.value">
-		insert_photo
-	</mat-icon>
+  <img *ngIf="$cell.value"
+       [src]="$cell.value" />
+  <mat-icon *ngIf="!$cell.value"
+            class="q-grid-icon">
+    insert_photo
+ </mat-icon>
 </ng-template>

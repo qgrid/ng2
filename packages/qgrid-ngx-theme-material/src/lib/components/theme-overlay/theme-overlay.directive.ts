@@ -3,7 +3,7 @@ import { GridError, GridPlugin } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-theme-overlay]',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
 })
 export class ThemeOverlayDirective implements AfterViewInit {
 
@@ -33,7 +33,7 @@ export class ThemeOverlayDirective implements AfterViewInit {
 		if (!overlayContainer) {
 			throw new GridError(
 				'theme-overlay.directive',
-				`cdk-overlay container is not found`
+				'cdk-overlay container is not found',
 			);
 		}
 

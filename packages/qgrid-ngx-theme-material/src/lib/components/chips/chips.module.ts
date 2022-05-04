@@ -13,7 +13,7 @@ import { ChipsRemoveDirective } from './chips-remove.directive';
 		ChipsDirective,
 		ChipsPushDirective,
 		ChipsRemoveDirective,
-	]
+	],
 })
 export class ChipsModule {
 }

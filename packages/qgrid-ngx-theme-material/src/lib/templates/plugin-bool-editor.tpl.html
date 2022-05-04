@@ -1,12 +1,12 @@
 <ng-template key="plugin-bool-editor.tpl.html"
              let-$editor>
-    <mat-checkbox #checkbox
-                  aria-label="Bool cell edit"
-                  class="q-grid-checkbox"
-                  [q-grid-focus]="checkbox"
-                  [q-grid-focus-disabled]="!$editor.autofocus"
-                  [checked]="$editor.isChecked"
-                  (change)="$editor.isChecked = $event.checked">
-        {{$editor.label}}
-    </mat-checkbox>
+  <mat-checkbox #checkbox
+                aria-label="Bool cell edit"
+                class="q-grid-checkbox"
+                [q-grid-focus]="checkbox"
+                [q-grid-focus-disabled]="!$editor.autofocus"
+                [checked]="$editor.isChecked"
+                (change)="$editor.isChecked = $event.checked">
+    {{$editor.label}}
+  </mat-checkbox>
 </ng-template>
