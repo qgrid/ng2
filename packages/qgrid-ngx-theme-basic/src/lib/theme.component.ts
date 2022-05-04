@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 	styleUrls: ['./theme.component.scss'],
 	templateUrl: './theme.component.gen.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
 export class ThemeComponent {
 }
