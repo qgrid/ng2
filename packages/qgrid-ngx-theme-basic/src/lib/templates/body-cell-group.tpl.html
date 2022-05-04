@@ -1,20 +1,19 @@
 <ng-template key="body-cell-group.tpl.html"
-			 let-$cell
-			 let-$view="$view">
-	<div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
-		 *ngIf="$view.group.isVisible($cell.row, $cell.column)">
-		<button [q-grid-command]="$view.group.toggleStatus"
-				[q-grid-command-arg]="[$cell.row, $cell.column]"
-				[ngClass]="'q-grid-'+$view.group.status($cell.row, $cell.column) + ' q-grid-icon-button'"
-				tabindex="-1">
-			<i class="q-grid-icon">&#10095;</i>
-
-			<span class="q-grid-group-label">
-				{{$view.group.value($cell.row, $cell.column)}}
-			</span>
-			<span class="q-grid-group-count">
-				({{$view.group.count($cell.row, $cell.column)}})
-			</span>
-		</button>
-	</div>
+             let-$cell
+             let-$view="$view">
+  <div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
+       *ngIf="$view.group.isVisible($cell.row, $cell.column)">
+    <button [q-grid-command]="$view.group.toggleStatus"
+            [q-grid-command-arg]="[$cell.row, $cell.column]"
+            [ngClass]="'q-grid-'+$view.group.status($cell.row, $cell.column) + ' q-grid-icon-button'"
+            tabindex="-1">
+      <i class="q-grid-icon">&#10095;</i>
+      <span class="q-grid-group-label">
+        {{$view.group.value($cell.row, $cell.column)}}
+      </span>
+      <span class="q-grid-group-count">
+        ({{$view.group.count($cell.row, $cell.column)}})
+      </span>
+    </button>
+  </div>
 </ng-template>

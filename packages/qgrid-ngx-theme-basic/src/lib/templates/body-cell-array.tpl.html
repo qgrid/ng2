@@ -1,6 +1,8 @@
 <ng-template key="body-cell-array.tpl.html"
-			 let-$cell>
-	<ul>
-		<li *ngFor="let item of $cell.value | qGridArray">{{item | qGridItemLabel : $cell.column.itemLabel}}</li>
-	</ul>
+             let-$cell>
+  <ul>
+    <li *ngFor="let item of $cell.value | qGridArray">
+      {{item | qGridItemLabel : $cell.column.itemLabel}}
+    </li>
+  </ul>
 </ng-template>
