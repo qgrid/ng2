@@ -1,15 +1,15 @@
 import { Command, Event, GridPlugin, Node } from '@qgrid/core';
 
 export declare class ColumnChooserPlugin {
-    constructor(plugin: GridPlugin, context: { name: string });
+	drag: Command<{ dragData: string }>;
+	drop: Command<{ dragData: string; dropData: string }>;
 
-    drag: Command<{ dragData: string }>;
-    drop: Command<{ dragData: string, dropData: string }>;
+	treeView: Node;
+	cancelEvent: Event;
+	submitEvent: Event;
+	dropEvent: Event;
 
-    treeView: Node;
-    cancelEvent: Event;
-    submitEvent: Event;
-    dropEvent: Event;
+	constructor(plugin: GridPlugin, context: { name: string });
 
-    search(value: string): void;
+	search(value: string): void;
 }

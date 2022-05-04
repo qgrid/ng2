@@ -1,8 +1,12 @@
-import { ColumnModel, Command, Event, Expression, GridPlugin } from '@qgrid/core';
+import {
+	ColumnModel,
+	Command,
+	Event,
+	Expression,
+	GridPlugin,
+} from '@qgrid/core';
 
 export declare class ColumnFilterPlugin {
-	constructor(plugin: GridPlugin, context: { column: ColumnModel });
-
 	by: Set<string>;
 	expression: Expression;
 
@@ -21,5 +25,8 @@ export declare class ColumnFilterPlugin {
 	cancel: Command;
 
 	hasBlanks: boolean;
+
+	constructor(plugin: GridPlugin, context: { column: ColumnModel });
+
 	isEmpty(): boolean;
 }

@@ -4,13 +4,16 @@ export {
 	ArrayColumnModel as ArrayColumn,
 	BoolColumnModel as BoolColumn,
 	CohortColumnModel as CohortColumn,
-	ColumnModel as Column, Command, CommandManager,
+	ColumnModel as Column,
+	Command,
+	CommandManager,
 	CurrencyColumnModel as CurrencyColumn,
 	DataColumnModel as DataColumn,
 	DateColumnModel as DateColumn,
 	DateTimeColumnModel as DateTimeColumn,
 	EditorOptions,
-	EmailColumnModel as EmailColumn, Event as GridEvent,
+	EmailColumnModel as EmailColumn,
+	Event as GridEvent,
 	FetchContext,
 	FileColumnModel as FileColumn,
 	FilterRowColumnModel as FilterRowColumn,
@@ -25,7 +28,8 @@ export {
 	PadColumnModel as PadColumn,
 	PasswordColumnModel as PasswordColumn,
 	PersistenceStorage,
-	Pipe, PipeCallback,
+	Pipe,
+	PipeCallback,
 	PipeContext,
 	PipeFolder,
 	PipeUnit,
@@ -47,7 +51,7 @@ export {
 	StyleRowContext,
 	TextColumnModel as TextColumn,
 	TimeColumnModel as TimeColumn,
-	UrlColumnModel as UrlColumn
+	UrlColumnModel as UrlColumn,
 } from '@qgrid/core';
 // @qgrid/ngx
 export {
@@ -59,7 +63,10 @@ export {
 	CellHandlerComponent,
 	CellHandlerModule,
 	CellTemplateService,
-	ChangeDetectorModule, ColumnBodyTemplateDirective, ColumnComponent, ColumnEditTemplateDirective,
+	ChangeDetectorModule,
+	ColumnBodyTemplateDirective,
+	ColumnComponent,
+	ColumnEditTemplateDirective,
 	ColumnFootTemplateDirective,
 	ColumnHeadTemplateDirective,
 	ColumnHostService,
@@ -91,7 +98,9 @@ export {
 	GridModelBuilder,
 	GridModule as NgxGridModule,
 	GridPlugin,
-	GridRoot, GridService, HeadCoreComponent,
+	GridRoot,
+	GridService,
+	HeadCoreComponent,
 	HeadModule,
 	IVscrollSettings,
 	LayerComponent,
@@ -142,7 +151,7 @@ export {
 	VscrollPortXDirective,
 	VscrollPortYDirective,
 	VscrollRowDirective,
-	VscrollService
+	VscrollService,
 } from '@qgrid/ngx';
 export {
 	ActionBarComponent,
@@ -266,7 +275,6 @@ export {
 	ValidationModule,
 	ValidatorComponent,
 	VisibilityComponent,
-	VisibilityModule
+	VisibilityModule,
 } from '@qgrid/ngx-plugins';
 export { Ng2GridModule as GridModule } from './lib/ng2-qgrid.module';
-

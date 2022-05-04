@@ -1,4 +1,13 @@
-import { cloneDeep, isArray, isBoolean, isDate, isFunction, isNumber, isObject, Resource } from '@qgrid/core';
+import {
+	cloneDeep,
+	isArray,
+	isBoolean,
+	isDate,
+	isFunction,
+	isNumber,
+	isObject,
+	Resource,
+} from '@qgrid/core';
 
 export class DataManipulationState {
 	constructor() {

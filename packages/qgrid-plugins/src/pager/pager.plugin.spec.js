@@ -10,7 +10,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 0,
 				size: 50,
-				count: 100
+				count: 100,
 			});
 
 			expect(view.next.canExecute()).to.be.equal(true);
@@ -23,7 +23,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 1,
 				size: 50,
-				count: 150
+				count: 150,
 			});
 
 			expect(view.next.canExecute()).to.be.equal(true);
@@ -36,7 +36,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 2,
 				size: 50,
-				count: 150
+				count: 150,
 			});
 
 			expect(view.next.canExecute()).to.be.equal(false);
@@ -49,7 +49,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 0,
 				size: 50,
-				count: 100
+				count: 100,
 			});
 
 			view.next.execute();
@@ -66,7 +66,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 0,
 				size: 50,
-				count: 100
+				count: 100,
 			});
 
 			expect(view.prev.canExecute()).to.be.equal(false);
@@ -79,7 +79,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 1,
 				size: 50,
-				count: 150
+				count: 150,
 			});
 
 			expect(view.prev.canExecute()).to.be.equal(true);
@@ -92,7 +92,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 2,
 				size: 50,
-				count: 150
+				count: 150,
 			});
 
 			expect(view.prev.canExecute()).to.be.equal(true);
@@ -105,7 +105,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 1,
 				size: 50,
-				count: 100
+				count: 100,
 			});
 
 			view.prev.execute();
@@ -121,7 +121,7 @@ describe('Pager plugin', () => {
 
 			model.pagination({
 				current: 2,
-				size: 50
+				size: 50,
 			});
 
 			expect(view.size).to.be.equal(50);
@@ -133,7 +133,7 @@ describe('Pager plugin', () => {
 
 			model.pagination({
 				current: 2,
-				size: 50
+				size: 50,
 			});
 
 			view.size = 30;
@@ -148,7 +148,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				current: 2,
 				size: 50,
-				count: 100
+				count: 100,
 			});
 
 			view.size = 30;
@@ -162,7 +162,7 @@ describe('Pager plugin', () => {
 			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
-				count: 100
+				count: 100,
 			});
 
 			expect(view.total).to.be.equal(100);
@@ -177,7 +177,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				count: 100,
 				size: 30,
-				current: 2
+				current: 2,
 			});
 
 			expect(view.from).to.be.equal(61);
@@ -190,7 +190,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				count: 0,
 				size: 30,
-				current: 1
+				current: 1,
 			});
 
 			expect(view.from).to.be.equal(0);
@@ -205,7 +205,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				count: 100,
 				size: 30,
-				current: 2
+				current: 2,
 			});
 
 			expect(view.to).to.be.equal(90);
@@ -218,7 +218,7 @@ describe('Pager plugin', () => {
 			model.pagination({
 				count: 100,
 				size: 30,
-				current: 3
+				current: 3,
 			});
 
 			expect(view.to).to.be.equal(100);
@@ -232,7 +232,7 @@ describe('Pager plugin', () => {
 
 			model.pagination({
 				count: 100,
-				size: 30
+				size: 30,
 			});
 
 			expect(view.totalPages).to.be.equal(4);
@@ -244,7 +244,7 @@ describe('Pager plugin', () => {
 
 			model.pagination({
 				count: 0,
-				size: 0
+				size: 0,
 			});
 
 			expect(view.totalPages).to.be.equal(0);

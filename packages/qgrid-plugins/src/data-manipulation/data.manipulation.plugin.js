@@ -1,8 +1,29 @@
 import * as columnService from '@qgrid/core';
-import { Action, Command, Composite, filter, GridError, isUndefined, setLabel, setValue, takeOnce } from '@qgrid/core';
+import {
+	Action,
+	Command,
+	Composite,
+	filter,
+	GridError,
+	isUndefined,
+	setLabel,
+	setValue,
+	takeOnce,
+} from '@qgrid/core';
 import { DataManipulationState } from './data.manipulation.state';
 
 export class DataManipulationPlugin {
+
+	get changes() {
+		const { model } = this.plugin;
+		return model.dataManipulation();
+	}
+
+	get resource() {
+		const dm = this.model.resolve(DataManipulationState);
+		return dm.state().resource;
+	}
+
 	constructor(plugin) {
 		this.plugin = plugin;
 
@@ -28,7 +49,7 @@ export class DataManipulationPlugin {
 					entry = {
 						column: columnId,
 						oldValue: e.oldValue,
-						oldLabel: e.oldLabel
+						oldLabel: e.oldLabel,
 					};
 
 					entryIndex = entries.length;
@@ -45,7 +66,7 @@ export class DataManipulationPlugin {
 						edited.delete(rowId);
 					}
 				}
-			}
+			},
 		});
 
 		this.actions = [
@@ -64,9 +85,9 @@ export class DataManipulationPlugin {
 						const rowId = this.rowId(0, newRow);
 						this.changes.added.add(rowId);
 						data({
-							rows: [newRow].concat(data().rows)
+							rows: [newRow].concat(data().rows),
 						}, {
-							source: 'data.manipulation'
+							source: 'data.manipulation',
 						});
 
 						observe(model.sceneChanged)
@@ -74,22 +95,23 @@ export class DataManipulationPlugin {
 								filter(e => e.hasChanges('status') && e.state.status === 'stop'),
 								takeOnce()
 							)
-							.subscribe(e => {
+							.subscribe(() => {
 								const index = model.view().rows.indexOf(newRow);
 								model.focus({
-									rowIndex: index
+									rowIndex: index,
 								}, {
-									source: 'data.manipulation.plugin'
+									source: 'data.manipulation.plugin',
 								});
 
 								table.view.focus();
 							});
 					},
-					shortcut: 'F7'
+					shortcut: 'F7',
 				}),
 				'Add New Row',
 				'add'
-			)];
+			),
+		];
 
 		this.rowActions = [
 			new Action(
@@ -109,13 +131,12 @@ export class DataManipulationPlugin {
 							changes.added.delete(rowId);
 							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
 							data({ rows }, {
-								source: 'data.manipulation'
+								source: 'data.manipulation',
 							});
-						}
-						else {
+						} else {
 							changes.deleted.add(rowId);
 						}
-					}
+					},
 				}),
 				'Delete Row',
 				'delete'
@@ -144,8 +165,7 @@ export class DataManipulationPlugin {
 									setValue(e.row, column, edit.oldValue);
 									setLabel(e.row, column, edit.oldLabel);
 								}
-							}
-							finally {
+							} finally {
 								this.changes.edited.delete(rowId);
 							}
 						}
@@ -153,7 +173,7 @@ export class DataManipulationPlugin {
 					canExecute: e => {
 						const rowId = this.rowId(e.rowIndex, e.row);
 						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
-					}
+					},
 				}),
 				'Revert Row',
 				'restore'
@@ -188,13 +208,13 @@ export class DataManipulationPlugin {
 		model
 			.edit({
 				mode: 'cell',
-				commit: Composite.command([this.commitCommand, model.edit().commit])
+				commit: Composite.command([this.commitCommand, model.edit().commit]),
 			})
 			.style({
-				rows, cells
+				rows, cells,
 			})
 			.action({
-				items: Composite.list([this.actions, model.action().items])
+				items: Composite.list([this.actions, model.action().items]),
 			});
 
 		disposable.add(() => {
@@ -218,13 +238,11 @@ export class DataManipulationPlugin {
 
 	hasChanges(newValue, oldValue) {
 		if (Array.isArray(newValue) && Array.isArray(oldValue)) {
-			const haschanges = oldValue.some((item, index) => {
-				return item !== newValue[index];
-			});
+			const haschanges = oldValue.some((item, index) => item !== newValue[index]);
 
 			return haschanges;
 		}
-		
+
 		return newValue !== oldValue;
 	}
 
@@ -241,11 +259,9 @@ export class DataManipulationPlugin {
 		if (column.type === 'row-indicator') {
 			if (changes.deleted.has(rowId)) {
 				context.class('delete-indicator', { background: '#EF5350' });
-			}
-			else if (changes.added.has(rowId)) {
+			} else if (changes.added.has(rowId)) {
 				context.class('add-indicator', { background: '#C8E6C9' });
-			}
-			else if (changes.edited.has(rowId)) {
+			} else if (changes.edited.has(rowId)) {
 				context.class('edit-indicator', { background: '#E3F2FD' });
 			}
 
@@ -258,15 +274,5 @@ export class DataManipulationPlugin {
 				context.class('edited', { background: '#E3F2FD' });
 			}
 		}
-	}
-
-	get changes() {
-		const { model } = this.plugin;
-		return model.dataManipulation();
-	}
-
-	get resource() {
-		const dm = this.model.resolve(DataManipulationState);
-		return dm.state().resource;
 	}
 }

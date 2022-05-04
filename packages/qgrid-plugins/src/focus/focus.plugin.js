@@ -19,8 +19,7 @@ export class FocusPlugin {
 				const target = this.element.querySelector(this.targetSelector);
 				if (target) {
 					targetElement = target;
-				}
-				else {
+				} else {
 					throw new GridError('focus', `Element "${this.targetSelector}" is not found`);
 				}
 			}
