@@ -1,10 +1,10 @@
 import {
-	Directive,
-	ElementRef,
-	Input,
-	OnDestroy,
-	OnInit,
-	ViewContainerRef,
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
 } from '@angular/core';
 import { ColumnModel, ColumnView, FilterRowColumnModel, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
@@ -15,75 +15,75 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 @Directive({
-	selector: '[q-grid-core-th]',
+  selector: '[q-grid-core-th]',
 })
 export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
-	@Input('q-grid-core-th') columnView: ColumnView;
+  @Input('q-grid-core-th') columnView: ColumnView;
 
-	$implicit = this;
-	element: HTMLElement;
-	value: any;
-	label: any;
+  $implicit = this;
+  element: HTMLElement;
+  value: any;
+  label: any;
 
-	get column(): ColumnModel {
-		return this.columnView.model;
-	}
+  get column(): ColumnModel {
+    return this.columnView.model;
+  }
 
-	get columnIndex() {
-		return this.columnView.columnIndex;
-	}
+  get columnIndex() {
+    return this.columnView.columnIndex;
+  }
 
-	get row() {
-		return this.tr.model;
-	}
+  get row() {
+    return this.tr.model;
+  }
 
-	get rowIndex() {
-		return this.tr.index;
-	}
+  get rowIndex() {
+    return this.tr.index;
+  }
 
-	constructor(
-		public $view: GridLet,
-		private root: GridPlugin,
-		private viewContainerRef: ViewContainerRef,
-		private cellTemplate: CellTemplateService,
-		private cellClass: CellClassService,
-		private tr: TrhCoreDirective,
-		elementRef: ElementRef,
-	) {
-		this.element = elementRef.nativeElement.parentNode;
-	}
+  constructor(
+    public $view: GridLet,
+    private root: GridPlugin,
+    private viewContainerRef: ViewContainerRef,
+    private cellTemplate: CellTemplateService,
+    private cellClass: CellClassService,
+    private tr: TrhCoreDirective,
+    elementRef: ElementRef,
+  ) {
+    this.element = elementRef.nativeElement.parentNode;
+  }
 
-	ngOnInit() {
-		const { column, element } = this;
-		const { table } = this.root;
+  ngOnInit() {
+    const { column, element } = this;
+    const { table } = this.root;
 
-		table.box.bag.head.addCell(this);
+    table.box.bag.head.addCell(this);
 
-		let targetColumn: ColumnModel = column;
-		let targetSource = 'head';
+    let targetColumn: ColumnModel = column;
+    let targetSource = 'head';
 
-		if (column.type === 'filter-row') {
-			targetSource = 'filter';
-			targetColumn = (column as FilterRowColumnModel).model;
-			this.element.classList.add('q-grid-filter-row');
-		}
+    if (column.type === 'filter-row') {
+      targetSource = 'filter';
+      targetColumn = (column as FilterRowColumnModel).model;
+      this.element.classList.add('q-grid-filter-row');
+    }
 
-		this.cellClass.toHead(element, column);
-		this.cellClass.toBody(element, targetColumn);
+    this.cellClass.toHead(element, column);
+    this.cellClass.toBody(element, targetColumn);
 
-		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
-		link(this.viewContainerRef, this);
-	}
+    const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
+    link(this.viewContainerRef, this);
+  }
 
-	mode(value: string): void {
-		throw new GridError(
-			'th-core.directive',
-			`${value} mode is not supported`,
-		);
-	}
+  mode(value: string): void {
+    throw new GridError(
+      'th-core.directive',
+      `${value} mode is not supported`,
+    );
+  }
 
-	ngOnDestroy() {
-		const { table } = this.root;
-		table.box.bag.head.deleteCell(this);
-	}
+  ngOnDestroy() {
+    const { table } = this.root;
+    table.box.bag.head.deleteCell(this);
+  }
 }

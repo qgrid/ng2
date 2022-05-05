@@ -5,19 +5,19 @@ import { LayerComponent } from './layer.component';
 import { TemplateModule } from '../template/template.module';
 
 @NgModule({
-	declarations: [
-		LayerCoreComponent,
-		LayerCoreDirective,
-		LayerComponent,
-	],
-	exports: [
-		LayerCoreComponent,
-		LayerCoreDirective,
-		LayerComponent,
-	],
-	imports: [
-		TemplateModule,
-	],
+  declarations: [
+    LayerCoreComponent,
+    LayerCoreDirective,
+    LayerComponent,
+  ],
+  exports: [
+    LayerCoreComponent,
+    LayerCoreDirective,
+    LayerComponent,
+  ],
+  imports: [
+    TemplateModule,
+  ],
 })
 export class LayerModule {
 }

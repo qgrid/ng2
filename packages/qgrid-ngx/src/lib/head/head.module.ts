@@ -7,20 +7,20 @@ import { ResizeModule } from '../resize/resize.module';
 import { DndModule } from '../dnd/dnd.module';
 
 @NgModule({
-	declarations: [
-		HeadCoreComponent,
-		ThCoreDirective,
-	],
-	exports: [
-		HeadCoreComponent,
-		ThCoreDirective,
-	],
-	imports: [
-		CommonModule,
-		RowModule,
-		ResizeModule,
-		DndModule,
-	],
+  declarations: [
+    HeadCoreComponent,
+    ThCoreDirective,
+  ],
+  exports: [
+    HeadCoreComponent,
+    ThCoreDirective,
+  ],
+  imports: [
+    CommonModule,
+    RowModule,
+    ResizeModule,
+    DndModule,
+  ],
 })
 export class HeadModule {
 }

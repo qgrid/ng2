@@ -4,13 +4,13 @@ import { GridModel } from './grid-model';
 
 @Injectable()
 export class GridModelBuilder {
-	private builder = new ModelBuilder();
+  private builder = new ModelBuilder();
 
-	register<T>(key: string, ctor: T) {
-		return this.builder.register(key, ctor);
-	}
+  register<T>(key: string, ctor: T) {
+    return this.builder.register(key, ctor);
+  }
 
-	build(): GridModel {
-		return this.builder.build();
-	}
+  build(): GridModel {
+    return this.builder.build();
+  }
 }
