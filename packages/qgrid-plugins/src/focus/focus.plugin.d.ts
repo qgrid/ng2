@@ -1,3 +1,3 @@
 export declare class FocusPlugin {
-	constructor(context: any);
+  constructor(context: any);
 }
