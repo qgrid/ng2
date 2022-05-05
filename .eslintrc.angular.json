@@ -40,7 +40,8 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        "indent": "off"
+        "indent": "off",
+        "spaced-comment": "off"
       }
     },
     {
