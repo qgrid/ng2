@@ -1,20 +1,17 @@
-import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FetchContext, Grid, GridModel } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'filter-column-fetch',
-	'Column filter value can be loaded from server'
-];
+const EXAMPLE_TAGS = ['filter-column-fetch', 'Column filter value can be loaded from server'];
 
 @Component({
 	selector: 'example-filter-column-fetch',
 	templateUrl: 'example-filter-column-fetch.component.html',
 	styleUrls: ['example-filter-column-fetch.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFilterColumnFetchComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
@@ -24,7 +21,7 @@ export class ExampleFilterColumnFetchComponent implements AfterViewInit {
 	gridModel: GridModel;
 
 	constructor(private dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.rows = dataService.getAtoms();
 		this.gridModel = qgrid.model();
@@ -47,7 +44,7 @@ export class ExampleFilterColumnFetchComponent implements AfterViewInit {
 
 							filteredData.sort();
 							return filteredData.slice(skip, skip + take);
-						}))
+						})),
 		});
 	}
 }

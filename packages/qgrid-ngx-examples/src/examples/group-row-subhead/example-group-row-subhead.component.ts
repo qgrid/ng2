@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'group-row-subhead',
-	'Different group types'
-];
+const EXAMPLE_TAGS = ['group-row-subhead', 'Different group types'];
 
 @Component({
 	selector: 'example-group-row-subhead',
 	templateUrl: 'example-group-row-subhead.component.html',
 	styleUrls: ['example-group-row-subhead.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGroupRowSubheadComponent {
 	static tags = EXAMPLE_TAGS;

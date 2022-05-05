@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-look-people-basic.component.html',
 	styleUrls: ['example-look-people-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookPeopleBasicComponent {
 	static id = 'look-people-basic';

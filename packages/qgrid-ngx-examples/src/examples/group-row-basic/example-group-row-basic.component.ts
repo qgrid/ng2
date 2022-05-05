@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'group-row-basic',
-	'Rows are grouped'
-];
+const EXAMPLE_TAGS = ['group-row-basic', 'Rows are grouped'];
 
 @Component({
 	selector: 'example-group-row-basic',
 	templateUrl: 'example-group-row-basic.component.html',
 	styleUrls: ['example-group-row-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGroupRowBasicComponent {
 	static tags = EXAMPLE_TAGS;

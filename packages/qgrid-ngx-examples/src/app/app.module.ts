@@ -24,7 +24,7 @@ import { HighlightPipe } from './app.highlight.pipe';
 	declarations: [
 		AppComponent,
 		FilterSearchPipe,
-		HighlightPipe
+		HighlightPipe,
 	],
 	imports: [
 		CommonModule,
@@ -39,15 +39,19 @@ import { HighlightPipe } from './app.highlight.pipe';
 		MatListModule,
 		MatInputModule,
 		MatButtonModule,
-		RouterModule.forRoot([{
-			path: '',
-			redirectTo: 'action-bar-basic',
-			pathMatch: 'full'
-		}]),
+		RouterModule.forRoot([
+			{
+				path: '',
+				redirectTo: 'action-bar-basic',
+				pathMatch: 'full',
+			},
+		]),
 		ExampleModule,
-		FormsModule
+		FormsModule,
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [
+		AppComponent,
+	],
 })
 export class AppModule {
 	constructor(router: Router) {

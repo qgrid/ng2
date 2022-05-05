@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-text-basic',
-	'Cell value is in text format'
-];
+const EXAMPLE_TAGS = ['column-text-basic', 'Cell value is in text format'];
 
 @Component({
 	selector: 'example-column-text-basic',
 	templateUrl: 'example-column-text-basic.component.html',
 	styleUrls: ['example-column-text-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnTextBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -32,7 +29,7 @@ export class ExampleColumnTextBasicComponent {
 			Semper malorum volumus mei id, utamur placerat volutpat ea pri,
 			no ludus prompta lobortis mel. Quo in duis ferri, at atqui
 			mandamus moderatius nec, eam inermis legendos at.
-			Pro id habemus adipiscing, tibique prodesset ex mei.`
-		}
+			Pro id habemus adipiscing, tibique prodesset ex mei.`,
+		},
 	];
 }

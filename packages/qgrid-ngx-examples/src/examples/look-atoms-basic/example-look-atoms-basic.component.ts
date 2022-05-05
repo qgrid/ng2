@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-look-atoms-basic.component.html',
 	styleUrls: ['example-look-atoms-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookAtomsBasicComponent {
 	static id = 'look-atoms-basic';

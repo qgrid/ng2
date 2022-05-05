@@ -1,12 +1,16 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent, RowDetailsStatus, Command, RowDetails, Grid } from 'ng2-qgrid';
+import {
+	GridComponent,
+	RowDetailsStatus,
+	Command,
+	RowDetails,
+	Grid,
+} from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'details-row-custom',
-	'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'
-];
+const EXAMPLE_TAGS =
+	['details-row-custom', 'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'];
 
 @Component({
 	selector: 'example-details-row-custom',
@@ -16,20 +20,21 @@ const EXAMPLE_TAGS = [
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowCustomComponent implements AfterViewInit {
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows$: Observable<Atom[]>;
 
 	toggleExpand = new Command({
-		execute: (row) => {
+		execute: row => {
 			const { model } = this.grid;
 			if (row) {
 				const { status } = model.row();
 				if (!status.has(row)) {
 					model.row({
-						status: new Map([[row, new RowDetailsStatus(true)]])
+						status: new Map([[row, new RowDetailsStatus(true)]]),
 					});
 
 					model.sceneChanged.on((e, off) => {
@@ -45,17 +50,15 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 			}
 
 			model.row({
-				status: new Map()
+				status: new Map(),
 			});
 		},
-		canExecute: row => {
-			return !(row instanceof RowDetails);
-		}
+		canExecute: row => !(row instanceof RowDetails),
 	});
 
 	constructor(
 		dataService: DataService,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.rows$ = dataService.getAtoms();
 	}
@@ -64,7 +67,7 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 		const { model } = this.grid;
 
 		model.pagination({
-			size: 10
+			size: 10,
 		});
 
 		model.style({
@@ -74,10 +77,10 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 					context.class('row-details-height', {
 						'height': `${ROW_DETAILS_HEIGHT}px`,
 						'max-height': `${ROW_DETAILS_HEIGHT}px`,
-						'min-height': `${ROW_DETAILS_HEIGHT}px`
+						'min-height': `${ROW_DETAILS_HEIGHT}px`,
 					});
 				}
-			}
+			},
 		});
 
 		model.keyboardChanged.on(e => {

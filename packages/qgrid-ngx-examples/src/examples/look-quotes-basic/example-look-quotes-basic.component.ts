@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-look-quotes-basic.component.html',
 	styleUrls: ['example-look-quotes-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookQuotesBasicComponent {
 	static id = 'look-quotes-basic';

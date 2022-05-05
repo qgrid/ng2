@@ -7,7 +7,7 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	templateUrl: 'example-look-atoms-model.component.html',
 	styleUrls: ['example-look-atoms-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookAtomsModelComponent {
 	static id = 'look-atoms-model';

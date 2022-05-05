@@ -1,19 +1,22 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
+import {
+	GridModel,
+	Action,
+	GridService,
+	Command,
+	Grid,
+} from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'action-bar-on-enter',
-	'Row actions appear on enter key press'
-];
+const EXAMPLE_TAGS = ['action-bar-on-enter', 'Row actions appear on enter key press'];
 
 @Component({
 	selector: 'example-action-bar-on-enter',
 	templateUrl: 'example-action-bar-on-enter.component.html',
 	styleUrls: ['example-action-bar-on-enter.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleActionBarOnEnterComponent {
 	static tags = EXAMPLE_TAGS;
@@ -25,10 +28,7 @@ export class ExampleActionBarOnEnterComponent {
 
 	rowOptions = {
 		trigger: 'focus',
-		actions: [
-			new Action(new Command(), 'Hello'),
-			new Action(new Command(), 'World')
-		]
+		actions: [new Action(new Command(), 'Hello'), new Action(new Command(), 'World')],
 	};
 
 	pickCommand = new Command({
@@ -52,7 +52,7 @@ export class ExampleActionBarOnEnterComponent {
 			const { items } = this.gridModel.selection();
 			return items.length > 0;
 		},
-		shortcut: 'enter'
+		shortcut: 'enter',
 	});
 
 	constructor(dataService: DataService, qgrid: Grid) {

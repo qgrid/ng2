@@ -3,17 +3,14 @@ import { Command } from 'ng2-qgrid';
 import { Subject } from 'rxjs';
 import { Atom, DataService } from '../data.service';
 
-const EXAMPLE_TAGS = [
-	'action-bar-basic',
-	'Data can be cleared and loaded using UI buttons and hotkeys (ALT+D, ALT+L)'
-];
+const EXAMPLE_TAGS = ['action-bar-basic', 'Data can be cleared and loaded using UI buttons and hotkeys (ALT+D, ALT+L)'];
 
 @Component({
 	selector: 'example-action-bar-basic',
 	templateUrl: 'example-action-bar-basic.component.html',
 	styleUrls: ['example-action-bar-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleActionBarBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -32,7 +29,7 @@ export class ExampleActionBarBasicComponent {
 			return true;
 		},
 		canExecute: () => this.canLoad,
-		shortcut: 'alt+l'
+		shortcut: 'alt+l',
 	});
 
 	clearCommand = new Command({
@@ -44,12 +41,12 @@ export class ExampleActionBarBasicComponent {
 			return true;
 		},
 		canExecute: () => !this.canLoad,
-		shortcut: 'alt+d'
+		shortcut: 'alt+d',
 	});
 
 	constructor(
 		dataService: DataService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
 	) {
 		dataService.getAtoms()
 			.subscribe(atoms => {

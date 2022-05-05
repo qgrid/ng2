@@ -1,16 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'column-reference-basic',
-	'Cell value is a reference to another value'
-];
+const EXAMPLE_TAGS = ['column-reference-basic', 'Cell value is a reference to another value'];
 
 @Component({
 	selector: 'example-column-reference-basic',
 	templateUrl: 'example-column-reference-basic.component.html',
 	styleUrls: ['example-column-reference-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnReferenceBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -18,18 +15,32 @@ export class ExampleColumnReferenceBasicComponent {
 
 	rows = [
 		{
-			'notEditable': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
+			'notEditable': [
+				'Lorem',
+				'ipsum',
+				'dolor',
+				'sit',
+				'amet',
+			],
 			'editable': ['Lorem', 'ipsum'],
-			'customTemplate': ['Lorem', 'dolor', 'amet'],
+			'customTemplate': [
+				'Lorem',
+				'dolor',
+				'amet',
+			],
 			'singleValue': 'Lorem',
-			'complexValues': [{ value: 'Lorem' }, { value: 'dolor' }, { value: 'amet' }]
-		}
+			'complexValues': [
+				{ value: 'Lorem' },
+				{ value: 'dolor' },
+				{ value: 'amet' },
+			],
+		},
 	];
 
 	notEditableOptions: EditorOptions = {
 		modelFactory: ({ reference }) => {
 			reference.commit = new Command({
-				canExecute: () => false
+				canExecute: () => false,
 			});
 
 			const model = this.qgrid.model();
@@ -39,9 +50,9 @@ export class ExampleColumnReferenceBasicComponent {
 					columns: [
 						{
 							key: 'value',
-							title: 'Not Editable'
-						}
-					]
+							title: 'Not Editable',
+						},
+					],
 				})
 				.selection({
 					rowKey: x => x.value,
@@ -51,12 +62,12 @@ export class ExampleColumnReferenceBasicComponent {
 						top: true,
 						bottom: false,
 						right: false,
-						left: false
-					}
+						left: false,
+					},
 				});
 
 			return model;
-		}
+		},
 	};
 
 	editableOptions: EditorOptions = {
@@ -68,7 +79,7 @@ export class ExampleColumnReferenceBasicComponent {
 					row[column.key] = e.items;
 					// To prevent default cell commit return false.
 					return false;
-				}
+				},
 			});
 
 			reference.value = this.convert(row[column.key]);
@@ -80,9 +91,9 @@ export class ExampleColumnReferenceBasicComponent {
 					columns: [
 						{
 							key: 'value',
-							title: 'Editable'
-						}
-					]
+							title: 'Editable',
+						},
+					],
 				})
 				.selection({
 					unit: 'row',
@@ -91,7 +102,7 @@ export class ExampleColumnReferenceBasicComponent {
 				});
 
 			return model;
-		}
+		},
 	};
 
 	singleValueOptions: EditorOptions = {
@@ -102,7 +113,7 @@ export class ExampleColumnReferenceBasicComponent {
 				execute: e => {
 					row[column.key] = e.items[0];
 					return false;
-				}
+				},
 			});
 
 			reference.value = { value: row[column.key] };
@@ -114,9 +125,9 @@ export class ExampleColumnReferenceBasicComponent {
 					columns: [
 						{
 							key: 'value',
-							title: 'Editable'
-						}
-					]
+							title: 'Editable',
+						},
+					],
 				})
 				.selection({
 					unit: 'row',
@@ -125,7 +136,7 @@ export class ExampleColumnReferenceBasicComponent {
 				});
 
 			return model;
-		}
+		},
 	};
 
 	complexValuesOptions: EditorOptions = {
@@ -138,9 +149,9 @@ export class ExampleColumnReferenceBasicComponent {
 					columns: [
 						{
 							key: 'value',
-							title: 'Editable'
-						}
-					]
+							title: 'Editable',
+						},
+					],
 				})
 				.selection({
 					unit: 'row',
@@ -149,11 +160,11 @@ export class ExampleColumnReferenceBasicComponent {
 				});
 
 			return model;
-		}
+		},
 	};
+
+	constructor(private qgrid: Grid) { }
 
 	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
 	convert = rows => rows.map(value => ({ value }));
-
-	constructor(private qgrid: Grid) { }
 }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-summary-column-basic.component.html',
 	styleUrls: ['example-summary-column-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSummaryColumnBasicComponent {
 	static id = 'summary-column-basic';

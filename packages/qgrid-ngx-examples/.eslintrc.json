@@ -1,0 +1,23 @@
+{
+  "extends": "../../.eslintrc.angular.json",
+  "parserOptions": {
+    "project": ["./tsconfig.app.json"],
+    "createDefaultProgram": true
+  },
+  "rules": {
+    "@angular-eslint/component-selector": [
+      "error",
+      {
+        "type": "element",
+        "prefix": "example",
+        "style": "kebab-case"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "parser": "@angular-eslint/template-parser"
+    }
+  ]
+}

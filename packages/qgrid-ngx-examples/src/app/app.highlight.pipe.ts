@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { escapeRegExp } from './app.utils';
 
 @Pipe({
-	name: 'appHighlight'
+	name: 'appHighlight',
 })
 export class HighlightPipe implements PipeTransform {
 	transform(item: string, search: string) {

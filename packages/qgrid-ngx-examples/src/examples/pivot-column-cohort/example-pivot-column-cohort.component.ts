@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'pivot-column-cohort',
-	'Different implementations of pivot columns'
-];
+const EXAMPLE_TAGS = ['pivot-column-cohort', 'Different implementations of pivot columns'];
 
 @Component({
 	selector: 'example-pivot-column-cohort',
 	templateUrl: 'example-pivot-column-cohort.component.html',
 	styleUrls: ['example-pivot-column-cohort.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePivotColumnCohortComponent {
 	static tags = EXAMPLE_TAGS;

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-select-cell-basic.component.html',
 	styleUrls: ['example-select-cell-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectCellBasicComponent {
 	static id = 'select-cell-basic';

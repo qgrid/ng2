@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 	templateUrl: 'example-sample-orders.component.html',
 	styleUrls: ['example-sample-orders.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSampleOrdersComponent {
 	static id = 'sample-orders';

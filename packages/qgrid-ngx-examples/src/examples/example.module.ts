@@ -125,6 +125,7 @@ import { ExamplePaneWithSelectionComponent } from './pane-with-selection-mode/ex
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
+// eslint-disable-next-line max-len
 import { ExamplePersistenceWithSyncGetDataComponent } from './persistence-with-sync-get-data/example-persistence-with-sync-get-data.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
@@ -348,13 +349,13 @@ export const EXAMPLES: any[] = [
 export const APP_ROUTES: Routes = EXAMPLES
 	.map<Route>(example => ({
 		path: (example.tags && example.tags[0]) || example.id,
-		component: example
+		component: example,
 	}));
 
 @NgModule({
 	declarations: [
 		...EXAMPLES,
-		ExamplePluginMyPagerComponent
+		ExamplePluginMyPagerComponent,
 	],
 	exports: EXAMPLES,
 	imports: [
@@ -368,6 +369,6 @@ export const APP_ROUTES: Routes = EXAMPLES
 
 		GridModule,
 		ThemeModule,
-	]
+	],
 })
 export class ExampleModule { }

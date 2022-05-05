@@ -1,11 +1,8 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'live-rows',
-	'Grid actions are animated (e.g. row sorting)'
-];
+const EXAMPLE_TAGS = ['live-rows', 'Grid actions are animated (e.g. row sorting)'];
 
 @Component({
 	selector: 'example-live-rows-basic',
@@ -13,7 +10,7 @@ const EXAMPLE_TAGS = [
 	styleUrls: ['example-live-rows-basic.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
 export class ExampleLiveRowsBasicComponent {
 	static tags = EXAMPLE_TAGS;
@@ -21,7 +18,9 @@ export class ExampleLiveRowsBasicComponent {
 
 	rows: Observable<Atom[]>;
 
-	constructor(private dataService: DataService) {
+	constructor(
+		private dataService: DataService,
+	) {
 		this.rows = dataService.getAtoms();
 	}
 }

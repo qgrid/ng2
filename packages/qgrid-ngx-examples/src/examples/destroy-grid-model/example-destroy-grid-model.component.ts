@@ -3,17 +3,14 @@ import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 import { BehaviorSubject } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'destroy-grid-model',
-	'Table content can be destroyed/restored using UI button'
-];
+const EXAMPLE_TAGS = ['destroy-grid-model', 'Table content can be destroyed/restored using UI button'];
 
 @Component({
 	selector: 'example-destroy-grid-model',
 	templateUrl: 'example-destroy-grid-model.component.html',
 	styleUrls: ['example-destroy-grid-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDestroyGridModelComponent {
 	static tags = EXAMPLE_TAGS;
@@ -40,7 +37,7 @@ export class ExampleDestroyGridModelComponent {
 		const model = this.gridModel as { [key: string]: any };
 		let count = 0;
 		for (const key in model) {
-			if (model.hasOwnProperty(key) && key.endsWith('Changed')) {
+			if (Object.prototype.hasOwnProperty.call(model, key) && key.endsWith('Changed')) {
 				const event = model[key];
 
 				// `handlers` is private really

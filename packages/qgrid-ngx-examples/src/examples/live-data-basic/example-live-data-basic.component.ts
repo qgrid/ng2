@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	ViewEncapsulation,
+	OnDestroy,
+} from '@angular/core';
 import { DataService, Quote } from '../data.service';
 import { of, Subject, timer } from 'rxjs';
 import { repeat, switchMap, takeUntil } from 'rxjs/operators';
 
-const EXAMPLE_TAGS = [
-	'live-data-basic',
-	'Table data updates in real time'
-];
+const EXAMPLE_TAGS = ['live-data-basic', 'Table data updates in real time'];
 
 @Component({
 	selector: 'example-live-data-basic',
@@ -14,7 +17,7 @@ const EXAMPLE_TAGS = [
 	styleUrls: ['example-live-data-basic.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
 export class ExampleLiveDataBasicComponent implements OnDestroy {
 	static tags = EXAMPLE_TAGS;
@@ -32,7 +35,7 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 			of(null).pipe(
 				takeUntil(this.destroy$),
 				switchMap(() => timer(this.random(300, 5000))), // calculates random delay time for every iteration
-				repeat()
+				repeat(),
 			).subscribe(() => {
 				// rowIndices is a random length array of random row indices
 				const rowIndices = new Array(this.random(1, 3)).fill(0).map(() => this.random(0, this.rows.length - 1));
@@ -44,7 +47,7 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	}
 
 	updateQuotes(rowIndices: Set<number>) {
-		const rows = [ ...this.rows ];
+		const rows = [...this.rows];
 
 		for (const idx of rowIndices) {
 			const quote = rows[idx];

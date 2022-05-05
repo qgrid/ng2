@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'group-column-basic',
-	'Columns are grouped'
-];
+const EXAMPLE_TAGS = ['group-column-basic', 'Columns are grouped'];
 
 @Component({
 	selector: 'example-group-column-basic',
 	templateUrl: 'example-group-column-basic.component.html',
 	styleUrls: ['example-group-column-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGroupColumnBasicComponent {
 	static tags = EXAMPLE_TAGS;

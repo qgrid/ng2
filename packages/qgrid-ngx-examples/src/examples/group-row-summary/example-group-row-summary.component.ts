@@ -2,17 +2,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
-const EXAMPLE_TAGS = [
-	'group-row-summary',
-	'Different group types'
-];
+const EXAMPLE_TAGS = ['group-row-summary', 'Different group types'];
 
 @Component({
 	selector: 'example-group-row-summary',
 	templateUrl: 'example-group-row-summary.component.html',
 	styleUrls: ['example-group-row-summary.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGroupRowSummaryComponent {
 	static tags = EXAMPLE_TAGS;

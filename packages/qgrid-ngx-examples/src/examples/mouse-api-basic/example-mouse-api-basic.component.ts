@@ -1,16 +1,15 @@
-import {
-	ElementRef,
-	ViewChild,
-	Component,
-	ChangeDetectionStrategy,
-	AfterViewInit,
-	ChangeDetectorRef
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['mouse-api-basic', 'Mouse api example'];
+
+export declare class LogEntry {
+	status: string;
+	code: string;
+	target: string;
+}
 
 @Component({
 	selector: 'example-mouse-api-basic',
@@ -31,7 +30,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 	constructor(
 		dataService: DataService,
 		private cdr: ChangeDetectorRef,
-		private qgrid: Grid
+		private qgrid: Grid,
 	) {
 		this.gridModel = qgrid.model();
 		this.rows = dataService.getPeople();
@@ -49,16 +48,10 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 			this.logEntries.unshift({
 				status: status,
 				code: code,
-				target: targetString
+				target: targetString,
 			});
 
 			this.cdr.detectChanges();
 		});
 	}
-}
-
-export declare class LogEntry {
-	status: string;
-	code: string;
-	target: string;
 }

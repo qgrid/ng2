@@ -6,39 +6,34 @@ import { GridPlugin, Command } from 'ng2-qgrid';
 	templateUrl: 'example-plugin-my-pager.component.html',
 	styleUrls: ['example-plugin-my-pager.component.scss'],
 	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePluginMyPagerComponent implements OnInit {
+	private get numberOfPages() {
+		const { count, size } = this.model.pagination();
+		return Math.max(1, Math.ceil(count / size));
+	}
+
+	private get model() {
+		return this.plugin.model;
+	}
+
 	goto = new Command({
 		execute: page => this.currentPage = page,
-		canExecute: page => page >= 0 && page < this.numberOfPages
+		canExecute: page => page >= 0 && page < this.numberOfPages,
 	});
 
 	gotoNext = new Command({
 		execute: () => this.currentPage = this.currentPage + 1,
 		canExecute: () => this.currentPage < this.numberOfPages - 1,
-		shortcut: 'ctrl+right'
+		shortcut: 'ctrl+right',
 	});
 
 	gotoPrev = new Command({
 		execute: () => this.currentPage = this.currentPage - 1,
 		canExecute: () => this.currentPage > 0,
-		shortcut: 'ctrl+left'
+		shortcut: 'ctrl+left',
 	});
-
-	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {
-	}
-
-	ngOnInit() {
-		const { shortcut, manager } = this.model.action();
-		shortcut.register(manager, [
-			this.gotoNext,
-			this.gotoPrev
-		]);
-
-		// If onPush is used, need to trigger change detection manually.
-		this.model.paginationChanged.on(() => this.cd.detectChanges());
-	}
 
 	get pages() {
 		return Array.from(Array(this.numberOfPages).keys());
@@ -52,12 +47,17 @@ export class ExamplePluginMyPagerComponent implements OnInit {
 		this.model.pagination({ current: value });
 	}
 
-	private get numberOfPages() {
-		const { count, size } = this.model.pagination();
-		return Math.max(1, Math.ceil(count / size));
+	constructor(
+		private plugin: GridPlugin,
+		private cd: ChangeDetectorRef,
+	) {
 	}
 
-	private get model() {
-		return this.plugin.model;
+	ngOnInit() {
+		const { shortcut, manager } = this.model.action();
+		shortcut.register(manager, [this.gotoNext, this.gotoPrev]);
+
+		// If onPush is used, need to trigger change detection manually.
+		this.model.paginationChanged.on(() => this.cd.detectChanges());
 	}
 }

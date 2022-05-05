@@ -1,18 +1,18 @@
 <q-grid [caption]="title"
-		[rows]="rows | async"
-		[model]="gridModel">
+        [rows]="rows | async"
+        [model]="gridModel">
 
-	<q-grid-columns generation="deep">
-	</q-grid-columns>
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-	<q-grid-import options="{head:'numeric'}">
-		<ng-template for="trigger"
-					 let-$action>
-			<button mat-button
-					[q-grid-command]="$action.command">
-				Import file
-			</button>
-		</ng-template>
-	</q-grid-import>
+  <q-grid-import options="{head:'numeric'}">
+    <ng-template for="trigger"
+                 let-$action>
+      <button mat-button
+              [q-grid-command]="$action.command">
+        Import file
+      </button>
+    </ng-template>
+  </q-grid-import>
 
 </q-grid>

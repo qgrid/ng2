@@ -1,40 +1,40 @@
 <q-grid [caption]="title"
-		[rows]="rows$ | async"
-		[model]="gridModel">
-	<q-grid-columns>
-		<q-grid-column key="firstName"
-					   path="name.first"
-					   title="First Name"
-					   [index]="0"
-					   *ngIf="showFirstName">
-		</q-grid-column>
-		<q-grid-column key="lastName"
-					   path="name.last"
-					   title="Last Name"
-					   [index]="1"
-					   [isVisible]="showLastName">
-		</q-grid-column>
-		<q-grid-column key="city"
-					   path="contact.address.city"
-					   [index]="2"
-					   title="City">
-		</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows$ | async"
+        [model]="gridModel">
+  <q-grid-columns>
+    <q-grid-column key="firstName"
+                   path="name.first"
+                   title="First Name"
+                   [index]="0"
+                   *ngIf="showFirstName">
+    </q-grid-column>
+    <q-grid-column key="lastName"
+                   path="name.last"
+                   title="Last Name"
+                   [index]="1"
+                   [isVisible]="showLastName">
+    </q-grid-column>
+    <q-grid-column key="city"
+                   path="contact.address.city"
+                   [index]="2"
+                   title="City">
+    </q-grid-column>
+  </q-grid-columns>
 
-	<q-grid-toolbar>
-		<ng-template for="top">
-			<button mat-button
-					(click)="showFirstName = !showFirstName">
-				Show/Hide First Name / using *ngIf
-			</button>
-			<button mat-button
-					(click)="showLastName = !showLastName">
-				Show/Hide Last Name / using [isVisible]
-			</button>
-			<button mat-button
-					(click)="hideCity()">
-				Only hide city / using model
-			</button>
-		</ng-template>
-	</q-grid-toolbar>
+  <q-grid-toolbar>
+    <ng-template for="top">
+      <button mat-button
+              (click)="showFirstName = !showFirstName">
+        Show/Hide First Name / using *ngIf
+      </button>
+      <button mat-button
+              (click)="showLastName = !showLastName">
+        Show/Hide Last Name / using [isVisible]
+      </button>
+      <button mat-button
+              (click)="hideCity()">
+        Only hide city / using model
+      </button>
+    </ng-template>
+  </q-grid-toolbar>
 </q-grid>

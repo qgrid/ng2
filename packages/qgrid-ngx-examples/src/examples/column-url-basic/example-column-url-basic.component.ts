@@ -1,17 +1,16 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-const EXAMPLE_TAGS = [
-	'column-url-basic',
-	'Cell value is an url'
-];
+const EXAMPLE_TAGS = ['column-url-basic', 'Cell value is an url'];
 
 @Component({
 	selector: 'example-column-url-basic',
 	templateUrl: 'example-column-url-basic.component.html',
 	styleUrls: ['example-column-url-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnUrlBasicComponent {
+	private label = 'QGRID';
+
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
@@ -23,18 +22,17 @@ export class ExampleColumnUrlBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'http://github.com/qgrid/ng2'
-		}
+			'customTemplate': 'http://github.com/qgrid/ng2',
+		},
 	];
-
-	private label = 'QGRID';
 
 	myLabel: (row: any, value?: any) => string | undefined;
 
 	constructor() {
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const self = this;
 		this.myLabel = (...args) => {
-			const [_, value] = args;
+			const [, value] = args;
 			if (args.length > 1) {
 				self.label = value;
 				return;

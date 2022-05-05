@@ -1,22 +1,22 @@
 <q-grid [caption]="title"
-		[rows]="rows | async"
-		[model]="gridModel"
-		class="q-grid-compact"
-		selectionUnit="row"
-		selectionMode="singleOnly">
-	<q-grid-columns generation="deep">
-		<q-grid-column type="select"
-					   [isVisible]="false">
-		</q-grid-column>
-		<q-grid-column type="row-options"
-					   key="rowOptions"
-					   [editorOptions]="rowOptions">
-		</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows | async"
+        [model]="gridModel"
+        class="q-grid-compact"
+        selectionUnit="row"
+        selectionMode="singleOnly">
+  <q-grid-columns generation="deep">
+    <q-grid-column type="select"
+                   [isVisible]="false">
+    </q-grid-column>
+    <q-grid-column type="row-options"
+                   key="rowOptions"
+                   [editorOptions]="rowOptions">
+    </q-grid-column>
+  </q-grid-columns>
 
-	<q-grid-actions>
-		<q-grid-action [command]="pickCommand">
-		</q-grid-action>
-	</q-grid-actions>
+  <q-grid-actions>
+    <q-grid-action [command]="pickCommand">
+    </q-grid-action>
+  </q-grid-actions>
 
 </q-grid>
