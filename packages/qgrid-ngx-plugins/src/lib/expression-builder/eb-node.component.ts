@@ -3,20 +3,20 @@ import { EbNodeService } from './eb-node.service';
 import { Node } from './model/node';
 
 @Component({
-	selector: 'q-grid-eb-node',
-	templateUrl: './eb-node.component.html',
+  selector: 'q-grid-eb-node',
+  templateUrl: './eb-node.component.html',
 })
 export class EbNodeComponent {
-	@Input() model: Node;
+  @Input() model: Node;
 
-	constructor(public service: EbNodeService) {
-	}
+  constructor(public service: EbNodeService) {
+  }
 
-	select(e) {
-		e.stopPropagation();
+  select(e) {
+    e.stopPropagation();
 
-		if (this.model.parent) {
-			this.service.current = this.model;
-		}
-	}
+    if (this.model.parent) {
+      this.service.current = this.model;
+    }
+  }
 }
