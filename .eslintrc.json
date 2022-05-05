@@ -36,7 +36,7 @@
     "guard-for-in": "error",
     "id-denylist": "off",
     "id-match": "off",
-    "indent": ["error", "tab", {
+    "indent": ["error", 2, {
       "SwitchCase": 1
     }],
     "max-len": ["error", { "code": 140 }],
