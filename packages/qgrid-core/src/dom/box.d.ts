@@ -25,13 +25,13 @@ export interface BoxContext {
 }
 
 export declare class Box {
-	constructor(context: BoxContext, model: Model, selectorMark: any);
+  constructor(context: BoxContext, model: Model, selectorMark: any);
 
-	cell(rowIndex: number, columnIndex: number): Cell;
-	column(columnIndex: number): Column;
-	columns(rowIndex: number): Column[];
-	row(rowIndex: number, columnIndex?: number): Row;
-	rows(columnIndex: number): Row[];
-	rowCount(columnIndex: number): number;
-	columnCount(rowIndex: number): number;
+  cell(rowIndex: number, columnIndex: number): Cell;
+  column(columnIndex: number): Column;
+  columns(rowIndex: number): Column[];
+  row(rowIndex: number, columnIndex?: number): Row;
+  rows(columnIndex: number): Row[];
+  rowCount(columnIndex: number): number;
+  columnCount(rowIndex: number): number;
 }

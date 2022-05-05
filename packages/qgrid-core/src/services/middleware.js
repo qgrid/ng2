@@ -1,35 +1,35 @@
 function start(tasks, memo) {
-	tasks = Array.from(tasks);
-	return new Promise((resolve, reject) => {
-		function invoke(memo) {
-			if (tasks.length) {
-				const task = tasks.shift();
-				const promise = task(memo);
-				promise
-					.then(invoke)
-					.catch(ex => {
-						reject(ex);
-						throw ex;
-					});
-			} else {
-				resolve(memo);
-			}
-		}
+  tasks = Array.from(tasks);
+  return new Promise((resolve, reject) => {
+    function invoke(memo) {
+      if (tasks.length) {
+        const task = tasks.shift();
+        const promise = task(memo);
+        promise
+          .then(invoke)
+          .catch(ex => {
+            reject(ex);
+            throw ex;
+          });
+      } else {
+        resolve(memo);
+      }
+    }
 
-		invoke(memo);
-	});
+    invoke(memo);
+  });
 }
 export class Middleware {
-	constructor(pipes) {
-		this.pipes = pipes;
-	}
+  constructor(pipes) {
+    this.pipes = pipes;
+  }
 
-	run(context, memo = []) {
-		const tasks = this.pipes
-			.map(pipe => memo =>
-				new Promise((resolve, reject) =>
-					pipe(memo, context, resolve, reject)));
+  run(context, memo = []) {
+    const tasks = this.pipes
+      .map(pipe => memo =>
+        new Promise((resolve, reject) =>
+          pipe(memo, context, resolve, reject)));
 
-		return start(tasks, memo);
-	}
+    return start(tasks, memo);
+  }
 }

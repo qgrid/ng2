@@ -1,7 +1,7 @@
 export class HighlightState {
-	constructor() {
-		this.columns = [];
-		this.rows = [];
-		this.cell = null;
-	}
+  constructor() {
+    this.columns = [];
+    this.rows = [];
+    this.cell = null;
+  }
 }

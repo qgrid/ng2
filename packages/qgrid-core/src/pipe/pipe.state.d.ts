@@ -46,16 +46,16 @@ import { PipeUnit } from './pipe.unit';
  * ```
  */
 export declare class PipeState {
-	/**
+  /**
 	 * A function that allows to shrink a number of pipe units that should be invoked on refresh request.
 	 */
-	reduce: (units: PipeUnit[], model: Model) => PipeUnit[];
+  reduce: (units: PipeUnit[], model: Model) => PipeUnit[];
 
-	/**
+  /**
 	 * A schema that shows what pipeline will be executed on appropriate model property change.
 	 *
 	 */
-	triggers: { [modelName: string]: { [modelProperty: string]: PipeUnit } };
+  triggers: { [modelName: string]: { [modelProperty: string]: PipeUnit } };
 
-	effect: { [key: string]: any };
+  effect: { [key: string]: any };
 }

@@ -1,36 +1,36 @@
 
 export function selectRow(state) {
-	const { cell } = state;
-	if (cell) {
-		return cell.row;
-	}
+  const { cell } = state;
+  if (cell) {
+    return cell.row;
+  }
 
-	return null;
+  return null;
 }
 
 export function selectColumn(state) {
-	const { cell } = state;
-	if (cell) {
-		return cell.column;
-	}
+  const { cell } = state;
+  if (cell) {
+    return cell.column;
+  }
 
-	return null;
+  return null;
 }
 
 export function selectColumnIndex(state) {
-	const { cell } = state;
-	if (cell) {
-		return cell.columnIndex;
-	}
+  const { cell } = state;
+  if (cell) {
+    return cell.columnIndex;
+  }
 
-	return -1;
+  return -1;
 }
 
 export function selectRowIndex(state) {
-	const { cell } = state;
-	if (cell) {
-		return cell.rowIndex;
-	}
+  const { cell } = state;
+  if (cell) {
+    return cell.rowIndex;
+  }
 
-	return -1;
+  return -1;
 }

@@ -2,44 +2,44 @@ import { ColumnModel } from '../../column-type/column.model';
 import { hasOwnProperty, isArray, isFunction, isObject } from '../../utility/kit';
 
 export class ColumnView {
-	constructor(model) {
-		this.model = model;
+  constructor(model) {
+    this.model = model;
 
-		this.colspan = 1;
-		this.rowspan = 1;
-		this.rowIndex = -1;
-		this.columnIndex = -1;
-	}
+    this.colspan = 1;
+    this.rowspan = 1;
+    this.rowIndex = -1;
+    this.columnIndex = -1;
+  }
 
-	static model(model) {
-		if (model) {
-			ColumnView.assign(model);
-		} else {
-			model = new ColumnModel();
-		}
+  static model(model) {
+    if (model) {
+      ColumnView.assign(model);
+    } else {
+      model = new ColumnModel();
+    }
 
-		model.origin = 'custom';
-		return model;
-	}
+    model.origin = 'custom';
+    return model;
+  }
 
-	static assign(body) {
-		const etalon = this.model();
-		for (const key of Object.keys(etalon)) {
-			if (!hasOwnProperty.call(body, key)) {
-				let etalonValue = etalon[key];
-				if (isFunction(etalonValue)) {
-					etalonValue = etalonValue.bind(body);
-				}
-				body[key] = etalonValue;
-			} else {
-				const value = body[key];
-				if (isArray(value)) {
-					body[key] = Array.from(value);
-				} else if (isObject(value) && !isFunction(value)) {
-					body[key] = Object.assign({}, etalon[key], value);
-				}
-			}
-		}
-		return body;
-	}
+  static assign(body) {
+    const etalon = this.model();
+    for (const key of Object.keys(etalon)) {
+      if (!hasOwnProperty.call(body, key)) {
+        let etalonValue = etalon[key];
+        if (isFunction(etalonValue)) {
+          etalonValue = etalonValue.bind(body);
+        }
+        body[key] = etalonValue;
+      } else {
+        const value = body[key];
+        if (isArray(value)) {
+          body[key] = Array.from(value);
+        } else if (isObject(value) && !isFunction(value)) {
+          body[key] = Object.assign({}, etalon[key], value);
+        }
+      }
+    }
+    return body;
+  }
 }

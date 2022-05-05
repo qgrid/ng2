@@ -5,5 +5,5 @@ export declare class RowDetailsColumnModel extends ColumnModel {
 }
 
 export declare class RowDetailsColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

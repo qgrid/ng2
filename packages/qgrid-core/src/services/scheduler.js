@@ -1,25 +1,25 @@
 export class Scheduler {
-	constructor() {
-		this.tasks = [];
-	}
+  constructor() {
+    this.tasks = [];
+  }
 
-	next() {
-		this.tasks.shift();
-		const task = this.tasks[0];
-		if (task) {
-			task();
-			return true;
-		}
+  next() {
+    this.tasks.shift();
+    const task = this.tasks[0];
+    if (task) {
+      task();
+      return true;
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	add(task) {
-		this.tasks.push(task);
-		if (this.tasks.length === 1) {
-			task();
-		}
+  add(task) {
+    this.tasks.push(task);
+    if (this.tasks.length === 1) {
+      task();
+    }
 
-		return this.tasks.length;
-	}
+    return this.tasks.length;
+  }
 }

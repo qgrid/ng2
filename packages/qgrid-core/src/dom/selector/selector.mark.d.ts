@@ -9,7 +9,7 @@ export interface RangeMark {
 }
 
 export declare class SelectorMark {
-	constructor(model: Model, markup: Markup, name: string);
+  constructor(model: Model, markup: Markup, name: string);
 
-	select(): RangeMark[];
+  select(): RangeMark[];
 }

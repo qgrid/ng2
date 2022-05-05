@@ -69,75 +69,75 @@ export declare type ColumnModelType =
  * A class that represents any column in the qgrid.
  */
 export declare class ColumnModel {
-	/**
+  /**
 	 * Type of column. Beside below list user is free to define own column type.
 	 * Be aware that some column types are used for internal purposes.
 	 */
-	type?: ColumnModelType | string;
+  type?: ColumnModelType | string;
 
-	/**
+  /**
 	 * A column identifier, should be unique across all columns. If path is not setup, key property is used
 	 * to retrieve a cell value.
 	 */
-	key?: string;
+  key?: string;
 
-	/**
+  /**
 	 * Column header text, also can be shown as column tooltip, or used in plugins like column filter plugin.
 	 */
-	title?: string;
+  title?: string;
 
-	/**
+  /**
 	 * A column description text, showed in the tooltip under basic theme.
 	 */
-	description?: string;
+  description?: string;
 
-	/**
+  /**
 	 * Getter, setter for a cell value. If the value property is setup, it is used to get/set cell value.
 	 */
-	value?: (row: any, value?: any) => any;
+  value?: (row: any, value?: any) => any;
 
-	$value?: (row: any, value?: any) => any;
+  $value?: (row: any, value?: any) => any;
 
-	/**
+  /**
 	 * Path to the value. Example is `address.phones.0.num`, if `path` property is setup, it is used
 	 * to get/set cell value, but it has a lower priority than column `value` property.
 	 */
-	path?: string;
+  path?: string;
 
-	/**
+  /**
 	 * Indicates if column should be frozen.
 	 */
-	pin?: ColumnModelPin;
+  pin?: ColumnModelPin;
 
-	origin?: ColumnModelOrigin;
+  origin?: ColumnModelOrigin;
 
-	/**
+  /**
 	 * Place where a column was created.
 	 */
-	source?: ColumnModelSource;
+  source?: ColumnModelSource;
 
-	/**
+  /**
 	 * A functional type of a the column.
 	 */
-	category?: ColumnModelCategory;
+  category?: ColumnModelCategory;
 
-	/**
+  /**
 	 * Css class.
 	 */
-	class?: string;
+  class?: string;
 
-	/**
+  /**
 	 * Editor type, will be shown in cell edit mode instead of default column type editor.
 	 * For instance, it can be used for id type column `<q-grid-column type="id" editor="number">`
 	 */
-	editor?: string;
+  editor?: string;
 
-	/**
+  /**
 	 * Options for cell edit mode.
 	 */
-	editorOptions?: EditorOptions;
+  editorOptions?: EditorOptions;
 
-	/**
+  /**
 	 * Width of the q-grid column.
 	 *
 	 * * Can be setup in `pixels` like `<q-grid-column [width]="100"></q-grid-column>`.
@@ -145,122 +145,122 @@ export declare class ColumnModel {
 	 *
 	 * Percents are materialized only once on init, and depend on the q-grid size.
 	 */
-	width?: number | string;
+  width?: number | string;
 
-	/**
+  /**
 	 * Minimal width of the column.
 	 */
-	minWidth?: number;
+  minWidth?: number;
 
-	/**
+  /**
 	 * Maximum width of the column.
 	 */
-	maxWidth?: number;
+  maxWidth?: number;
 
-	/**
+  /**
 	 * If set, column width will be expanded to this value on focus.
 	 */
-	viewWidth?: number;
+  viewWidth?: number;
 
-	/**
+  /**
 	 * Indicates how to calculate column width:
 	 *
 	 * * `relative` get whole grid width minus static px widths and apply percents.
 	 * * `absolute` get whole grid width and apply percents.
 	 */
-	widthMode?: ColumnModelWidthMode;
+  widthMode?: ColumnModelWidthMode;
 
-	/**
+  /**
 	 * Indicates if cells in the column are editable.
 	 */
-	canEdit?: boolean;
+  canEdit?: boolean;
 
-	/**
+  /**
 	 * Indicates if use can change column width by drag and drop.
 	 */
-	canResize?: boolean;
+  canResize?: boolean;
 
-	/**
+  /**
 	 * Indicates if sorting can be applied to the column.
 	 * `Column sort` plugin is used this property to enable/disable sort arrow icons.
 	 */
-	canSort?: boolean;
+  canSort?: boolean;
 
-	/**
+  /**
 	 * Indicates if drag and drop is allowed for the column.
 	 */
-	canMove?: boolean;
+  canMove?: boolean;
 
-	/**
+  /**
 	 * Indicates if data in the column can be filtered.
 	 * `Column filter` plugin is used this property to enable/disable filter icon.
 	 */
-	canFilter?: boolean;
+  canFilter?: boolean;
 
-	/**
+  /**
 	 * Indicates if underneath column cells should be highlighted when mouse is over column header.
 	 */
-	canHighlight?: boolean;
+  canHighlight?: boolean;
 
-	/**
+  /**
 	 * Indicates if column cells can take focus.
 	 */
-	canFocus?: boolean;
+  canFocus?: boolean;
 
-	/**
+  /**
 	 * Indicates if column is visible or not.
 	 */
-	isVisible?: boolean;
+  isVisible?: boolean;
 
-	/**
+  /**
 	 * Indicates the order of the column.
 	 */
-	index?: number;
+  index?: number;
 
-	/**
+  /**
 	 * Indicates what text should be shown in the cell. If property is not set column value is used.
 	 * Also `filter plugin` uses this property to show list of items and for filter application.
 	 */
-	label?: ((row: any, value?: any) => any) | any;
+  label?: ((row: any, value?: any) => any) | any;
 
-	/**
+  /**
 	 * Path to the label. Example is `address.phones.0.num`, if `labelPath` property is setup, it is used
 	 * to get/set cell label, but it has a lower priority than column `label property.
 	 */
-	labelPath?: string;
+  labelPath?: string;
 
-	/**
+  /**
 	 * This function is used by `column sort` pipe to order row values.
 	 */
-	compare?: (x: any, y: any) => number;
+  compare?: (x: any, y: any) => number;
 
-	/**
+  /**
 	 * If children property is setup the column automatically becomes a group container.
 	 */
-	// eslint-disable-next-line no-use-before-define
-	children?: ColumnModel[];
+  // eslint-disable-next-line no-use-before-define
+  children?: ColumnModel[];
 
-	/**
+  /**
 	 * Start index number for columns with type 'row-number'.
 	 */
-	startNumber?: number;
+  startNumber?: number;
 
-	$label?: ((row: any, value?: any) => any) | any;
+  $label?: ((row: any, value?: any) => any) | any;
 
-	itemLabel?: (row: any, value?: any) => any;
+  itemLabel?: (row: any, value?: any) => any;
 
-	symbol?: string;
-	code?: string;
+  symbol?: string;
+  code?: string;
 
-	trueValue?: any;
-	falseValue?: any;
+  trueValue?: any;
+  falseValue?: any;
 
-	itemType?: string;
-	itemFormat?: string;
-	format?: string;
+  itemType?: string;
+  itemFormat?: string;
+  format?: string;
 
-	canUpload?: () => boolean;
-	hasPreview?: (name: string) => boolean;
+  canUpload?: () => boolean;
+  hasPreview?: (name: string) => boolean;
 
-	offset?: number;
+  offset?: number;
 }

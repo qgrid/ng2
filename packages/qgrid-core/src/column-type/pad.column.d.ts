@@ -5,5 +5,5 @@ export declare class PadColumnModel extends ColumnModel {
 }
 
 export declare class PadColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

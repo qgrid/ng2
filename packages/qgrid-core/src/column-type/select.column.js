@@ -4,37 +4,37 @@ import { noop } from '../utility/kit';
 import { ColumnModel } from './column.model';
 
 TemplatePath.register('select-cell', (template, column) => ({
-	model: template.for,
-	resource: column.key,
+  model: template.for,
+  resource: column.key,
 }));
 
 TemplatePath.register('select-cell-edit', (template, column) => ({
-	model: 'edit',
-	resource: column.key,
+  model: 'edit',
+  resource: column.key,
 }));
 
 export class SelectColumnModel extends ColumnModel {
-	constructor() {
-		super('select');
+  constructor() {
+    super('select');
 
-		this.key = '$select';
-		this.title = '';
-		this.category = 'control';
+    this.key = '$select';
+    this.title = '';
+    this.category = 'control';
 
-		this.canEdit = false;
-		this.editorOptions.cruise = 'transparent';
-		this.value = noop;
+    this.canEdit = false;
+    this.editorOptions.cruise = 'transparent';
+    this.value = noop;
 
-		this.canResize = false;
-	}
+    this.canResize = false;
+  }
 }
 
 export class SelectColumn extends ColumnView {
-	constructor(model) {
-		super(model);
-	}
+  constructor(model) {
+    super(model);
+  }
 
-	static model(model) {
-		return model ? SelectColumn.assign(model) : new SelectColumnModel();
-	}
+  static model(model) {
+    return model ? SelectColumn.assign(model) : new SelectColumnModel();
+  }
 }

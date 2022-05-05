@@ -1,23 +1,23 @@
 function firstRowTitle(index, row) {
-	return row[index];
+  return row[index];
 }
 function numericTitle(index) {
-	return index;
+  return index;
 }
 function alphaTitle(index) {
-	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-	if (index < alphabet.length) {
-		return alphabet[index];
-	} else {
-		const indexFirst = Math.floor(index / alphabet.length - 1);
-		const indexSecond = index % alphabet.length;
-		return `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
-	}
+  if (index < alphabet.length) {
+    return alphabet[index];
+  } else {
+    const indexFirst = Math.floor(index / alphabet.length - 1);
+    const indexSecond = index % alphabet.length;
+    return `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
+  }
 }
 
 export {
-	firstRowTitle,
-	numericTitle,
-	alphaTitle,
+  firstRowTitle,
+  numericTitle,
+  alphaTitle,
 };

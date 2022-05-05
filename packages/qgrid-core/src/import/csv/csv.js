@@ -1,126 +1,126 @@
 import { CharReader } from '../../io/char.reader';
 
 export class CsvImport {
-	constructor(delimiter = ',') {
-		this.delimiter = delimiter;
-	}
+  constructor(delimiter = ',') {
+    this.delimiter = delimiter;
+  }
 
-	read(text) {
-		const reader = new CharReader(text);
-		const delimiter = this.delimiter;
+  read(text) {
+    const reader = new CharReader(text);
+    const delimiter = this.delimiter;
 
-		const result = [];
-		let line = [];
-		let term = '';
-		const condition = true;
-		do {
-			const c = reader.peek();
-			if (c === ' ') {
-				reader.read();
-				continue;
-			}
+    const result = [];
+    let line = [];
+    let term = '';
+    const condition = true;
+    do {
+      const c = reader.peek();
+      if (c === ' ') {
+        reader.read();
+        continue;
+      }
 
-			if (c === delimiter) {
-				reader.read();
+      if (c === delimiter) {
+        reader.read();
 
-				line.push(term);
-				term = '';
-				continue;
-			}
+        line.push(term);
+        term = '';
+        continue;
+      }
 
-			if (c === '\n') {
-				reader.read();
+      if (c === '\n') {
+        reader.read();
 
-				if (line.length > 0 || term.length > 0) {
-					line.push(term);
-					term = '';
-				}
+        if (line.length > 0 || term.length > 0) {
+          line.push(term);
+          term = '';
+        }
 
-				if (line.length > 0) {
-					result.push(line);
-					line = [];
-				}
+        if (line.length > 0) {
+          result.push(line);
+          line = [];
+        }
 
-				continue;
-			}
+        continue;
+      }
 
-			if (c === '\r' && reader.peekPeek() === '\n') {
-				reader.read();
-				reader.read();
+      if (c === '\r' && reader.peekPeek() === '\n') {
+        reader.read();
+        reader.read();
 
-				if (line.length > 0 || term.length > 0) {
-					line.push(term);
-					term = '';
-				}
+        if (line.length > 0 || term.length > 0) {
+          line.push(term);
+          term = '';
+        }
 
-				if (line.length > 0) {
-					result.push(line);
-					line = [];
-				}
+        if (line.length > 0) {
+          result.push(line);
+          line = [];
+        }
 
-				continue;
-			}
+        continue;
+      }
 
-			if (c === CharReader.eof) {
-				reader.read();
+      if (c === CharReader.eof) {
+        reader.read();
 
-				if (line.length > 0 || term.length > 0) {
-					line.push(term);
-					result.push(line);
-				}
-				break;
-			}
+        if (line.length > 0 || term.length > 0) {
+          line.push(term);
+          result.push(line);
+        }
+        break;
+      }
 
-			if (c === '"') {
-				term = this.readEscapedValue(reader, term);
-			} else {
-				term = this.readUnescapedValue(reader, term);
-			}
-		}
-		while (condition);
+      if (c === '"') {
+        term = this.readEscapedValue(reader, term);
+      } else {
+        term = this.readUnescapedValue(reader, term);
+      }
+    }
+    while (condition);
 
-		return result.map(this.lineToObj);
-	}
+    return result.map(this.lineToObj);
+  }
 
-	readEscapedValue(reader, term) {
-		// Omit double quote
-		let c = reader.read();
-		while (c !== CharReader.eof) {
-			c = reader.read();
-			if (c === '"') {
-				if (reader.peek() === '"') {
-					term += reader.read();
-					continue;
-				}
-				break;
-			}
-			term += c;
-		}
+  readEscapedValue(reader, term) {
+    // Omit double quote
+    let c = reader.read();
+    while (c !== CharReader.eof) {
+      c = reader.read();
+      if (c === '"') {
+        if (reader.peek() === '"') {
+          term += reader.read();
+          continue;
+        }
+        break;
+      }
+      term += c;
+    }
 
-		return term;
-	}
+    return term;
+  }
 
-	readUnescapedValue(reader, term) {
-		const delimiter = this.delimiter;
-		let c = reader.peek();
-		while (c !== CharReader.eof) {
-			if (c === delimiter || c === '\n' ||
+  readUnescapedValue(reader, term) {
+    const delimiter = this.delimiter;
+    let c = reader.peek();
+    while (c !== CharReader.eof) {
+      if (c === delimiter || c === '\n' ||
 			(c === '\r' && reader.peekPeek() === '\n')) {
-				break;
-			}
+        break;
+      }
 
-			term += reader.read();
-			c = reader.peek();
-		}
+      term += reader.read();
+      c = reader.peek();
+    }
 
-		return term;
-	}
+    return term;
+  }
 
-	lineToObj(line) {
-		const result = {};
-		for (let i = 0, length = line.length; i < length; i++) {
-			result[i] = line[i];
-		}
-		return result;
-	}
+  lineToObj(line) {
+    const result = {};
+    for (let i = 0, length = line.length; i < length; i++) {
+      result[i] = line[i];
+    }
+    return result;
+  }
 }

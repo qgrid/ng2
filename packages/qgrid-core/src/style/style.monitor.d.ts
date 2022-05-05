@@ -1,22 +1,22 @@
 import { Model } from '../model/model';
 
 export declare class StyleEntry {
-	element: HTMLElement;
-	sheets: Map<any, any>;
-	list: Set<any>;
+  element: HTMLElement;
+  sheets: Map<any, any>;
+  list: Set<any>;
 
-	constructor(element: HTMLElement, sheets: Map<any, any>);
+  constructor(element: HTMLElement, sheets: Map<any, any>);
 
-	class(key: string, style: string): void;
+  class(key: string, style: string): void;
 }
 
 export declare class StyleMonitor {
-	entries: StyleEntry[];
-	newSheets: Map<any, any>;
-	oldSheets: Map<any, any>;
+  entries: StyleEntry[];
+  newSheets: Map<any, any>;
+  oldSheets: Map<any, any>;
 
-	constructor(model: Model);
+  constructor(model: Model);
 
-	enter(): (key: string, style: string) => void;
-	exit(): void;
+  enter(): (key: string, style: string) => void;
+  exit(): void;
 }
