@@ -3,14 +3,14 @@ import {
 	ContentChild,
 	EventEmitter,
 	Output,
-	AfterViewInit
+	AfterViewInit,
 } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Disposable, Guard } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-menu-trigger]',
-	providers: [Disposable]
+	providers: [Disposable],
 })
 export class MenuTriggerDirective implements AfterViewInit {
 	@ContentChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
@@ -31,7 +31,7 @@ export class MenuTriggerDirective implements AfterViewInit {
 					if (this.close) {
 						setTimeout(() => this.close.emit(), 10);
 					}
-				})
+				}),
 		);
 	}
 }

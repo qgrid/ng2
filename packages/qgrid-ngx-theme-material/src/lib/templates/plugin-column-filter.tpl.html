@@ -2,54 +2,50 @@
              let-$columnFilter
              let-$plugin="plugin"
              let-$vscroll="vscroll">
-    <mat-card class="mat-elevation-z">
-        <mat-card-header>
-            <mat-card-title>
-                {{$columnFilter.title}} Filter
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="q-grid-column-filter-{{$columnFilter.operator}}"
-                 [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
+  <mat-card class="mat-elevation-z">
+    <mat-card-header>
+      <mat-card-title> {{$columnFilter.title}} Filter </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="q-grid-column-filter-{{$columnFilter.operator}}"
+           [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
+        <mat-select class="q-grid-column-filter-operator-select"
+                   *ngIf="$plugin.hasOperators"
+                   [(value)]="$columnFilter.operator"
+                   (selectionChange)="$plugin.reset(); $columnFilter.changeOperator.execute($columnFilter.operator)">
+          <mat-select-trigger>
+            <mat-icon class="q-grid-icon">more_vert</mat-icon>
+          </mat-select-trigger>
+          <mat-option *ngFor="let op of $plugin.operators"
+                      [value]="op">
+            {{ op | qGridText : 'fromCamelCase' }}
+          </mat-option>
+        </mat-select>
 
-                <mat-select class="q-grid-column-filter-operator-select"
-                            *ngIf="$plugin.hasOperators"
-                            [(value)]="$columnFilter.operator"
-                            (selectionChange)="$plugin.reset(); $columnFilter.changeOperator.execute($columnFilter.operator)">
-                    <mat-select-trigger>
-                        <mat-icon class="q-grid-icon">more_vert</mat-icon>
-                    </mat-select-trigger>
-                    <mat-option *ngFor="let op of $plugin.operators"
-                                [value]="op">
-                        {{ op | qGridText : 'fromCamelCase' }}
-                    </mat-option>
-                </mat-select>
-
-                <ng-container [key]="$plugin.getOperatorTemplateKey($columnFilter.operator)"
-                              [context]="{ 
-                                 $implicit: $columnFilter, 
-                                 plugin: $plugin, 
-                                 vscroll: $vscroll 
-                              }">
-                </ng-container>
-
-            </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button
-                    [q-grid-command]="$columnFilter.cancel">
-                Cancel
-            </button>
-            <button mat-button
-                    *ngIf="$columnFilter.operator !== 'isEmpty' && $columnFilter.operator !== 'isNotEmpty'"
-                    (click)="$plugin.clear()">
-                Clear
-            </button>
-            <button mat-button
-                    color="primary"
-                    [q-grid-command]="$columnFilter.submit">
-                Apply
-            </button>
-        </mat-card-actions>
-    </mat-card>
+        <ng-container [key]="$plugin.getOperatorTemplateKey($columnFilter.operator)"
+                      [context]="{
+                        $implicit: $columnFilter,
+                        plugin: $plugin,
+                        vscroll: $vscroll
+                      }">
+        </ng-container>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button
+              [q-grid-command]="$columnFilter.cancel">
+        Cancel
+      </button>
+      <button mat-button
+              *ngIf="$columnFilter.operator !== 'isEmpty' && $columnFilter.operator !== 'isNotEmpty'"
+              (click)="$plugin.clear()">
+        Clear
+      </button>
+      <button mat-button
+              color="primary"
+              [q-grid-command]="$columnFilter.submit">
+        Apply
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </ng-template>

@@ -3,13 +3,13 @@ import {
 	ContentChild,
 	AfterViewInit,
 	Output,
-	EventEmitter
+	EventEmitter,
 } from '@angular/core';
 import { ChipsDirective } from './chips.directive';
 import { MatChip } from '@angular/material/chips';
 
 @Directive({
-	selector: '[q-grid-chips-remove]'
+	selector: '[q-grid-chips-remove]',
 })
 export class ChipsRemoveDirective implements AfterViewInit {
 	@ContentChild(MatChip) list: MatChip;

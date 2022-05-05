@@ -3,11 +3,11 @@ import { ThemeOverlayDirective } from './theme-overlay.directive';
 
 @NgModule({
 	declarations: [
-		ThemeOverlayDirective
+		ThemeOverlayDirective,
 	],
 	exports: [
-		ThemeOverlayDirective
-	]
+		ThemeOverlayDirective,
+	],
 })
 export class ThemeOverlayModule {
 }

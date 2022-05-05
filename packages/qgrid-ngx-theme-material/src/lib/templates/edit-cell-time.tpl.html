@@ -1,21 +1,21 @@
 <ng-template key="edit-cell-time.tpl.html"
-			 let-$cell
-			 let-$view="$view">
-	<q-grid-cell-editor class="q-grid-time q-grid-editor q-grid-position q-grid-text"
-						(close)="$view.edit.cell.exit.execute($cell)"
-						q-grid-position="td">
-		<mat-form-field *q-grid-time="let qGridTime">
-			<input matInput
-				   type="time"
-				   #input
-				   q-grid-focus
-				   [value]="$view.edit.cell.value | qGridTime: 'HH:mm'"
-				   (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)" />
-		</mat-form-field>
-		<q-grid-validator class="q-grid-validator"
-						  [key]="$cell.column.key"
-						  [type]="$cell.column.type"
-						  [value]="$view.edit.cell.value">
-		</q-grid-validator>
-	</q-grid-cell-editor>
+             let-$cell
+             let-$view="$view">
+<q-grid-cell-editor class="q-grid-time q-grid-editor q-grid-position q-grid-text"
+                    (close)="$view.edit.cell.exit.execute($cell)"
+                    q-grid-position="td">
+    <mat-form-field *q-grid-time="let qGridTime">
+      <input matInput
+             type="time"
+             #input
+             q-grid-focus
+             [value]="$view.edit.cell.value | qGridTime: 'HH:mm'"
+             (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)" />
+    </mat-form-field>
+    <q-grid-validator class="q-grid-validator"
+                      [key]="$cell.column.key"
+                      [type]="$cell.column.type"
+                      [value]="$view.edit.cell.value">
+    </q-grid-validator>
+  </q-grid-cell-editor>
 </ng-template>
