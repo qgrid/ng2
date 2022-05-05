@@ -63,7 +63,6 @@ export class LiveRowComponent implements OnInit {
 
       Fastdom.mutate(() => {
         const animation = tr.model().tr.element.animate(
-          // eslint-disable-next-line array-bracket-spacing
           [{ opacity: '1' }, { opacity: '0' }],
           { duration: this.duration },
         );
@@ -98,7 +97,6 @@ export class LiveRowComponent implements OnInit {
               animatedRows.push(
                 new Promise(animationRowEnd => {
                   const animation = rowElement.animate(
-                    // eslint-disable-next-line array-bracket-spacing
                     [{ transform: 'translateY(0px)' }, { transform: `translateY(${offset}px)` }],
                     { duration: this.duration },
                   );

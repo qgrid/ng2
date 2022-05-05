@@ -20,7 +20,7 @@
     }],
     "array-bracket-spacing": ["error", "never", {
       "singleValue": false,
-      "objectsInArrays": true,
+      "objectsInArrays": false,
       "arraysInArrays": false
     }],
     "arrow-body-style": "error",

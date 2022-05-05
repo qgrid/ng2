@@ -73,7 +73,7 @@ export class ExampleColumnDropdownBasicComponent {
   };
 
   objectFetchOptions = {
-    fetch: [ { label: 'hello' }, { label: 'world' } ],
+    fetch: [{ label: 'hello' }, { label: 'world' }],
   };
 
   multiFetchOptions = {
