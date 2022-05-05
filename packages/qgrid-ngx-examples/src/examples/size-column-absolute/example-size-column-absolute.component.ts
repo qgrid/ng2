@@ -5,19 +5,19 @@ import { Observable } from 'rxjs';
 const EXAMPLE_TAGS = ['size-column-absolute', 'Columns have absolute width'];
 
 @Component({
-	selector: 'example-size-column-absolute',
-	templateUrl: 'example-size-column-absolute.component.html',
-	styleUrls: ['example-size-column-absolute.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-size-column-absolute',
+  templateUrl: 'example-size-column-absolute.component.html',
+  styleUrls: ['example-size-column-absolute.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSizeColumnAbsoluteComponent {
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Atom[]>;
+  rows: Observable<Atom[]>;
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
-	}
+  constructor(dataService: DataService) {
+    this.rows = dataService.getAtoms();
+  }
 }

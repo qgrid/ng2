@@ -5,19 +5,19 @@ import { Observable } from 'rxjs';
 const EXAMPLE_TAGS = ['generate-column-cohort', 'Column generation based on data source'];
 
 @Component({
-	selector: 'example-generate-column-cohort',
-	templateUrl: 'example-generate-column-cohort.component.html',
-	styleUrls: ['example-generate-column-cohort.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-generate-column-cohort',
+  templateUrl: 'example-generate-column-cohort.component.html',
+  styleUrls: ['example-generate-column-cohort.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGenerateColumnCohortComponent {
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Human[]>;
+  rows: Observable<Human[]>;
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople();
-	}
+  constructor(dataService: DataService) {
+    this.rows = dataService.getPeople();
+  }
 }

@@ -4,24 +4,24 @@ import { Observable } from 'rxjs';
 import { Column, StyleCellContext } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-scroll-virtual-style',
-	templateUrl: 'example-scroll-virtual-style.component.html',
-	styleUrls: ['example-scroll-virtual-style.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-scroll-virtual-style',
+  templateUrl: 'example-scroll-virtual-style.component.html',
+  styleUrls: ['example-scroll-virtual-style.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualStyleComponent {
-	static id = 'scroll-virtual-style';
+  static id = 'scroll-virtual-style';
 
-	rows: Observable<Human[]>;
+  rows: Observable<Human[]>;
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople();
-	}
+  constructor(dataService: DataService) {
+    this.rows = dataService.getPeople();
+  }
 
-	styleCell(row: Human, column: Column, ctx: StyleCellContext) {
-		if (column.key === 'gender') {
-			ctx.class(row.gender, { color: row.gender === 'female' ? 'red' : 'blue' });
-		}
-	}
+  styleCell(row: Human, column: Column, ctx: StyleCellContext) {
+    if (column.key === 'gender') {
+      ctx.class(row.gender, { color: row.gender === 'female' ? 'red' : 'blue' });
+    }
+  }
 }

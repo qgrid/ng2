@@ -6,29 +6,29 @@ import { GridComponent, Grid } from 'ng2-qgrid';
 const EXAMPLE_TAGS = ['focus-cell-custom', 'Cell can be focused by entering its number into focus input field and clicking "focus" button'];
 
 @Component({
-	selector: 'example-focus-cell-custom',
-	templateUrl: 'example-focus-cell-custom.component.html',
-	styleUrls: ['example-focus-cell-custom.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-focus-cell-custom',
+  templateUrl: 'example-focus-cell-custom.component.html',
+  styleUrls: ['example-focus-cell-custom.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFocusCellCustomComponent {
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+  @ViewChild(GridComponent, { static: true }) grid: GridComponent;
 
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Atom[]>;
+  rows: Observable<Atom[]>;
 
-	constructor(dataService: DataService, private qgrid: Grid) {
-		this.rows = dataService.getAtoms();
-	}
+  constructor(dataService: DataService, private qgrid: Grid) {
+    this.rows = dataService.getAtoms();
+  }
 
-	focus(rowIndex) {
-		const { model } = this.grid;
-		const service = this.qgrid.service(model);
+  focus(rowIndex) {
+    const { model } = this.grid;
+    const service = this.qgrid.service(model);
 
-		// navigate to the 2nd page to the bottom
-		service.focus(Number.parseInt(rowIndex, 10) - 1);
-	}
+    // navigate to the 2nd page to the bottom
+    service.focus(Number.parseInt(rowIndex, 10) - 1);
+  }
 }
