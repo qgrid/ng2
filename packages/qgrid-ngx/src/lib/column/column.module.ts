@@ -5,20 +5,20 @@ import { ColumnEditTemplateDirective } from './column-edit-template.directive';
 import { ColumnFootTemplateDirective } from './column-foot-template.directive';
 import { ColumnHeadTemplateDirective } from './column-head-template.directive';
 @NgModule({
-	declarations: [
-		ColumnComponent,
-		ColumnBodyTemplateDirective,
-		ColumnEditTemplateDirective,
-		ColumnFootTemplateDirective,
-		ColumnHeadTemplateDirective,
-	],
-	exports: [
-		ColumnComponent,
-		ColumnBodyTemplateDirective,
-		ColumnEditTemplateDirective,
-		ColumnFootTemplateDirective,
-		ColumnHeadTemplateDirective,
-	],
+  declarations: [
+    ColumnComponent,
+    ColumnBodyTemplateDirective,
+    ColumnEditTemplateDirective,
+    ColumnFootTemplateDirective,
+    ColumnHeadTemplateDirective,
+  ],
+  exports: [
+    ColumnComponent,
+    ColumnBodyTemplateDirective,
+    ColumnEditTemplateDirective,
+    ColumnFootTemplateDirective,
+    ColumnHeadTemplateDirective,
+  ],
 })
 export class ColumnModule {
 }

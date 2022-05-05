@@ -14,43 +14,43 @@ import { GridModelBuilder } from './grid-model.builder';
 import { GridComponent } from './grid.component';
 
 @NgModule({
-	declarations: [
-		GridComponent,
-	],
-	exports: [
-		GridComponent,
-	],
-	imports: [
-		CommonModule,
+  declarations: [
+    GridComponent,
+  ],
+  exports: [
+    GridComponent,
+  ],
+  imports: [
+    CommonModule,
 
-		BoxModule,
-		LayerModule,
-		MarkupModule,
-		ScrollModule,
-		TemplateModule,
-		ThemeModule,
-		ToolbarModule,
-		ViewModule,
-	],
-	providers: [
-		DatePipe,
-		DecimalPipe,
-		CurrencyPipe,
-		GridModelBuilder,
-		Grid,
-	],
+    BoxModule,
+    LayerModule,
+    MarkupModule,
+    ScrollModule,
+    TemplateModule,
+    ThemeModule,
+    ToolbarModule,
+    ViewModule,
+  ],
+  providers: [
+    DatePipe,
+    DecimalPipe,
+    CurrencyPipe,
+    GridModelBuilder,
+    Grid,
+  ],
 })
 export class GridModule {
-	constructor(
-		zone: NgZone,
-		datePipe: DatePipe,
-		numberPipe: DecimalPipe,
-		currencyPipe: CurrencyPipe,
-	) {
-		FormatService.date = (x, format) => datePipe.transform(x, format);
-		FormatService.number = (x, format) => numberPipe.transform(x, format);
-		FormatService.currency = (x, format) => currencyPipe.transform(x, format);
+  constructor(
+    zone: NgZone,
+    datePipe: DatePipe,
+    numberPipe: DecimalPipe,
+    currencyPipe: CurrencyPipe,
+  ) {
+    FormatService.date = (x, format) => datePipe.transform(x, format);
+    FormatService.number = (x, format) => numberPipe.transform(x, format);
+    FormatService.currency = (x, format) => currencyPipe.transform(x, format);
 
-		Fastdom.invoke = task => zone.runOutsideAngular<any>(task);
-	}
+    Fastdom.invoke = task => zone.runOutsideAngular<any>(task);
+  }
 }

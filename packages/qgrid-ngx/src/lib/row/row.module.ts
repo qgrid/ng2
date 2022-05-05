@@ -4,16 +4,16 @@ import { TrCoreDirective } from './tr-core.directive';
 import { TrhCoreDirective } from './trh-core.directive';
 
 @NgModule({
-	declarations: [
-		RowComponent,
-		TrCoreDirective,
-		TrhCoreDirective,
-	],
-	exports: [
-		RowComponent,
-		TrCoreDirective,
-		TrhCoreDirective,
-	],
+  declarations: [
+    RowComponent,
+    TrCoreDirective,
+    TrhCoreDirective,
+  ],
+  exports: [
+    RowComponent,
+    TrCoreDirective,
+    TrhCoreDirective,
+  ],
 })
 export class RowModule {
 }

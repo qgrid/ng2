@@ -8,21 +8,21 @@ export interface ThemeNameChangeEventArg {
 
 @Injectable()
 export class ThemeService {
-	private themeName = '';
+  private themeName = '';
 
-	changed = new Event<ThemeNameChangeEventArg>();
-	component: any;
+  changed = new Event<ThemeNameChangeEventArg>();
+  component: any;
 
-	get name() {
-		return this.themeName;
-	}
+  get name() {
+    return this.themeName;
+  }
 
-	set name(value: string) {
-		if (value !== this.themeName) {
-			const oldName = this.themeName;
-			const newName = value;
+  set name(value: string) {
+    if (value !== this.themeName) {
+      const oldName = this.themeName;
+      const newName = value;
 
-			this.changed.emit({ oldName, newName });
-		}
-	}
+      this.changed.emit({ oldName, newName });
+    }
+  }
 }

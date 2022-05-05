@@ -4,9 +4,9 @@ import { VscrollLayout } from './vscroll.layout';
 import { VscrollContext } from './vscroll.context';
 
 export function applyHTML(element: HTMLElement) {
-	element.tabIndex = 0;
-	element.style.outline = 'none';
-	(element.style as any).overflowAnchor = 'none';
+  element.tabIndex = 0;
+  element.style.outline = 'none';
+  (element.style as any).overflowAnchor = 'none';
 }
 
 export interface VscrollPort {

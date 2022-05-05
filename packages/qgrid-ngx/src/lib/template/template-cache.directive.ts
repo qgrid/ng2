@@ -1,33 +1,33 @@
 import {
-	Directive,
-	Input,
-	OnInit,
-	TemplateRef,
-	Optional,
+  Directive,
+  Input,
+  OnInit,
+  TemplateRef,
+  Optional,
 } from '@angular/core';
 import { TemplateCacheService } from './template-cache.service';
 import { TemplateHostService } from './template-host.service';
 import { TemplateLink } from './template-link';
 
 @Directive({
-	selector: 'ng-template[for]', // eslint-disable-line @angular-eslint/directive-selector
+  selector: 'ng-template[for]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateCacheDirective implements OnInit {
-	@Input('for') key = '';
-	@Input() context = {};
+  @Input('for') key = '';
+  @Input() context = {};
 
-	constructor(
-		private templateCache: TemplateCacheService,
-		private templateRef: TemplateRef<any>,
-		@Optional() private templateHost: TemplateHostService) {
-	}
+  constructor(
+    private templateCache: TemplateCacheService,
+    private templateRef: TemplateRef<any>,
+    @Optional() private templateHost: TemplateHostService) {
+  }
 
-	ngOnInit() {
-		const link = new TemplateLink(this.templateRef, this.context);
-		if (this.templateHost) {
-			this.templateCache.put(this.templateHost.key(this.key), link);
-		} else {
-			this.templateCache.put(this.key, link);
-		}
-	}
+  ngOnInit() {
+    const link = new TemplateLink(this.templateRef, this.context);
+    if (this.templateHost) {
+      this.templateCache.put(this.templateHost.key(this.key), link);
+    } else {
+      this.templateCache.put(this.key, link);
+    }
+  }
 }

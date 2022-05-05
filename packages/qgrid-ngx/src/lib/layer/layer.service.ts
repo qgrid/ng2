@@ -4,56 +4,56 @@ import { Layer } from './layer';
 
 @Injectable()
 export class LayerService {
-	private container: ViewContainerRef;
-	private layers = new Map<string, Layer>();
+  private container: ViewContainerRef;
+  private layers = new Map<string, Layer>();
 
-	get count() {
-		return this.layers.size;
-	}
+  get count() {
+    return this.layers.size;
+  }
 
-	constructor(private templateService: TemplateService) {
-	}
+  constructor(private templateService: TemplateService) {
+  }
 
-	init(container: ViewContainerRef) {
-		this.container = container;
-	}
+  init(container: ViewContainerRef) {
+    this.container = container;
+  }
 
-	create(name) {
-		if (this.layers.has(name)) {
-			return this.layers.get(name);
-		}
+  create(name) {
+    if (this.layers.has(name)) {
+      return this.layers.get(name);
+    }
 
-		const { container, templateService } = this;
-		const link = templateService.find(`layer-${name}.tpl.html`);
-		if (link && container) {
-			const { nativeElement } = container.element;
-			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
-			this.getHostElement()?.classList.add(`q-grid-${name}`);
-			container.createEmbeddedView(link.template, {});
-		}
+    const { container, templateService } = this;
+    const link = templateService.find(`layer-${name}.tpl.html`);
+    if (link && container) {
+      const { nativeElement } = container.element;
+      nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
+      this.getHostElement()?.classList.add(`q-grid-${name}`);
+      container.createEmbeddedView(link.template, {});
+    }
 
-		const destroy = container
-			? () => {
-				this.layers.delete(name);
-				const { nativeElement } = container.element;
-				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
-				this.getHostElement()?.classList.remove(`q-grid-${name}`);
-				container.clear();
-			}
-			: () => this.layers.delete(name);
+    const destroy = container
+      ? () => {
+        this.layers.delete(name);
+        const { nativeElement } = container.element;
+        nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
+        this.getHostElement()?.classList.remove(`q-grid-${name}`);
+        container.clear();
+      }
+      : () => this.layers.delete(name);
 
-		const layer = new Layer(destroy);
-		this.layers.set(name, layer);
-		return layer;
-	}
+    const layer = new Layer(destroy);
+    this.layers.set(name, layer);
+    return layer;
+  }
 
-	private getHostElement() {
-		const { nativeElement } = this.container.element;
-		for (let el = nativeElement; el; el = el.parentElement) {
-			if (el.tagName === 'Q-GRID') {
-				return el;
-			}
-		}
-		return null;
-	}
+  private getHostElement() {
+    const { nativeElement } = this.container.element;
+    for (let el = nativeElement; el; el = el.parentElement) {
+      if (el.tagName === 'Q-GRID') {
+        return el;
+      }
+    }
+    return null;
+  }
 }
