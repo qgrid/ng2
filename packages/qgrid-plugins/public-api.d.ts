@@ -25,8 +25,8 @@ export { ImportPlugin } from './src/import/import.plugin';
 export { PagerPlugin } from './src/pager/pager.plugin';
 // persistence
 export {
-	PersistenceItem,
-	PersistencePlugin,
+  PersistenceItem,
+  PersistencePlugin,
 } from './src/persistence/persistence.plugin';
 // position
 export { PositionPlugin } from './src/position/position.plugin';
