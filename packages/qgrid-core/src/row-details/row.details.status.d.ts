@@ -1,5 +1,5 @@
 export declare class RowDetailsStatus {
-	readonly expand: boolean;
+  readonly expand: boolean;
 
-	constructor(expand: boolean);
+  constructor(expand: boolean);
 }

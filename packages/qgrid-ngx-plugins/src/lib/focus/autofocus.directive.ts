@@ -3,19 +3,19 @@ import { GridPlugin } from '@qgrid/ngx';
 import { AutofocusPlugin } from '@qgrid/plugins';
 
 @Directive({
-	selector: '[q-grid-autofocus]',
-	providers: [GridPlugin],
+  selector: '[q-grid-autofocus]',
+  providers: [GridPlugin],
 })
 export class AutoFocusDirective implements AfterViewInit {
-	@Input('q-grid-autofocus') enabled: boolean | string;
+  @Input('q-grid-autofocus') enabled: boolean | string;
 
-	constructor(
-		private plugin: GridPlugin,
-	) { }
+  constructor(
+    private plugin: GridPlugin,
+  ) { }
 
-	ngAfterViewInit() {
-		if (this.enabled !== false) {
-			new AutofocusPlugin(this.plugin);
-		}
-	}
+  ngAfterViewInit() {
+    if (this.enabled !== false) {
+      new AutofocusPlugin(this.plugin);
+    }
+  }
 }

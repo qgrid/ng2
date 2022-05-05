@@ -4,91 +4,91 @@ import { max, min } from '../utility/kit';
 
 export class Container {
 
-	get clientWidth() {
-		return max(this.elements.map(element => element.clientWidth));
-	}
+  get clientWidth() {
+    return max(this.elements.map(element => element.clientWidth));
+  }
 
-	get clientHeight() {
-		return max(this.elements.map(element => element.clientHeight));
-	}
+  get clientHeight() {
+    return max(this.elements.map(element => element.clientHeight));
+  }
 
-	get offsetWidth() {
-		return max(this.elements.map(element => element.offsetWidth));
-	}
+  get offsetWidth() {
+    return max(this.elements.map(element => element.offsetWidth));
+  }
 
-	get offsetHeight() {
-		return max(this.elements.map(element => element.offsetHeight));
-	}
+  get offsetHeight() {
+    return max(this.elements.map(element => element.offsetHeight));
+  }
 
-	get classList() {
-		return {
-			add: name => this.addClass(name),
-			remove: name => this.removeClass(name),
-			contains: name => this.hasClass(name),
-		};
-	}
+  get classList() {
+    return {
+      add: name => this.addClass(name),
+      remove: name => this.removeClass(name),
+      contains: name => this.hasClass(name),
+    };
+  }
 
-	constructor(elements) {
-		this.elements = elements;
-	}
+  constructor(elements) {
+    this.elements = elements;
+  }
 
-	getBoundingClientRect() {
-		const rects = this.elements.map(element => element.getBoundingClientRect());
-		const top = min(rects.map(r => r.top));
-		const left = min(rects.map(r => r.left));
-		const bottom = max(rects.map(r => r.bottom));
-		const right = max(rects.map(r => r.right));
-		return {
-			height: bottom - top,
-			width: right - left,
-			top: top,
-			left: left,
-			right: right,
-			bottom: bottom,
-		};
-	}
+  getBoundingClientRect() {
+    const rects = this.elements.map(element => element.getBoundingClientRect());
+    const top = min(rects.map(r => r.top));
+    const left = min(rects.map(r => r.left));
+    const bottom = max(rects.map(r => r.bottom));
+    const right = max(rects.map(r => r.right));
+    return {
+      height: bottom - top,
+      width: right - left,
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom,
+    };
+  }
 
-	addClass(name) {
-		this.elements.forEach(element => element.classList.add(escapeAttr(name)));
-	}
+  addClass(name) {
+    this.elements.forEach(element => element.classList.add(escapeAttr(name)));
+  }
 
-	removeClass(name) {
-		this.elements.forEach(element => element.classList.remove(escapeAttr(name)));
-	}
+  removeClass(name) {
+    this.elements.forEach(element => element.classList.remove(escapeAttr(name)));
+  }
 
-	hasClass(name) {
-		return this.elements.some(element => element.classList.contains(escapeAttr(name)));
-	}
+  hasClass(name) {
+    return this.elements.some(element => element.classList.contains(escapeAttr(name)));
+  }
 }
 
 export class TrContainer {
-	get index() {
-		const tr = this.elements[0];
-		Guard.notNull(tr, 'tr');
+  get index() {
+    const tr = this.elements[0];
+    Guard.notNull(tr, 'tr');
 
-		return tr.index;
-	}
+    return tr.index;
+  }
 
-	get model() {
-		const tr = this.elements[0];
-		Guard.notNull(tr, 'tr');
+  get model() {
+    const tr = this.elements[0];
+    Guard.notNull(tr, 'tr');
 
-		return tr && tr.model;
-	}
+    return tr && tr.model;
+  }
 
-	get element() {
-		const { elements } = this;
-		if (elements.length > 1) {
-			return new Container(elements.map(tr => tr.element));
-		}
+  get element() {
+    const { elements } = this;
+    if (elements.length > 1) {
+      return new Container(elements.map(tr => tr.element));
+    }
 
-		const tr = this.elements[0];
-		Guard.notNull(tr, 'tr');
+    const tr = this.elements[0];
+    Guard.notNull(tr, 'tr');
 
-		return tr.element;
-	}
+    return tr.element;
+  }
 
-	constructor(elements) {
-		this.elements = elements;
-	}
+  constructor(elements) {
+    this.elements = elements;
+  }
 }

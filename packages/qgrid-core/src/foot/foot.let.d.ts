@@ -4,13 +4,13 @@ import { GridPlugin } from '../plugin/grid.plugin';
 import { ColumnView } from '../scene/view/column.view';
 
 export declare class FootLet {
-	readonly count: number;
-	readonly rows: any[];
-	valueFactory: (column: ColumnModel) => (row: any, value?: any) => any;
+  readonly count: number;
+  readonly rows: any[];
+  valueFactory: (column: ColumnModel) => (row: any, value?: any) => any;
 
-	constructor(plugin: GridPlugin);
+  constructor(plugin: GridPlugin);
 
-	columns(row: any, pin: ColumnModelPin): ColumnView[];
-	invalidate(model: Model): void;
-	value(column: ColumnModel): any;
+  columns(row: any, pin: ColumnModelPin): ColumnView[];
+  invalidate(model: Model): void;
+  value(column: ColumnModel): any;
 }

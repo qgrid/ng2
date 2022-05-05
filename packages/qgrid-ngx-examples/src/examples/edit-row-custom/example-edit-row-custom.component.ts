@@ -6,41 +6,41 @@ import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 const EXAMPLE_TAGS = ['edit-row-custom', 'Selected row can be edited using UI button "Open pane"'];
 
 @Component({
-	selector: 'example-edit-row-custom',
-	templateUrl: './example-edit-row-custom.component.html',
-	styleUrls: ['./example-edit-row-custom.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-edit-row-custom',
+  templateUrl: './example-edit-row-custom.component.html',
+  styleUrls: ['./example-edit-row-custom.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ExampleEditRowCustomComponent implements AfterViewInit {
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
+  @ViewChild(GridComponent, { static: true }) grid: GridComponent;
+  @ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
 
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows$: Observable<Human[]>;
+  rows$: Observable<Human[]>;
 
-	selectedRow: Human;
+  selectedRow: Human;
 
-	openPane = new Command({
-		execute: () => this.pane.open('right'),
-		canExecute: () => !!this.selectedRow,
-	});
+  openPane = new Command({
+    execute: () => this.pane.open('right'),
+    canExecute: () => !!this.selectedRow,
+  });
 
-	constructor(dataService: DataService) {
-		this.rows$ = dataService.getPeople();
-	}
+  constructor(dataService: DataService) {
+    this.rows$ = dataService.getPeople();
+  }
 
-	ngAfterViewInit() {
-		const { model } = this.grid;
+  ngAfterViewInit() {
+    const { model } = this.grid;
 
-		model.selectionChanged.watch(e => {
-			if (e.hasChanges('items')) {
-				this.selectedRow = e.state.items[0];
-				this.openPane.canExecuteCheck.next();
-			}
-		});
-	}
+    model.selectionChanged.watch(e => {
+      if (e.hasChanges('items')) {
+        this.selectedRow = e.state.items[0];
+        this.openPane.canExecuteCheck.next();
+      }
+    });
+  }
 }

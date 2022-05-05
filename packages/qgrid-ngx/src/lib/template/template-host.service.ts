@@ -3,5 +3,5 @@ import { identity } from '@qgrid/core';
 
 @Injectable()
 export class TemplateHostService {
-	key: (x: string) => string = identity;
+  key: (x: string) => string = identity;
 }

@@ -46,33 +46,33 @@ export declare type StyleCellCallback = (row: any, column: ColumnModel, context:
  * ```
  */
 export declare class StyleState {
-	/**
+  /**
 	 * Style row.
 	 */
-	row: StyleRowCallback;
+  row: StyleRowCallback;
 
-	/**
+  /**
 	 * Style cell, when object is used key represents column key.
 	 */
-	cell: StyleCellCallback | { [key: string]: StyleCellCallback };
+  cell: StyleCellCallback | { [key: string]: StyleCellCallback };
 
-	/**
+  /**
 	 * On invalidate.
 	 */
-	invalidate: Command;
+  invalidate: Command;
 
-	/**
+  /**
 	 * Queue of row styles that can be used internally or in plugins.
 	 */
-	rows: StyleRowCallback[];
+  rows: StyleRowCallback[];
 
-	/**
+  /**
 	 * Queue of cell styles that can be used internally or in plugins.
 	 */
-	cells: StyleCellCallback[];
+  cells: StyleCellCallback[];
 
-	/**
+  /**
 	 * List of CSS classes
 	 */
-	classList: Array<string>;
+  classList: Array<string>;
 }

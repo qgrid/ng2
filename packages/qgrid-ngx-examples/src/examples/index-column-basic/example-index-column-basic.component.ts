@@ -5,19 +5,19 @@ import { Observable } from 'rxjs';
 const EXAMPLE_TAGS = ['index-column-basic', 'Columns are ordered (property "index")'];
 
 @Component({
-	selector: 'example-index-column-basic',
-	templateUrl: 'example-index-column-basic.component.html',
-	styleUrls: ['example-index-column-basic.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-index-column-basic',
+  templateUrl: 'example-index-column-basic.component.html',
+  styleUrls: ['example-index-column-basic.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleIndexColumnBasicComponent {
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Atom[]>;
+  rows: Observable<Atom[]>;
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
-	}
+  constructor(dataService: DataService) {
+    this.rows = dataService.getAtoms();
+  }
 }

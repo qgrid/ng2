@@ -3,20 +3,20 @@ import { bodyCellClassifier, ColumnModel, headCellClassifier } from '@qgrid/core
 
 @Injectable()
 export class CellClassService {
-	private bodyCache = new Map<ColumnModel, (x: HTMLElement) => void>();
+  private bodyCache = new Map<ColumnModel, (x: HTMLElement) => void>();
 
-	toBody(element: HTMLElement, column: ColumnModel) {
-		let classify = this.bodyCache.get(column);
-		if (!classify) {
-			classify = bodyCellClassifier(column);
-			this.bodyCache.set(column, classify);
-		}
+  toBody(element: HTMLElement, column: ColumnModel) {
+    let classify = this.bodyCache.get(column);
+    if (!classify) {
+      classify = bodyCellClassifier(column);
+      this.bodyCache.set(column, classify);
+    }
 
-		classify(element);
-	}
+    classify(element);
+  }
 
-	toHead(element: HTMLElement, column: ColumnModel) {
-		const classify = headCellClassifier(column);
-		classify(element);
-	}
+  toHead(element: HTMLElement, column: ColumnModel) {
+    const classify = headCellClassifier(column);
+    classify(element);
+  }
 }

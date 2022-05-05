@@ -1,29 +1,29 @@
 import { SubSelectionState } from './selection.state';
 
 export class SingleSelectionState extends SubSelectionState {
-	constructor(model, service) {
-		super(model, service);
+  constructor(model, service) {
+    super(model, service);
 
-		this.item = null;
-	}
+    this.item = null;
+  }
 
-	entries() {
-		return this.item ? [this.item] : [];
-	}
+  entries() {
+    return this.item ? [this.item] : [];
+  }
 
-	selectCore(item, state) {
-		if (state) {
-			this.item = item;
-		} else {
-			this.item = null;
-		}
-	}
+  selectCore(item, state) {
+    if (state) {
+      this.item = item;
+    } else {
+      this.item = null;
+    }
+  }
 
-	stateCore(item, key) {
-		return this.item !== null && key(item) === key(this.item);
-	}
+  stateCore(item, key) {
+    return this.item !== null && key(item) === key(this.item);
+  }
 
-	clearCore() {
-		this.item = null;
-	}
+  clearCore() {
+    this.item = null;
+  }
 }

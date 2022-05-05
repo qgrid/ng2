@@ -6,64 +6,64 @@ import { hasOwnProperty } from '../utility/kit';
 
 export class FootLet {
 
-	get count() {
-		const { model } = this.plugin;
-		const { columns } = model.view();
-		const resourceCount = model.foot().resource.count;
+  get count() {
+    const { model } = this.plugin;
+    const { columns } = model.view();
+    const resourceCount = model.foot().resource.count;
 
-		for (let i = 0, length = columns.length; i < length; i++) {
-			if (columns[i].aggregation) {
-				return Math.max(resourceCount, 1);
-			}
-		}
+    for (let i = 0, length = columns.length; i < length; i++) {
+      if (columns[i].aggregation) {
+        return Math.max(resourceCount, 1);
+      }
+    }
 
-		return resourceCount;
-	}
+    return resourceCount;
+  }
 
-	constructor(plugin) {
-		const { model, observeReply } = plugin;
+  constructor(plugin) {
+    const { model, observeReply } = plugin;
 
-		this.plugin = plugin;
-		this.valueFactory = getValueFactory;
-		this.rows = [];
+    this.plugin = plugin;
+    this.valueFactory = getValueFactory;
+    this.rows = [];
 
-		observeReply(model.sceneChanged)
-			.subscribe(e => {
-				if (e.hasChanges('column')) {
-					this.invalidate();
-				}
-			});
-	}
+    observeReply(model.sceneChanged)
+      .subscribe(e => {
+        if (e.hasChanges('column')) {
+          this.invalidate();
+        }
+      });
+  }
 
-	invalidate() {
-		Log.info('view.foot', 'invalidate');
+  invalidate() {
+    Log.info('view.foot', 'invalidate');
 
-		this.rows = new Array(this.count);
-	}
+    this.rows = new Array(this.count);
+  }
 
-	columns(row, pin) {
-		const { model } = this.plugin;
-		return model.scene().column.area[pin] || [];
-	}
+  columns(row, pin) {
+    const { model } = this.plugin;
+    return model.scene().column.area[pin] || [];
+  }
 
-	value(column) {
-		if (column.aggregation) {
-			const aggregation = column.aggregation;
-			const aggregationOptions = column.aggregationOptions;
+  value(column) {
+    if (column.aggregation) {
+      const aggregation = column.aggregation;
+      const aggregationOptions = column.aggregationOptions;
 
-			if (!hasOwnProperty.call(Aggregation, aggregation)) {
-				throw new GridError(
-					'foot',
-					`Aggregation ${aggregation} is not registered`);
-			}
+      if (!hasOwnProperty.call(Aggregation, aggregation)) {
+        throw new GridError(
+          'foot',
+          `Aggregation ${aggregation} is not registered`);
+      }
 
-			const { model } = this.plugin;
-			const { rows } = model.data();
+      const { model } = this.plugin;
+      const { rows } = model.data();
 
-			const getValue = this.valueFactory(column);
-			return Aggregation[aggregation](rows, getValue, aggregationOptions);
-		}
+      const getValue = this.valueFactory(column);
+      return Aggregation[aggregation](rows, getValue, aggregationOptions);
+    }
 
-		return null;
-	}
+    return null;
+  }
 }

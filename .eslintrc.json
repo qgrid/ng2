@@ -20,7 +20,7 @@
     }],
     "array-bracket-spacing": ["error", "never", {
       "singleValue": false,
-      "objectsInArrays": true,
+      "objectsInArrays": false,
       "arraysInArrays": false
     }],
     "arrow-body-style": "error",
@@ -36,7 +36,7 @@
     "guard-for-in": "error",
     "id-denylist": "off",
     "id-match": "off",
-    "indent": ["error", "tab", {
+    "indent": ["error", 2, {
       "SwitchCase": 1
     }],
     "max-len": ["error", { "code": 140 }],

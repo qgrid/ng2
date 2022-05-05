@@ -45,79 +45,79 @@ import { VisibilityState } from '../visibility/visibility.state';
 import { Model } from './model';
 
 export class ModelBuilder {
-	constructor() {
-		this.state = {};
+  constructor() {
+    this.state = {};
 
-		this
-			.register('action', ActionState)
-			.register('animation', AnimationState)
-			.register('body', BodyState)
-			.register('clipboard', ClipboardState)
-			.register('columnList', ColumnListState)
-			.register('data', DataState)
-			.register('drag', DragState)
-			.register('edit', EditState)
-			.register('export', ExportState)
-			.register('fetch', FetchState)
-			.register('filter', FilterState)
-			.register('focus', FocusState)
-			.register('foot', FootState)
-			.register('grid', GridState)
-			.register('group', GroupState)
-			.register('head', HeadState)
-			.register('highlight', HighlightState)
-			.register('import', ImportState)
-			.register('keyboard', KeyboardState)
-			.register('layer', LayerState)
-			.register('layout', LayoutState)
-			.register('mouse', MouseState)
-			.register('navigation', NavigationState)
-			.register('pagination', PaginationState)
-			.register('persistence', PersistenceState)
-			.register('pipe', PipeState)
-			.register('pivot', PivotState)
-			.register('plugin', PluginState)
-			.register('progress', ProgressState)
-			.register('rest', RestState)
-			.register('row', RowState)
-			.register('rowList', RowListState)
-			.register('scene', SceneState)
-			.register('scroll', ScrollState)
-			.register('selection', SelectionState)
-			.register('sort', SortState)
-			.register('style', StyleState)
-			.register('template', TemplateState)
-			.register('toolbar', ToolbarState)
-			.register('validation', ValidationState)
-			.register('view', ViewState)
-			.register('visibility', VisibilityState);
-	}
+    this
+      .register('action', ActionState)
+      .register('animation', AnimationState)
+      .register('body', BodyState)
+      .register('clipboard', ClipboardState)
+      .register('columnList', ColumnListState)
+      .register('data', DataState)
+      .register('drag', DragState)
+      .register('edit', EditState)
+      .register('export', ExportState)
+      .register('fetch', FetchState)
+      .register('filter', FilterState)
+      .register('focus', FocusState)
+      .register('foot', FootState)
+      .register('grid', GridState)
+      .register('group', GroupState)
+      .register('head', HeadState)
+      .register('highlight', HighlightState)
+      .register('import', ImportState)
+      .register('keyboard', KeyboardState)
+      .register('layer', LayerState)
+      .register('layout', LayoutState)
+      .register('mouse', MouseState)
+      .register('navigation', NavigationState)
+      .register('pagination', PaginationState)
+      .register('persistence', PersistenceState)
+      .register('pipe', PipeState)
+      .register('pivot', PivotState)
+      .register('plugin', PluginState)
+      .register('progress', ProgressState)
+      .register('rest', RestState)
+      .register('row', RowState)
+      .register('rowList', RowListState)
+      .register('scene', SceneState)
+      .register('scroll', ScrollState)
+      .register('selection', SelectionState)
+      .register('sort', SortState)
+      .register('style', StyleState)
+      .register('template', TemplateState)
+      .register('toolbar', ToolbarState)
+      .register('validation', ValidationState)
+      .register('view', ViewState)
+      .register('visibility', VisibilityState);
+  }
 
-	register(key, ctor) {
-		if (hasOwnProperty.call(this.state, key)) {
-			throw new GridError(
-				'model',
-				`"${key}" is already registered`);
-		}
+  register(key, ctor) {
+    if (hasOwnProperty.call(this.state, key)) {
+      throw new GridError(
+        'model',
+        `"${key}" is already registered`);
+    }
 
-		if (!isFunction(ctor)) {
-			throw new GridError(
-				`model.${key}`,
-				`"${ctor}" is not a valid type, should be an constructor function`);
-		}
+    if (!isFunction(ctor)) {
+      throw new GridError(
+        `model.${key}`,
+        `"${ctor}" is not a valid type, should be an constructor function`);
+    }
 
-		this.state[key] = ctor;
-		return this;
-	}
+    this.state[key] = ctor;
+    return this;
+  }
 
-	build() {
-		const { state } = this;
-		const model = new Model();
-		for (const name of Object.keys(state)) {
-			const Type = state[name];
-			model.inject(name, Type);
-		}
+  build() {
+    const { state } = this;
+    const model = new Model();
+    for (const name of Object.keys(state)) {
+      const Type = state[name];
+      model.inject(name, Type);
+    }
 
-		return model;
-	}
+    return model;
+  }
 }

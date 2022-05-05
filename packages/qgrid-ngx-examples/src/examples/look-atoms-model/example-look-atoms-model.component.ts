@@ -3,22 +3,22 @@ import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-look-atoms-model',
-	templateUrl: 'example-look-atoms-model.component.html',
-	styleUrls: ['example-look-atoms-model.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-look-atoms-model',
+  templateUrl: 'example-look-atoms-model.component.html',
+  styleUrls: ['example-look-atoms-model.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleLookAtomsModelComponent {
-	static id = 'look-atoms-model';
+  static id = 'look-atoms-model';
 
-	gridModel: GridModel;
+  gridModel: GridModel;
 
-	constructor(dataService: DataService, qgrid: Grid) {
-		this.gridModel = qgrid.model();
+  constructor(dataService: DataService, qgrid: Grid) {
+    this.gridModel = qgrid.model();
 
-		dataService
-			.getAtoms()
-			.subscribe(rows => this.gridModel.data({ rows }));
-	}
+    dataService
+      .getAtoms()
+      .subscribe(rows => this.gridModel.data({ rows }));
+  }
 }

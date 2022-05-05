@@ -4,192 +4,192 @@ import { MultipleSelectionState } from './multiple.selection.state';
 
 let model;
 const rows = [
-	{
-		'id': 101,
-		'name': 'John Doe',
-		'age': 34,
-	},
-	{
-		'id': 102,
-		'name': 'David Smith',
-		'age': 30,
-	},
-	{
-		'id': 103,
-		'name': 'Lue Laserna',
-		'age': 25,
-	},
+  {
+    'id': 101,
+    'name': 'John Doe',
+    'age': 34,
+  },
+  {
+    'id': 102,
+    'name': 'David Smith',
+    'age': 30,
+  },
+  {
+    'id': 103,
+    'name': 'Lue Laserna',
+    'age': 25,
+  },
 ];
 
 const columns = [
-	{
-		key: 'id',
-	},
-	{
-		key: 'name',
-	},
-	{
-		key: 'age',
-	},
+  {
+    key: 'id',
+  },
+  {
+    key: 'name',
+  },
+  {
+    key: 'age',
+  },
 ];
 
 describe('multiple selection state', () => {
-	before('init model', () => {
+  before('init model', () => {
 
-		model = modelFactory();
+    model = modelFactory();
 
-		model
-			.data({
-				rows,
-				columns,
-			})
-			.selection({
-				mode: 'multiple',
-			});
-	});
+    model
+      .data({
+        rows,
+        columns,
+      })
+      .selection({
+        mode: 'multiple',
+      });
+  });
 
-	describe('row unit', () => {
-		before('init model', () => {
-			model.selection({
-				unit: 'row',
-				rowKey: row => row.id,
-			});
-		});
+  describe('row unit', () => {
+    before('init model', () => {
+      model.selection({
+        unit: 'row',
+        rowKey: row => row.id,
+      });
+    });
 
-		beforeEach('reset selection', () => {
-			model.selection({
-				items: [],
-			});
-		});
+    beforeEach('reset selection', () => {
+      model.selection({
+        items: [],
+      });
+    });
 
-		describe('select function', () => {
-			it('should be able to select multiple rows', () => {
-				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
+    describe('select function', () => {
+      it('should be able to select multiple rows', () => {
+        const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 
-				selectionState.select([rows[0], rows[2]]);
+        selectionState.select([rows[0], rows[2]]);
 
-				const entries = selectionState.entries();
-				expect(entries.length).to.equal(2);
-				expect(entries[0].id).to.equal(101);
-				expect(entries[0].name).to.equal('John Doe');
-				expect(entries[1].id).to.equal(103);
-				expect(entries[1].name).to.equal('Lue Laserna');
-			});
-		});
+        const entries = selectionState.entries();
+        expect(entries.length).to.equal(2);
+        expect(entries[0].id).to.equal(101);
+        expect(entries[0].name).to.equal('John Doe');
+        expect(entries[1].id).to.equal(103);
+        expect(entries[1].name).to.equal('Lue Laserna');
+      });
+    });
 
-		describe('state function', () => {
-			it('should return state of row', () => {
-				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
-				selectionState.select([rows[0], rows[1]]);
+    describe('state function', () => {
+      it('should return state of row', () => {
+        const selectionState = new MultipleSelectionState(model, new SelectionService(model));
+        selectionState.select([rows[0], rows[1]]);
 
-				const states = rows.map(row => selectionState.state(row));
+        const states = rows.map(row => selectionState.state(row));
 
-				expect(states[0]).to.be.true();
-				expect(states[1]).to.be.true();
-				expect(states[2]).to.be.false();
-			});
-		});
-	});
+        expect(states[0]).to.be.true();
+        expect(states[1]).to.be.true();
+        expect(states[2]).to.be.false();
+      });
+    });
+  });
 
-	describe('column unit', () => {
-		before('init model', () => {
-			model.selection({
-				unit: 'column',
-				columnKey: column => column.key,
-			});
-		});
+  describe('column unit', () => {
+    before('init model', () => {
+      model.selection({
+        unit: 'column',
+        columnKey: column => column.key,
+      });
+    });
 
-		beforeEach('reset selection', () => {
-			model.selection({
-				items: [],
-			});
-		});
+    beforeEach('reset selection', () => {
+      model.selection({
+        items: [],
+      });
+    });
 
-		describe('select function', () => {
-			it('should be able to select multiple columns', () => {
-				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
+    describe('select function', () => {
+      it('should be able to select multiple columns', () => {
+        const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 
-				selectionState.select([columns[0], columns[2]]);
+        selectionState.select([columns[0], columns[2]]);
 
-				const entries = selectionState.entries();
-				expect(entries.length).to.equal(2);
-				expect(entries[0].key).to.equal('id');
-				expect(entries[1].key).to.equal('age');
-			});
-		});
+        const entries = selectionState.entries();
+        expect(entries.length).to.equal(2);
+        expect(entries[0].key).to.equal('id');
+        expect(entries[1].key).to.equal('age');
+      });
+    });
 
-		describe('state function', () => {
-			it('should return state of column', () => {
-				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
-				selectionState.select([columns[0], columns[1]]);
+    describe('state function', () => {
+      it('should return state of column', () => {
+        const selectionState = new MultipleSelectionState(model, new SelectionService(model));
+        selectionState.select([columns[0], columns[1]]);
 
-				const states = columns.map(col => selectionState.state(col));
+        const states = columns.map(col => selectionState.state(col));
 
-				expect(states[0]).to.be.true();
-				expect(states[1]).to.be.true();
-				expect(states[2]).to.be.false();
-			});
-		});
-	});
+        expect(states[0]).to.be.true();
+        expect(states[1]).to.be.true();
+        expect(states[2]).to.be.false();
+      });
+    });
+  });
 
-	describe('cell unit', () => {
-		const cells = [];
+  describe('cell unit', () => {
+    const cells = [];
 
-		before('init model', () => {
-			model.selection({
-				unit: 'cell',
-				columnKey: column => column.key,
-				rowKey: row => row.id,
-			});
-		});
+    before('init model', () => {
+      model.selection({
+        unit: 'cell',
+        columnKey: column => column.key,
+        rowKey: row => row.id,
+      });
+    });
 
-		before('prepare array of cells', () => {
-			rows.forEach(row => {
-				columns.forEach(column => {
-					cells.push({
-						row,
-						column,
-					});
-				});
-			});
-		});
+    before('prepare array of cells', () => {
+      rows.forEach(row => {
+        columns.forEach(column => {
+          cells.push({
+            row,
+            column,
+          });
+        });
+      });
+    });
 
-		beforeEach('reset selection', () => {
-			model.selection({
-				items: [],
-			});
-		});
+    beforeEach('reset selection', () => {
+      model.selection({
+        items: [],
+      });
+    });
 
-		describe('select function', () => {
-			it('should be able to select multiple columns', () => {
-				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
-				selectionState.select([cells[0], cells[cells.length-1]]);
+    describe('select function', () => {
+      it('should be able to select multiple columns', () => {
+        const selectionState = new MultipleSelectionState(model, new SelectionService(model));
+        selectionState.select([cells[0], cells[cells.length-1]]);
 
-				const entries = selectionState.entries();
+        const entries = selectionState.entries();
 
-				expect(entries.length).to.equal(2);
-				expect(entries[0].row.id).to.equal(101);
-				expect(entries[0].row.name).to.equal('John Doe');
-				expect(entries[0].row.age).to.equal(34);
-				expect(entries[0].column.key).to.equal('id');
-				expect(entries[1].row.id).to.equal(103);
-				expect(entries[1].row.name).to.equal('Lue Laserna');
-				expect(entries[1].row.age).to.equal(25);
-				expect(entries[1].column.key).to.equal('age');
-			});
-		});
+        expect(entries.length).to.equal(2);
+        expect(entries[0].row.id).to.equal(101);
+        expect(entries[0].row.name).to.equal('John Doe');
+        expect(entries[0].row.age).to.equal(34);
+        expect(entries[0].column.key).to.equal('id');
+        expect(entries[1].row.id).to.equal(103);
+        expect(entries[1].row.name).to.equal('Lue Laserna');
+        expect(entries[1].row.age).to.equal(25);
+        expect(entries[1].column.key).to.equal('age');
+      });
+    });
 
-		describe('state function', () => {
-			it('should return state of cell', () => {
-				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
-				const last = cells.length-1;
-				selectionState.select([cells[0], cells[last]]);
+    describe('state function', () => {
+      it('should return state of cell', () => {
+        const selectionState = new MultipleSelectionState(model, new SelectionService(model));
+        const last = cells.length-1;
+        selectionState.select([cells[0], cells[last]]);
 
-				const states = cells.map(cell => selectionState.state(cell));
+        const states = cells.map(cell => selectionState.state(cell));
 
-				expect(states[0]).to.be.true();
-				expect(states[last]).to.be.true();
-			});
-		});
-	});
+        expect(states[0]).to.be.true();
+        expect(states[last]).to.be.true();
+      });
+    });
+  });
 });

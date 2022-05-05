@@ -37,39 +37,39 @@ export declare type ColumnListStateTypeDetection = 'inference' | 'raw';
  *
  */
 export declare class ColumnListState {
-	/**
+  /**
 	 * A column generation mode.
 	 */
-	generation: ColumnListStateGeneration;
+  generation: ColumnListStateGeneration;
 
-	/**
+  /**
 	 * A type of column type property detection.
 	 */
-	typeDetection: ColumnListStateTypeDetection;
+  typeDetection: ColumnListStateTypeDetection;
 
-	/**
+  /**
 	 * Tree of columns which q-grid uses for column ordering.
 	 * This is filled automatically by internal service, but can be modified, for instance,
      * by [column sort](/doc/feature/sort.html) plugin.
 	 */
-	index: Node;
+  index: Node;
 
-	/**
+  /**
 	 * List of columns from html template. Usually that kind of column can be
 	 * defined with `<q-grid-column>` component in html,
      * and has `column.source === 'template'`.
 	 */
-	columns: ColumnModel[];
+  columns: ColumnModel[];
 
-	/**
+  /**
 	 * If user omits key property while defining a column, this column goes to the reference
 	 * object as `{columnType: myColumn}`. The reference settings will be applied for all
 	 * column of appropriate type as defaults.
 	 */
-	reference: { [type: string]: ColumnModel };
+  reference: { [type: string]: ColumnModel };
 
-	/**
+  /**
 	 * Flatten list of data columns, filled automatically on data columns changes.
 	 */
-	line: ColumnModel[];
+  line: ColumnModel[];
 }

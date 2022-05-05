@@ -1,37 +1,37 @@
 import {
-	Directive,
-	ContentChild,
-	EventEmitter,
-	Output,
-	AfterViewInit,
+  Directive,
+  ContentChild,
+  EventEmitter,
+  Output,
+  AfterViewInit,
 } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Disposable, Guard } from 'ng2-qgrid';
 
 @Directive({
-	selector: '[q-grid-menu-trigger]',
-	providers: [Disposable],
+  selector: '[q-grid-menu-trigger]',
+  providers: [Disposable],
 })
 export class MenuTriggerDirective implements AfterViewInit {
-	@ContentChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
-	@Output('q-grid-menu-trigger') close = new EventEmitter<any>();
+  @ContentChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
+  @Output('q-grid-menu-trigger') close = new EventEmitter<any>();
 
-	constructor(private disposable: Disposable) {
-	}
+  constructor(private disposable: Disposable) {
+  }
 
-	ngAfterViewInit() {
-		Guard.notNull(this.trigger, 'trigger');
+  ngAfterViewInit() {
+    Guard.notNull(this.trigger, 'trigger');
 
-		setTimeout(() => this.trigger.openMenu(), 10);
+    setTimeout(() => this.trigger.openMenu(), 10);
 
-		this.disposable.add(
-			this.trigger
-				.menuClosed
-				.subscribe(() => {
-					if (this.close) {
-						setTimeout(() => this.close.emit(), 10);
-					}
-				}),
-		);
-	}
+    this.disposable.add(
+      this.trigger
+        .menuClosed
+        .subscribe(() => {
+          if (this.close) {
+            setTimeout(() => this.close.emit(), 10);
+          }
+        }),
+    );
+  }
 }

@@ -4,13 +4,13 @@ import { Rect } from './rect';
 declare const fakeElement: FakeElement;
 
 export declare class Unit {
-	constructor();
+  constructor();
 
-	rect(): Rect;
-	addClass(name: string): void;
-	removeClass(name: string): void;
-	hasClass(name: string): boolean;
-	width(): number;
-	height(): number;
-	getElement(): FakeElement;
+  rect(): Rect;
+  addClass(name: string): void;
+  removeClass(name: string): void;
+  hasClass(name: string): boolean;
+  width(): number;
+  height(): number;
+  getElement(): FakeElement;
 }

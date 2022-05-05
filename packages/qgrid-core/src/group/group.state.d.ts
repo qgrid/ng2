@@ -18,24 +18,24 @@ export declare type GroupStateSummary = null | 'leaf';
  * working with `Node` object from the grid service.
  */
 export declare class GroupState {
-	/**
+  /**
 	 * How grid will render nodes:
 	 */
-	mode: GroupStateMode;
+  mode: GroupStateMode;
 
-	summary: GroupStateSummary;
+  summary: GroupStateSummary;
 
-	/**
+  /**
 	 * List of column keys to build appropriate hierarchy.
 	 * Each item represents next level.
 	 */
-	by: string[];
+  by: string[];
 
-	toggle: Command;
+  toggle: Command;
 
-	toggleAll: Command;
+  toggleAll: Command;
 
-	shortcut: { [key: string]: string };
+  shortcut: { [key: string]: string };
 
-	flatten: (nodes: Node[]) => Node[];
+  flatten: (nodes: Node[]) => Node[];
 }

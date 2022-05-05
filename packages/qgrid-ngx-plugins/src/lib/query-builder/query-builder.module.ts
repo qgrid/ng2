@@ -6,23 +6,23 @@ import { QueryBuilderPipe } from './query-builder.pipe';
 import { QueryBuilderModel } from './query-builder.model';
 
 @NgModule({
-	imports: [
-		TemplateModule,
-	],
-	exports: [
-		QueryBuilderComponent,
-		QueryBuilderPanelComponent,
-		QueryBuilderPipe,
-	],
-	declarations: [
-		QueryBuilderComponent,
-		QueryBuilderPanelComponent,
-		QueryBuilderPipe,
-	],
+  imports: [
+    TemplateModule,
+  ],
+  exports: [
+    QueryBuilderComponent,
+    QueryBuilderPanelComponent,
+    QueryBuilderPipe,
+  ],
+  declarations: [
+    QueryBuilderComponent,
+    QueryBuilderPanelComponent,
+    QueryBuilderPipe,
+  ],
 })
 export class QueryBuilderModule {
-	constructor(modelBuilder: GridModelBuilder) {
-		modelBuilder
-			.register('queryBuilder', QueryBuilderModel);
-	}
+  constructor(modelBuilder: GridModelBuilder) {
+    modelBuilder
+      .register('queryBuilder', QueryBuilderModel);
+  }
 }

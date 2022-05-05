@@ -21,40 +21,40 @@ import { HighlightPipe } from './app.highlight.pipe';
 
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		FilterSearchPipe,
-		HighlightPipe,
-	],
-	imports: [
-		CommonModule,
-		BrowserModule,
-		BrowserAnimationsModule,
-		HttpClientModule,
-		MatCardModule,
-		MatSelectModule,
-		MatSidenavModule,
-		MatToolbarModule,
-		MatIconModule,
-		MatListModule,
-		MatInputModule,
-		MatButtonModule,
-		RouterModule.forRoot([
-			{
-				path: '',
-				redirectTo: 'action-bar-basic',
-				pathMatch: 'full',
-			},
-		]),
-		ExampleModule,
-		FormsModule,
-	],
-	bootstrap: [
-		AppComponent,
-	],
+  declarations: [
+    AppComponent,
+    FilterSearchPipe,
+    HighlightPipe,
+  ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatCardModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatInputModule,
+    MatButtonModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        redirectTo: 'action-bar-basic',
+        pathMatch: 'full',
+      },
+    ]),
+    ExampleModule,
+    FormsModule,
+  ],
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule {
-	constructor(router: Router) {
-		router.config.unshift(...APP_ROUTES);
-	}
+  constructor(router: Router) {
+    router.config.unshift(...APP_ROUTES);
+  }
 }

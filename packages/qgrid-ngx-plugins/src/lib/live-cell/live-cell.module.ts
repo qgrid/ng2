@@ -5,17 +5,17 @@ import { PipeModule } from '../pipes/pipe.module';
 import { LiveCellComponent } from './live-cell.component';
 
 @NgModule({
-	declarations: [
-		LiveCellComponent,
-	],
-	exports: [
-		LiveCellComponent,
-	],
-	imports: [
-		TemplateModule,
-		CommonModule,
-		PipeModule,
-	],
+  declarations: [
+    LiveCellComponent,
+  ],
+  exports: [
+    LiveCellComponent,
+  ],
+  imports: [
+    TemplateModule,
+    CommonModule,
+    PipeModule,
+  ],
 })
 export class LiveCellModule {
 }

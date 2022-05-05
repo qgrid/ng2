@@ -6,21 +6,21 @@ import { Command } from './command';
  *
  */
 export declare class CommandManager {
-	constructor(apply?: (f: () => void) => void, context?: any);
+  constructor(apply?: (f: () => void) => void, context?: any);
 
-	/**
+  /**
 	 * Execute commands in a manager specific way.
 	 *
 	 * @param commands list of commands to execute, usually come after filter invocation.
 	 * @param source indicates a source of command execution.
 	 */
-	invoke(commands: Command[], context?: any,  source?: string): boolean;
+  invoke(commands: Command[], context?: any,  source?: string): boolean;
 
-	/**
+  /**
 	 * Filter out disabled commands, usually command `canExecute` method is used.
 	 *
 	 * @param commands list of commands that are candidates for execution.
 	 * @param source indicates a source of command execution.
 	 */
-	filter(commands: Command[], source?: string): Command[];
+  filter(commands: Command[], source?: string): Command[];
 }
