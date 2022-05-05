@@ -3,24 +3,24 @@ import { Guard } from '@qgrid/core';
 
 @Injectable()
 export class BackdropService {
-	isActive = true;
-	element: ElementRef;
+  isActive = true;
+  element: ElementRef;
 
-	hide() {
-		Guard.notNull(this.element, 'element');
+  hide() {
+    Guard.notNull(this.element, 'element');
 
-		if (this.isActive) {
-			this.element.nativeElement.classList.add('q-grid-backdrop-inactive');
-			this.isActive = false;
-		}
-	}
+    if (this.isActive) {
+      this.element.nativeElement.classList.add('q-grid-backdrop-inactive');
+      this.isActive = false;
+    }
+  }
 
-	reveal() {
-		Guard.notNull(this.element, 'element');
+  reveal() {
+    Guard.notNull(this.element, 'element');
 
-		if (!this.isActive) {
-			this.element.nativeElement.classList.remove('q-grid-backdrop-inactive');
-			this.isActive = true;
-		}
-	}
+    if (!this.isActive) {
+      this.element.nativeElement.classList.remove('q-grid-backdrop-inactive');
+      this.isActive = true;
+    }
+  }
 }

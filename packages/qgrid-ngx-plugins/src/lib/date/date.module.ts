@@ -4,17 +4,17 @@ import { DateDirective } from './date.directive';
 import { DateService } from './date.service';
 
 @NgModule({
-	declarations: [
-		DateDirective,
-		DateMaskDirective,
-	],
-	exports: [
-		DateDirective,
-		DateMaskDirective,
-	],
-	providers: [
-		DateService,
-	],
+  declarations: [
+    DateDirective,
+    DateMaskDirective,
+  ],
+  exports: [
+    DateDirective,
+    DateMaskDirective,
+  ],
+  providers: [
+    DateService,
+  ],
 })
 export class DateModule {
 }

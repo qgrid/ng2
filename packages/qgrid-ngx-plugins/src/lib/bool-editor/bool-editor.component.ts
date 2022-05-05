@@ -1,70 +1,72 @@
 import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { BoolColumnModel } from '@qgrid/core';
 
 @Component({
-	selector: 'q-grid-bool-editor',
-	templateUrl: './bool-editor.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'q-grid-bool-editor',
+  templateUrl: './bool-editor.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoolEditorComponent implements OnInit {
-	private state: any;
+  private state: any;
 
-	@Input() autofocus = false;
-	@Input() column: BoolColumnModel;
-	@Input() label: string;
-	@Output() valueChange = new EventEmitter<any>();
+  @Input() autofocus = false;
+  @Input() column: BoolColumnModel;
+  @Input() label: string;
+  @Output() valueChange = new EventEmitter<any>();
 
-	context: { $implicit: BoolEditorComponent } = {
-		$implicit: this,
-	};
+  // eslint-disable-next-line no-use-before-define
+  context: { $implicit: BoolEditorComponent } = {
+    $implicit: this,
+  };
 
-	@Input() get value() {
-		return this.state;
-	}
+  @Input() get value() {
+    return this.state;
+  }
 
-	set value(value) {
-		if (value !== this.value) {
-			this.state = value;
-			this.valueChange.emit(value);
-		}
-	}
+  set value(value) {
+    if (value !== this.value) {
+      this.state = value;
+      this.valueChange.emit(value);
+    }
+  }
 
-	get isChecked() {
-		return this.column.isChecked(this.value);
-	}
+  get isChecked() {
+    return this.column.isChecked(this.value);
+  }
 
-	set isChecked(value: boolean) {
-		this.value = value ? this.trueValue : this.falseValue;
-	}
+  set isChecked(value: boolean) {
+    this.value = value ? this.trueValue : this.falseValue;
+  }
 
-	get trueValue() {
-		return this.column.trueValue;
-	}
+  get trueValue() {
+    return this.column.trueValue;
+  }
 
-	get falseValue() {
-		return this.column.falseValue;
-	}
+  get falseValue() {
+    return this.column.falseValue;
+  }
 
-	ngOnInit() {
-		// entering edit mode means toggling boolean value
-		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
-			setTimeout(() =>
-				this.value =
-				this.value === this.trueValue
-					? this.falseValue
-					: this.trueValue
-			, 10);
-		}
-	}
+  ngOnInit() {
+    // entering edit mode means toggling boolean value
+    if (this.autofocus && this.column.editorOptions.trigger === 'click') {
+      setTimeout(
+        () =>
+          this.value =
+          this.value === this.trueValue
+            ? this.falseValue
+            : this.trueValue
+        , 10);
+    }
+  }
 
-	isIndeterminate() {
-		return this.column.isIndeterminate(this.value);
-	}
+  isIndeterminate() {
+    return this.column.isIndeterminate(this.value);
+  }
 }

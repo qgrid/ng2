@@ -8,23 +8,23 @@ import { EbNodeService } from './eb-node.service';
 import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		TemplateModule,
-	],
-	exports: [
-		EbNodeComponent,
-		EbClassDirective,
-	],
-	declarations: [
-		EbNodeComponent,
-		EbExpressionComponent,
-		EbClassDirective,
-	],
-	providers: [
-		SerializationService,
-		EbNodeService,
-	],
+  imports: [
+    CommonModule,
+    TemplateModule,
+  ],
+  exports: [
+    EbNodeComponent,
+    EbClassDirective,
+  ],
+  declarations: [
+    EbNodeComponent,
+    EbExpressionComponent,
+    EbClassDirective,
+  ],
+  providers: [
+    SerializationService,
+    EbNodeService,
+  ],
 })
 export class EbModule {
 }

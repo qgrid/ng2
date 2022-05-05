@@ -4,16 +4,16 @@ import { AutoFocusDirective } from './autofocus.directive';
 import { BlurDirective } from './blur.directive';
 
 @NgModule({
-	declarations: [
-		FocusDirective,
-		AutoFocusDirective,
-		BlurDirective,
-	],
-	exports: [
-		FocusDirective,
-		AutoFocusDirective,
-		BlurDirective,
-	],
+  declarations: [
+    FocusDirective,
+    AutoFocusDirective,
+    BlurDirective,
+  ],
+  exports: [
+    FocusDirective,
+    AutoFocusDirective,
+    BlurDirective,
+  ],
 })
 export class FocusModule {
 }
