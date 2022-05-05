@@ -2,17 +2,17 @@ import { CohortColumn, CohortColumnModel } from '../column-type/cohort.column';
 import { Node } from '../node/node';
 
 export class ColumnListState {
-	constructor() {
-		this.generation = null; // deep | shallow | cohort | null
-		this.typeDetection = 'inference'; // inference | raw
+  constructor() {
+    this.generation = null; // deep | shallow | cohort | null
+    this.typeDetection = 'inference'; // inference | raw
 
-		const root = new CohortColumnModel();
-		root.key = '$root';
+    const root = new CohortColumnModel();
+    root.key = '$root';
 
-		this.index = new Node(new CohortColumn(root), 0);
+    this.index = new Node(new CohortColumn(root), 0);
 
-		this.columns = [];
-		this.reference = {};
-		this.line = [];
-	}
+    this.columns = [];
+    this.reference = {};
+    this.line = [];
+  }
 }

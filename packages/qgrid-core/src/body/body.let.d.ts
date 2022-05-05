@@ -15,12 +15,12 @@ import { ColumnView } from '../scene/view/column.view';
  *
  */
 export declare class BodyLet {
-	/**
+  /**
 	 *  Use to build layout.
 	 */
-	readonly render: Renderer;
+  readonly render: Renderer;
 
-	constructor(plugin: GridPlugin);
+  constructor(plugin: GridPlugin);
 
-	columns(pin: string): ColumnView[];
+  columns(pin: string): ColumnView[];
 }

@@ -3,15 +3,15 @@ import { GridPlugin } from '../plugin/grid.plugin';
 import { SceneStateColumnLine, SceneStateColumnRows } from '../scene/scene.state';
 
 export declare class HeadLet {
-	readonly drop: Command<{ dragData: string }>;
-	readonly drag: Command<{ dragData: string }>;
+  readonly drop: Command<{ dragData: string }>;
+  readonly drag: Command<{ dragData: string }>;
 
-	readonly resize: Command;
+  readonly resize: Command;
 
-	readonly rows: SceneStateColumnRows;
+  readonly rows: SceneStateColumnRows;
 
-	constructor(plugin: GridPlugin, tagName: string);
+  constructor(plugin: GridPlugin, tagName: string);
 
 
-	columns(row: any, pin: string): SceneStateColumnLine;
+  columns(row: any, pin: string): SceneStateColumnLine;
 }

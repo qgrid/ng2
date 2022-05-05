@@ -1,5 +1,5 @@
 export class FetchState {
-	constructor() {
-		this.skip = 0;
-	}
+  constructor() {
+    this.skip = 0;
+  }
 }

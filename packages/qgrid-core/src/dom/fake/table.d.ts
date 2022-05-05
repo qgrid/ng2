@@ -1,5 +1,5 @@
 export declare class FakeTable {
-	rows: any[];
+  rows: any[];
 
-	constructor();
+  constructor();
 }

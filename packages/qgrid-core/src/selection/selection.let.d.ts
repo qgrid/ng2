@@ -6,20 +6,20 @@ import { SubjectLike } from '../rx/rx';
 import { SelectionState } from './selection.state';
 
 export declare class SelectionLet {
-	readonly selection: SelectionState;
-	readonly rows: any[];
-	readonly columns: ColumnModel[];
+  readonly selection: SelectionState;
+  readonly rows: any[];
+  readonly columns: ColumnModel[];
 
-	readonly toggleRow: Command;
-	readonly toggleCell: Command;
-	readonly toggleColumn: Command;
+  readonly toggleRow: Command;
+  readonly toggleCell: Command;
+  readonly toggleColumn: Command;
 
-	stateCheck: SubjectLike<boolean>;
+  stateCheck: SubjectLike<boolean>;
 
-	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
+  constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
 
-	selectRange(startCell: Td, endCell: Td, source?: string): void;
+  selectRange(startCell: Td, endCell: Td, source?: string): void;
 
-	state(item: any): boolean;
-	isIndeterminate(item: any): boolean;
+  state(item: any): boolean;
+  isIndeterminate(item: any): boolean;
 }

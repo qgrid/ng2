@@ -4,18 +4,18 @@ import { KeyCode } from './key.code';
 import { ShortcutDispatcher } from './shortcut.dispatcher';
 
 export declare class Shortcut {
-	constructor(manager: ShortcutDispatcher);
+  constructor(manager: ShortcutDispatcher);
 
-	static isControl(keyCode: KeyCode): boolean;
-	static isPrintable(keyCode: KeyCode): boolean;
-	static stringify(keyCode: KeyCode): string;
-	static translate(e: KeyboardEvent): string;
+  static isControl(keyCode: KeyCode): boolean;
+  static isPrintable(keyCode: KeyCode): boolean;
+  static stringify(keyCode: KeyCode): string;
+  static translate(e: KeyboardEvent): string;
 
-	factory(commandManager: CommandManager): {
+  factory(commandManager: CommandManager): {
 		register: (commands: Command[]) => void;
 	};
 
-	keyDown(
+  keyDown(
 		e: {
 			key: string;
 			keyCode: number;
@@ -23,5 +23,5 @@ export declare class Shortcut {
 		},
 		source?: string): string[];
 
-	register(commandManager: CommandManager, commands: Command[]): () => void;
+  register(commandManager: CommandManager, commands: Command[]): () => void;
 }

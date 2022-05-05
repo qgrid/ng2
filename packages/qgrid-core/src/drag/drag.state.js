@@ -1,5 +1,5 @@
 export class DragState {
-	constructor() {
-		this.isActive = false;
-	}
+  constructor() {
+    this.isActive = false;
+  }
 }

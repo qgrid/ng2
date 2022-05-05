@@ -33,42 +33,42 @@ export declare type SelectionStateMode = 'single' | 'multiple' | 'range' | 'sing
  * A class that allows to control selection function of the q-grid.
  */
 export declare class SelectionState {
-	/**
+  /**
 	 * Controls if click on the q-grid body should select row or not.
 	 */
-	area: SelectionStateArea;
+  area: SelectionStateArea;
 
-	/**
+  /**
 	 * Selection primitive.
 	 */
-	unit: SelectionStateUnit;
+  unit: SelectionStateUnit;
 
-	/**
+  /**
 	 * Selection mode.
 	 */
-	mode: SelectionStateMode;
+  mode: SelectionStateMode;
 
-	/**
+  /**
 	 * List of selected items.
 	 */
-	items: any[];
+  items: any[];
 
-	/**
+  /**
 	 * Set of map function, that can convert column and row to necessary format.
 	 *
 	 * * `'column'` custom column key will be stored in the items property.
 	 * * `'row'` custom row id will be stored in the items property.
 	 */
-	rowKey: (row: any) => any;
-	columnKey: (column: ColumnModel) => any;
+  rowKey: (row: any) => any;
+  columnKey: (column: ColumnModel) => any;
 
-	/**
+  /**
 	 * Keyboard shortcuts to control selection behavior. Changed.
 	 */
-	shortcut: { [key: string]: string };
+  shortcut: { [key: string]: string };
 
-	/**
+  /**
 	 * Allows to disable selection and execute action on selection changed from ui.
 	 */
-	toggle: Command<{ items: any }>;
+  toggle: Command<{ items: any }>;
 }

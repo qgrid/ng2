@@ -4,10 +4,10 @@ export interface Storage {
 }
 
 export declare class PersistenceStorage {
-	constructor(storage: Storage);
+  constructor(storage: Storage);
 
-	getItem<T>(key: string): Promise<T>;
-	setItem<T>(key: string, value: T): Promise<any>;
+  getItem<T>(key: string): Promise<T>;
+  setItem<T>(key: string, value: T): Promise<any>;
 }
 
 export function serialize<T>(value: T): string;

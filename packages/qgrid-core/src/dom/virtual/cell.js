@@ -5,84 +5,84 @@ import { Td } from '../td';
 
 class VirtualTd {
 
-	get model() {
-		const td = this.selector();
-		if (!td) {
-			throw new GridError('cell', 'Model is not found');
-		}
+  get model() {
+    const td = this.selector();
+    if (!td) {
+      throw new GridError('cell', 'Model is not found');
+    }
 
-		return td;
-	}
+    return td;
+  }
 
-	get value() {
-		return this.model.value;
-	}
+  get value() {
+    return this.model.value;
+  }
 
-	set value(value) {
-		this.model.value = value;
-	}
+  set value(value) {
+    this.model.value = value;
+  }
 
-	get label() {
-		return this.model.label;
-	}
+  get label() {
+    return this.model.label;
+  }
 
-	set label(value) {
-		this.model.label = value;
-	}
+  set label(value) {
+    this.model.label = value;
+  }
 
-	get element() {
-		return this.model.element || new FakeElement();
-	}
+  get element() {
+    return this.model.element || new FakeElement();
+  }
 
-	constructor(selector) {
-		this.selector = selector;
-	}
+  constructor(selector) {
+    this.selector = selector;
+  }
 
-	mode(value) {
-		return this.model.mode(value);
-	}
+  mode(value) {
+    return this.model.mode(value);
+  }
 }
 
 export class VirtualCell extends Cell {
-	constructor(box, rowIndex, columnIndex, element = null) {
-		super(box.context, rowIndex, columnIndex, element);
+  constructor(box, rowIndex, columnIndex, element = null) {
+    super(box.context, rowIndex, columnIndex, element);
 
-		this.box = box;
+    this.box = box;
 
-		const { mapper } = box.context;
-		this.dataRowIndex = mapper.viewToRow(rowIndex);
-		this.dataColumnIndex = mapper.viewToColumn(columnIndex);
-	}
+    const { mapper } = box.context;
+    this.dataRowIndex = mapper.viewToRow(rowIndex);
+    this.dataColumnIndex = mapper.viewToColumn(columnIndex);
+  }
 
-	model() {
-		const rowIndex = this.dataRowIndex;
-		const columnIndex = this.dataColumnIndex;
+  model() {
+    const rowIndex = this.dataRowIndex;
+    const columnIndex = this.dataColumnIndex;
 
-		if (rowIndex >= 0 && columnIndex >= 0) {
-			const gridModel = this.box.model;
-			const { rows } = gridModel.data();
-			const { columns } = gridModel.view();
+    if (rowIndex >= 0 && columnIndex >= 0) {
+      const gridModel = this.box.model;
+      const { rows } = gridModel.data();
+      const { columns } = gridModel.view();
 
-			if (rows.length > rowIndex && columns.length > columnIndex) {
-				const selector = () => this.box.cell(rowIndex, columnIndex).modelCore();
-				const vtd = new VirtualTd(selector);
-				vtd.rowIndex = rowIndex;
-				vtd.columnIndex = columnIndex;
-				vtd.row = rows[rowIndex];
-				vtd.column = columns[columnIndex];
+      if (rows.length > rowIndex && columns.length > columnIndex) {
+        const selector = () => this.box.cell(rowIndex, columnIndex).modelCore();
+        const vtd = new VirtualTd(selector);
+        vtd.rowIndex = rowIndex;
+        vtd.columnIndex = columnIndex;
+        vtd.row = rows[rowIndex];
+        vtd.column = columns[columnIndex];
 
-				return new Td(vtd);
-			}
-		}
+        return new Td(vtd);
+      }
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	addClass(name, force = false) {
-		this.box.addCellClass(this, name, force);
-	}
+  addClass(name, force = false) {
+    this.box.addCellClass(this, name, force);
+  }
 
-	removeClass(name, force = false) {
-		this.box.removeCellClass(this, name, force);
-	}
+  removeClass(name, force = false) {
+    this.box.removeCellClass(this, name, force);
+  }
 }

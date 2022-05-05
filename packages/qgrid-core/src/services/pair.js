@@ -1,30 +1,30 @@
 import { GridError } from '../infrastructure/error';
 
 export function key(pair) {
-	const key = Object.keys(pair)[0];
-	if (!key) {
-		throw new GridError(
-			'pair',
-			`Key is not defined in "${pair}"`);
-	}
+  const key = Object.keys(pair)[0];
+  if (!key) {
+    throw new GridError(
+      'pair',
+      `Key is not defined in "${pair}"`);
+  }
 
-	return key;
+  return key;
 }
 
 export function index(pairs, pairKey) {
-	return pairs.map(key).findIndex(k => k === pairKey);
+  return pairs.map(key).findIndex(k => k === pairKey);
 }
 
 export function value(pair) {
-	const pairKey = key(pair);
-	return pair[pairKey];
+  const pairKey = key(pair);
+  return pair[pairKey];
 }
 
 export function map(pairs) {
-	return pairs.reduce((memo, pair) => {
-		const pairKey = key(pair);
-		memo[pairKey] = pair[pairKey];
-		return memo;
-	}, {});
+  return pairs.reduce((memo, pair) => {
+    const pairKey = key(pair);
+    memo[pairKey] = pair[pairKey];
+    return memo;
+  }, {});
 }
 

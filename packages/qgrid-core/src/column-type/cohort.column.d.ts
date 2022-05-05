@@ -5,5 +5,5 @@ export declare class CohortColumnModel extends ColumnModel {
 }
 
 export declare class CohortColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

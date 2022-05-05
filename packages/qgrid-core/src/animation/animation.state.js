@@ -1,5 +1,5 @@
 export class AnimationState {
-	constructor() {
-		this.apply = [];
-	}
+  constructor() {
+    this.apply = [];
+  }
 }

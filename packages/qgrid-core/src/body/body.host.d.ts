@@ -1,10 +1,10 @@
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class BodyHost {
-	constructor(plugin: GridPlugin);
+  constructor(plugin: GridPlugin);
 
-	scroll(e: { scrollLeft: number; scrollTop: number });
-	wheel(e: WheelEvent);
+  scroll(e: { scrollLeft: number; scrollTop: number });
+  wheel(e: WheelEvent);
 
-	mouseLeave(e: MouseEvent);
+  mouseLeave(e: MouseEvent);
 }

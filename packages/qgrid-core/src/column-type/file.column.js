@@ -5,34 +5,34 @@ import { yes } from '../utility/kit';
 import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('file-cell', (template, column) => ({
-	model: template.for,
-	resource: column.key,
+  model: template.for,
+  resource: column.key,
 }));
 
 TemplatePath.register('file-cell-edit', (template, column) => ({
-	model: 'edit',
-	resource: column.key,
+  model: 'edit',
+  resource: column.key,
 }));
 
 export class FileColumnModel extends DataColumnModel {
-	constructor() {
-		super('file');
+  constructor() {
+    super('file');
 
-		this.canUpload = yes;
-		this.editorOptions.trigger = 'custom';
+    this.canUpload = yes;
+    this.editorOptions.trigger = 'custom';
 
-		this.hasPreview = name => isFileAnImage(name);
-		this.canSort = false;
-		this.canFilter = false;
-	}
+    this.hasPreview = name => isFileAnImage(name);
+    this.canSort = false;
+    this.canFilter = false;
+  }
 }
 
 export class FileColumn extends ColumnView {
-	constructor(model) {
-		super(model);
-	}
+  constructor(model) {
+    super(model);
+  }
 
-	static model(model) {
-		return model ? FileColumn.assign(model) : new FileColumnModel();
-	}
+  static model(model) {
+    return model ? FileColumn.assign(model) : new FileColumnModel();
+  }
 }

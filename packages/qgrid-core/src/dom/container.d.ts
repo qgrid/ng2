@@ -7,17 +7,17 @@ export interface IClassList {
 }
 
 export declare class Container {
-	readonly clientWidth: number;
-	readonly clientHeight: number;
-	readonly offsetWidth: number;
-	readonly offsetHeight: number;
-	readonly classList: IClassList;
+  readonly clientWidth: number;
+  readonly clientHeight: number;
+  readonly offsetWidth: number;
+  readonly offsetHeight: number;
+  readonly classList: IClassList;
 
-	constructor(elements: Element[]);
+  constructor(elements: Element[]);
 
 
-	getBoundingClientRect(): Rect;
-	addClass(name: string): void;
-	removeClass(name: string): void;
-	hasClass(name: string): boolean;
+  getBoundingClientRect(): Rect;
+  addClass(name: string): void;
+  removeClass(name: string): void;
+  hasClass(name: string): boolean;
 }

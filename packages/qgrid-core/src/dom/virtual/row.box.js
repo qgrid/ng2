@@ -1,11 +1,11 @@
 import { StyleBox } from './style.box';
 
 export class RowBox extends StyleBox {
-	constructor(context) {
-		super(context);
-	}
+  constructor(context) {
+    super(context);
+  }
 
-	key(row) {
-		return row.dataIndex;
-	}
+  key(row) {
+    return row.dataIndex;
+  }
 }

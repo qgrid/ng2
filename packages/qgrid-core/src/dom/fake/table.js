@@ -1,5 +1,5 @@
 export class FakeTable {
-	constructor() {
-		this.rows = [];
-	}
+  constructor() {
+    this.rows = [];
+  }
 }

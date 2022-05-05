@@ -21,31 +21,31 @@ import { Command } from '../command/command';
  * ```
  */
 export declare class Action {
-	/**
+  /**
 	 * User command that will be executed when:
 	 *
 	 * * Action button is clicked.
 	 * * Custom template calls command execute method.
 	 * * Command keyboard shortcut is pressed.
 	 */
-	command: Command;
+  command: Command;
 
-	/**
+  /**
 	 * A text to show in the button, or tooltip to show if the icon property is set.
 	 */
-	title: string;
+  title: string;
 
-	/**
+  /**
 	 * An icon key to render on the button.
 	 */
-	icon: string;
+  icon: string;
 
-	/**
+  /**
 	 * Template url of the action
 	 */
-	templateUrl: string;
+  templateUrl: string;
 
-	constructor(
+  constructor(
 		command: Command,
 		title?: string,
 		icon?: string,

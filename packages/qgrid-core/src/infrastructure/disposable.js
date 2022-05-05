@@ -3,51 +3,51 @@ import { GridError } from './error';
 import { Guard } from './guard';
 
 export class Disposable {
-	constructor() {
-		this.disposes = [];
-	}
+  constructor() {
+    this.disposes = [];
+  }
 
-	add(resource) {
-		Guard.notNull(resource, 'resource');
+  add(resource) {
+    Guard.notNull(resource, 'resource');
 
-		const test = resource;
-		if (isFunction(test.finalize)) {
-			this.disposes.push(() => test.finalize());
-			return;
-		}
+    const test = resource;
+    if (isFunction(test.finalize)) {
+      this.disposes.push(() => test.finalize());
+      return;
+    }
 
-		if (isFunction(test.unsubscribe)) {
-			this.disposes.push(() => test.unsubscribe());
-			return;
-		}
+    if (isFunction(test.unsubscribe)) {
+      this.disposes.push(() => test.unsubscribe());
+      return;
+    }
 
-		if (isFunction(test)) {
-			this.disposes.push(test);
-			return;
-		}
+    if (isFunction(test)) {
+      this.disposes.push(test);
+      return;
+    }
 
-		throw new GridError(
-			'disposable',
-			'Resource is not a disposable',
-		);
-	}
+    throw new GridError(
+      'disposable',
+      'Resource is not a disposable',
+    );
+  }
 
-	remove(resource) {
-		const index = this.disposes.indexOf(resource);
-		if (index >= 0) {
-			this.disposes.splice(index, 1);
-			return true;
-		}
+  remove(resource) {
+    const index = this.disposes.indexOf(resource);
+    if (index >= 0) {
+      this.disposes.splice(index, 1);
+      return true;
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	finalize() {
-		const disposes = this.disposes;
-		this.disposes = [];
+  finalize() {
+    const disposes = this.disposes;
+    this.disposes = [];
 
-		for (const dispose of disposes) {
-			dispose();
-		}
-	}
+    for (const dispose of disposes) {
+      dispose();
+    }
+  }
 }

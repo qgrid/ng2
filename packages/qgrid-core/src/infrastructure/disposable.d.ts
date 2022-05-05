@@ -4,7 +4,7 @@ export type DisposableResource =
 	| (() => void);
 
 export declare class Disposable {
-	add(resource: DisposableResource): void;
-	remove(resource: DisposableResource): boolean;
-	finalize(): void;
+  add(resource: DisposableResource): void;
+  remove(resource: DisposableResource): boolean;
+  finalize(): void;
 }

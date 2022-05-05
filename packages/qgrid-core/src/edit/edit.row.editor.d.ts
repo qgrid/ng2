@@ -2,19 +2,19 @@ import { ColumnModel } from '../column-type/column.model';
 import { CellEditor } from './edit.cell.editor';
 
 export declare class RowEditorCore {
-	editors: CellEditor[];
+  editors: CellEditor[];
 
-	constructor();
+  constructor();
 
-	commit(): void;
-	reset(): void;
+  commit(): void;
+  reset(): void;
 }
 
 export declare class RowEditor extends RowEditorCore {
-	static readonly empty: RowEditorCore;
+  static readonly empty: RowEditorCore;
 
-	row: any;
-	value: any;
+  row: any;
+  value: any;
 
-	constructor(row: any, columns: ColumnModel[]);
+  constructor(row: any, columns: ColumnModel[]);
 }

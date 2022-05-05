@@ -6,14 +6,14 @@ export interface PivotSettings {
 }
 
 export declare class Plan {
-	isRoot: boolean;
-	current: any;
+  isRoot: boolean;
+  current: any;
 
-	constructor(schema: {[key: string]: any});
+  constructor(schema: {[key: string]: any});
 
-	branch(): Plan;
-	cursor(name: string): void;
-	compile(data: any): any;
+  branch(): Plan;
+  cursor(name: string): void;
+  compile(data: any): any;
 }
 
 export declare function factory(plan: Plan): (settings: PivotSettings, plan: Plan) => any;

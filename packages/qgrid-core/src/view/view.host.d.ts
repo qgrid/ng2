@@ -1,15 +1,15 @@
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class ViewHost {
-	constructor(plugin: GridPlugin);
+  constructor(plugin: GridPlugin);
 
-	invalidate(): void;
+  invalidate(): void;
 
-	mouseDown(e: MouseEvent);
-	mouseUp(e: MouseEvent);
+  mouseDown(e: MouseEvent);
+  mouseUp(e: MouseEvent);
 
-	mouseMove(e: MouseEvent);
+  mouseMove(e: MouseEvent);
 
-	mouseEnter(e: MouseEvent);
-	mouseLeave(e: MouseEvent);
+  mouseEnter(e: MouseEvent);
+  mouseLeave(e: MouseEvent);
 }

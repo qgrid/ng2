@@ -4,18 +4,18 @@ import { ColumnView } from '../view/column.view';
 import { RenderStrategy } from './render.strategy';
 
 export declare class Renderer {
-	defaultStrategy: RenderStrategy;
-	readonly rows: { left: any[]; right: any[]; mid: any[] };
+  defaultStrategy: RenderStrategy;
+  readonly rows: { left: any[]; right: any[]; mid: any[] };
 
-	constructor(plugin: GridPlugin);
+  constructor(plugin: GridPlugin);
 
-	columns(row: any, pin: ColumnModelPin, rowIndex: number): ColumnView[];
-	rowspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
-	colspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
+  columns(row: any, pin: ColumnModelPin, rowIndex: number): ColumnView[];
+  rowspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
+  colspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
 
-	getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
-	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+  getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
+  setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 
-	getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
-	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+  getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
+  setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 }

@@ -12,51 +12,51 @@ import { sortPipe } from './sort.pipe';
 import { viewPipe } from './view.pipe';
 
 export class Pipe {
-	static get data() {
-		return dataPipe;
-	}
+  static get data() {
+    return dataPipe;
+  }
 
-	static get filter() {
-		return filterPipe;
-	}
+  static get filter() {
+    return filterPipe;
+  }
 
-	static get pagination() {
-		return paginationPipe;
-	}
+  static get pagination() {
+    return paginationPipe;
+  }
 
-	static get sort() {
-		return sortPipe;
-	}
+  static get sort() {
+    return sortPipe;
+  }
 
-	static get memo() {
-		return memoPipe;
-	}
+  static get memo() {
+    return memoPipe;
+  }
 
-	static get group() {
-		return groupPipe;
-	}
+  static get group() {
+    return groupPipe;
+  }
 
-	static get pivot() {
-		return pivotPipe;
-	}
+  static get pivot() {
+    return pivotPipe;
+  }
 
-	static get column() {
-		return columnPipe;
-	}
+  static get column() {
+    return columnPipe;
+  }
 
-	static get columnIndex() {
-		return columnIndexPipe;
-	}
+  static get columnIndex() {
+    return columnIndexPipe;
+  }
 
-	static get animation() {
-		return animationPipe;
-	}
+  static get animation() {
+    return animationPipe;
+  }
 
-	static get view() {
-		return viewPipe;
-	}
+  static get view() {
+    return viewPipe;
+  }
 
-	static get scene() {
-		return scenePipe;
-	}
+  static get scene() {
+    return scenePipe;
+  }
 }

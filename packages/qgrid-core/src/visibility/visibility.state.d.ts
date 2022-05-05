@@ -2,22 +2,22 @@
  * A class to control visibility of the q-grid areas.
  */
 export declare class VisibilityState {
-	/**
+  /**
 	 * Indicates if the q-grid `head` is visible.
 	 */
-	head: boolean;
+  head: boolean;
 
-	/**
+  /**
 	 * Indicates if the q-grid `foot` is visible.
 	 */
-	foot: boolean;
+  foot: boolean;
 
-	/**
+  /**
 	 * Indicates if the q-grid `body` is visible.
 	 */
-	body: boolean;
+  body: boolean;
 
-	/**
+  /**
 	 * Object that controls if the q-grid `toolbar` panels are visible.
 	 *
 	 * * `'top'` show/hide top toolbar.
@@ -25,14 +25,14 @@ export declare class VisibilityState {
 	 * * `'bottom'` show/hide bottom toolbar.
 	 * * `'left'` show/hide left toolbar.
 	 */
-	toolbar: {
+  toolbar: {
 		top: boolean;
 		right: boolean;
 		bottom: boolean;
 		left: boolean;
 	};
 
-	/**
+  /**
 	 * Object that controls if the q-grid `frozen` panels are visible.
 	 *
 	 * * `'right'` show/hide right pin panel.
@@ -40,12 +40,12 @@ export declare class VisibilityState {
 	 * * `'top'` show/hide top floating rows.
 	 * * `'bottom'` show/hide bottom floating rows.
 	 */
-	pin: {
+  pin: {
 		left: boolean;
 		right: boolean;
 		top: boolean;
 		bottom: boolean;
 	};
 
-	plugin: { [key: string]: boolean };
+  plugin: { [key: string]: boolean };
 }

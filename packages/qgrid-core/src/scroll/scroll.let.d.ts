@@ -33,8 +33,8 @@ export declare interface IVscrollContext {
 }
 
 export declare class ScrollLet {
-	readonly mode: ScrollStateMode;
-	readonly y: IVscrollContext;
+  readonly mode: ScrollStateMode;
+  readonly y: IVscrollContext;
 
-	constructor(plugin: GridPlugin, vscroll: IVscrollContext);
+  constructor(plugin: GridPlugin, vscroll: IVscrollContext);
 }

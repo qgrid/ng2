@@ -1,5 +1,5 @@
 export class TemplateState {
-	constructor() {
-		this.resource = {};
-	}
+  constructor() {
+    this.resource = {};
+  }
 }

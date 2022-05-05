@@ -5,11 +5,11 @@ import { GridPlugin } from '../plugin/grid.plugin';
 
 
 export declare class SortLet {
-	readonly hover: boolean;
-	readonly toggle: Command;
+  readonly hover: boolean;
+  readonly toggle: Command;
 
-	constructor(plugin: GridPlugin);
+  constructor(plugin: GridPlugin);
 
-	direction(column: ColumnModel): { [key: string]: ColumnModel };
-	order(column: ColumnModel): number;
+  direction(column: ColumnModel): { [key: string]: ColumnModel };
+  order(column: ColumnModel): number;
 }

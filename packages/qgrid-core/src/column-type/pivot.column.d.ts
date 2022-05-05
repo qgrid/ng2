@@ -5,5 +5,5 @@ export declare class PivotColumnModel extends ColumnModel {
 }
 
 export declare class PivotColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }
