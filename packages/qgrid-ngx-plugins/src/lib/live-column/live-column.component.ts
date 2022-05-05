@@ -102,7 +102,6 @@ export class LiveColumnComponent implements OnInit {
           oldColumn.cells().forEach(cell => animatedCells.push(
             new Promise(columnAnimationEnd => {
               const animation = cell.model().element.animate(
-                // eslint-disable-next-line array-bracket-spacing
                 [{ transform: 'translateX(0px)' }, { transform: `translateX(${offset}px)` }],
                 { duration: this.duration },
               );

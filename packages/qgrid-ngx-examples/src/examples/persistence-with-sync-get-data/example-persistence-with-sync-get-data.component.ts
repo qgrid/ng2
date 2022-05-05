@@ -15,5 +15,5 @@ export class ExamplePersistenceWithSyncGetDataComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  rows = [ { column1: 1, column2: 'a' }, { column1: 2, column2: 'b' } ];
+  rows = [{ column1: 1, column2: 'a' }, { column1: 2, column2: 'b' }];
 }

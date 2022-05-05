@@ -89,7 +89,7 @@ export class ExampleColumnAutocompleteBasicComponent {
   };
 
   objectFetchOptions = {
-    fetch: [ { label: 'foo', value: 1 }, { label: 'bar', value: 2 } ],
+    fetch: [{ label: 'foo', value: 1 }, { label: 'bar', value: 2 }],
   };
 
   getLabel(row: any) {
