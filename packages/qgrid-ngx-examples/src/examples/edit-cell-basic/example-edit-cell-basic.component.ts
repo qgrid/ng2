@@ -6,37 +6,37 @@ import { Grid, GridModel, Command } from 'ng2-qgrid';
 const EXAMPLE_TAGS = ['edit-cell-basic', 'Cell values can be edited, "Gender" has a custom edit template'];
 
 @Component({
-	selector: 'example-edit-cell-basic',
-	templateUrl: 'example-edit-cell-basic.component.html',
-	styleUrls: ['example-edit-cell-basic.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-edit-cell-basic',
+  templateUrl: 'example-edit-cell-basic.component.html',
+  styleUrls: ['example-edit-cell-basic.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleEditCellBasicComponent implements AfterViewInit {
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows$: Observable<Human[]> = this.dataService.getPeople();
-	gridModel: GridModel;
+  rows$: Observable<Human[]> = this.dataService.getPeople();
+  gridModel: GridModel;
 
-	commit = new Command({
-		execute: e => console.log('commit: ' + e.newValue),
-	});
+  commit = new Command({
+    execute: e => console.log('commit: ' + e.newValue),
+  });
 
-	cancel = new Command({
-		execute: () => console.log('cancel'),
-	});
+  cancel = new Command({
+    execute: () => console.log('cancel'),
+  });
 
-	constructor(private dataService: DataService,
+  constructor(private dataService: DataService,
 		private qgrid: Grid,
-	) {
-		this.gridModel = qgrid.model();
-	}
+  ) {
+    this.gridModel = qgrid.model();
+  }
 
-	ngAfterViewInit() {
-		this.gridModel.edit({
-			cancel: this.cancel,
-			commit: this.commit,
-		});
-	}
+  ngAfterViewInit() {
+    this.gridModel.edit({
+      cancel: this.cancel,
+      commit: this.commit,
+    });
+  }
 }

@@ -4,167 +4,167 @@ import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 const EXAMPLE_TAGS = ['column-reference-basic', 'Cell value is a reference to another value'];
 
 @Component({
-	selector: 'example-column-reference-basic',
-	templateUrl: 'example-column-reference-basic.component.html',
-	styleUrls: ['example-column-reference-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-column-reference-basic',
+  templateUrl: 'example-column-reference-basic.component.html',
+  styleUrls: ['example-column-reference-basic.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnReferenceBasicComponent {
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	rows = [
-		{
-			'notEditable': [
-				'Lorem',
-				'ipsum',
-				'dolor',
-				'sit',
-				'amet',
-			],
-			'editable': ['Lorem', 'ipsum'],
-			'customTemplate': [
-				'Lorem',
-				'dolor',
-				'amet',
-			],
-			'singleValue': 'Lorem',
-			'complexValues': [
-				{ value: 'Lorem' },
-				{ value: 'dolor' },
-				{ value: 'amet' },
-			],
-		},
-	];
+  rows = [
+    {
+      'notEditable': [
+        'Lorem',
+        'ipsum',
+        'dolor',
+        'sit',
+        'amet',
+      ],
+      'editable': ['Lorem', 'ipsum'],
+      'customTemplate': [
+        'Lorem',
+        'dolor',
+        'amet',
+      ],
+      'singleValue': 'Lorem',
+      'complexValues': [
+        { value: 'Lorem' },
+        { value: 'dolor' },
+        { value: 'amet' },
+      ],
+    },
+  ];
 
-	notEditableOptions: EditorOptions = {
-		modelFactory: ({ reference }) => {
-			reference.commit = new Command({
-				canExecute: () => false,
-			});
+  notEditableOptions: EditorOptions = {
+    modelFactory: ({ reference }) => {
+      reference.commit = new Command({
+        canExecute: () => false,
+      });
 
-			const model = this.qgrid.model();
-			model
-				.data({
-					rows: this.convert(this.rows[0].notEditable),
-					columns: [
-						{
-							key: 'value',
-							title: 'Not Editable',
-						},
-					],
-				})
-				.selection({
-					rowKey: x => x.value,
-				})
-				.visibility({
-					toolbar: {
-						top: true,
-						bottom: false,
-						right: false,
-						left: false,
-					},
-				});
+      const model = this.qgrid.model();
+      model
+        .data({
+          rows: this.convert(this.rows[0].notEditable),
+          columns: [
+            {
+              key: 'value',
+              title: 'Not Editable',
+            },
+          ],
+        })
+        .selection({
+          rowKey: x => x.value,
+        })
+        .visibility({
+          toolbar: {
+            top: true,
+            bottom: false,
+            right: false,
+            left: false,
+          },
+        });
 
-			return model;
-		},
-	};
+      return model;
+    },
+  };
 
-	editableOptions: EditorOptions = {
-		modelFactory: ({ row, column, reference }) => {
-			// We need to override commit because of `this.convert`,
-			// We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
-			reference.commit = new Command({
-				execute: e => {
-					row[column.key] = e.items;
-					// To prevent default cell commit return false.
-					return false;
-				},
-			});
+  editableOptions: EditorOptions = {
+    modelFactory: ({ row, column, reference }) => {
+      // We need to override commit because of `this.convert`,
+      // We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
+      reference.commit = new Command({
+        execute: e => {
+          row[column.key] = e.items;
+          // To prevent default cell commit return false.
+          return false;
+        },
+      });
 
-			reference.value = this.convert(row[column.key]);
+      reference.value = this.convert(row[column.key]);
 
-			const model = this.qgrid.model();
-			model
-				.data({
-					rows: this.convert(this.rows[0].notEditable),
-					columns: [
-						{
-							key: 'value',
-							title: 'Editable',
-						},
-					],
-				})
-				.selection({
-					unit: 'row',
-					mode: 'multiple',
-					rowKey: x => x.value,
-				});
+      const model = this.qgrid.model();
+      model
+        .data({
+          rows: this.convert(this.rows[0].notEditable),
+          columns: [
+            {
+              key: 'value',
+              title: 'Editable',
+            },
+          ],
+        })
+        .selection({
+          unit: 'row',
+          mode: 'multiple',
+          rowKey: x => x.value,
+        });
 
-			return model;
-		},
-	};
+      return model;
+    },
+  };
 
-	singleValueOptions: EditorOptions = {
-		modelFactory: ({ row, column, reference }) => {
-			// We need to override commit because of `this.convert`,
-			// We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
-			reference.commit = new Command({
-				execute: e => {
-					row[column.key] = e.items[0];
-					return false;
-				},
-			});
+  singleValueOptions: EditorOptions = {
+    modelFactory: ({ row, column, reference }) => {
+      // We need to override commit because of `this.convert`,
+      // We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
+      reference.commit = new Command({
+        execute: e => {
+          row[column.key] = e.items[0];
+          return false;
+        },
+      });
 
-			reference.value = { value: row[column.key] };
+      reference.value = { value: row[column.key] };
 
-			const model = this.qgrid.model();
-			model
-				.data({
-					rows: this.convert(this.rows[0].notEditable),
-					columns: [
-						{
-							key: 'value',
-							title: 'Editable',
-						},
-					],
-				})
-				.selection({
-					unit: 'row',
-					mode: 'single',
-					rowKey: x => x.value,
-				});
+      const model = this.qgrid.model();
+      model
+        .data({
+          rows: this.convert(this.rows[0].notEditable),
+          columns: [
+            {
+              key: 'value',
+              title: 'Editable',
+            },
+          ],
+        })
+        .selection({
+          unit: 'row',
+          mode: 'single',
+          rowKey: x => x.value,
+        });
 
-			return model;
-		},
-	};
+      return model;
+    },
+  };
 
-	complexValuesOptions: EditorOptions = {
-		modelFactory: () => {
-			const model = this.qgrid.model();
+  complexValuesOptions: EditorOptions = {
+    modelFactory: () => {
+      const model = this.qgrid.model();
 
-			model
-				.data({
-					rows: this.convert(this.rows[0].notEditable),
-					columns: [
-						{
-							key: 'value',
-							title: 'Editable',
-						},
-					],
-				})
-				.selection({
-					unit: 'row',
-					mode: 'multiple',
-					rowKey: x => x.value,
-				});
+      model
+        .data({
+          rows: this.convert(this.rows[0].notEditable),
+          columns: [
+            {
+              key: 'value',
+              title: 'Editable',
+            },
+          ],
+        })
+        .selection({
+          unit: 'row',
+          mode: 'multiple',
+          rowKey: x => x.value,
+        });
 
-			return model;
-		},
-	};
+      return model;
+    },
+  };
 
-	constructor(private qgrid: Grid) { }
+  constructor(private qgrid: Grid) { }
 
-	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
-	convert = rows => rows.map(value => ({ value }));
+  complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
+  convert = rows => rows.map(value => ({ value }));
 }

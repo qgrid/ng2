@@ -6,28 +6,28 @@ import { DataService, Human } from '../data.service';
 const EXAMPLE_TAGS = ['data-row-delete-selection', 'Table rows can be deleted and not break selection'];
 
 @Component({
-	selector: 'example-data-row-delete-selection',
-	templateUrl: 'example-data-row-delete-selection.component.html',
-	styleUrls: ['example-data-row-delete-selection.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-data-row-delete-selection',
+  templateUrl: 'example-data-row-delete-selection.component.html',
+  styleUrls: ['example-data-row-delete-selection.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDataRowDeleteSelectionComponent {
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+  @ViewChild(GridComponent, { static: true }) grid: GridComponent;
 
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
-	rows: Observable<Human[]>;
-	deleteRow = new Command({
-		execute: (row: Human) => {
-			const { model } = this.grid;
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
+  rows: Observable<Human[]>;
+  deleteRow = new Command({
+    execute: (row: Human) => {
+      const { model } = this.grid;
 
-			const rows = model.data().rows.filter(x => x !== row);
-			model.data({ rows });
-		},
-	});
+      const rows = model.data().rows.filter(x => x !== row);
+      model.data({ rows });
+    },
+  });
 
-	constructor(dataService: DataService, private qgrid: Grid) {
-		this.rows = dataService.getPeople();
-	}
+  constructor(dataService: DataService, private qgrid: Grid) {
+    this.rows = dataService.getPeople();
+  }
 }
