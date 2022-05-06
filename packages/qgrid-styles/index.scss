@@ -4,19 +4,18 @@
 @import "grid";
 
 .q-grid {
-    @import "box";
-    @import "cell";
-    @import "dnd";
-    @import "layer";
-    @import "live";
-    @import "resize";
-    @import "table";
-    @import "toolbar";
-    @import "view";
+  @import "box";
+  @import "cell";
+  @import "dnd";
+  @import "layer";
+  @import "live";
+  @import "resize";
+  @import "table";
+  @import "toolbar";
+  @import "view";
+  @import "selection";
+  @import "focus";
 
-    @import "selection";
-    @import "focus";
-    /* It's important, because of priorities, 
-       to put highlight after  */
-    @import "highlight";
+  /* It's important, because of priorities, to put highlight after  */
+  @import "highlight";
 }

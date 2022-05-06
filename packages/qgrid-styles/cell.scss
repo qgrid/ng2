@@ -1,133 +1,135 @@
 td,
 th {
-    @include width(150px);
-    @include textCutter;
-    @include box-sizing(border-box);
-    @include user-select(none);
+  @include width(150px);
+  @include textCutter;
+  @include box-sizing(border-box);
+  @include user-select(none);
 
-    vertical-align: middle;
-    text-align: left;
-    position: relative;
+  vertical-align: middle;
+  text-align: left;
+  position: relative;
 
-    &.q-grid-pivot {
-        text-align: center;
-    }
+  &.q-grid-pivot {
+    text-align: center;
+  }
 
-    &.q-grid-pad {
-        @include width(100%);
-        // to show the right border e.g. in pivot columns we need to make 1px left padding.
-        padding: 0 0 0 1px !important;
-        margin: 0 !important;
-    }
+  &.q-grid-pad {
+    @include width(100%);
 
-    &.q-grid-row-indicator {
-        @include width(24px);
-    }
+    // to show the right border e.g. in pivot columns we need to make 1px left padding.
+    padding: 0 0 0 1px !important;
+    margin: 0 !important;
+  }
 
-    &.q-grid-row-expand,
-    &.q-grid-row-options {
-        @include width(48px);
-    }
+  &.q-grid-row-indicator {
+    @include width(24px);
+  }
 
-    &.q-grid-row-number,
-    &.q-grid-select {
-        @include width(56px);
-    }
+  &.q-grid-row-expand,
+  &.q-grid-row-options {
+    @include width(48px);
+  }
 
-    &.q-grid-image,
-    &.q-grid-pivot,
-    &.q-grid-bool {
-        @include width(80px);
-    }
+  &.q-grid-row-number,
+  &.q-grid-select {
+    @include width(56px);
+  }
 
-    &.q-grid-password,
-    &.q-grid-number,
-    &.q-grid-currency,
-    &.q-grid-id {
-        @include width(100px);
-    }
+  &.q-grid-image,
+  &.q-grid-pivot,
+  &.q-grid-bool {
+    @include width(80px);
+  }
 
-    &.q-grid-date {
-        @include width(120px);
-    }
+  &.q-grid-password,
+  &.q-grid-number,
+  &.q-grid-currency,
+  &.q-grid-id {
+    @include width(100px);
+  }
 
-    &.q-grid-datetime {
-        @include width(180px);
-    }
+  &.q-grid-date {
+    @include width(120px);
+  }
 
-    &.q-grid-group,
-    &.q-grid-email {
-        @include width(200px);
-    }
+  &.q-grid-datetime {
+    @include width(180px);
+  }
 
-    &.q-grid-array {
-        @include width(250px);
-    }
+  &.q-grid-group,
+  &.q-grid-email {
+    @include width(200px);
+  }
 
-    &.q-grid-the-\$alt\.number {
-        @include width(48px);
-    }
+  &.q-grid-array {
+    @include width(250px);
+  }
 
-    &.q-grid-select,
-    &.q-grid-row-options,
-    &.q-grid-row-indicator,
-    &.q-grid-array,
-    &.q-grid-image,
-    &.q-grid-row-expand,
-    &.q-grid-pad {
-        text-overflow: initial;
-    }
+  /* stylelint-disable selector-class-pattern */
+  &.q-grid-the-\$alt\.number {
+    @include width(48px);
+  }
+  /* stylelint-enable selector-class-pattern */
 
-    &.q-grid-has-view-width {
-        transition: min-width 0.3s, width 0.3s, max-width 0.3s;
-    }
+  &.q-grid-select,
+  &.q-grid-row-options,
+  &.q-grid-row-indicator,
+  &.q-grid-array,
+  &.q-grid-image,
+  &.q-grid-row-expand,
+  &.q-grid-pad {
+    text-overflow: initial;
+  }
 
-    &.q-grid-can-select-text {
-        @include user-select(auto);
-    }
+  &.q-grid-has-view-width {
+    transition: min-width 0.3s, width 0.3s, max-width 0.3s;
+  }
 
-    &.q-grid-fit-head {
-        width: auto;
-        max-width: none;
-        min-width: auto;
-    }
+  &.q-grid-can-select-text {
+    @include user-select(auto);
+  }
+
+  &.q-grid-fit-head {
+    width: auto;
+    max-width: none;
+    min-width: auto;
+  }
 }
 
 tbody,
 tfoot {
-    td {
-
-        &.q-grid-number,
-        &.q-grid-currency {
-            text-align: right;
-        }
-
-        &.q-grid-id {
-            text-align: left;
-        }
-
-        &.q-grid-bool,
-        &.q-grid-password,
-        &.q-grid-select {
-            text-align: center;
-        }
-
-        &.q-grid-dropdown {
-            select {
-                width: 100%;
-            }
-        }
-
-        &.q-grid-row-options {
-            cursor: pointer;
-        }
+  td {
+    &.q-grid-number,
+    &.q-grid-currency {
+      text-align: right;
     }
 
-    tr:not(.q-grid-highlighted) {
-        td:not(.q-grid-highlighted) {
-            &.q-grid-row-number {
-                background: $selected;
-            }
-        }
+    &.q-grid-id {
+      text-align: left;
     }
+
+    &.q-grid-bool,
+    &.q-grid-password,
+    &.q-grid-select {
+      text-align: center;
+    }
+
+    &.q-grid-dropdown {
+      select {
+        width: 100%;
+      }
+    }
+
+    &.q-grid-row-options {
+      cursor: pointer;
+    }
+  }
+
+  tr:not(.q-grid-highlighted) {
+    td:not(.q-grid-highlighted) {
+      &.q-grid-row-number {
+        background: $selected;
+      }
+    }
+  }
 }

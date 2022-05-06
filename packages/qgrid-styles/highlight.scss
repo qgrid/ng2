@@ -2,25 +2,24 @@
 
 tr,
 td {
-    &.q-grid-highlighted {
-        background-color: $highlighted;
-    }
+  &.q-grid-highlighted {
+    background-color: $highlighted;
+  }
 }
 
 tr.q-grid-highlighted {
-    td {
-
-        &.q-grid-sorted,
-        &.q-grid-selected,
-        &.q-grid-focused {
-            background-color: $highlighted;
-        }
+  td {
+    &.q-grid-sorted,
+    &.q-grid-selected,
+    &.q-grid-focused {
+      background-color: $highlighted;
     }
+  }
 }
 
 @at-root {
-    .q-grid-highlight-part {
-        background-color: yellow;
-        color: $black;
-    }
+  .q-grid-highlight-part {
+    background-color: yellow;
+    color: $black;
+  }
 }

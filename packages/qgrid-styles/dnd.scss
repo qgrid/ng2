@@ -1,44 +1,42 @@
 @at-root .q-grid-can-drag {
-    @include user-select(none);
-    @include user-drag(element);
+  @include user-select(none);
+  @include user-drag(element);
 }
 
 &.q-grid-box {
-    &.q-grid-drag {
-
-        tr,
-        td,
-        th {
-            transition: none !important;
-            background-color: inherit !important;
-            outline: none !important;
-        }
-
-        th {
-
-            .q-grid-icon,
-            .q-grid-resize-handler {
-                visibility: hidden;
-            }
-
-        }
+  &.q-grid-drag {
+    tr,
+    td,
+    th {
+      transition: none !important;
+      background-color: inherit !important;
+      outline: none !important;
     }
 
-    .q-grid-row-indicator {
-        .q-grid-can-drag {
-            cursor: move;
-            opacity: 0.4;
-
-            .q-grid-icon {
-                @include iconSizes(16px);
-                vertical-align: middle
-            }
-        }
+    th {
+      .q-grid-icon,
+      .q-grid-resize-handler {
+        visibility: hidden;
+      }
     }
+  }
+
+  .q-grid-row-indicator {
+    .q-grid-can-drag {
+      cursor: move;
+      opacity: 0.4;
+
+      .q-grid-icon {
+        @include iconSizes(16px);
+
+        vertical-align: middle;
+      }
+    }
+  }
 }
 
 tr.q-grid-drag,
 td.q-grid-drag,
 th.q-grid-drag {
-    opacity: 0.5;
+  opacity: 0.5;
 }
