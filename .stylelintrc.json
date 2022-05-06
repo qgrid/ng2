@@ -1,6 +1,6 @@
 {
   "extends": [
-		"stylelint-config-standard-scss"
+    "stylelint-config-standard-scss"
   ],
   "rules": {
     "function-name-case": "lower",
