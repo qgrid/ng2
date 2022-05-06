@@ -1,26 +1,27 @@
 td {
-    color: $dark;
-    font-size: 13px;
-    padding: 0 16px;
+  color: $dark;
+  font-size: 13px;
+  padding: 0 16px;
 }
 
 tfoot {
-    td {
-        color: $blue !important;
-        background-color: $shadow04 !important;
-    }
+  td {
+    color: $blue !important;
+    background-color: $shadow04 !important;
+  }
 }
 
 thead {
-    th {
-        color: $dark-secondary;
-        font-size: 12px;
+  th {
+    color: $dark-secondary;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 16px;
+
+    &:hover {
+      label {
         font-weight: bold;
-        padding: 0 16px;
-        &:hover {
-            label {
-                font-weight: bold;
-            }
-        }
+      }
     }
+  }
 }

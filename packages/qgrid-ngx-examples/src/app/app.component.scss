@@ -1,216 +1,217 @@
 @font-face {
-    font-family: 'qgrid-iconfont';
-    src: url('../assets/fonts/qgrid-iconfont.eot');
-    src: url('../assets/fonts/qgrid-iconfont.eot?#iefix') format('eot'),
-        url('../assets/fonts/qgrid-iconfont.woff2') format('woff2'),
-        url('../assets/fonts/qgrid-iconfont.woff') format('woff'),
-        url('../assets/fonts/qgrid-iconfont.ttf') format('truetype'),
-        url('../assets/fonts/qgrid-iconfont.svg#qgrid-iconfont') format('svg');
+  font-family: qgrid-iconfont;
+  src: url("../assets/fonts/qgrid-iconfont.eot");
+  src:
+    url("../assets/fonts/qgrid-iconfont.eot?#iefix") format("eot"),
+    url("../assets/fonts/qgrid-iconfont.woff2") format("woff2"),
+    url("../assets/fonts/qgrid-iconfont.woff") format("woff"),
+    url("../assets/fonts/qgrid-iconfont.ttf") format("truetype"),
+    url("../assets/fonts/qgrid-iconfont.svg#qgrid-iconfont") format("svg");
 }
 
 ::-webkit-scrollbar {
-    width: 0.5em;
+  width: 0.5em;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #A8A8A8;
+  background: #a8a8a8;
 }
 
 ::-webkit-scrollbar-track {
-    background: #D8D8D8;
+  background: #d8d8d8;
 }
 
 :host {
-    .mat-toolbar {
-        display: none;
-        color: #fff;
-        background: #334863;
+  .mat-toolbar {
+    display: none;
+    color: #fff;
+    background: #334863;
 
-        h1 {
-            margin-left: 8px;
+    h1 {
+      margin-left: 8px;
+    }
+  }
+
+  .app-source-links {
+    text-align: center;
+    background-color: #4b4b4b;
+    height: 45px;
+
+    a {
+      font-size: 14px;
+      display: inline-block;
+      min-width: auto;
+      line-height: inherit;
+      padding: 6px 9px;
+      margin: 8px 0;
+      background-color: #373737;
+      color: #fff;
+    }
+
+    .app-source-github {
+      border-radius: 7px 0 0 7px;
+    }
+
+    .app-source-stackblitz {
+      border-radius: 0 7px 7px 0;
+    }
+  }
+
+  .mat-sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+           causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+    height: 100%;
+    z-index: 3;
+    background: transparent;
+    pointer-events: none;
+
+    .mat-sidenav {
+      width: 260px;
+      background-color: #334863;
+      pointer-events: all;
+      border: 0;
+
+      ::ng-deep .mat-drawer-inner-container {
+        overflow: hidden;
+      }
+
+      .logo {
+        display: block;
+        margin: 70px 10px 35px 0;
+        font-family: qgrid-iconfont, "Helvetica Neue", sans-serif;
+        font-size: 100px;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+
+        &::before {
+          content: url("../assets/icons/qgrid_logo.svg");
         }
+      }
+
+      .app-search {
+        padding: 10px 15px 0;
+        display: block;
+
+        .mat-input-element {
+          color: #fff;
+          background-color: #25364a;
+          caret-color: #fff;
+          padding: 15px;
+          box-sizing: border-box;
+        }
+
+        ::ng-deep {
+          .mat-form-field-label {
+            top: 32px;
+            left: 10px;
+            color: #fff;
+          }
+
+          .mat-form-field-underline {
+            background-color: #fff;
+          }
+
+          .mat-form-field-ripple {
+            background-color: #fff;
+          }
+        }
+
+        &.mat-form-field-should-float {
+          ::ng-deep .mat-form-field-label {
+            top: 18px;
+          }
+        }
+      }
+
+      .mat-nav-list {
+        display: block;
+        height: calc(100% - 364px);
+        overflow-y: auto;
+
+        .mat-list-item {
+          color: #fff;
+
+          &:hover,
+          &.app-active {
+            background-color: #25364a;
+          }
+        }
+      }
+    }
+
+    .mat-sidenav-content {
+      .mat-card {
+        height: calc(100% - 99px);
+        margin: 15px;
+        pointer-events: all;
+
+        .mat-card-footer {
+          position: absolute;
+          width: 100%;
+          bottom: -28px;
+          z-index: -1;
+        }
+
+        ::ng-deep {
+          >* > q-grid {
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  &.app-env-test {
+    mat-toolbar,
+    mat-sidenav,
+    .app-source-links {
+      display: none !important;
+    }
+
+    mat-sidenav-content {
+      margin: 0 !important;
+
+      mat-card {
+        height: calc(100% - 62px) !important;
+        position: initial !important;
+      }
+    }
+  }
+
+  &.app-is-mobile {
+    .mat-toolbar {
+      display: flex;
+      position: fixed;
+
+      /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+      z-index: 2;
     }
 
     .app-source-links {
-        text-align: center;
-        background-color: #4B4B4B;
-        height: 45px;
-
-        a {
-            font-size: 14px;
-            display: inline-block;
-            min-width: auto;
-            line-height: inherit;
-            padding: 6px 9px;
-            margin: 8px 0;
-            background-color: #373737;
-            color: #fff;
-        }
-
-        .app-source-github {
-            border-radius: 7px 0 0 7px;
-        }
-
-        .app-source-stackblitz {
-            border-radius: 0 7px 7px 0;
-        }
+      top: 50px;
     }
 
     .mat-sidenav-container {
-        /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-           causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-        flex: 1;
-        height: 100%;
-        z-index: 3;
-        background: transparent;
-        pointer-events: none;
+      flex: 1 0 auto;
 
-        .mat-sidenav {
-            width: 260px;
-            background-color: #334863;
-            pointer-events: all;
-            border: 0;
-
-            ::ng-deep .mat-drawer-inner-container {
-                overflow: hidden;
-            }
-
-            .logo {
-                display: block;
-                margin: 70px 10px 35px 0;
-                font-family: 'qgrid-iconfont', 'Helvetica Neue', sans-serif;
-                font-size: 100px;
-                text-align: center;
-                color: #fff;
-                text-decoration: none;
-
-                &:before {
-                    content: url('../assets/icons/qgrid_logo.svg');
-                }
-            }
-
-            .app-search {
-                padding: 10px 15px 0 15px;
-                display: block;
-
-                .mat-input-element {
-                    color: #fff;
-                    background-color: #25364A;
-                    caret-color: #fff;
-                    padding: 15px;
-                    box-sizing: border-box;
-                }
-
-                ::ng-deep {
-                    .mat-form-field-label {
-                        top: 32px;
-                        left: 10px;
-                        color: #fff;
-                    }
-
-                    .mat-form-field-underline {
-                        background-color: #fff;
-                    }
-
-                    .mat-form-field-ripple {
-                        background-color: #fff;
-                    }
-                }
-
-                &.mat-form-field-should-float {
-                    ::ng-deep .mat-form-field-label {
-                        top: 18px;
-                    }
-                }
-            }
-
-            .mat-nav-list {
-                display: block;
-                height: calc(100% - 364px);
-                overflow-y: auto;
-
-                .mat-list-item {
-                    color: #fff;
-
-                    &:hover,
-                    &.app-active {
-                        background-color: #25364A;
-                    }
-                }
-            }
+      .mat-sidenav {
+        .mat-nav-list {
+          height: calc(100% - 104px);
         }
+      }
 
-        .mat-sidenav-content {
-            .mat-card {
-                height: calc(100% - 99px);
-                margin: 15px;
-                pointer-events: all;
-
-                .mat-card-footer {
-                    position: absolute;
-                    width: 100%;
-                    bottom: -28px;
-                    z-index: -1;
-                }
-
-                ::ng-deep {
-                    >*>q-grid {
-                        height: 100%;
-                    }
-                }
-            }
+      .mat-sidenav-content {
+        .mat-card {
+          height: calc(100% - 154px);
+          top: 56px;
         }
+      }
+
+      &.mat-drawer-opened {
+        pointer-events: all;
+      }
     }
-
-    &.app-env-test {
-
-        mat-toolbar,
-        mat-sidenav,
-        .app-source-links {
-            display: none !important;
-        }
-
-        mat-sidenav-content {
-            margin: 0 !important;
-
-            mat-card {
-                height: calc(100% - 62px) !important;
-                position: initial !important;
-            }
-        }
-    }
-
-    &.app-is-mobile {
-        .mat-toolbar {
-            display: flex;
-            position: fixed;
-            /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-            z-index: 2;
-        }
-
-        .app-source-links {
-            top: 50px;
-        }
-
-        .mat-sidenav-container {
-            flex: 1 0 auto;
-
-            .mat-sidenav {
-                .mat-nav-list {
-                    height: calc(100% - 104px);
-                }
-            }
-
-            .mat-sidenav-content {
-                .mat-card {
-                    height: calc(100% - 154px);
-                    top: 56px;
-                }
-            }
-
-            &.mat-drawer-opened {
-                pointer-events: all;
-            }
-        }
-    }
+  }
 }

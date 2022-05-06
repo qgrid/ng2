@@ -1,55 +1,60 @@
 td,
 th {
-    &.q-grid-select {
+  &.q-grid-select {
+    text-align: center;
+
+    >div {
+      @include simpleSquareElement(100%);
+
+      display: inline-block;
+
+      div {
+        @include simpleSquareElement(100%);
+
+        border-radius: 2px;
+        box-sizing: border-box;
         text-align: center;
 
-        >div {
-            @include simpleSquareElement(100%);
-            display: inline-block;
+        .q-grid-icon {
+          @include iconSizes(18px);
 
-            div {
-                @include simpleSquareElement(100%);
-                border-radius: 2px;
-                box-sizing: border-box;
-                text-align: center;
-
-                .q-grid-icon {
-                    @include iconSizes(18px);
-                    font-weight: 500;
-                    margin-top: 1px;
-                }
-
-                &.q-grid-checked {
-                    cursor: pointer;
-                    background: $pink;
-
-                    .q-grid-icon {
-                        color: $white;
-                    }
-                }
-
-                &.q-grid-unchecked,
-                &.q-grid-indeterminate {
-                    cursor: pointer;
-                    @include squareElement(20px);
-                    border: 2px solid $border-color-checkbox;
-                    border-radius: 2px;
-                    box-sizing: border-box;
-
-                    .q-grid-icon {
-                        color: $border-color-checkbox;
-                    }
-                }
-            }
+          font-weight: 500;
+          margin-top: 1px;
         }
 
-        .q-grid-checkbox {
-            margin: 0;
-            outline: none;
+        &.q-grid-checked {
+          cursor: pointer;
+          background: $pink;
+
+          .q-grid-icon {
+            color: $white;
+          }
         }
 
-        .q-grid-radio {
-            margin-left: -2px;
+        &.q-grid-unchecked,
+        &.q-grid-indeterminate {
+          cursor: pointer;
+
+          @include squareElement(20px);
+
+          border: 2px solid $border-color-checkbox;
+          border-radius: 2px;
+          box-sizing: border-box;
+
+          .q-grid-icon {
+            color: $border-color-checkbox;
+          }
         }
+      }
     }
+
+    .q-grid-checkbox {
+      margin: 0;
+      outline: none;
+    }
+
+    .q-grid-radio {
+      margin-left: -2px;
+    }
+  }
 }

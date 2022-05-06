@@ -1,26 +1,26 @@
 :host {
-    h4 {
-        margin-top: 0;
-        font-weight: normal;
+  h4 {
+    margin-top: 0;
+    font-weight: normal;
 
-        span {
-            padding: 0 4px;
-            margin: 0 4px;
-            background-color: #334863;
-            color: #f2f3f5;
-            font-size: 12px;
-            white-space: nowrap;
-            display: inline-block;
-        }
+    span {
+      padding: 0 4px;
+      margin: 0 4px;
+      background-color: #334863;
+      color: #f2f3f5;
+      font-size: 12px;
+      white-space: nowrap;
+      display: inline-block;
     }
+  }
 
-    div {
-        height: calc(100% - 80px);
-        width: 100%;
-        overflow: auto;
+  div {
+    height: calc(100% - 80px);
+    width: 100%;
+    overflow: auto;
 
-        ul {
-            margin: 0;
-        }
+    ul {
+      margin: 0;
     }
+  }
 }

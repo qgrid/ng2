@@ -1,32 +1,33 @@
 td {
-    .q-grid-editor {
+  .q-grid-editor {
+    &.q-grid-date,
+    &.q-grid-datetime {
+      .md-datepicker-button {
+        @include simpleSquareElement(24px);
 
-        &.q-grid-date,
-        &.q-grid-datetime {
-            .md-datepicker-button {
-                @include simpleSquareElement(24px);
-                margin-left: 0;
-                padding: 0;
-            }
+        margin-left: 0;
+        padding: 0;
+      }
 
-            .md-datepicker-triangle-button {
-                @include simpleSquareElement(24px);
-                margin-right: 0;
-                padding: 0;
-            }
+      .md-datepicker-triangle-button {
+        @include simpleSquareElement(24px);
 
-            .q-grid-datetime-date {
-                width: 100px;
-                padding-right: 10px;
-            }
+        margin-right: 0;
+        padding: 0;
+      }
 
-            .q-grid-datetime-time {
-                width: 100px;
-            }
-        }
+      .q-grid-datetime-date {
+        width: 100px;
+        padding-right: 10px;
+      }
 
-        &.q-grid-datetime {
-            width: 260px;
-        }
+      .q-grid-datetime-time {
+        width: 100px;
+      }
     }
+
+    &.q-grid-datetime {
+      width: 260px;
+    }
+  }
 }
