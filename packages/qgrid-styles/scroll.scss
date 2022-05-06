@@ -1,32 +1,36 @@
 tbody {
-    tr {
-        &.q-grid-scroll-mark {
-            height: 0;
-            border: none;
-        }
+  tr {
+    &.q-grid-scroll-mark {
+      height: 0;
+      border: none;
     }
+  }
 }
 
 @mixin scroll {
-    ::-webkit-scrollbar {
-        width: $scroll-size;
-        height: $scroll-size;
-    }
-    ::-webkit-scrollbar-thumb {
-        height: 15px;
-        background-color: $grid-marker-color;
-        -webkit-box-shadow: $scrollbar-thumb-shadow-dark, $scrollbar-thumb-shadow-light;
-    }
-    ::-webkit-scrollbar-button {
-        width: 0;
-        height: 0;
-        display: none;
-    }
-    ::-webkit-scrollbar-corner {
-        background-color: transparent;
-    }
-    ::-webkit-scrollbar-track,
-    ::-webkit-scrollbar-track-piece {
-        background-color: $scrollbar-track;
-    }
+  ::-webkit-scrollbar {
+    width: $scroll-size;
+    height: $scroll-size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 15px;
+    background-color: $grid-marker-color;
+    box-shadow: $scrollbar-thumb-shadow-dark, $scrollbar-thumb-shadow-light;
+  }
+
+  ::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track-piece {
+    background-color: $scrollbar-track;
+  }
 }
