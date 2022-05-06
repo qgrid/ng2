@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GridModel } from 'ng2-qgrid';
-import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { CacheAlreadyRequestedPageStrategy, CheckNextPageCountStrategy, DataProvider, DataProviderPageServer, DataProviderStrategy, Grid, GridModel, RequestTotalCountOnceStategy } from 'ng2-qgrid';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Atom, DataService } from '../data.service';
 
 const EXAMPLE_TAGS = [
@@ -12,6 +12,7 @@ const EXAMPLE_TAGS = [
 @Component({
   selector: 'example-data-provider',
   templateUrl: 'example-data-provider.component.html',
+	styleUrls: ['example-data-provider.component.scss'],
   providers: [DataService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -21,34 +22,44 @@ export class ExampleDataProviderComponent {
 
   page$: Observable<Atom[]>;
 
+	gridModel = this.qgrid.model();
+
+	private server = new FakeServer(this.dataService);
+	private dataProvider: DataProvider<Atom> = new DataProvider<Atom>(this.gridModel, [
+		new CheckNextPageCountStrategy(this.server),
+		new RequestTotalCountOnceStategy(this.server),
+		new CacheAlreadyRequestedPageStrategy(this.server, { pagesToLoad: 1 }),
+		new ExampleReverseDataStrategy(),
+	]);
+
   constructor(
 		private dataService: DataService,
+		private qgrid: Grid,
 	) { }
 
   onRequestRows(gridModel: GridModel): void {
-		const server = new FakeServer(this.dataService);
-		const pager = gridModel.pagination();
-
-		this.page$ = server.getTotal()
-			.pipe(
-				tap(total => gridModel.pagination({ count: total })),
-				switchMap(() => server.getPage(pager.current, pager.size)),
-			);
+		this.page$ = this.dataProvider.getPage();
 	}
 }
 
-class FakeServer {
+class FakeServer implements DataProviderPageServer<Atom> {
 	constructor(
 		private dataService: DataService,
 	) { }
 
-	getPage(pageNumber: number, pageSize: number): Observable<Atom[]> {
+	getRecords(from: number, to: number): Observable<Atom[]> {
 		return this.dataService.getAtoms()
-			.pipe(map(atoms => atoms.splice(pageNumber * pageSize, pageSize)));
+			.pipe(map(atoms => atoms.slice(from, to)));
 	}
 
 	getTotal(): Observable<number> {
 		return this.dataService.getAtoms()
 			.pipe(map(atoms => atoms.length));
+	}
+}
+
+class ExampleReverseDataStrategy<T> implements DataProviderStrategy<T> {
+	process(memo: T[]): Observable<T[]> {
+		return of(memo.slice().reverse());
 	}
 }
