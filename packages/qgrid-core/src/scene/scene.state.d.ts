@@ -11,7 +11,7 @@ export declare type SceneStateColumnRows = ColumnView[][];
  */
 export declare class SceneState {
 
-	/**
+  /**
 	 * Status of invalidation.
 	 *
 	 * * `start` request to refresh the q-grid.
@@ -19,17 +19,17 @@ export declare class SceneState {
 	 * * `push` request UI to draw a model.
 	 * * `stop` scene in the stable state.
 	 */
-	status: SceneStateStatus;
+  status: SceneStateStatus;
 
-	/**
+  /**
 	 * List of rows to render.
 	 */
-	rows: RowView[];
+  rows: RowView[];
 
-	/**
+  /**
 	 * Column rendering object.
 	 */
-	column: {
+  column: {
 		rows: SceneStateColumnRows;
 		line: SceneStateColumnLine;
 		area: SceneStateColumnArea;

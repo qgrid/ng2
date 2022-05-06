@@ -6,5 +6,5 @@ export declare class UrlColumnModel extends DataColumnModel {
 }
 
 export class UrlColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

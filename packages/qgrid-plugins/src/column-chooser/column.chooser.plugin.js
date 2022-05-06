@@ -1,272 +1,272 @@
 import {
-	Aggregation,
-	Command,
-	copy,
-	Event,
-	identity,
-	isFunction,
-	preOrderDFS,
-	filterNode,
-	findNode,
+  Aggregation,
+  Command,
+  copy,
+  Event,
+  identity,
+  isFunction,
+  preOrderDFS,
+  filterNode,
+  findNode,
 } from '@qgrid/core';
 
 export class ColumnChooserPlugin {
 
-	get canAggregate() {
-		return this.columnChooserCanAggregate;
-	}
+  get canAggregate() {
+    return this.columnChooserCanAggregate;
+  }
 
-	get resource() {
-		return this.plugin.model.columnChooser().resource;
-	}
+  get resource() {
+    return this.plugin.model.columnChooser().resource;
+  }
 
-	constructor(plugin, context) {
-		this.plugin = plugin;
+  constructor(plugin, context) {
+    this.plugin = plugin;
 
-		this.context = context;
+    this.context = context;
 
-		this.cancelEvent = new Event();
-		this.submitEvent = new Event();
-		this.dropEvent = new Event();
+    this.cancelEvent = new Event();
+    this.submitEvent = new Event();
+    this.dropEvent = new Event();
 
-		let applyFilter = identity;
-		const updateView = () => {
-			this.listView = [];
-			this.treeView = applyFilter(this.tree);
-			preOrderDFS([this.treeView], n => {
-				if (n.value.isVisible) {
-					this.listView.push(n.value.column);
-				}
-			});
-		};
+    let applyFilter = identity;
+    const updateView = () => {
+      this.listView = [];
+      this.treeView = applyFilter(this.tree);
+      preOrderDFS([this.treeView], n => {
+        if (n.value.isVisible) {
+          this.listView.push(n.value.column);
+        }
+      });
+    };
 
-		const setup = () => {
-			const { model: gridModel } = this.plugin;
-			const { index } = gridModel.columnList();
+    const setup = () => {
+      const { model: gridModel } = this.plugin;
+      const { index } = gridModel.columnList();
 
-			this.tree = preOrderDFS([index], (node, current, parent) => {
-				const { model } = node.key;
-				const column = {
-					key: model.key,
-					title: model.title,
-					isVisible: model.isVisible,
-					isDefault: model.isDefault,
-					canMove: model.canMove,
-					aggregation: model.aggregation,
-				};
+      this.tree = preOrderDFS([index], (node, current, parent) => {
+        const { model } = node.key;
+        const column = {
+          key: model.key,
+          title: model.title,
+          isVisible: model.isVisible,
+          isDefault: model.isDefault,
+          canMove: model.canMove,
+          aggregation: model.aggregation,
+        };
 
-				if (parent) {
-					const newNode = copy(node);
-					newNode.value = {
-						column,
-						isVisible: model.category === 'data' || model.category === 'cohort',
-					};
+        if (parent) {
+          const newNode = copy(node);
+          newNode.value = {
+            column,
+            isVisible: model.category === 'data' || model.category === 'cohort',
+          };
 
-					current.children.push(newNode);
-					return newNode;
-				}
+          current.children.push(newNode);
+          return newNode;
+        }
 
-				current.value = { column, isVisible: true };
-				return current;
-			}, copy(index));
+        current.value = { column, isVisible: true };
+        return current;
+      }, copy(index));
 
-			updateView();
-		};
+      updateView();
+    };
 
-		this.search = value => {
-			const search = ('' + value).toLowerCase();
-			applyFilter =
-				search
-					? node => filterNode(node, n => (n.value.column.title || '').toLowerCase().indexOf(search) >= 0)
-					: identity;
+    this.search = value => {
+      const search = ('' + value).toLowerCase();
+      applyFilter =
+        search
+          ? node => filterNode(node, n => (n.value.column.title || '').toLowerCase().indexOf(search) >= 0)
+          : identity;
 
-			updateView();
-		};
+      updateView();
+    };
 
-		setup();
+    setup();
 
-		const toggle = (node, value) => {
-			const { children } = node;
-			const { column } = node.value;
-			column.isVisible = value;
-			if (children.length) {
-				children.forEach(n => toggle(n, value));
-			}
-		};
+    const toggle = (node, value) => {
+      const { children } = node;
+      const { column } = node.value;
+      column.isVisible = value;
+      if (children.length) {
+        children.forEach(n => toggle(n, value));
+      }
+    };
 
-		this.toggle = new Command({
-			source: 'column.chooser',
-			canExecute: node => node.value.isVisible,
-			execute: node => toggle(node, !this.state(node)),
-		});
+    this.toggle = new Command({
+      source: 'column.chooser',
+      canExecute: node => node.value.isVisible,
+      execute: node => toggle(node, !this.state(node)),
+    });
 
-		this.toggleAll = new Command({
-			source: 'column.chooser',
-			execute: () => {
-				const state = !this.stateAll();
-				for (const column of this.listView) {
-					column.isVisible = state;
-				}
-			},
-		});
+    this.toggleAll = new Command({
+      source: 'column.chooser',
+      execute: () => {
+        const state = !this.stateAll();
+        for (const column of this.listView) {
+          column.isVisible = state;
+        }
+      },
+    });
 
-		this.defaults = new Command({
-			source: 'column.chooser',
-			execute: () => {
-				for (const column of this.listView) {
-					column.isVisible = column.isDefault !== false;
-				}
-			},
-		});
+    this.defaults = new Command({
+      source: 'column.chooser',
+      execute: () => {
+        for (const column of this.listView) {
+          column.isVisible = column.isDefault !== false;
+        }
+      },
+    });
 
-		this.toggleAggregation = new Command({ source: 'column.chooser' });
+    this.toggleAggregation = new Command({ source: 'column.chooser' });
 
-		this.drop = new Command({
-			source: 'column.chooser',
-			canExecute: e => {
-				const node = e.dropData;
-				return node && node.value.column.canMove;
+    this.drop = new Command({
+      source: 'column.chooser',
+      canExecute: e => {
+        const node = e.dropData;
+        return node && node.value.column.canMove;
 
-			},
-			execute: e => {
-				switch (e.action) {
-					case 'over': {
-						const src = e.dragData;
-						const trg = e.dropData;
-						if (src !== trg) {
-							const tree = this.tree;
+      },
+      execute: e => {
+        switch (e.action) {
+          case 'over': {
+            const src = e.dragData;
+            const trg = e.dropData;
+            if (src !== trg) {
+              const tree = this.tree;
 
-							const oldPos = findNode(tree, node => node === src);
-							const newPos = findNode(tree, node => node === trg);
-							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
-								const queue = oldPos.path.reverse();
-								const hostIndex = queue.findIndex(node => node.children.length > 1);
-								if (hostIndex >= 0) {
-									const host = queue[hostIndex];
-									const target = queue[hostIndex - 1] || oldPos.node;
-									const index = host.children.indexOf(target);
+              const oldPos = findNode(tree, node => node === src);
+              const newPos = findNode(tree, node => node === trg);
+              if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
+                const queue = oldPos.path.reverse();
+                const hostIndex = queue.findIndex(node => node.children.length > 1);
+                if (hostIndex >= 0) {
+                  const host = queue[hostIndex];
+                  const target = queue[hostIndex - 1] || oldPos.node;
+                  const index = host.children.indexOf(target);
 
-									host.children.splice(index, 1);
-									newPos.parent.children.splice(newPos.index, 0, target);
+                  host.children.splice(index, 1);
+                  newPos.parent.children.splice(newPos.index, 0, target);
 
-									target.level = newPos.parent.level + 1;
-									preOrderDFS(
-										target.children,
-										(node, root, parent) => {
-											node.level = (root || parent).level + 1;
-										},
-										target
-									);
+                  target.level = newPos.parent.level + 1;
+                  preOrderDFS(
+                    target.children,
+                    (node, root, parent) => {
+                      node.level = (root || parent).level + 1;
+                    },
+                    target,
+                  );
 
-									this.dropEvent.emit();
-								}
-							}
-						}
-						break;
-					}
-				}
-			},
-		});
+                  this.dropEvent.emit();
+                }
+              }
+            }
+            break;
+          }
+        }
+      },
+    });
 
-		this.drag = new Command({
-			source: 'column.chooser',
-			canExecute: e => {
-				const node = e.data;
-				return node && node.value.column.canMove;
-			},
-		});
+    this.drag = new Command({
+      source: 'column.chooser',
+      canExecute: e => {
+        const node = e.data;
+        return node && node.value.column.canMove;
+      },
+    });
 
-		this.submit = new Command({
-			source: 'column.chooser',
-			execute: () => {
-				const index = preOrderDFS([this.tree], (node, current, parent) => {
-					if (parent) {
-						const newNode = copy(node);
-						current.children.push(newNode);
+    this.submit = new Command({
+      source: 'column.chooser',
+      execute: () => {
+        const index = preOrderDFS([this.tree], (node, current, parent) => {
+          if (parent) {
+            const newNode = copy(node);
+            current.children.push(newNode);
 
-						const { isVisible, column } = node.value;
-						if (isVisible) {
-							const { model } = newNode.key;
-							model.isVisible = column.isVisible;
-							model.aggregation = column.aggregation;
-						}
+            const { isVisible, column } = node.value;
+            if (isVisible) {
+              const { model } = newNode.key;
+              model.isVisible = column.isVisible;
+              model.aggregation = column.aggregation;
+            }
 
-						newNode.value = null;
-						return newNode;
-					}
+            newNode.value = null;
+            return newNode;
+          }
 
-					current.value = null;
-					return current;
-				}, copy(this.tree));
+          current.value = null;
+          return current;
+        }, copy(this.tree));
 
-				const { model: gridModel } = this.plugin;
-				gridModel.columnList({ index }, {
-					source: 'column.chooser.view',
-				});
+        const { model: gridModel } = this.plugin;
+        gridModel.columnList({ index }, {
+          source: 'column.chooser.view',
+        });
 
-				this.submitEvent.emit();
-			},
-		});
+        this.submitEvent.emit();
+      },
+    });
 
-		this.cancel = new Command({
-			source: 'column.chooser',
-			execute: () => this.cancelEvent.emit(),
-		});
+    this.cancel = new Command({
+      source: 'column.chooser',
+      execute: () => this.cancelEvent.emit(),
+    });
 
-		this.reset = new Command({
-			source: 'column.chooser',
-			execute: () => setup(),
-		});
+    this.reset = new Command({
+      source: 'column.chooser',
+      execute: () => setup(),
+    });
 
-		this.aggregations = Object
-			.getOwnPropertyNames(Aggregation)
-			.filter(key => isFunction(Aggregation[key]));
+    this.aggregations = Object
+      .getOwnPropertyNames(Aggregation)
+      .filter(key => isFunction(Aggregation[key]));
 
-		const { model: gridModel, observe } = this.plugin;
-		observe(gridModel.dataChanged)
-			.subscribe(e => {
-				if (e.tag.source === 'column.chooser') {
-					return;
-				}
+    const { model: gridModel, observe } = this.plugin;
+    observe(gridModel.dataChanged)
+      .subscribe(e => {
+        if (e.tag.source === 'column.chooser') {
+          return;
+        }
 
-				if (e.hasChanges('columns')) {
-					setup();
-				}
-			});
+        if (e.hasChanges('columns')) {
+          setup();
+        }
+      });
 
-		observe(gridModel.columnListChanged)
-			.subscribe(e => {
-				if (e.tag.source === 'column.chooser') {
-					return;
-				}
+    observe(gridModel.columnListChanged)
+      .subscribe(e => {
+        if (e.tag.source === 'column.chooser') {
+          return;
+        }
 
-				if (e.hasChanges('index')) {
-					setup();
-				}
-			});
-	}
+        if (e.hasChanges('index')) {
+          setup();
+        }
+      });
+  }
 
-	state(node) {
-		const { children } = node;
-		const { column } = node.value;
-		if (children.length) {
-			return children.some(n => n.value.column.isVisible);
-		}
+  state(node) {
+    const { children } = node;
+    const { column } = node.value;
+    if (children.length) {
+      return children.some(n => n.value.column.isVisible);
+    }
 
-		return column.isVisible !== false;
-	}
+    return column.isVisible !== false;
+  }
 
-	stateAll() {
-		return this.listView.every(c => c.isVisible);
-	}
+  stateAll() {
+    return this.listView.every(c => c.isVisible);
+  }
 
-	stateDefault() {
-		return this.listView.every(
-			c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false)
-		);
-	}
+  stateDefault() {
+    return this.listView.every(
+      c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false),
+    );
+  }
 
-	isIndeterminate() {
-		return !this.stateAll() && this.listView.some(c => c.isVisible);
-	}
+  isIndeterminate() {
+    return !this.stateAll() && this.listView.some(c => c.isVisible);
+  }
 }

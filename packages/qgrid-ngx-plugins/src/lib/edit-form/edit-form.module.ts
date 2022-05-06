@@ -7,19 +7,19 @@ import { EditFormControlComponent } from './edit-form-control.component';
 import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
-	declarations: [
-		EditFormTriggerComponent,
-		EditFormComponent,
-		EditFormControlComponent,
-	],
-	exports: [
-		EditFormTriggerComponent,
-		EditFormComponent,
-		EditFormControlComponent,
-	],
-	imports: [
-		CommonModule,
-		TemplateModule,
-	],
+  declarations: [
+    EditFormTriggerComponent,
+    EditFormComponent,
+    EditFormControlComponent,
+  ],
+  exports: [
+    EditFormTriggerComponent,
+    EditFormComponent,
+    EditFormControlComponent,
+  ],
+  imports: [
+    CommonModule,
+    TemplateModule,
+  ],
 })
 export class EditFormModule { }

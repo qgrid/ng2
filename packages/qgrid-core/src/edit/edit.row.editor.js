@@ -5,68 +5,68 @@ import { CellEditor } from './edit.cell.editor';
 
 
 class RowEditorCore {
-	constructor() {
-		this.editors = [];
-	}
+  constructor() {
+    this.editors = [];
+  }
 
-	commit() {
-	}
+  commit() {
+  }
 
-	reset() {
-	}
+  reset() {
+  }
 }
 
 
 class TdView {
 
-	get value() {
-		return getValue(this.row, this.column);
-	}
+  get value() {
+    return getValue(this.row, this.column);
+  }
 
-	set value(value) {
-		setValue(this.row, this.column, value);
-	}
+  set value(value) {
+    setValue(this.row, this.column, value);
+  }
 
-	get label() {
-		return getLabel(this.row, this.column);
-	}
+  get label() {
+    return getLabel(this.row, this.column);
+  }
 
-	set label(value) {
-		setLabel(this.row, this.column, value);
-	}
+  set label(value) {
+    setLabel(this.row, this.column, value);
+  }
 
-	constructor(row, column) {
-		this.row = row;
-		this.column = column;
-	}
+  constructor(row, column) {
+    this.row = row;
+    this.column = column;
+  }
 }
 
 const empty = new RowEditorCore();
 export class RowEditor extends RowEditorCore {
 
-	static get empty() {
-		return empty;
-	}
+  static get empty() {
+    return empty;
+  }
 
-	constructor(row, columns) {
-		super();
+  constructor(row, columns) {
+    super();
 
-		this.value = cloneDeep(row);
-		this.row = row;
+    this.value = cloneDeep(row);
+    this.row = row;
 
-		this.editors =
-			columns
-				.filter(column => column.canEdit)
-				.map(column => new CellEditor(new TdView(this.value, column)));
-	}
+    this.editors =
+      columns
+        .filter(column => column.canEdit)
+        .map(column => new CellEditor(new TdView(this.value, column)));
+  }
 
-	commit() {
-		this.editors.forEach(editor => editor.commit());
-		Object.assign(this.row, this.value);
-	}
+  commit() {
+    this.editors.forEach(editor => editor.commit());
+    Object.assign(this.row, this.value);
+  }
 
-	reset() {
-		this.editors.forEach(editor => editor.reset());
-		this.value = cloneDeep(this.row);
-	}
+  reset() {
+    this.editors.forEach(editor => editor.reset());
+    this.value = cloneDeep(this.row);
+  }
 }

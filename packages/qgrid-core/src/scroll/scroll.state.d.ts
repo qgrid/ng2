@@ -11,30 +11,30 @@ export declare type ScrollStateMode = 'default' | 'virtual';
  */
 export declare class ScrollState {
 
-	/**
+  /**
 	 * Scroll mode.
 	 */
-	mode: ScrollStateMode;
+  mode: ScrollStateMode;
 
-	/**
+  /**
 	 * Top scroll position.
 	 */
-	top: number;
+  top: number;
 
-	/**
+  /**
 	 * Left scroll position.
 	 */
-	left: number;
+  left: number;
 
-	/**
+  /**
 	 * Row index on top of the q-grid client area.
 	 */
-	cursor: number;
+  cursor: number;
 
-	map: {
+  map: {
 		rowToView: (index: number) => number;
 		viewToRow: (index: number) => number;
 	};
 
-	resetTriggers: Array<string>;
+  resetTriggers: Array<string>;
 }

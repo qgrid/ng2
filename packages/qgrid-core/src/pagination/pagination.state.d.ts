@@ -4,30 +4,30 @@ export declare type PaginationStateMode = 'showPages' | 'showRows';
  * A class that allows to split data to pages, also virtual scroll use some options from here.
  */
 export declare class PaginationState {
-	/**
+  /**
 	 * Current page number;
 	 */
-	current: number;
+  current: number;
 
-	/**
+  /**
 	 * Selected page size.
 	 */
-	size: number;
+  size: number;
 
-	/**
+  /**
 	 * List of available sizes.
 	 */
-	sizeList: number[];
+  sizeList: number[];
 
-	/**
+  /**
 	 * Count of total rows.
 	 */
-	count: number;
+  count: number;
 
-	mode: PaginationStateMode;
+  mode: PaginationStateMode;
 
-	/**
+  /**
 	 * List of `model name: [model properties]` pairs to reset pagination current property to 0.
 	 */
-	resetTriggers: { [key: string]: string[] };
+  resetTriggers: { [key: string]: string[] };
 }

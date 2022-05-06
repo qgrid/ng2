@@ -1,4 +1,4 @@
 export declare class ColumnFilterState {
-	threshold: number;
-	source: string;
+  threshold: number;
+  source: string;
 }

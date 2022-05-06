@@ -3,11 +3,11 @@ import { DataColumnModel } from './data.column.model';
 import { ColumnModel } from './column.model';
 
 export declare class DateTimeColumnModel extends DataColumnModel {
-	format?: string;
-	dateFormat?: string;
-	timeFormat?: string;
+  format?: string;
+  dateFormat?: string;
+  timeFormat?: string;
 }
 
 export declare class DateTimeColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

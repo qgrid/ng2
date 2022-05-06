@@ -3,18 +3,18 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-theme-grid-dark',
-	templateUrl: 'example-theme-grid-dark.component.html',
-	styleUrls: ['example-theme-grid-dark.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'example-theme-grid-dark',
+  templateUrl: 'example-theme-grid-dark.component.html',
+  styleUrls: ['example-theme-grid-dark.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleThemeGridDarkComponent {
-	static id = 'theme-grid-dark';
+  static id = 'theme-grid-dark';
 
-	rows: Observable<Human[]>;
+  rows: Observable<Human[]>;
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople();
-	}
+  constructor(dataService: DataService) {
+    this.rows = dataService.getPeople();
+  }
 }

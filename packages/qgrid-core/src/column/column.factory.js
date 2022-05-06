@@ -28,66 +28,66 @@ import { ColumnView as CustomColumn } from '../scene/view/column.view';
 import { assignWith, clone, hasOwnProperty, isUndefined } from '../utility/kit';
 
 function merge(target, source) {
-	if (target && source) {
-		return assignWith(target, source, (s, t) => isUndefined(s) ? t : s);
-	}
+  if (target && source) {
+    return assignWith(target, source, (s, t) => isUndefined(s) ? t : s);
+  }
 
-	return target || clone(source);
+  return target || clone(source);
 }
 
 export function columnFactory(model) {
-	const { columnList } = model;
-	const columnMap = {
-		'array': ArrayColumn,
-		'bool': BoolColumn,
-		'cohort': CohortColumn,
-		'currency': CurrencyColumn,
-		'custom': CustomColumn,
-		'date': DateColumn,
-		'datetime': DateTimeColumn,
-		'email': EmailColumn,
-		'file': FileColumn,
-		'group': GroupColumn,
-		'id': IdColumn,
-		'image': ImageColumn,
-		'number': NumberColumn,
-		'pad': PadColumn,
-		'password': PasswordColumn,
-		'pivot': PivotColumn,
-		'reference': ReferenceColumn,
-		'row-details': RowDetailsColumn,
-		'row-expand': RowExpandColumn,
-		'row-indicator': RowIndicatorColumn,
-		'row-number': RowNumberColumn,
-		'row-options': RowOptionsColumn,
-		'select': SelectColumn,
-		'group-summary': GroupSummaryColumn,
-		'text': TextColumn,
-		'time': TimeColumn,
-		'url': UrlColumn,
-	};
+  const { columnList } = model;
+  const columnMap = {
+    'array': ArrayColumn,
+    'bool': BoolColumn,
+    'cohort': CohortColumn,
+    'currency': CurrencyColumn,
+    'custom': CustomColumn,
+    'date': DateColumn,
+    'datetime': DateTimeColumn,
+    'email': EmailColumn,
+    'file': FileColumn,
+    'group': GroupColumn,
+    'id': IdColumn,
+    'image': ImageColumn,
+    'number': NumberColumn,
+    'pad': PadColumn,
+    'password': PasswordColumn,
+    'pivot': PivotColumn,
+    'reference': ReferenceColumn,
+    'row-details': RowDetailsColumn,
+    'row-expand': RowExpandColumn,
+    'row-indicator': RowIndicatorColumn,
+    'row-number': RowNumberColumn,
+    'row-options': RowOptionsColumn,
+    'select': SelectColumn,
+    'group-summary': GroupSummaryColumn,
+    'text': TextColumn,
+    'time': TimeColumn,
+    'url': UrlColumn,
+  };
 
-	const create = (entityType, columnType, body) => {
-		const type = columnMap[entityType];
-		const { reference } = columnList();
-		const defaultSettings = reference['$default'];
-		body = merge(body, defaultSettings);
-		const typeSettings = reference[columnType];
-		body = merge(body, typeSettings);
+  const create = (entityType, columnType, body) => {
+    const type = columnMap[entityType];
+    const { reference } = columnList();
+    const defaultSettings = reference['$default'];
+    body = merge(body, defaultSettings);
+    const typeSettings = reference[columnType];
+    body = merge(body, typeSettings);
 
-		const model = type.model(body);
-		return new type(model);
-	};
+    const model = type.model(body);
+    return new type(model);
+  };
 
-	return (type, body = null) => {
-		if (!type) {
-			type = 'text';
-		}
+  return (type, body = null) => {
+    if (!type) {
+      type = 'text';
+    }
 
-		if (hasOwnProperty.call(columnMap, type)) {
-			return create(type, type, body);
-		}
+    if (hasOwnProperty.call(columnMap, type)) {
+      return create(type, type, body);
+    }
 
-		return create('custom', type, body);
-	};
+    return create('custom', type, body);
+  };
 }

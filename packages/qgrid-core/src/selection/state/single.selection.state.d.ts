@@ -3,9 +3,9 @@ import { SelectionService } from '../selection.service';
 import { SubSelectionState } from './selection.state';
 
 export declare class SingleSelectionState extends SubSelectionState {
-	item: any;
+  item: any;
 
-	constructor(model: Model, service: SelectionService);
+  constructor(model: Model, service: SelectionService);
 
-	entries(): any[];
+  entries(): any[];
 }

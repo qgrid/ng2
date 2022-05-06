@@ -1,9 +1,9 @@
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	Input,
-	OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
 } from '@angular/core';
 import { ColumnModelPin, VisibilityState } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
@@ -11,36 +11,36 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from './table-core.service';
 
 @Component({
-	selector: 'q-grid-core-table',
-	templateUrl: './table-core.component.html',
-	providers: [TableCoreService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'q-grid-core-table',
+  templateUrl: './table-core.component.html',
+  providers: [TableCoreService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableCoreComponent implements OnInit {
-	@Input() pin: ColumnModelPin = 'mid';
+  @Input() pin: ColumnModelPin = 'mid';
 
-	get visibility(): VisibilityState {
-		const { model } = this.plugin;
-		return model.visibility();
-	}
+  get visibility(): VisibilityState {
+    const { model } = this.plugin;
+    return model.visibility();
+  }
 
-	constructor(
-		public $view: GridLet,
-		private plugin: GridPlugin,
-		private tableHost: TableCoreService,
-		private cd: ChangeDetectorRef,
-	) {
-	}
+  constructor(
+    public $view: GridLet,
+    private plugin: GridPlugin,
+    private tableHost: TableCoreService,
+    private cd: ChangeDetectorRef,
+  ) {
+  }
 
-	ngOnInit() {
-		const { model, observe } = this.plugin;
+  ngOnInit() {
+    const { model, observe } = this.plugin;
 
-		this.tableHost.pin = this.pin;
+    this.tableHost.pin = this.pin;
 
-		observe(model.visibilityChanged)
-			.subscribe(() => {
-				this.cd.markForCheck();
-				this.cd.detectChanges();
-			});
-	}
+    observe(model.visibilityChanged)
+      .subscribe(() => {
+        this.cd.markForCheck();
+        this.cd.detectChanges();
+      });
+  }
 }

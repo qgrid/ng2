@@ -4,7 +4,7 @@ import { VscrollContext } from '../vscroll/vscroll.context';
 
 @Injectable()
 export class ScrollService {
-	factory(settings: IVscrollSettings): IVscrollContext {
-		return new VscrollContext(settings);
-	}
+  factory(settings: IVscrollSettings): IVscrollContext {
+    return new VscrollContext(settings);
+  }
 }

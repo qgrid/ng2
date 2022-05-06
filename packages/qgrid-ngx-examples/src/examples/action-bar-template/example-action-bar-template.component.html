@@ -1,26 +1,26 @@
 <q-grid [caption]="title"
-		[rows]="rows | async">
-	<q-grid-columns generation="deep">
-	</q-grid-columns>
+        [rows]="rows | async">
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-	<q-grid-actions>
-		<q-grid-action>
-			<ng-template for="trigger"
-						 let-$action>
-				<button (click)="sortBySymbol($action.model, '+')"
-						mat-button>
-					Sort By Symbol Asc
-				</button>
-			</ng-template>
-		</q-grid-action>
-		<q-grid-action>
-			<ng-template for="trigger"
-						 let-$action>
-				<button (click)="sortBySymbol($action.model, '-')"
-						mat-button>
-					Sort By Symbol Desc
-				</button>
-			</ng-template>
-		</q-grid-action>
-	</q-grid-actions>
+  <q-grid-actions>
+    <q-grid-action>
+      <ng-template for="trigger"
+                   let-$action>
+        <button (click)="sortBySymbol($action.model, '+')"
+                mat-button>
+          Sort By Symbol Asc
+        </button>
+      </ng-template>
+    </q-grid-action>
+    <q-grid-action>
+      <ng-template for="trigger"
+                   let-$action>
+        <button (click)="sortBySymbol($action.model, '-')"
+                mat-button>
+          Sort By Symbol Desc
+        </button>
+      </ng-template>
+    </q-grid-action>
+  </q-grid-actions>
 </q-grid>

@@ -1,17 +1,17 @@
 import { NodeState } from './node.state';
 
 export declare class Node {
-	/**
+  /**
 	 * Unique identifier for the node.
 	 */
-	key: string | any;
+  key: string | any;
 
-	/**
+  /**
 	 * Node hierarchy level.
 	 */
-	level: number;
+  level: number;
 
-	/**
+  /**
 	 * Type of the node.
 	 *
 	 * * `'group'`
@@ -19,33 +19,33 @@ export declare class Node {
 	 * * `'value'`
 	 * * `'summary'`
 	 */
-	type: 'group' | 'row' | 'value' | 'summary';
+  type: 'group' | 'row' | 'value' | 'summary';
 
-	/**
+  /**
 	 * List of row indices that belongs to the node.
 	 */
-	rows: number[];
+  rows: number[];
 
-	/**
+  /**
 	 * List of child nodes.
 	 */
-	// eslint-disable-next-line no-use-before-define
-	children: Node[];
+  // eslint-disable-next-line no-use-before-define
+  children: Node[];
 
-	/**
+  /**
 	 * Column key of the node.
 	 */
-	source: string;
+  source: string;
 
-	/**
+  /**
 	 * Value of the node.
 	 */
-	value: any;
+  value: any;
 
-	/**
+  /**
 	 * Shows if node was expanded or not.
 	 */
-	state: NodeState;
+  state: NodeState;
 
-	constructor(key: string | any, level: number, type?: string);
+  constructor(key: string | any, level: number, type?: string);
 }

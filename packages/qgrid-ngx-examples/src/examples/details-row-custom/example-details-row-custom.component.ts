@@ -1,125 +1,128 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent, RowDetailsStatus, Command, RowDetails, Grid } from 'ng2-qgrid';
+import {
+  GridComponent,
+  RowDetailsStatus,
+  Command,
+  RowDetails,
+  Grid,
+} from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = [
-	'details-row-custom',
-	'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'
-];
+const EXAMPLE_TAGS =
+  ['details-row-custom', 'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'];
 
 @Component({
-	selector: 'example-details-row-custom',
-	templateUrl: 'example-details-row-custom.component.html',
-	styleUrls: ['example-details-row-custom.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'example-details-row-custom',
+  templateUrl: 'example-details-row-custom.component.html',
+  styleUrls: ['example-details-row-custom.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowCustomComponent implements AfterViewInit {
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
+  @ViewChild(GridComponent, { static: true }) grid: GridComponent;
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-	rows$: Observable<Atom[]>;
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-	toggleExpand = new Command({
-		execute: (row) => {
-			const { model } = this.grid;
-			if (row) {
-				const { status } = model.row();
-				if (!status.has(row)) {
-					model.row({
-						status: new Map([[row, new RowDetailsStatus(true)]])
-					});
+  rows$: Observable<Atom[]>;
 
-					model.sceneChanged.on((e, off) => {
-						if (e.hasChanges('status') && e.state.status === 'stop') {
-							const gridService = this.qgrid.service(model);
-							gridService.focus(model.view().rows.indexOf(row) + 1, 1);
-							off();
-						}
-					});
+  toggleExpand = new Command({
+    execute: row => {
+      const { model } = this.grid;
+      if (row) {
+        const { status } = model.row();
+        if (!status.has(row)) {
+          model.row({
+            status: new Map([[row, new RowDetailsStatus(true)]]),
+          });
 
-					return;
-				}
-			}
+          model.sceneChanged.on((e, off) => {
+            if (e.hasChanges('status') && e.state.status === 'stop') {
+              const gridService = this.qgrid.service(model);
+              gridService.focus(model.view().rows.indexOf(row) + 1, 1);
+              off();
+            }
+          });
 
-			model.row({
-				status: new Map()
-			});
-		},
-		canExecute: row => {
-			return !(row instanceof RowDetails);
-		}
-	});
+          return;
+        }
+      }
 
-	constructor(
-		dataService: DataService,
-		private qgrid: Grid
-	) {
-		this.rows$ = dataService.getAtoms();
-	}
+      model.row({
+        status: new Map(),
+      });
+    },
+    canExecute: row => !(row instanceof RowDetails),
+  });
 
-	ngAfterViewInit() {
-		const { model } = this.grid;
+  constructor(
+    dataService: DataService,
+    private qgrid: Grid,
+  ) {
+    this.rows$ = dataService.getAtoms();
+  }
 
-		model.pagination({
-			size: 10
-		});
+  ngAfterViewInit() {
+    const { model } = this.grid;
 
-		model.style({
-			row: (row, context) => {
-				const ROW_DETAILS_HEIGHT = 140;
-				if (row instanceof RowDetails) {
-					context.class('row-details-height', {
-						'height': `${ROW_DETAILS_HEIGHT}px`,
-						'max-height': `${ROW_DETAILS_HEIGHT}px`,
-						'min-height': `${ROW_DETAILS_HEIGHT}px`
-					});
-				}
-			}
-		});
+    model.pagination({
+      size: 10,
+    });
 
-		model.keyboardChanged.on(e => {
-			const { codes, status } = e.state;
-			if (status === 'down') {
-				switch (codes[0]) {
-					case 'enter':
-					case 'space': {
-						const { cell } = model.navigation();
-						const row = cell && cell.row;
-						if (this.toggleExpand.canExecute(row)) {
-							this.toggleExpand.execute(row);
-						}
-						break;
-					}
-					case 'alt': {
-						const rowNo = Number.parseInt(codes[1], 10);
-						if (!Number.isNaN(rowNo)) {
-							const { rows } = model.view();
-							const { current, size } = model.pagination();
-							const altRow = rows[rowNo + current * size];
-							if (altRow) {
-								if (this.toggleExpand.canExecute(altRow)) {
-									this.toggleExpand.execute(altRow);
-								}
-							}
-						}
-						break;
-					}
-				}
-			}
-		});
+    model.style({
+      row: (row, context) => {
+        const ROW_DETAILS_HEIGHT = 140;
+        if (row instanceof RowDetails) {
+          context.class('row-details-height', {
+            'height': `${ROW_DETAILS_HEIGHT}px`,
+            'max-height': `${ROW_DETAILS_HEIGHT}px`,
+            'min-height': `${ROW_DETAILS_HEIGHT}px`,
+          });
+        }
+      },
+    });
 
-		model.mouseChanged.on(e => {
-			const { code, status, target } = e.state;
-			if (code === 'left' && status === 'up') {
-				if (target && target.column.key !== 'name') {
-					if (this.toggleExpand.canExecute(target.row)) {
-						this.toggleExpand.execute(target.row);
-					}
-				}
-			}
-		});
-	}
+    model.keyboardChanged.on(e => {
+      const { codes, status } = e.state;
+      if (status === 'down') {
+        switch (codes[0]) {
+          case 'enter':
+          case 'space': {
+            const { cell } = model.navigation();
+            const row = cell && cell.row;
+            if (this.toggleExpand.canExecute(row)) {
+              this.toggleExpand.execute(row);
+            }
+            break;
+          }
+          case 'alt': {
+            const rowNo = Number.parseInt(codes[1], 10);
+            if (!Number.isNaN(rowNo)) {
+              const { rows } = model.view();
+              const { current, size } = model.pagination();
+              const altRow = rows[rowNo + current * size];
+              if (altRow) {
+                if (this.toggleExpand.canExecute(altRow)) {
+                  this.toggleExpand.execute(altRow);
+                }
+              }
+            }
+            break;
+          }
+        }
+      }
+    });
+
+    model.mouseChanged.on(e => {
+      const { code, status, target } = e.state;
+      if (code === 'left' && status === 'up') {
+        if (target && target.column.key !== 'name') {
+          if (this.toggleExpand.canExecute(target.row)) {
+            this.toggleExpand.execute(target.row);
+          }
+        }
+      }
+    });
+  }
 }

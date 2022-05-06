@@ -1,7 +1,7 @@
 import { ColumnModel, GridPlugin } from '@qgrid/core';
 
 export declare class ColumnSortPlugin {
-	constructor(
+  constructor(
         plugin: GridPlugin,
         context: {
             element: HTMLElement;
@@ -10,6 +10,6 @@ export declare class ColumnSortPlugin {
             iconDesc: string;
         });
 
-	mouseLeave();
-	click(): boolean;
+  mouseLeave();
+  click(): boolean;
 }

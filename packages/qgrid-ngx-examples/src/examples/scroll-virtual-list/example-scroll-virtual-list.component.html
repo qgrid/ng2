@@ -1,18 +1,18 @@
 <h4>
-    <button (click)="reset()">Reset</button>
-    <button (click)="addItems(50)">Add 50 items</button>
-    <button (click)="removeItems(50)">Remove 50 items</button>
-    <button (click)="clear()">Clear</button>
-    <span>Position: {{context.container.position}}</span>
-    <span>CurrentPage: {{context.container.currentPage}}</span>
-    <span>Count: {{context.container.count}}</span>
+  <button (click)="reset()">Reset</button>
+  <button (click)="addItems(50)">Add 50 items</button>
+  <button (click)="removeItems(50)">Remove 50 items</button>
+  <button (click)="clear()">Clear</button>
+  <span>Position: {{context.container.position}}</span>
+  <span>CurrentPage: {{context.container.currentPage}}</span>
+  <span>Count: {{context.container.count}}</span>
 </h4>
 
 <div q-grid-vscroll>
-    <ul [q-grid-vscroll-port-y]="context">
-        <li *ngFor="let item of items | qGridVscroll$: context | async; let $index = index; trackBy: context.id"
-            [q-grid-vscroll-row]="$index">
-            {{item}}
-        </li>
-    </ul>
+  <ul [q-grid-vscroll-port-y]="context">
+    <li *ngFor="let item of items | qGridVscroll$: context | async; let $index = index; trackBy: context.id"
+        [q-grid-vscroll-row]="$index">
+      {{item}}
+    </li>
+  </ul>
 </div>

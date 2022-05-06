@@ -25,22 +25,22 @@ export declare type SortStateDirection = 'desc' | 'asc';
  * ```
  */
 export declare class SortState {
-	/**
+  /**
 	 * Ordered list of entries to control sorting.
 	 */
-	by: string[] | Array<{ [key: string]: SortStateDirection }>;
+  by: string[] | Array<{ [key: string]: SortStateDirection }>;
 
-	/**
+  /**
 	 * Sorting mode.
 	 *
 	 * * `'multiple'` allows to sort by several column keys.
 	 * * `'single'` allows to sort only by one column key.
 	 */
-	mode: SortStateMode;
+  mode: SortStateMode;
 
-	/**
+  /**
 	 * List of triggers that should lead to sorting invalidation.
 	 * Default is `['reorder']`.
 	 */
-	trigger: string[];
+  trigger: string[];
 }

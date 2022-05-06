@@ -18,16 +18,16 @@ export interface PersistenceGroup {
 
 export declare class PersistencePlugin {
 
-	groups: PersistenceGroup[];
-	items: PersistenceItem[];
-	closeEvent: Event;
+  groups: PersistenceGroup[];
+  items: PersistenceItem[];
+  closeEvent: Event;
 
-	readonly blank: PersistenceItem;
-	readonly sortedItems: PersistenceItem[];
+  readonly blank: PersistenceItem;
+  readonly sortedItems: PersistenceItem[];
 
-	constructor(plugin: GridPlugin, createDefaultModel: () => Model);
+  constructor(plugin: GridPlugin, createDefaultModel: () => Model);
 
-	isActive(item: PersistenceItem): boolean;
-	isUniqueTitle(title: string): boolean;
-	stringify(item?: PersistenceItem): string;
+  isActive(item: PersistenceItem): boolean;
+  isUniqueTitle(title: string): boolean;
+  stringify(item?: PersistenceItem): string;
 }

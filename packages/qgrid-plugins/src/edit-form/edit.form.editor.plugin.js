@@ -1,6 +1,6 @@
 
 export class EditFormEditorPlugin {
-	constructor(context) {
-		this.editor = context.editor;
-	}
+  constructor(context) {
+    this.editor = context.editor;
+  }
 }

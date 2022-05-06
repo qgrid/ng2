@@ -1,24 +1,24 @@
 <q-grid [caption]="title"
-		[rows]="rows"
-		[model]="gridModel"
-		editMode="cell">
-	<ng-template qGridColumnBody="customTemplate"
-				 let-$cell>
-		{{$cell.value === null ? 'NULL' : $cell.value ? 'YES' : 'NO'}}
-	</ng-template>
-	<ng-template qGridColumnEdit="customTemplate"
-				 let-$view="$view">
-		<button mat-button
-				(click)="$view.edit.cell.value = true">
-			SET YES
-		</button>
-		<button mat-button
-				(click)="$view.edit.cell.value = false">
-			SET NO
-		</button>
-		<button mat-button
-				(click)="$view.edit.cell.value = null">
-			SET NULL
-		</button>
-	</ng-template>
+        [rows]="rows"
+        [model]="gridModel"
+        editMode="cell">
+  <ng-template qGridColumnBody="customTemplate"
+               let-$cell>
+    {{$cell.value === null ? 'NULL' : $cell.value ? 'YES' : 'NO'}}
+  </ng-template>
+  <ng-template qGridColumnEdit="customTemplate"
+               let-$view="$view">
+    <button mat-button
+            (click)="$view.edit.cell.value = true">
+      SET YES
+    </button>
+    <button mat-button
+            (click)="$view.edit.cell.value = false">
+      SET NO
+    </button>
+    <button mat-button
+            (click)="$view.edit.cell.value = null">
+      SET NULL
+    </button>
+  </ng-template>
 </q-grid>
