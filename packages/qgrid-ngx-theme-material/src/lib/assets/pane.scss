@@ -1,38 +1,38 @@
 .q-grid-pane {
-    box-shadow: 0 2px 1px -1px $shadow02, 0 1px 1px 0 $shadow014, 0 1px 3px 0 $shadow012;
-    position: absolute;
-    background: $white;
-    padding: 4px 16px;
+  box-shadow: 0 2px 1px -1px $shadow02, 0 1px 1px 0 $shadow014, 0 1px 3px 0 $shadow012;
+  position: absolute;
+  background: $white;
+  padding: 4px 16px;
 
-    >.mat-card {
-        box-shadow: none;
-        padding: 0;
+  >.mat-card {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  &-right {
+    bottom: 8px;
+    right: 0;
+    height: calc(100% + 34px);
+    padding-bottom: 8px;
+
+    .q-grid-edit-form-control {
+      display: block;
+      margin-bottom: 1.25em;
+
+      .mat-form-field {
+        width: calc(100% - 15px);
+      }
     }
 
-    &-right {
-        bottom: 8px;
-        right: 0;
-        height: calc(100% + 34px);
-        padding-bottom: 8px;
-
-        .q-grid-edit-form-control {
-            display: block;
-            margin-bottom: 1.25em;
-
-            .mat-form-field {
-                width: calc(100% - 15px);
-            }
-        }
-
-        .mat-card-content {
-            max-height: 580px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        .mat-card-header-text {
-            margin: 0;
-        }
+    .mat-card-content {
+      max-height: 580px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 100%;
     }
+
+    .mat-card-header-text {
+      margin: 0;
+    }
+  }
 }

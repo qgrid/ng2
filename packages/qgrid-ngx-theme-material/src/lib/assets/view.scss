@@ -1,17 +1,16 @@
 .q-grid-view {
+  >.q-grid-table-left,
+  >.q-grid-table-right {
+    transition: box-shadow 0.2s ease-in-out;
+  }
 
-    >.q-grid-table-left,
+  &.q-grid-scroll-horizontal {
+    >.q-grid-table-left {
+      box-shadow: 1px 0 0 0 $common-border-color;
+    }
+
     >.q-grid-table-right {
-        transition: box-shadow .2s ease-in-out;
+      box-shadow: -1px 0 0 0 $common-border-color;
     }
-
-    &.q-grid-scroll-horizontal {
-        >.q-grid-table-left {
-            box-shadow: 1px 0 0 0 $common-border-color;
-        }
-
-        >.q-grid-table-right {
-            box-shadow: -1px 0 0 0 $common-border-color;
-        }
-    }
+  }
 }

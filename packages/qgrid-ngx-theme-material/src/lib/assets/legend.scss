@@ -1,22 +1,27 @@
-.q-grid-legend-list {
-	@include resetDefaultList;
-	@include  textCutter;
-	margin: 24px 20px 0 20px;
-	color: $dark;
-	font-size: 13px;
-	li {
-		margin-right: 20px;
-		display: inline;
-		&:last-child {
-			margin-right: 0;
-		}
-		.q-grid-legend-item {
-			display: inline-block;
-		}
-	}
+.q-grid-legend-item {
+  @include roundElement(10px);
+
+  margin: auto;
 }
 
-.q-grid-legend-item {
-	@include  roundElement(10px);
-	margin: auto;
+.q-grid-legend-list {
+  @include resetDefaultList;
+  @include textCutter;
+
+  margin: 24px 20px 0;
+  color: $dark;
+  font-size: 13px;
+
+  li {
+    margin-right: 20px;
+    display: inline;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .q-grid-legend-item {
+      display: inline-block;
+    }
+  }
 }

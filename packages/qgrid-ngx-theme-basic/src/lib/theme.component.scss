@@ -1,392 +1,384 @@
-@import '../../../qgrid-styles/variable.scss';
-@import '../../../qgrid-styles/mixins.scss';
+/* stylelint-disable no-descending-specificity */
+@import "../../../qgrid-styles/variable.scss";
+@import "../../../qgrid-styles/mixins.scss";
 
 $head-primary-color: #006f8f;
-$head-secondary-color: #005D78;
+$head-secondary-color: #005d78;
 $head-sort-color: #004559;
-
 $row-border-color: #e0e0e0;
-
 $cell-array-background-color: #e0e0e0;
 $cell-group-summary-color: #007fa3;
 $cell-select-background-color: #f5f5f5;
 $cell-highlight-background-color: #eee;
-
 $tfoot-border-color: #e0e0e0;
-
 $pager-primary-color: #757575;
-$button-disabled-color: rgba(0, 0, 0, .26);
+$button-disabled-color: rgb(0 0 0 / 26%);
 $hidden-color: transparent;
 
 .q-grid.q-grid-theme-basic {
-    font-family: $font-family;
+  font-family: $font-family;
 
-    tr:not(.q-grid-highlighted) {
-        td {
-            &.q-grid-selected {
-                background-color: $cell-select-background-color;
-            }
-        }
+  tr:not(.q-grid-highlighted) {
+    td {
+      &.q-grid-selected {
+        background-color: $cell-select-background-color;
+      }
     }
+  }
 
-    .q-grid-row-indicator {
-        .q-grid-can-drag {
-            .q-grid-icon {
-                font-style: normal;
-            }
-        }
+  .q-grid-row-indicator {
+    .q-grid-can-drag {
+      .q-grid-icon {
+        font-style: normal;
+      }
     }
+  }
+
+  th {
+    .q-grid {
+      &-desc,
+      &-asc {
+        display: none;
+      }
+
+      &-can-sort {
+        .q-grid {
+          &-sort {
+            cursor: pointer;
+          }
+
+          &-desc,
+          &-asc {
+            display: block;
+          }
+        }
+      }
+
+      &-sort {
+        .q-grid-icon {
+          margin-left: -16px;
+        }
+
+        &:not(.q-grid-active):hover {
+          .q-grid-desc {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  tr,
+  td {
+    &.q-grid-highlighted {
+      background-color: $cell-highlight-background-color;
+    }
+  }
+
+  q-grid-caption {
+    display: block;
+    max-height: 56px;
+
+    h3 {
+      margin: 0;
+      overflow: hidden;
+      line-height: 26px;
+    }
+  }
+
+  .q-grid-icon {
+    font-style: normal;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  thead {
+    box-shadow: 0 1px 0 #ddd;
 
     th {
-        .q-grid-sort {
-            &:not(.q-grid-active):hover {
-                .q-grid-desc {
-                    opacity: 1;
-                }
-            }
-        }
+      padding-left: 16px;
+    }
+  }
+
+  td {
+    &.q-grid-row-expand button.q-grid-expand .q-grid-icon {
+      transform: rotate(90deg);
     }
 
-    tr,
-    td {
-        &.q-grid-highlighted {
-            background-color: $cell-highlight-background-color;
-        }
+    &.q-grid-group button,
+    &.q-grid-row-expand button {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      min-height: 24px;
+      margin: -1px 0 0 -6px;
+      padding: 0;
     }
 
-    q-grid-caption {
-        display: block;
-        max-height: 56px;
-    
-        h3 {
-            margin: 0;
-            overflow: hidden;
-            line-height: 26px;
-        }
+    &.q-grid-group button.q-grid-expand .q-grid-icon,
+    &.q-grid-row-expand button.q-grid-expand .q-grid-icon {
+      transform: rotate(90deg);
     }
+
+    &.q-grid-group-summary {
+      color: $cell-group-summary-color !important;
+    }
+  }
+
+  .q-grid-icon-button {
+    @include user-select(none);
+
+    color: inherit;
+    background: 0 0;
+    font-family: $font-family;
+    font-weight: 500;
+    border-radius: 50%;
+    min-width: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: middle;
+    text-align: center;
+    overflow: visible;
+  }
+
+  .q-grid-icon-button[disabled] {
+    color: $button-disabled-color;
+  }
+
+  .q-grid-pager {
+    font-family: $font-family;
+    padding: 11px 0;
+    height: 24px;
+    font-size: 12px;
+    color: $pager-primary-color;
+
+    .q-grid-pager-select {
+      height: 32px;
+      padding: 3px 0;
+
+      select {
+        font-family: $font-family;
+        font-size: 12px;
+        color: $pager-primary-color;
+        border: none;
+        height: 24px;
+        width: 34.5px;
+        margin: 0 0 0 12px;
+      }
+
+      select:focus {
+        outline: none;
+      }
+    }
+
+    .q-grid-pager-page {
+      margin-left: 30px;
+      margin-right: 0;
+      min-width: 37.2px;
+      display: inline-block;
+    }
+  }
+
+  .q-grid-pager button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    padding-top: 2px;
+
+    &.q-grid-pager-prev {
+      top: -4px;
+      margin-left: 44px;
+      margin-right: 0;
+    }
+
+    &.q-grid-pager-next {
+      top: -4px;
+      margin-right: 14px;
+      margin-left: 0;
+    }
+  }
+
+  .q-grid-pager-target-trigger {
+    top: -4px;
 
     .q-grid-icon {
-        font-style: normal;
-        display: inline-block;
-        font-size: 16px;
+      font-size: 14px;
+      color: $hidden-color;
+      background: transparent;
     }
+  }
 
+  .q-grid-head-span {
     thead {
-        box-shadow: 0 1px 0px #ddd;
+      tr {
+        height: 30px;
+      }
 
-        th {
-            padding-left: 16px;
-        }
+      th {
+        border-top: 1px solid $row-border-color;
+        border-left: 1px solid $row-border-color;
+      }
+
+      th:nth-last-child(2) {
+        border-right: 1px solid $row-border-color;
+      }
     }
+  }
 
-    th {
-        .q-grid {
+  .q-grid {
+    &-table {
+      tr {
+        height: 30px;
+      }
 
-            &-desc,
-            &-asc {
-                display: none;
-            }
+      th {
+        font-size: 12px !important;
+        color: $head-primary-color !important;
+        font-weight: normal !important;
+        line-height: 14px;
 
-            &-can-sort {
-                .q-grid {
-                    &-sort {
-                        cursor: pointer;
-                    }
-
-                    &-desc,
-                    &-asc {
-                        display: block;
-                    }
-                }
-            }
-
-            &-sort {
-                .q-grid-icon {
-                    margin-left: -16px;
-                }
-            }
-        }
-    }
-
-    td {
-        &.q-grid-row-expand button.q-grid-expand .q-grid-icon {
-            -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
+        .q-grid-desc,
+        .q-grid-asc {
+          display: none;
         }
 
-        &.q-grid-group button,
-        &.q-grid-row-expand button {
+        &.q-grid-can-sort {
+          .q-grid-sort {
+            cursor: pointer;
+          }
+
+          .q-grid-desc,
+          .q-grid-asc {
+            display: block;
+          }
+        }
+
+        .q-grid-sort {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-left: -16px;
+          padding-left: 16px;
+
+          label {
+            display: inline;
+          }
+
+          &.q-grid-active {
+            label {
+              color: $head-sort-color;
+            }
+
+            .q-grid-icon {
+              color: $head-sort-color;
+            }
+          }
+
+          .q-grid-icon {
+            @include iconSizes(16px);
+
+            font-size: 12px;
+            transition: opacity 0.3s;
+            opacity: 0;
+            position: absolute;
+            color: $head-secondary-color;
+            font-weight: bold;
+            vertical-align: middle;
+            text-align: center;
+
+            &.q-grid-active {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      td {
+        font-weight: normal;
+        color: #212121;
+        font-size: 16px;
+        line-height: 16px;
+        padding: 0 16px;
+
+        &.q-grid-row-expand {
+          button {
             width: 24px;
             height: 24px;
             line-height: 24px;
             min-height: 24px;
             margin: -1px 0 0 -6px;
             padding: 0;
+            opacity: 0.54;
+          }
         }
+      }
 
-        &.q-grid-group button.q-grid-expand .q-grid-icon,
-        &.q-grid-row-expand button.q-grid-expand .q-grid-icon {
-            -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
+      td.q-grid-array > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+        li {
+          display: inline-block;
+          min-width: 16px;
+          padding: 4px 8px;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: middle;
+          background-color: $cell-array-background-color;
+          border-radius: 16px;
+          margin-right: 4px;
         }
+      }
 
-        &.q-grid-group-summary {
-            color: $cell-group-summary-color !important;
-        }
-    }
-
-    .q-grid-icon-button {
-        @include user-select(none);
-        color: inherit;
-        background: 0 0;
-        font-family: $font-family;
-        font-weight: 500;
-        border-radius: 50%;
-        min-width: 0;
-        flex-shrink: 0;
-        box-sizing: border-box;
-        position: relative;
+      td.q-grid-image {
         cursor: pointer;
-        outline: 0;
-        border: none;
-        -webkit-tap-highlight-color: transparent;
-        display: inline-block;
-        white-space: nowrap;
-        text-decoration: none;
-        vertical-align: middle;
         text-align: center;
-        overflow: visible;
-    }
 
-    .q-grid-icon-button[disabled] {
-        color: $button-disabled-color;
-    }
-
-    .q-grid-pager {
-        font-family: $font-family;
-        padding: 11px 0;
-        height: 24px;
-        font-size: 12px;
-        color: $pager-primary-color;
-
-        .q-grid-pager-select {
-            height: 32px;
-            padding: 3px 0;
-
-            select {
-                font-family: $font-family;
-                font-size: 12px;
-                color: $pager-primary-color;
-                border: none;
-                height: 24px;
-                width: 34.5px;
-                margin: 0 0 0 12px;
-            }
-
-            select:focus {
-                outline: none;
-            }
+        img {
+          max-height: 40px;
+          max-width: 40px;
         }
-
-        .q-grid-pager-page {
-            margin-left: 30px;
-            margin-right: 0;
-            min-width: 37.2px;
-            display: inline-block;
-        }
-    }
-
-    .q-grid-pager button {
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
-        padding-top: 2px;
-
-        &.q-grid-pager-prev {
-            top: -4px;
-            margin-left: 44px;
-            margin-right: 0;
-        }
-
-        &.q-grid-pager-next {
-            top: -4px;
-            margin-right: 14px;
-            margin-left: 0;
-        }
-    }
-
-    .q-grid-pager-target-trigger {
-        top: -4px;
 
         .q-grid-icon {
-            font-size: 14px;
-            color: $hidden-color;
-            background: transparent;
+          color: #757575;
         }
-    }
+      }
 
-    .q-grid-head-span {
-        thead {
-            tr {
-                height: 30px;
-            }
-
-            th {
-                border-top: 1px solid $row-border-color;
-                border-left: 1px solid $row-border-color;
-            }
-
-            th:nth-last-child(2) {
-                border-right: 1px solid $row-border-color;
-            }
-        }
-    }
-
-    .q-grid {
-        &-table {
-            tr {
-                height: 30px;
-            }
-
-            th {
-                font-size: 12px !important;
-                color: $head-primary-color !important;
-                font-weight: normal !important;
-                line-height: 14px;
-
-                .q-grid-desc,
-                .q-grid-asc {
-                    display: none;
-                }
-
-                &.q-grid-can-sort {
-                    .q-grid-sort {
-                        cursor: pointer;
-                    }
-
-                    .q-grid-desc,
-                    .q-grid-asc {
-                        display: block;
-                    }
-                }
-
-                .q-grid-sort {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    margin-left: -16px;
-                    padding-left: 16px;
-
-                    label {
-                        display: inline;
-                    }
-
-                    &.q-grid-active {
-                        label {
-                            color: $head-sort-color;
-                        }
-
-                        .q-grid-icon {
-                            color: $head-sort-color;
-                        }
-                    }
-
-                    .q-grid-icon {
-                        @include iconSizes(16px);
-                        font-size: 12px;
-                        transition: opacity 0.3s;
-                        opacity: 0;
-                        position: absolute;
-                        color: $head-secondary-color;
-                        font-weight: bold;
-                        vertical-align: middle;
-                        text-align: center;
-
-                        &.q-grid-active {
-                            opacity: 1;
-                        }
-                    }
-                }
-            }
-
-            td {
-                font-weight: normal;
-                color: #212121;
-                font-size: 16px;
-                line-height: 16px;
-                padding: 0 16px;
-
-                &.q-grid-row-expand {
-                    button {
-                        width: 24px;
-                        height: 24px;
-                        line-height: 24px;
-                        min-height: 24px;
-                        margin: -1px 0 0 -6px;
-                        padding: 0;
-                        opacity: 0.54;
-                    }
-                }
-            }
-
-            td.q-grid-array>ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-
-                li {
-                    display: inline-block;
-                    min-width: 16px;
-                    padding: 4px 8px;
-                    text-align: center;
-                    white-space: nowrap;
-                    vertical-align: middle;
-                    background-color: $cell-array-background-color;
-                    border-radius: 16px;
-                    margin-right: 4px;
-                }
-            }
-
-            td.q-grid-image {
-                cursor: pointer;
-                text-align: center;
-
-                img {
-                    max-height: 40px;
-                    max-width: 40px;
-                }
-
-                .q-grid-icon {
-                    color: #757575;
-                }
-            }
-
-            tfoot,
-            tbody {
-                tr {
-                    border-top: 1px solid $row-border-color;
-                    height: 30px;
-                }
-
-                tr:nth-child(2) {
-                    border-top: 0;
-                }
-            }
-        }
-    }
-
-    tfoot {
+      tfoot,
+      tbody {
         tr {
-            border-bottom: 1px solid $tfoot-border-color;
-
-            td {
-                span {
-                    font-weight: bold;
-                }
-            }
+          border-top: 1px solid $row-border-color;
+          height: 30px;
         }
+
+        tr:nth-child(2) {
+          border-top: 0;
+        }
+      }
     }
+  }
+
+  tfoot {
+    tr {
+      border-bottom: 1px solid $tfoot-border-color;
+
+      td {
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

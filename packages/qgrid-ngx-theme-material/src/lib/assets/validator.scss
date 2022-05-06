@@ -1,19 +1,19 @@
 .q-grid-validator {
-	display: block;
-	width: calc(100% - 48px);
-	position: absolute;
-	bottom: 20px;
-	text-align: left;
-	color: $red;
-	font-size: 11px;
+  display: block;
+  width: calc(100% - 48px);
+  position: absolute;
+  bottom: 20px;
+  text-align: left;
+  color: $red;
+  font-size: 11px;
 
-	ul {
-		@include resetDefaultList;
-		@include textCutter;
+  ul {
+    @include resetDefaultList;
+    @include textCutter;
 
-		li {
-			display: inline;
-			margin-right: 4px;
-		}
-	}
+    li {
+      display: inline;
+      margin-right: 4px;
+    }
+  }
 }
