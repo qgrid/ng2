@@ -1,82 +1,84 @@
 @at-root .q-grid-column-chooser.q-grid-menu {
-    @include width(360px);
-    height: 500px;
-    overflow: hidden;
+  @include width(360px);
 
-    .mat-card {
-        padding: 16px;
-        box-shadow: none;
-        margin: 0;
+  height: 500px;
+  overflow: hidden;
 
-        &-content {
-            margin-bottom: 0;
-        }
+  .mat-card {
+    padding: 16px;
+    box-shadow: none;
+    margin: 0;
+
+    &-content {
+      margin-bottom: 0;
     }
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .q-grid-column-chooser-filter {
+    width: 100%;
+  }
+
+  .q-grid-column-chooser-list {
+    margin: 0;
+    overflow-y: auto;
+    height: 281px;
 
     ul {
-        list-style-type: none;
-        padding: 0;
+      margin: 0;
+
+      ul {
+        padding-left: 24px;
+      }
     }
 
-    .q-grid-column-chooser-filter {
-        width: 100%;
+    li {
+      white-space: nowrap;
     }
+  }
 
-    .q-grid-column-chooser-list {
-        margin: 0;
-        overflow-y: auto;
-        height: 281px;
+  .q-grid-column-chooser-toolbar {
+    margin-top: 0;
+    padding-left: 16px;
+    margin-bottom: 14px;
+  }
 
-        ul {
-            margin: 0;
+  .q-grid-column-chooser-actions {
+    padding: 7px 0;
+  }
 
-            ul {
-                padding-left: 24px;
-            }
-        }
+  .q-grid-checkbox {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 0 5px;
+  }
 
-        li {
-            white-space: nowrap;
-        }
+  .q-grid-can-drag {
+    cursor: move;
+    opacity: 0.4;
+    display: inline-block;
+    user-select: none;
+
+    .q-grid-icon {
+      @include iconSizes(16px);
+
+      vertical-align: middle;
     }
-
-    .q-grid-column-chooser-toolbar {
-        margin-top: 0;
-        padding-left: 16px;
-        margin-bottom: 14px;
-    }
-
-    .q-grid-column-chooser-actions {
-        padding: 7px 0;
-    }
-
-    .q-grid-checkbox {
-        width: 100%;
-        overflow: hidden;
-        margin: 0 0 5px 0;
-    }
-
-    .q-grid-can-drag {
-        cursor: move;
-        opacity: 0.4;
-        display: inline-block;
-        user-select: none;
-
-        .q-grid-icon {
-            @include iconSizes(16px);
-            vertical-align: middle;
-        }
-    }
+  }
 }
 
 @at-root {
-    @media (max-height: 540px) {
-        .q-grid-column-chooser.q-grid-menu {
-            @include height(400px);
+  @media (max-height: 540px) {
+    .q-grid-column-chooser.q-grid-menu {
+      @include height(400px);
 
-            .q-grid-column-chooser-list {
-                height: 184px;
-            }
-        }
+      .q-grid-column-chooser-list {
+        height: 184px;
+      }
     }
+  }
 }

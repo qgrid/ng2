@@ -1,23 +1,23 @@
 tbody {
-    tr {
-        height: 48px;
-    }
-}
-
-tfoot,
-tbody {
-    tr {
-        border-top: 1px solid $common-border-color;
-    }
-
-    tr:nth-child(2) {
-        border-top: 0;
-    }
+  tr {
+    height: 48px;
+  }
 }
 
 thead,
 tfoot {
-    tr {
-        height: 56px;
-    }
+  tr {
+    height: 56px;
+  }
+}
+
+tfoot,
+tbody {
+  tr {
+    border-top: 1px solid $common-border-color;
+  }
+
+  tr:nth-child(2) {
+    border-top: 0;
+  }
 }

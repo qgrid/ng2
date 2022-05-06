@@ -1,24 +1,23 @@
-///Common colors
+/// Common colors
 $color-lc-cyan-dark: #006f8f;
-$color-black-87: rgba(0, 0, 0, 0.87);
-$summary-background: rgba(0, 0, 0, 0.04);
+$color-black-87: rgb(0 0 0 / 87%);
+$summary-background: rgb(0 0 0 / 4%);
 
-///Dark theme
-$color-less: rgba(0, 0, 0, 0);
+/// Dark theme
+$color-less: rgb(0 0 0 / 0%);
 $dark: #424242;
 $dark-primary: #1eb980;
 $dark-accent: #616161;
-$dark-focused: #5565A0;
+$dark-focused: #5565a0;
 $dark-highlighted: #8d8d8d;
 $dark-surface: #363640;
 $dark-container: #3c3c46;
-$dark-text: #ffffff;
-$dark-header: rgba(255, 255, 255, 0.6);
-$dark-divider: rgba(255, 255, 255, 0.12);
+$dark-text: #fff;
+$dark-header: rgb(255 255 255 / 60%);
+$dark-divider: rgb(255 255 255 / 12%);
 
-///Markup colors
+/// Markup colors
 $markup-gray: #888;
 $markup-secondary-gray: #666;
 $markup-red: #a11;
-
-$disabled-color: rgba(0, 0, 0, .26);
+$disabled-color: rgb(0 0 0 / 26%);

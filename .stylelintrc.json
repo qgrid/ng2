@@ -5,7 +5,10 @@
   "rules": {
     "function-name-case": "lower",
     "no-invalid-position-at-import-rule": null,
+    "no-empty-source": null,
+    "selector-pseudo-element-no-unknown": [ true, { "ignorePseudoElements": ["/^ng-.+/"] } ],
     "keyframes-name-pattern": ".+",
-    "scss/at-mixin-pattern": ".+"
+    "scss/at-mixin-pattern": ".+",
+    "scss/at-import-partial-extension": null
   }
 }
