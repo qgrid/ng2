@@ -1,50 +1,50 @@
 td.q-grid-focused {
-    outline: 2px solid $blue-outline05;
-    outline-offset: -2px;
+  outline: 2px solid $blue-outline05;
+  outline-offset: -2px;
 
-    &.q-grid-animate {
-        outline: none;
-    }
-}
-
-.q-grid-view.q-grid-active {
-    td.q-grid-focused {
-        outline-color: $blue-outline025;
-    }
-
-    .q-grid-edit-marker {
-       opacity: 1;
-    }
-}
-
-.q-grid-cell-handler {
-    display: block;
-    position: absolute;
+  &.q-grid-animate {
     outline: none;
-    pointer-events: none;
-    outline-offset: -2px;
-    transition:
-        width $focus-duration,
-        height $focus-duration,
-        top $focus-duration,
-        left $focus-duration;
-
-    &.q-grid-active {
-        outline: 2px solid $blue-outline025;
-    }
+  }
 }
 
 .q-grid-edit-marker {
-    @include simpleSquareElement(10px);
-    @include user-select(none);
+  @include simpleSquareElement(10px);
+  @include user-select(none);
 
-    display: block;
-    position: absolute;
-    pointer-events: all;
-    cursor: move;
-    bottom: 3px;
-    right: 3px;
-    font-size: 14px;
-    color: $grid-marker-color;
-    opacity: 0.2;
+  display: block;
+  position: absolute;
+  pointer-events: all;
+  cursor: move;
+  bottom: 3px;
+  right: 3px;
+  font-size: 14px;
+  color: $grid-marker-color;
+  opacity: 0.2;
+}
+
+.q-grid-view.q-grid-active {
+  td.q-grid-focused {
+    outline-color: $blue-outline025;
+  }
+
+  .q-grid-edit-marker {
+    opacity: 1;
+  }
+}
+
+.q-grid-cell-handler {
+  display: block;
+  position: absolute;
+  outline: none;
+  pointer-events: none;
+  outline-offset: -2px;
+  transition:
+    width $focus-duration,
+    height $focus-duration,
+    top $focus-duration,
+    left $focus-duration;
+
+  &.q-grid-active {
+    outline: 2px solid $blue-outline025;
+  }
 }

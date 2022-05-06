@@ -10,5 +10,9 @@
   "editor.codeActionsOnSave": {
     "source.sortImports": false,
     "source.organizeImports": false
-  }
+  },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": ["css", "scss"]
 }

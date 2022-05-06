@@ -1,11 +1,11 @@
 @import "scroll";
 @import "variable";
-
-@include scroll();
+@include scroll;
 
 &.q-grid-box {
-    @include height(100%);
-    transform: translate3d(0, 0, 0);
-    position: relative;
-    font-family: $font-family;
+  @include height(100%);
+
+  transform: translate3d(0, 0, 0);
+  position: relative;
+  font-family: $font-family;
 }

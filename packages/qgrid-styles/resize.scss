@@ -1,42 +1,41 @@
 th {
-    >.q-grid-resize-handler {
-        position: absolute;
-        top: 20%;
-        bottom: 20%;
-        right: 0;
-        height: 60%;
-        width: 4px;
-        z-index: 2;
-        background: transparent;
-        border-right: $border;
-        cursor: col-resize;
-        opacity: 0;
-    }
+  >.q-grid-resize-handler {
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    right: 0;
+    height: 60%;
+    width: 4px;
+    z-index: 2;
+    background: transparent;
+    border-right: $border;
+    cursor: col-resize;
+    opacity: 0;
+  }
 
-    &.q-grid-highlighted,
-    &.q-grid-highlighted-prev {
-        .q-grid-resize-handler {
-            opacity: 1;
-        }
+  &.q-grid-highlighted,
+  &.q-grid-highlighted-prev {
+    .q-grid-resize-handler {
+      opacity: 1;
     }
+  }
 }
 
 td {
-    >.q-grid-can-drag {
-        >.q-grid-resize-handler {
-            position: absolute;
-            height: 2px;
-            width: 100%;
-            bottom: 0;
-            left: 0;
-            width: 100vh;
-            cursor: row-resize;
-            z-index: 2;
-            pointer-events: all;
-        }
+  >.q-grid-can-drag {
+    >.q-grid-resize-handler {
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      cursor: row-resize;
+      z-index: 2;
+      pointer-events: all;
     }
+  }
 
-    q-grid-resize {
-        border-right: 2px solid #000;
-    }
+  q-grid-resize {
+    border-right: 2px solid #000;
+  }
 }

@@ -29,7 +29,10 @@
     "glob": "^7.2.0",
     "lerna": "^4.0.0",
     "path": "^0.12.7",
+    "postcss": "^8.4.13",
     "sane": "^5.0.1",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.8.5",
+    "stylelint": "^14.8.2",
+    "stylelint-config-standard-scss": "^3.0.0"
   }
 }
