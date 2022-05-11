@@ -1,58 +1,59 @@
-import * as Match from './match';
 import { modelFactory } from '../test/model.factory';
+import { identity } from '../utility/kit';
+import * as Match from './match';
 
 describe('Match', () => {
 
-	let column = {
-		key: 'value',
-		type: 'number'
-	};
+  const column = {
+    key: 'value',
+    type: 'number',
+  };
 
-	let columns = [column];
+  const columns = [column];
 
-	let test = {
-		key: {
-			expression: {
-				kind: 'condition',
-				op: 'equals',
-				right: 123,
-				left: 'value'
-			}
-		},
-	};
+  const test = {
+    key: {
+      expression: {
+        kind: 'condition',
+        op: 'equals',
+        right: 123,
+        left: 'value',
+      },
+    },
+  };
 
-	let model = modelFactory();
-	model.filter({
-		by: test,
-		assertFactory: () => ({
-			equals: (x, y) => x === y,
-			lessThan: (x, y) => x < y,
-			isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x)
-		})
-	});
-	model.data({ columns });
+  const model = modelFactory();
+  model.filter({
+    by: test,
+    assertFactory: () => ({
+      equals: (x, y) => x === y,
+      lessThan: (x, y) => x < y,
+      isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x),
+    }),
+  });
+  model.data({ columns });
 
-	model.columnList = () => ({
-		line: columns,
-	});
+  model.columnList = () => ({
+    line: columns,
+  });
 
-	let context = {
-		model,
-		valueFactory: value => value => value,
-		labelFactory: value => value => value,
-	};
+  const context = {
+    model,
+    valueFactory: () => identity,
+    labelFactory: () => identity,
+  };
 
-	describe('match', () => {
-		it('should return true if there are matching entities', () => {
-			let test = Match.match(context);
-			let result = test(123);
-			expect(result).to.equal(true);
-		});
+  describe('match', () => {
+    it('should return true if there are matching entities', () => {
+      const test = Match.match(context);
+      const result = test(123);
+      expect(result).to.equal(true);
+    });
 
-		it('should return false if there are no matching entities', () => {
-			let test = Match.match(context);
-			let result = test(321);
-			expect(result).to.equal(false);
-		});
-	});
+    it('should return false if there are no matching entities', () => {
+      const test = Match.match(context);
+      const result = test(321);
+      expect(result).to.equal(false);
+    });
+  });
 });

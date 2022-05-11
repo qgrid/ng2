@@ -1,52 +1,52 @@
-import { FakeElement } from './fake/element';
 import { escapeAttr } from '../services/css';
+import { FakeElement } from './fake/element';
 
 const fakeElement = new FakeElement();
 export class Unit {
-	constructor() {
-	}
+  constructor() {
+  }
 
-	rect() {
-		return this.getElement().getBoundingClientRect();
-	}
+  rect() {
+    return this.getElement().getBoundingClientRect();
+  }
 
-	addClass(name) {
-		this.addClassCore(name);
-	}
+  addClass(name) {
+    this.addClassCore(name);
+  }
 
-	removeClass(name) {
-		this.removeClassCore(name);
-	}
+  removeClass(name) {
+    this.removeClassCore(name);
+  }
 
-	hasClass(name) {
-		return this.hasClassCore(name);
-	}
+  hasClass(name) {
+    return this.hasClassCore(name);
+  }
 
-	width() {
-		return this.getElement().clientWidth;
-	}
+  width() {
+    return this.getElement().clientWidth;
+  }
 
-	height() {
-		return this.getElement().clientHeight;
-	}
+  height() {
+    return this.getElement().clientHeight;
+  }
 
-	getElement() {
-		return this.getElementCore() || fakeElement;
-	}
+  getElement() {
+    return this.getElementCore() || fakeElement;
+  }
 
-	addClassCore(name) {
-		this.getElement().classList.add(escapeAttr(name));
-	}
+  addClassCore(name) {
+    this.getElement().classList.add(escapeAttr(name));
+  }
 
-	removeClassCore(name) {
-		this.getElement().classList.remove(escapeAttr(name));
-	}
+  removeClassCore(name) {
+    this.getElement().classList.remove(escapeAttr(name));
+  }
 
-	hasClassCore(name) {
-		return this.getElement().classList.contains(escapeAttr(name));
-	}
+  hasClassCore(name) {
+    return this.getElement().classList.contains(escapeAttr(name));
+  }
 
-	getElementCore() {
-		return null;
-	}
+  getElementCore() {
+    return null;
+  }
 }

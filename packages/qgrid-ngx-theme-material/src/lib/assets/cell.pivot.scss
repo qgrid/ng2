@@ -1,10 +1,11 @@
-thead {	
-	th.q-grid-pivot {
-		border-top: $border;
-		border-left: $border;
-		padding: 0;
-		&:nth-last-child(2) {
-			border-right: $border;
-		}
-	}
+thead {
+  th.q-grid-pivot {
+    border-top: $border;
+    border-left: $border;
+    padding: 0;
+
+    &:nth-last-child(2) {
+      border-right: $border;
+    }
+  }
 }

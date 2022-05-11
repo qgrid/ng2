@@ -1,11 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import {
-	Directive,
-	ElementRef,
-	Inject,
-	Input, NgZone, OnDestroy,
-	OnInit,
-	Optional
+  Directive,
+  ElementRef,
+  Inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Optional,
 } from '@angular/core';
 import { clone, EventListener, EventManager, GRID_PREFIX } from '@qgrid/core';
 import { Grid } from '../grid/grid';
@@ -13,119 +15,119 @@ import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
-	selector: '[q-grid-resize]'
+  selector: '[q-grid-resize]',
 })
 export class ResizeDirective implements OnInit, OnDestroy {
-	private element: HTMLElement;
-	private divider: HTMLElement;
+  private element: HTMLElement;
+  private divider: HTMLElement;
 
-	private listener: {
-		divider: EventListener,
-		document: EventListener
-	};
+  private listener: {
+    divider: EventListener;
+    document: EventListener;
+  };
 
-	private context = {
-		x: 0,
-		y: 0,
-		height: 0,
-		width: 0
-	};
+  private context = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+  };
 
-	@Input('q-grid-resize') key;
-	@Input('q-grid-resize-path') path;
-	@Input('q-grid-can-resize') canResize;
-	@Input('q-grid-resize-selector') selector;
+  private get model(): GridModel {
+    return this.plugin.model;
+  }
 
-	constructor(
-		private zone: NgZone,
-		@Optional() private plugin: GridPlugin,
-		private qgrid: Grid,
-		@Inject(DOCUMENT) document: any,
-		elementRef: ElementRef,
-	) {
-		this.element = elementRef.nativeElement;
-		this.divider = document.createElement('div');
+  @Input('q-grid-resize') key;
+  @Input('q-grid-resize-path') path;
+  @Input('q-grid-can-resize') canResize;
+  @Input('q-grid-resize-selector') selector;
 
-		this.listener = {
-			divider: new EventListener(
-				this.divider,
-				new EventManager(this)
-			),
+  constructor(
+    private zone: NgZone,
+    @Optional() private plugin: GridPlugin,
+    private qgrid: Grid,
+    @Inject(DOCUMENT) document: any,
+    elementRef: ElementRef,
+  ) {
+    this.element = elementRef.nativeElement;
+    this.divider = document.createElement('div');
 
-			document: new EventListener(
-				document,
-				new EventManager(this)
-			)
-		};
-	}
+    this.listener = {
+      divider: new EventListener(
+        this.divider,
+        new EventManager(this),
+      ),
 
-	ngOnInit() {
-		const e = { data: this.key };
-		if (this.canResize(e)) {
-			this.zone.runOutsideAngular(() => {
-				this.listener.divider.on('mousedown', this.dragStart);
-			});
+      document: new EventListener(
+        document,
+        new EventManager(this),
+      ),
+    };
+  }
 
-			this.divider.classList.add(`${GRID_PREFIX}-resize-handler`);
-			this.element.appendChild(this.divider);
-		}
-	}
+  ngOnInit() {
+    const e = { data: this.key };
+    if (this.canResize(e)) {
+      this.zone.runOutsideAngular(() => {
+        this.listener.divider.on('mousedown', this.dragStart);
+      });
 
-	ngOnDestroy() {
-		this.listener.divider.off();
-		this.listener.document.off();
-	}
+      this.divider.classList.add(`${GRID_PREFIX}-resize-handler`);
+      this.element.appendChild(this.divider);
+    }
+  }
 
-	dragStart(e: DragEvent) {
-		e.preventDefault();
+  ngOnDestroy() {
+    this.listener.divider.off();
+    this.listener.document.off();
+  }
 
-		const context = this.context;
+  dragStart(e: DragEvent) {
+    e.preventDefault();
 
-		const host = this.select();
-		context.width = host.clientWidth;
-		context.height = host.clientHeight;
-		context.x = e.screenX;
-		context.y = e.screenY;
+    const context = this.context;
 
-		this.zone.runOutsideAngular(() => {
-			this.listener.document.on('mousemove', this.drag);
-			this.listener.document.on('mouseup', this.dragEnd);
-		});
+    const host = this.select();
+    context.width = host.clientWidth;
+    context.height = host.clientHeight;
+    context.x = e.screenX;
+    context.y = e.screenY;
 
-		const model = this.model;
-		model.drag({ isActive: true });
-	}
+    this.zone.runOutsideAngular(() => {
+      this.listener.document.on('mousemove', this.drag);
+      this.listener.document.on('mouseup', this.dragEnd);
+    });
 
-	drag(e: MouseEvent) {
-		const { context, path, key } = this;
-		const { layout } = this.model;
+    const model = this.model;
+    model.drag({ isActive: true });
+  }
 
-		const state = clone(layout()[path]);
+  drag(e: MouseEvent) {
+    const { context, path, key } = this;
+    const { layout } = this.model;
 
-		state.set(key, {
-			width: context.width + e.screenX - context.x,
-			height: context.height + e.screenY - context.y
-		});
+    const state = clone(layout()[path]);
 
-		layout({ [path]: state });
-	}
+    state.set(key, {
+      width: context.width + e.screenX - context.x,
+      height: context.height + e.screenY - context.y,
+    });
 
-	dragEnd() {
-		this.listener.document.off();
+    layout({ [path]: state });
+  }
 
-		const model = this.model;
-		model.drag({ isActive: false });
-	}
+  dragEnd() {
+    this.listener.document.off();
 
-	private select(): HTMLElement {
-		if (this.selector === 'parent') {
-			return this.element.parentElement;
-		}
+    const model = this.model;
+    model.drag({ isActive: false });
+  }
 
-		return this.element;
-	}
+  private select(): HTMLElement {
+    if (this.selector === 'parent') {
+      return this.element.parentElement;
+    }
 
-	private get model(): GridModel {
-		return this.plugin.model;
-	}
+    return this.element;
+  }
 }

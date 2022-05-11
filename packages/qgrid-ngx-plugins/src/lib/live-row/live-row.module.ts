@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { LiveRowComponent } from './live-row.component';
 
 @NgModule({
-	declarations: [
-		LiveRowComponent,
-	],
-	exports: [
-		LiveRowComponent
-	],
-	imports: [
-		CommonModule
-	]
+  declarations: [
+    LiveRowComponent,
+  ],
+  exports: [
+    LiveRowComponent,
+  ],
+  imports: [
+    CommonModule,
+  ],
 })
 export class LiveRowModule {
 }

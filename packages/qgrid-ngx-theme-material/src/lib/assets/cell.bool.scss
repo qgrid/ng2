@@ -1,13 +1,14 @@
 td.q-grid-bool {
-    text-overflow: unset;
-    .q-grid-checkbox {
-        margin: 0;
-        outline: none;
-    }
+  text-overflow: unset;
+
+  .q-grid-checkbox {
+    margin: 0;
+    outline: none;
+  }
 }
 
 th.q-grid-bool {
-    &.q-grid-filter-row {
-        text-align: center;
-    }
+  &.q-grid-filter-row {
+    text-align: center;
+  }
 }

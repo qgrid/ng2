@@ -116,9 +116,21 @@
               "devServerTarget": "qgrid-ngx-examples:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "qgrid-ngx-examples"
+  "defaultProject": "qgrid-ngx-examples",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

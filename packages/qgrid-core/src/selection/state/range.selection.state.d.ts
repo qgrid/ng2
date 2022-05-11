@@ -3,7 +3,7 @@ import { Model } from '../../model/model';
 import { SelectionService } from '../selection.service';
 
 export declare class RangeSelectionState extends MultipleSelectionState {
-	constructor(model: Model, service: SelectionService);
+  constructor(model: Model, service: SelectionService);
 
-	select(item: any, state: boolean): void;
+  select(item: any, state: boolean): void;
 }

@@ -2,60 +2,59 @@ import { groupBuilder } from '../../group/group.build';
 import { getValueFactory } from '../../services/value';
 
 export class PivotRow {
-	constructor(plugin, dataRow) {
-		const { model, observeReply } = plugin;
-		this.columns = dataRow.columns;
-		this.rowspan = dataRow.rowspan;
-		this.colspan = dataRow.colspan;
+  constructor(plugin, dataRow) {
+    const { model, observeReply } = plugin;
+    this.columns = dataRow.columns;
+    this.rowspan = dataRow.rowspan;
+    this.colspan = dataRow.colspan;
 
-		this.getValue = dataRow.getValue;
-		this.setValue = dataRow.setValue;
+    this.getValue = dataRow.getValue;
+    this.setValue = dataRow.setValue;
 
-		this.getLabel = dataRow.getLabel;
-		this.setLabel = dataRow.setLabel;
+    this.getLabel = dataRow.getLabel;
+    this.setLabel = dataRow.setLabel;
 
-		this.columnList = dataRow.columnList;
+    this.columnList = dataRow.columnList;
 
-		let pivotRows = [];
+    let pivotRows = [];
 
-		observeReply(model.sceneChanged)
-			.subscribe(e => {
-				if (e.hasChanges('column') || e.hasChanges('rows')) {
-					const { rows } = model.view().pivot;
-					if (rows.length) {
-						if (model.group().by.length) {
-							const build = groupBuilder(model);
-							pivotRows = build(getValueFactory);
-						} else {
-							pivotRows = rows;
-						}
+    observeReply(model.sceneChanged)
+      .subscribe(e => {
+        if (e.hasChanges('column') || e.hasChanges('rows')) {
+          const { rows } = model.view().pivot;
+          if (rows.length) {
+            if (model.group().by.length) {
+              const build = groupBuilder(model);
+              pivotRows = build(getValueFactory);
+            } else {
+              pivotRows = rows;
+            }
 
-						const pivotIndex = e.state.column.line.findIndex(c => c.model.type === 'pivot');
+            const pivotIndex = e.state.column.line.findIndex(c => c.model.type === 'pivot');
 
-						this.getValue = (row, column, select, rowIndex, columnIndex) => {
-							if (column.type === 'pivot') {
-								const pivotRow = pivotRows[rowIndex];
-								return pivotRow[columnIndex - pivotIndex];
-							}
+            this.getValue = (row, column, select, rowIndex, columnIndex) => {
+              if (column.type === 'pivot') {
+                const pivotRow = pivotRows[rowIndex];
+                return pivotRow[columnIndex - pivotIndex];
+              }
 
-							return dataRow.getValue(row, column, select, rowIndex, columnIndex);
-						};
+              return dataRow.getValue(row, column, select, rowIndex, columnIndex);
+            };
 
-						this.getLabel = (row, column, select, rowIndex, columnIndex) => {
-							if (column.type === 'pivot') {
-								const pivotRow = pivotRows[rowIndex];
-								return pivotRow[columnIndex - pivotIndex];
-							}
+            this.getLabel = (row, column, select, rowIndex, columnIndex) => {
+              if (column.type === 'pivot') {
+                const pivotRow = pivotRows[rowIndex];
+                return pivotRow[columnIndex - pivotIndex];
+              }
 
-							return dataRow.getLabel(row, column, select, rowIndex, columnIndex);
-						};
-					}
-					else {
-						pivotRows = [];
-						this.getValue = dataRow.getValue;
-						this.getLabel = dataRow.getLabel;
-					}
-				}
-			});
-	}
+              return dataRow.getLabel(row, column, select, rowIndex, columnIndex);
+            };
+          } else {
+            pivotRows = [];
+            this.getValue = dataRow.getValue;
+            this.getLabel = dataRow.getLabel;
+          }
+        }
+      });
+  }
 }

@@ -1,5 +1,5 @@
 export class RowDetailsStatus {
-	constructor(expand) {
-		this.expand = expand;
-	}
+  constructor(expand) {
+    this.expand = expand;
+  }
 }

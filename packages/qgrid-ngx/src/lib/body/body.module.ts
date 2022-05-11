@@ -7,19 +7,19 @@ import { VscrollModule } from '../vscroll/vscroll.module';
 import { RowModule } from '../row/row.module';
 
 @NgModule({
-	declarations: [
-		BodyCoreComponent,
-		TdCoreAlignDirective,
-		TdCoreDirective,
-	],
-	imports: [
-		CommonModule,
-		VscrollModule,
-		RowModule,
-	],
-	exports: [
-		BodyCoreComponent,
-	]
+  declarations: [
+    BodyCoreComponent,
+    TdCoreAlignDirective,
+    TdCoreDirective,
+  ],
+  imports: [
+    CommonModule,
+    VscrollModule,
+    RowModule,
+  ],
+  exports: [
+    BodyCoreComponent,
+  ],
 })
 export class BodyModule {
 }

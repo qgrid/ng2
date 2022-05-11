@@ -1,34 +1,34 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { VscrollContext, VscrollService } from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { VscrollService } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-scroll-virtual-list-infinite',
-	templateUrl: 'example-scroll-virtual-list-infinite.component.html',
-	styleUrls: ['example-scroll-virtual-list-infinite.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'example-scroll-virtual-list-infinite',
+  templateUrl: 'example-scroll-virtual-list-infinite.component.html',
+  styleUrls: ['example-scroll-virtual-list-infinite.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualListInfiniteComponent {
-	static id = 'scroll-virtual-list-infinite';
+  static id = 'scroll-virtual-list-infinite';
 
-	context = this.vscroll.context({
-		threshold: 50,
-		fetch: (skip, take, d) => {
-			const length = skip + take;
-			const data = Array.from(Array(length).keys());
-			const wnd = data.slice(skip, length);
+  context = this.vscroll.context({
+    threshold: 50,
+    fetch: (skip, take, d) => {
+      const length = skip + take;
+      const data = Array.from(Array(length).keys());
+      const wnd = data.slice(skip, length);
 
-			this.items.push(...wnd);
-			d.resolve(length + take);
-		}
-	});
+      this.items.push(...wnd);
+      d.resolve(length + take);
+    },
+  });
 
-	items = [];
+  items = [];
 
-	constructor(private vscroll: VscrollService) {
-	}
+  constructor(private vscroll: VscrollService) {
+  }
 
-	reset() {
-		this.items = [];
-		this.context.container.reset();
-	}
+  reset() {
+    this.items = [];
+    this.context.container.reset();
+  }
 }

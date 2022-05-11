@@ -1,4 +1,4 @@
 export declare function build(style: { [key: string]: any }): string;
 export declare function buildLines(style: { [key: string]: any }): string[];
 
-export declare type Markup = { [key: string]: HTMLElement };
+export declare interface Markup { [key: string]: HTMLElement }

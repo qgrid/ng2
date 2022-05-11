@@ -2,62 +2,62 @@ import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@
 import { GridPlugin, Command } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-plugin-my-pager',
-	templateUrl: 'example-plugin-my-pager.component.html',
-	styleUrls: ['example-plugin-my-pager.component.scss'],
-	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'example-plugin-my-pager',
+  templateUrl: 'example-plugin-my-pager.component.html',
+  styleUrls: ['example-plugin-my-pager.component.scss'],
+  providers: [GridPlugin],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamplePluginMyPagerComponent implements OnInit {
-	goto = new Command({
-		execute: page => this.currentPage = page,
-		canExecute: page => page >= 0 && page < this.numberOfPages
-	});
+  private get numberOfPages() {
+    const { count, size } = this.model.pagination();
+    return Math.max(1, Math.ceil(count / size));
+  }
 
-	gotoNext = new Command({
-		execute: () => this.currentPage = this.currentPage + 1,
-		canExecute: () => this.currentPage < this.numberOfPages - 1,
-		shortcut: 'ctrl+right'
-	});
+  private get model() {
+    return this.plugin.model;
+  }
 
-	gotoPrev = new Command({
-		execute: () => this.currentPage = this.currentPage - 1,
-		canExecute: () => this.currentPage > 0,
-		shortcut: 'ctrl+left'
-	});
+  goto = new Command({
+    execute: page => this.currentPage = page,
+    canExecute: page => page >= 0 && page < this.numberOfPages,
+  });
 
-	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {
-	}
+  gotoNext = new Command({
+    execute: () => this.currentPage = this.currentPage + 1,
+    canExecute: () => this.currentPage < this.numberOfPages - 1,
+    shortcut: 'ctrl+right',
+  });
 
-	ngOnInit() {
-		const { shortcut, manager } = this.model.action();
-		shortcut.register(manager, [
-			this.gotoNext,
-			this.gotoPrev
-		]);
+  gotoPrev = new Command({
+    execute: () => this.currentPage = this.currentPage - 1,
+    canExecute: () => this.currentPage > 0,
+    shortcut: 'ctrl+left',
+  });
 
-		// If onPush is used, need to trigger change detection manually.
-		this.model.paginationChanged.on(() => this.cd.detectChanges());
-	}
+  get pages() {
+    return Array.from(Array(this.numberOfPages).keys());
+  }
 
-	get pages() {
-		return Array.from(Array(this.numberOfPages).keys());
-	}
+  get currentPage() {
+    return this.model.pagination().current;
+  }
 
-	get currentPage() {
-		return this.model.pagination().current;
-	}
+  set currentPage(value) {
+    this.model.pagination({ current: value });
+  }
 
-	set currentPage(value) {
-		this.model.pagination({ current: value });
-	}
+  constructor(
+		private plugin: GridPlugin,
+		private cd: ChangeDetectorRef,
+  ) {
+  }
 
-	private get numberOfPages() {
-		const { count, size } = this.model.pagination();
-		return Math.max(1, Math.ceil(count / size));
-	}
+  ngOnInit() {
+    const { shortcut, manager } = this.model.action();
+    shortcut.register(manager, [this.gotoNext, this.gotoPrev]);
 
-	private get model() {
-		return this.plugin.model;
-	}
+    // If onPush is used, need to trigger change detection manually.
+    this.model.paginationChanged.on(() => this.cd.detectChanges());
+  }
 }

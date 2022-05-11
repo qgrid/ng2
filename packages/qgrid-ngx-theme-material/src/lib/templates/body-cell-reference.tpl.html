@@ -1,20 +1,19 @@
 <ng-template key="body-cell-reference.tpl.html"
-			 let-$cell
-			 let-$view="$view">
-	<span>{{$cell.label}}</span>
-	<button *ngIf="$view.edit.cell.canEdit($cell)"
-			class="q-grid-reference-edit q-grid-edit-trigger"
-			type="button"
-			mat-icon-button
-			matTooltip="Edit reference"
-			matTooltipPosition="below"
-			[q-grid-command]="$view.edit.cell.enter"
-			[q-grid-command-arg]="$cell"
-			tabindex="-1"
-			aria-label="Edit reference">
-		<mat-icon matSuffix
-				  class="q-grid-icon">
-			search
-		</mat-icon>
-	</button>
+             let-$cell
+             let-$view="$view">
+  <span>{{$cell.label}}</span>
+  <button *ngIf="$view.edit.cell.canEdit($cell)"
+          class="q-grid-reference-edit q-grid-edit-trigger"
+          type="button"
+          mat-icon-button
+          matTooltip="Edit reference"
+          matTooltipPosition="below"
+          [q-grid-command]="$view.edit.cell.enter"
+          [q-grid-command-arg]="$cell"
+          tabindex="-1">
+    <mat-icon matSuffix
+              class="q-grid-icon">
+      search
+   </mat-icon>
+  </button>
 </ng-template>

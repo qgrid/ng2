@@ -19,15 +19,21 @@
     "publish:example-repo": "node ./scripts/publish.example-repo"
   },
   "devDependencies": {
-    "angular-cli-ghpages": "^1.0.0",
+    "@angular-eslint/eslint-plugin": "^13.2.1",
+    "@angular-eslint/eslint-plugin-template": "^13.2.1",
+    "@angular-eslint/template-parser": "^13.2.1",
     "codelyzer": "^6.0.2",
     "command-line-args": "^5.2.0",
     "copyfiles": "^2.4.1",
+    "eslint-plugin-import-newlines": "^1.2.2",
     "fs": "^0.0.1-security",
     "glob": "^7.2.0",
     "lerna": "^4.0.0",
     "path": "^0.12.7",
+    "postcss": "^8.4.13",
     "sane": "^5.0.1",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.8.5",
+    "stylelint": "^14.8.2",
+    "stylelint-config-standard-scss": "^3.0.0"
   }
 }

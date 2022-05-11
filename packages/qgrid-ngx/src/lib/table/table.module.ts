@@ -9,22 +9,22 @@ import { DndModule } from '../dnd/dnd.module';
 import { VscrollModule } from '../vscroll/vscroll.module';
 
 @NgModule({
-	declarations: [
-		TableCoreComponent,
-	],
-	exports: [
-		TableCoreComponent
-	],
-	imports: [
-		CommonModule,
+  declarations: [
+    TableCoreComponent,
+  ],
+  exports: [
+    TableCoreComponent,
+  ],
+  imports: [
+    CommonModule,
 
-		HeadModule,
-		FootModule,
-		BodyModule,
-		MarkupModule,
-		DndModule,
-		VscrollModule
-	]
+    HeadModule,
+    FootModule,
+    BodyModule,
+    MarkupModule,
+    DndModule,
+    VscrollModule,
+  ],
 })
 export class TableModule {
 }

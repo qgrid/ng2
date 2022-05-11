@@ -3,15 +3,15 @@ import { TemplateModule } from '@qgrid/ngx';
 import { AutoCompleteEditorComponent } from './autocomplete-editor.component';
 
 @NgModule({
-	declarations: [
-		AutoCompleteEditorComponent
-	],
-	exports: [
-		AutoCompleteEditorComponent
-	],
-	imports: [
-		TemplateModule
-	]
+  declarations: [
+    AutoCompleteEditorComponent,
+  ],
+  exports: [
+    AutoCompleteEditorComponent,
+  ],
+  imports: [
+    TemplateModule,
+  ],
 })
 export class AutoCompleteEditorModule {
 }

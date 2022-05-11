@@ -2,35 +2,35 @@ import { flattenRows } from '../column/column.matrix';
 import { Guard } from '../infrastructure/guard';
 import { Node } from '../node/node';
 
-export function columnIndexPipe(root, context, next) {
-	Guard.notNull(root, 'root');
+function filter(model, root) {
+  const groupBy = new Set(model.group().by);
+  const pivotBy = new Set(model.pivot().by);
 
-	const { model } = context;
-	const filteredIndex = filter(model, root);
-	const columnRows = flattenRows(filteredIndex);
+  function doFilter(node, newNode) {
+    const { children } = node;
+    for (let i = 0, length = children.length; i < length; i++) {
+      const child = children[i];
+      const view = child.key;
+      const { isVisible, key } = view.model;
+      if (isVisible && !groupBy.has(key) && !pivotBy.has(key)) {
+        const newChild = new Node(child.key, child.level);
+        newNode.children.push(newChild);
+        doFilter(child, newChild);
+      }
+    }
 
-	next({ columns: columnRows, index: root });
+    return newNode;
+  }
+
+  return doFilter(root, new Node(root.key, root.level));
 }
 
-function filter(model, root) {
-	const groupBy = new Set(model.group().by);
-	const pivotBy = new Set(model.pivot().by);
+export function columnIndexPipe(root, context, next) {
+  Guard.notNull(root, 'root');
 
-	function doFilter(node, newNode) {
-		const { children } = node;
-		for (let i = 0, length = children.length; i < length; i++) {
-			const child = children[i];
-			const view = child.key;
-			const { isVisible, key } = view.model;
-			if (isVisible && !groupBy.has(key) && !pivotBy.has(key)) {
-				const newChild = new Node(child.key, child.level);
-				newNode.children.push(newChild);
-				doFilter(child, newChild);
-			}
-		}
+  const { model } = context;
+  const filteredIndex = filter(model, root);
+  const columnRows = flattenRows(filteredIndex);
 
-		return newNode;
-	}
-
-	return doFilter(root, new Node(root.key, root.level));
+  next({ columns: columnRows, index: root });
 }

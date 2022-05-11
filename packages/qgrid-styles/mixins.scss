@@ -1,111 +1,113 @@
+/* stylelint-disable property-no-vendor-prefix */
+
 @mixin user-select($value) {
-    -webkit-user-select: $value;
-    -moz-user-select: $value;
-    -ms-user-select: $value;
-    user-select: $value;
+  user-select: $value;
+  -moz-user-select: $value;
+  -webkit-user-select: $value;
+  -ms-user-select: $value;
 }
 
 @mixin user-drag($value) {
-    -khtml-user-drag: $value;
-    -webkit-user-drag: $value;
+  -khtml-user-drag: $value;
+  -webkit-user-drag: $value;
 }
 
 @mixin box-sizing($value) {
-    -moz-box-sizing: $value;
-    -webkit-box-sizing: $value;
-    box-sizing: $value;
+  box-sizing: $value;
+  -moz-box-sizing: $value;
+  -webkit-box-sizing: $value;
+  -ms-box-sizing: $value;
 }
 
 @mixin width($value) {
-    width: $value;
-    min-width: $value;
-    max-width: $value;
+  width: $value;
+  min-width: $value;
+  max-width: $value;
 }
 
 @mixin height($value) {
-    height: $value;
-    min-height: $value;
-    max-height: $value;
+  height: $value;
+  min-height: $value;
+  max-height: $value;
 }
 
 @mixin absolute-stretched {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-	bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 @mixin placeholderOverflow($value) {
-	input[placeholder] {
-		text-overflow: $value;
-	}
-	input::-moz-placeholder {
-		text-overflow: $value;
-	}
-	input:-moz-placeholder {
-		text-overflow: $value;
-	}
-	input:-ms-input-placeholder {
-		text-overflow: $value;
-	}
+  input[placeholder] {
+    text-overflow: $value;
+  }
+
+  input::placeholder {
+    text-overflow: $value;
+  }
+
+  input:placeholder {
+    text-overflow: $value;
+  }
 }
 
 @mixin roundElement($value) {
-	width: $value;
-	height: $value;
-	border-radius: $value;
+  width: $value;
+  height: $value;
+  border-radius: $value;
 }
 
 @mixin typography($f-size, $line-height, $f-weight, $f-style, $f-color) {
-	font-size: $f-size;
-	line-height: $line-height;
-	font-weight: $f-weight;
-	font-style: $f-style;
-	color: $f-color;
+  font-size: $f-size;
+  line-height: $line-height;
+  font-weight: $f-weight;
+  font-style: $f-style;
+  color: $f-color;
 }
 
 @mixin resetDefaultList {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 @mixin iconSizes($value) {
-	min-width: $value;
-	width: $value;
-	min-height: $value;
-	height: $value;
-	font-size: $value;
-	line-height: $value;
+  min-width: $value;
+  width: $value;
+  min-height: $value;
+  height: $value;
+  font-size: $value;
+  line-height: $value;
 }
 
 @mixin buttonSizes($value) {
-    width: $value;
-    height: $value;
-    line-height: $value;
+  width: $value;
+  height: $value;
+  line-height: $value;
 }
 
 @mixin squareElement($value) {
-	min-width: $value;
-	width: $value;
-	min-height: $value;
-	height: $value;
+  min-width: $value;
+  width: $value;
+  min-height: $value;
+  height: $value;
 }
 
 @mixin simpleSquareElement($value) {
-	width: $value;
-	height: $value;
+  width: $value;
+  height: $value;
 }
 
 @mixin textCutter {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin borderReset {
-	outline: none;
-	border: none;
+  outline: none;
+  border: none;
 }

@@ -5,66 +5,68 @@ import { CellEditor } from './edit.cell.editor';
 
 
 class RowEditorCore {
-	constructor() {
-		this.editors = [];
-	}
+  constructor() {
+    this.editors = [];
+  }
 
-	commit() {
-	}
+  commit() {
+  }
 
-	reset() {
-	}
+  reset() {
+  }
 }
 
 
 class TdView {
-	constructor(row, column) {
-		this.row = row;
-		this.column = column;
-	}
 
-	get value() {
-		return getValue(this.row, this.column);
-	}
+  get value() {
+    return getValue(this.row, this.column);
+  }
 
-	set value(value) {
-		return setValue(this.row, this.column, value);
-	}
+  set value(value) {
+    setValue(this.row, this.column, value);
+  }
 
-	get label() {
-		return getLabel(this.row, this.column);
-	}
+  get label() {
+    return getLabel(this.row, this.column);
+  }
 
-	set label(value) {
-		return setLabel(this.row, this.column, value);
-	}
+  set label(value) {
+    setLabel(this.row, this.column, value);
+  }
+
+  constructor(row, column) {
+    this.row = row;
+    this.column = column;
+  }
 }
 
 const empty = new RowEditorCore();
 export class RowEditor extends RowEditorCore {
-	constructor(row, columns) {
-		super();
 
-		this.value = cloneDeep(row);
-		this.row = row;
+  static get empty() {
+    return empty;
+  }
 
-		this.editors =
-			columns
-				.filter(column => column.canEdit)
-				.map(column => new CellEditor(new TdView(this.value, column)));
-	}
+  constructor(row, columns) {
+    super();
 
-	commit() {
-		this.editors.forEach(editor => editor.commit());
-		Object.assign(this.row, this.value);
-	}
+    this.value = cloneDeep(row);
+    this.row = row;
 
-	reset() {
-		this.editors.forEach(editor => editor.reset());
-		this.value = cloneDeep(this.row);
-	}
+    this.editors =
+      columns
+        .filter(column => column.canEdit)
+        .map(column => new CellEditor(new TdView(this.value, column)));
+  }
 
-	static get empty() {
-		return empty;
-	}
+  commit() {
+    this.editors.forEach(editor => editor.commit());
+    Object.assign(this.row, this.value);
+  }
+
+  reset() {
+    this.editors.forEach(editor => editor.reset());
+    this.value = cloneDeep(this.row);
+  }
 }

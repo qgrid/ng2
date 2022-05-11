@@ -1,59 +1,67 @@
-import { Directive, Input, ElementRef, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { sizeFactory } from './vscroll.container';
 import { VscrollPortYDirective } from './vscroll-port-y.directive';
 
 @Directive({
-	selector: '[q-grid-vscroll-column]'
+  selector: '[q-grid-vscroll-column]',
 })
 export class VscrollColumnDirective implements OnDestroy, OnChanges {
-	@Input('q-grid-vscroll-column') index: number;
-	private column: HTMLElement;
+  private column: HTMLElement;
 
-	constructor(elementRef: ElementRef, private port: VscrollPortYDirective) {
-		this.column = elementRef.nativeElement;
-	}
+  private get layout() {
+    return this.port.layout;
+  }
 
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes['index']) {
-			if (this.port.getItemSize()) {
-				this.ngOnChanges = null;
-				return;
-			}
+  private get settings() {
+    return this.port.context.settings;
+  }
 
-			const { layout, settings, container, column } = this;
-			const { rowHeight } = settings;
-			this.ngOnChanges = (e: SimpleChanges) => {
-				if (e['index']) {
-					const change = e['index'];
-					const newIndex = change.currentValue;
-					const oldIndex = change.previousValue;
-					layout.removeItem(oldIndex);
+  private get container() {
+    return this.port.context.container;
+  }
 
-					const size = sizeFactory(rowHeight, container, column, newIndex);
-					layout.setItem(newIndex, size);
-				}
-			};
+  @Input('q-grid-vscroll-column') index: number;
 
-			const firstChange = changes['index'];
-			const firstIndex = firstChange.currentValue;
-			const firstSize = sizeFactory(rowHeight, container, column, firstIndex);
-			layout.setItem(firstIndex, firstSize);
-		}
-	}
+  constructor(elementRef: ElementRef, private port: VscrollPortYDirective) {
+    this.column = elementRef.nativeElement;
+  }
 
-	ngOnDestroy() {
-		this.port.layout.removeItem(this.index);
-	}
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['index']) {
+      if (this.port.getItemSize()) {
+        this.ngOnChanges = null;
+        return;
+      }
 
-	private get layout() {
-		return this.port.layout;
-	}
+      const { layout, settings, container, column } = this;
+      const { rowHeight } = settings;
+      this.ngOnChanges = (e: SimpleChanges) => {
+        if (e['index']) {
+          const change = e['index'];
+          const newIndex = change.currentValue;
+          const oldIndex = change.previousValue;
+          layout.removeItem(oldIndex);
 
-	private get settings() {
-		return this.port.context.settings;
-	}
+          const size = sizeFactory(rowHeight, container, column, newIndex);
+          layout.setItem(newIndex, size);
+        }
+      };
 
-	private get container() {
-		return this.port.context.container;
-	}
+      const firstChange = changes['index'];
+      const firstIndex = firstChange.currentValue;
+      const firstSize = sizeFactory(rowHeight, container, column, firstIndex);
+      layout.setItem(firstIndex, firstSize);
+    }
+  }
+
+  ngOnDestroy() {
+    this.port.layout.removeItem(this.index);
+  }
 }

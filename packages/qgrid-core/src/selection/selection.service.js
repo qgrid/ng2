@@ -83,7 +83,7 @@ function keySelector(unit, rowKey, columnKey) {
         if (entry.row && entry.column) {
           return {
             row: rowKey(entry.row),
-            column: columnKey(entry.column)
+            column: columnKey(entry.column),
           };
         }
 
@@ -98,7 +98,7 @@ function lookupColumnFactory(model, selectKey) {
   const columns = model.columnList().line;
   return items => {
     const result = [];
-    
+
     columns.forEach(column => {
       const columnKey = selectKey(column);
       const found = items.indexOf(columnKey) >= 0;
@@ -115,7 +115,7 @@ function lookupRowFactory(model, selectKey) {
   const { rows } = model.data();
   return items => {
     const result = [];
-    
+
     rows.forEach(row => {
       const rowKey = selectKey(row);
       const found = items.indexOf(rowKey) >= 0;
@@ -132,7 +132,7 @@ function lookupCellFactory(model, selectKey) {
   const { rows } = model.data();
   const columns = model.columnList().line;
   const match = cellMatchFactory();
-  
+
   return items => {
     const result = [];
 
@@ -140,7 +140,7 @@ function lookupCellFactory(model, selectKey) {
       rows.forEach(row => {
         const cell = {
           column: column,
-          row: row
+          row: row,
         };
 
         const index = items.findIndex(item => match(item, selectKey(cell)));
@@ -217,7 +217,7 @@ export class SelectionService {
       case 'mix':
         return entries.map(entry => ({
           unit: entry.unit,
-          item: selectKey(entry)
+          item: selectKey(entry),
         }));
       default:
         throw new GridError('selection.state', `Invalid unit ${selectionState.unit}`);

@@ -1,15 +1,15 @@
 thead {
-    box-shadow: 0 1px 0px $light-gray;
+  box-shadow: 0 1px 0 $light-gray;
 }
 
 .q-grid-body-top {
-    tr:last-child {
-        border-bottom: 1px solid $common-border-color;
-    }
+  tr:last-child {
+    border-bottom: 1px solid $common-border-color;
+  }
 }
 
 .q-grid-body-bottom {
-    tr:first-child {
-        border-top: 1px solid $common-border-color;
-    }
+  tr:first-child {
+    border-top: 1px solid $common-border-color;
+  }
 }

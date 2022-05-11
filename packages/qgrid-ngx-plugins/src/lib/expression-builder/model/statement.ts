@@ -5,6 +5,6 @@ export interface IStatement {
 }
 
 export class EmptyStatement implements IStatement {
-	type = 'empty';
-	templateKey = 'eb-empty.tpl.html';
+  type = 'empty';
+  templateKey = 'eb-empty.tpl.html';
 }

@@ -1,5 +1,5 @@
 export class RowListState {
-	constructor() {
-		this.index = new Map();
-	}
+  constructor() {
+    this.index = new Map();
+  }
 }

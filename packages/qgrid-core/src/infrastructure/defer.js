@@ -1,42 +1,42 @@
 import { Event } from '../event/event';
 
-export class Defer {
-	constructor() {
-		this.promise = new DeferPromise();
-	}
+class DeferPromise {
+  constructor() {
+    this.catchEvent = new Event();
+    this.thenEvent = new Event();
+  }
 
-	reject() {
-		this.promise.reject();
-	}
+  reject() {
+    this.catchEvent.emit();
+    return this;
+  }
 
-	resolve(value) {
-		this.promise.resolve(value);
-	}
+  resolve(value) {
+    this.thenEvent.emit(value);
+    return this;
+  }
+
+  catch(handler) {
+    this.catchEvent.on(handler);
+    return this;
+  }
+
+  then(handler) {
+    this.thenEvent.on(handler);
+    return this;
+  }
 }
 
-class DeferPromise {
-	constructor() {
-		this.catchEvent = new Event();
-		this.thenEvent = new Event();
-	}
+export class Defer {
+  constructor() {
+    this.promise = new DeferPromise();
+  }
 
-	reject() {
-		this.catchEvent.emit();
-		return this;
-	}
+  reject() {
+    this.promise.reject();
+  }
 
-	resolve(value) {
-		this.thenEvent.emit(value);
-		return this;
-	}
-
-	catch(handler) {
-		this.catchEvent.on(handler);
-		return this;
-	}
-
-	then(handler) {
-		this.thenEvent.on(handler);
-		return this;
-	}
+  resolve(value) {
+    this.promise.resolve(value);
+  }
 }

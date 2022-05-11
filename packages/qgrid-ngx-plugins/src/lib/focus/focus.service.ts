@@ -4,12 +4,11 @@ import { GridPlugin } from '@qgrid/ngx';
 
 @Injectable()
 export class FocusAfterRender {
-	constructor(
+  constructor(
 		@Optional() plugin: GridPlugin,
-	) {
-		if (plugin) {
-			// tslint:disable-next-line:no-unused-expression
-			new FocusAfterRenderService(plugin);
-		}
-	}
+  ) {
+    if (plugin) {
+      new FocusAfterRenderService(plugin);
+    }
+  }
 }

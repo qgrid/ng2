@@ -9,5 +9,5 @@ export function commandKey(name) {
 }
 
 export function generateCommandKey() {
-  return CommandKey("some name");
+  return CommandKey('some name');
 }

@@ -1,6 +1,6 @@
 export declare class FakeLayer {
-	constructor();
+  constructor();
 
-	resource(): void;
-	destroy(): void;
+  resource(): void;
+  destroy(): void;
 }

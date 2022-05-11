@@ -37,21 +37,21 @@ import { Action } from './action';
  *
  */
 export declare class ActionState {
-	/**
+  /**
 	 * List of actions that will be added to the command manager,
 	 * and bind to the keyboard events.
 	 */
-	items: Action[];
+  items: Action[];
 
-	/**
+  /**
 	 * The service that connects keyboard events and commands.
 	 */
-	shortcut: Shortcut;
+  shortcut: Shortcut;
 
-	/**
+  /**
 	 * Command manager is responsible for 2 questions:
 	 * * What commands can be executed?
 	 * * How/in what order commands should be executed?
 	 */
-	manager: CommandManager;
+  manager: CommandManager;
 }

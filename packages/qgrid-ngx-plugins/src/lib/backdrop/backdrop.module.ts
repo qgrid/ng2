@@ -5,20 +5,20 @@ import { BackdropService } from './backdrop.service';
 import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
-	declarations: [
-		BackdropComponent,
-		BackdropDirective
-	],
-	exports: [
-		BackdropComponent,
-		BackdropDirective
-	],
-	imports: [
-		TemplateModule
-	],
-	providers: [
-		BackdropService
-	]
+  declarations: [
+    BackdropComponent,
+    BackdropDirective,
+  ],
+  exports: [
+    BackdropComponent,
+    BackdropDirective,
+  ],
+  imports: [
+    TemplateModule,
+  ],
+  providers: [
+    BackdropService,
+  ],
 })
 export class BackdropModule {
 }

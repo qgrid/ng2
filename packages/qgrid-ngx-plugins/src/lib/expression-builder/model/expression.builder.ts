@@ -10,115 +10,115 @@ import { EmptyStatement, IStatement } from './statement';
 
 
 export class ExpressionBuilder {
-	constructor(private settings) {
-	}
+  constructor(private settings) {
+  }
 
-	build<T>(statements: Array<IStatement>): T {
-		const NodeSchemaT = nodeSchema(GroupSchema);
+  build<T>(statements: Array<IStatement>): T {
+    const NodeSchemaT = nodeSchema(GroupSchema);
 
-		const settings = this.settings;
-		statements
-			.concat([new EmptyStatement()])
-			.forEach(statement => {
-				const factory = function (...args) {
-					let id = guid();
-					let sampleExpression: Expression;
-					if (args.length > 1) {
-						id = args[0];
-						sampleExpression = args[1];
-					} else if (args.length === 1) {
-						sampleExpression = args[0];
-					}
+    const settings = this.settings;
+    statements
+      .concat([new EmptyStatement()])
+      .forEach(statement => {
+        const factory = function (...args) {
+          let id = guid();
+          let sampleExpression: Expression;
+          if (args.length > 1) {
+            id = args[0];
+            sampleExpression = args[1];
+          } else if (args.length === 1) {
+            sampleExpression = args[0];
+          }
 
-					const build = function (node: Node, line: Line) {
-						const expression =
-							utility.defaults<Expression>(
-								sampleExpression,
-								statement.defaults,
-								settings.defaults
-							);
+          const build = function (node: Node, line: Line) {
+            const expression =
+              utility.defaults<Expression>(
+                sampleExpression,
+                statement.defaults,
+                settings.defaults,
+              );
 
-						expression.id = id;
-						expression.type = statement.type;
-						expression.templateUrl = statement.templateKey;
+            expression.id = id;
+            expression.type = statement.type;
+            expression.templateUrl = statement.templateKey;
 
-						const group = new GroupExpression();
-						group.id = id;
-						group.expressions.push(expression);
+            const group = new GroupExpression();
+            group.id = id;
+            group.expressions.push(expression);
 
-						line.add(group);
-						patch.methodsOf(expression).with(node, line);
+            line.add(group);
+            patch.methodsOf(expression).with(node, line);
 
-						const keys = Object.keys(expression);
+            const keys = Object.keys(expression);
 
-						keys.forEach(key => {
-							const sourceFunction = expression[key];
+            keys.forEach(key => {
+              const sourceFunction = expression[key];
 
-							if (isFunction(sourceFunction)) {
-								expression[key] = (...context) => {
-									const result = sourceFunction.apply(expression, context);
+              if (isFunction(sourceFunction)) {
+                expression[key] = (...context) => {
+                  const result = sourceFunction.apply(expression, context);
 
-									// TODO add decorator for mutable methods instead of trigger
-									if (!line.immutable) {
-										expression.method = expression.method || [];
-										if (expression.method.indexOf(key) < 0) {
-											expression.method.push(key);
-										}
+                  // TODO add decorator for mutable methods instead of trigger
+                  if (!line.immutable) {
+                    expression.method = expression.method || [];
+                    if (expression.method.indexOf(key) < 0) {
+                      expression.method.push(key);
+                    }
 
-										line.immutable = true;
-									}
-									return result;
-								};
-							}
-						});
+                    line.immutable = true;
+                  }
+                  return result;
+                };
+              }
+            });
 
-						return node;
-					};
+            return node;
+          };
 
-					this.plan.push(build);
-					this.planMap[id] = build;
+          this.plan.push(build);
+          this.planMap[id] = build;
 
-					return this;
-				};
+          return this;
+        };
 
-				const groupFactory = function (...args) {
-					let id = guid();
-					let sampleExpression: Expression;
-					if (args.length > 1) {
-						id = args[0];
-						sampleExpression = args[1];
-					} else if (args.length === 1) {
-						sampleExpression = args[0];
-					}
+        const groupFactory = function (...args) {
+          let id = guid();
+          let sampleExpression: Expression;
+          if (args.length > 1) {
+            id = args[0];
+            sampleExpression = args[1];
+          } else if (args.length === 1) {
+            sampleExpression = args[0];
+          }
 
-					const build = function (node, line, expressionGroup) {
-						const expression =
-							utility.defaults<Expression>(
-								sampleExpression,
-								statement.defaults,
-								settings.defaults
-							);
+          const build = function (node, line, expressionGroup) {
+            const expression =
+              utility.defaults<Expression>(
+                sampleExpression,
+                statement.defaults,
+                settings.defaults,
+              );
 
-						expression.id = id;
-						expression.type = statement.type;
-						expression.templateUrl = statement.templateKey;
-						expressionGroup.expressions.push(expression);
+            expression.id = id;
+            expression.type = statement.type;
+            expression.templateUrl = statement.templateKey;
+            expressionGroup.expressions.push(expression);
 
-						patch.methodsOf(expression).with(node, line);
+            patch.methodsOf(expression).with(node, line);
 
-						return node;
-					};
+            return node;
+          };
 
-					this.plan.push(build);
+          this.plan.push(build);
 
-					return this;
-				};
+          return this;
+        };
 
-				NodeSchemaT.prototype[statement.type] = factory;
-				GroupSchema.prototype[statement.type] = groupFactory;
-			});
+        NodeSchemaT.prototype[statement.type] = factory;
+        GroupSchema.prototype[statement.type] = groupFactory;
+      });
 
-		// TODO: think how to avoid this
-		return new NodeSchemaT() as T;
-	}
+    // TODO: think how to avoid this
+    return new NodeSchemaT() as T;
+  }
 }

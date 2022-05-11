@@ -11,30 +11,30 @@ import { ItemLabelPipe } from './item-label.pipe';
 import { ConvertPipe } from './convert.pipe';
 
 @NgModule({
-	declarations: [
-		ArrayPipe,
-		ConvertPipe,
-		CurrencyPipe,
-		DatePipe,
-		FilterPipe,
-		HighlightPipe,
-		ItemLabelPipe,
-		NumberPipe,
-		TextPipe,
-		TimePipe,
-	],
-	exports: [
-		ArrayPipe,
-		ConvertPipe,
-		CurrencyPipe,
-		DatePipe,
-		FilterPipe,
-		HighlightPipe,
-		ItemLabelPipe,
-		NumberPipe,
-		TextPipe,
-		TimePipe,
-	]
+  declarations: [
+    ArrayPipe,
+    ConvertPipe,
+    CurrencyPipe,
+    DatePipe,
+    FilterPipe,
+    HighlightPipe,
+    ItemLabelPipe,
+    NumberPipe,
+    TextPipe,
+    TimePipe,
+  ],
+  exports: [
+    ArrayPipe,
+    ConvertPipe,
+    CurrencyPipe,
+    DatePipe,
+    FilterPipe,
+    HighlightPipe,
+    ItemLabelPipe,
+    NumberPipe,
+    TextPipe,
+    TimePipe,
+  ],
 })
 export class PipeModule {
 }

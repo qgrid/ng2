@@ -1,37 +1,41 @@
 td.q-grid-array {
-	>ul {
-		@include resetDefaultList;
-		li {
-			display: inline-block;
-			min-width: 16px;
-			padding: 4px 8px;
-			text-align: center;
-			white-space: nowrap;
-			vertical-align: middle;
-			background-color: $highlited-secondary;
-			border-radius: 16px;
-			margin-right: 4px;
-		}
-		li:last-child {
-			margin-right: 0;
-		}
-	}
+  >ul {
+    @include resetDefaultList;
+
+    li {
+      display: inline-block;
+      min-width: 16px;
+      padding: 4px 8px;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      background-color: $highlited-secondary;
+      border-radius: 16px;
+      margin-right: 4px;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .q-grid-editor.q-grid-array {
-	min-height: 48px;
-	width: 340px;
+  min-height: 48px;
+  width: 340px;
 
-	.q-grid-array-view {
-		max-height: 140px;
-		overflow-y: auto;
-		overflow-x: hidden;
-		.q-grid-array-item {
-			margin: 3px 1px 3px 1px;
-		}
-	}
-	.q-grid-array-input {
-		margin: 0px 3px 3px 0px;
-		width: 100%;
-	}
+  .q-grid-array-view {
+    max-height: 140px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .q-grid-array-item {
+      margin: 3px 1px;
+    }
+  }
+
+  .q-grid-array-input {
+    margin: 0 3px 3px 0;
+    width: 100%;
+  }
 }

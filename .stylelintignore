@@ -1,0 +1,14 @@
+*.ts
+*.js
+*.html
+*.json
+*.md
+*.woff2
+*.png
+*.svg
+*.woff
+*.ttf
+*.eot
+*.mjs
+*.map
+*.ico

@@ -2,10 +2,9 @@
              let-$columnFilter
              let-$plugin="plugin"
              let-$vscroll="vscroll">
-
-	<mat-form-field class="q-grid-column-filter-input">
-		<input matInput
-		       [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
-		       disabled />
-	</mat-form-field>
+  <mat-form-field class="q-grid-column-filter-input">
+    <input matInput
+           [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
+           disabled />
+  </mat-form-field>
 </ng-template>

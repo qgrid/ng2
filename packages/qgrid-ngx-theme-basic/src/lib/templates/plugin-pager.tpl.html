@@ -1,56 +1,62 @@
 <ng-template key="plugin-pager.tpl.html"
-			 let-$pager>
-	<div class="q-grid-pager"
-		 [ngSwitch]="$pager.scroll.mode">
-		<div *ngSwitchCase="'virtual'">
-			<label class="q-grid-pager-page"
-				   [ngSwitch]="$pager.mode">
-				<span *ngSwitchCase="'showRows'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
-				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
-			</label>
-		</div>
-		<div *ngSwitchDefault
-			 class="q-grid-pager-select">
-			<label class="q-grid-pager-page-size q-grid-hide-xs">Rows per page:</label>
-			<select tabindex="-1"
-					aria-label="Page Size List"
-					class="q-grid-pager-page-size q-grid-hide-xs"
-					[(ngModel)]="$pager.size">
-				<option *ngFor="let size of $pager.sizeList"
-						[value]="size">
-					{{size}}
-				</option>
-			</select>
-			<div class="q-grid-pager-page">
-				<label class="q-grid-pager-page q-grid-hide-xs"
-					   [ngSwitch]="$pager.mode">
-					<span *ngSwitchCase="'showRows'">
-						<span *ngIf="$pager.total > 0">
-							{{$pager.from}} - {{$pager.to}} of {{$pager.total}}
-						</span>
-						<span *ngIf="$pager.total === 0">
-							No Rows
-						</span>
-					</span>
-					<span *ngSwitchDefault>
-						{{$pager.current + 1}} of {{$pager.totalPages}}
-					</span>
-				</label>
-			</div>
+             let-$pager>
+  <div class="q-grid-pager"
+       [ngSwitch]="$pager.scroll.mode">
+    <div *ngSwitchCase="'virtual'">
+      <label class="q-grid-pager-page"
+             [ngSwitch]="$pager.mode">
+        <span *ngSwitchCase="'showRows'">
+          {{$pager.from}}-{{$pager.to}} of {{$pager.total}}
+        </span>
+        <span *ngSwitchDefault>
+          {{$pager.current + 1}} of {{$pager.totalPages}}
+        </span>
+      </label>
+    </div>
+    <div *ngSwitchDefault
+         class="q-grid-pager-select">
+      <label class="q-grid-pager-page-size q-grid-hide-xs">
+        Rows per page:
+      </label>
+      <select tabindex="-1"
+              aria-label="Page Size List"
+              class="q-grid-pager-page-size q-grid-hide-xs"
+              [(ngModel)]="$pager.size">
+        <option *ngFor="let size of $pager.sizeList"
+                [value]="size">
+          {{size}}
+        </option>
+      </select>
+      <div class="q-grid-pager-page">
+        <label class="q-grid-pager-page q-grid-hide-xs"
+               [ngSwitch]="$pager.mode">
+          <span *ngSwitchCase="'showRows'">
+            <span *ngIf="$pager.total > 0">
+              {{$pager.from}} - {{$pager.to}} of {{$pager.total}}
+            </span>
+            <span *ngIf="$pager.total === 0">
+               No Rows
+            </span>
+          </span>
+          <span *ngSwitchDefault>
+            {{$pager.current + 1}} of {{$pager.totalPages}}
+          </span>
+        </label>
+      </div>
 
-			<button tabindex="-1"
-					class="q-grid-icon-button q-grid-pager-prev"
-					[q-grid-command]="$pager.prev"
-					[q-grid-command-use-shortcut]="true">
-				<i class="q-grid-icon">&#10094;</i>
-			</button>
-			<q-grid-pager-target></q-grid-pager-target>
-			<button tabindex="-1"
-					class="q-grid-icon-button q-grid-pager-next"
-					[q-grid-command]="$pager.next"
-					[q-grid-command-use-shortcut]="true">
-				<i class="q-grid-icon">&#10095;</i>
-			</button>
-		</div>
-	</div>
+      <button tabindex="-1"
+              class="q-grid-icon-button q-grid-pager-prev"
+              [q-grid-command]="$pager.prev"
+              [q-grid-command-use-shortcut]="true">
+        <i class="q-grid-icon">&#10094;</i>
+      </button>
+      <q-grid-pager-target></q-grid-pager-target>
+      <button tabindex="-1"
+              class="q-grid-icon-button q-grid-pager-next"
+              [q-grid-command]="$pager.next"
+              [q-grid-command-use-shortcut]="true">
+        <i class="q-grid-icon">&#10095;</i>
+      </button>
+    </div>
+  </div>
 </ng-template>

@@ -1,21 +1,21 @@
 <ng-template key="body-cell-url.tpl.html"
              let-$cell
              let-$view="$view">
-    <a [attr.href]="$cell.value"
-       tabindex="-1"
-       target="_blank">
-        {{$cell.label || $cell.value}}
-    </a>
-    <button *ngIf="$view.edit.cell.canEdit($cell)"
-            class="q-grid-url-edit q-grid-edit-trigger"
-            mat-icon-button
-            aria-label="url"
-            tabindex="-1"
-            matTooltip="Edit Url"
-            matTooltipPosition="below"
-            [matTooltipShowDelay]="800"
-            [q-grid-command]="$view.edit.cell.enter"
-            [q-grid-command-arg]="$cell">
-        <mat-icon class="q-grid-icon">edit</mat-icon>
-    </button>
+  <a [attr.href]="$cell.value"
+     tabindex="-1"
+     target="_blank">
+    {{$cell.label || $cell.value}}
+  </a>
+  <button *ngIf="$view.edit.cell.canEdit($cell)"
+          class="q-grid-url-edit q-grid-edit-trigger"
+          mat-icon-button
+          aria-label="url"
+          tabindex="-1"
+          matTooltip="Edit Url"
+          matTooltipPosition="below"
+          [matTooltipShowDelay]="800"
+          [q-grid-command]="$view.edit.cell.enter"
+          [q-grid-command-arg]="$cell">
+    <mat-icon class="q-grid-icon">edit</mat-icon>
+  </button>
 </ng-template>

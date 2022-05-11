@@ -1,38 +1,39 @@
 import { GridError } from '../infrastructure/error';
 
 export class Tr {
-	constructor(tr) {
-		this.tr = tr;
 
-		// We need to cache it due to possible virtual mode;
-		this.index = tr.index;
-	}
+  get model() {
+    if (!Tr.equals(this, this.tr)) {
+      throw new GridError('tr', 'Internal model doesn\'t match container');
+    }
 
-	get model() {
-		if (!Tr.equals(this, this.tr)) {
-			throw new GridError('tr', 'Internal model doesn\'t match container');
-		}
+    return this.tr.model;
+  }
 
-		return this.tr.model;
-	}
+  get element() {
+    if (!Tr.equals(this, this.tr)) {
+      throw new GridError('tr', 'Internal model doesn\'t match container');
+    }
 
-	get element() {
-		if (!Tr.equals(this, this.tr)) {
-			throw new GridError('tr', 'Internal model doesn\'t match container');
-		}
+    return this.tr.element;
+  }
 
-		return this.tr.element;
-	}
+  constructor(tr) {
+    this.tr = tr;
 
-	static equals(x, y) {
-		if (x === y) {
-			return true;
-		}
+    // We need to cache it due to possible virtual mode;
+    this.index = tr.index;
+  }
 
-		if (!x || !y) {
-			return false;
-		}
+  static equals(x, y) {
+    if (x === y) {
+      return true;
+    }
 
-		return x.index === y.index;
-	}
+    if (!x || !y) {
+      return false;
+    }
+
+    return x.index === y.index;
+  }
 }

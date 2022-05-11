@@ -1,6 +1,6 @@
 export declare class FakeClassList {
-	constructor();
+  constructor();
 
-	add(): void;
-	remove(): void;
+  add(): void;
+  remove(): void;
 }

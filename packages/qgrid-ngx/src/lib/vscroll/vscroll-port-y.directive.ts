@@ -1,4 +1,10 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { isNumber } from '@qgrid/core';
 import { VscrollBox } from './vscroll.box';
 import { VscrollContext } from './vscroll.context';
@@ -10,97 +16,98 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, IVscrollPosition, 
 import { capitalize } from './vscroll.utility';
 
 @Directive({
-	selector: '[q-grid-vscroll-port-y]'
+  selector: '[q-grid-vscroll-port-y]',
 })
 export class VscrollPortYDirective implements VscrollPort, OnChanges {
-	private link: VscrollLink = null;
+  private link: VscrollLink = null;
 
-	layout: VscrollLayout = null;
-	markup: { [key: string]: HTMLElement } = {};
-	@Input('q-grid-vscroll-port-y') context: VscrollContext;
+  @Input('q-grid-vscroll-port-y') context: VscrollContext;
 
-	constructor(
-		private elementRef: ElementRef,
-		private view: VscrollDirective
-	) {
-	}
+  layout: VscrollLayout = null;
+  markup: { [key: string]: HTMLElement } = {};
 
-	ngOnChanges(changes: SimpleChanges) {
-		const contextChange = changes['context'];
-		if (contextChange && this.context) {
-			this.layout = new VscrollLayout(this);
-			this.link = new VscrollLink(this, this.view);
-			this.context.container.reset();
-		}
-	}
+  constructor(
+    private elementRef: ElementRef,
+    private view: VscrollDirective,
+  ) {
+  }
 
-	public reset() {
-		this.view.resetY();
-	}
+  ngOnChanges(changes: SimpleChanges) {
+    const contextChange = changes['context'];
+    if (contextChange && this.context) {
+      this.layout = new VscrollLayout(this);
+      this.link = new VscrollLink(this, this.view);
+      this.context.container.reset();
+    }
+  }
 
-	emit(f: () => void) {
-		const { settings } = this.context;
-		if (settings.emit) {
-			settings.emit(f);
-		} else {
-			f();
-		}
-	}
+  public reset() {
+    this.view.resetY();
+  }
 
-	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
-		const limitTop = box.scrollTop - arm;
-		const limitBottom = box.scrollHeight - (box.portHeight + arm);
-		const value = Math.min(limitBottom, Math.max(0, limitTop));
-		return findPositionUsingItemSize(value, itemSize);
-	}
+  emit(f: () => void) {
+    const { settings } = this.context;
+    if (settings.emit) {
+      settings.emit(f);
+    } else {
+      f();
+    }
+  }
 
-	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
-		const limitTop = box.scrollTop - arm;
-		const limitBottom = box.scrollHeight - (box.portHeight + arm);
-		const value = Math.min(limitBottom, Math.max(0, limitTop));
-		return findPositionUsingOffsets(value, offsets);
-	}
+  getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
+    const limitTop = box.scrollTop - arm;
+    const limitBottom = box.scrollHeight - (box.portHeight + arm);
+    const value = Math.min(limitBottom, Math.max(0, limitTop));
+    return findPositionUsingItemSize(value, itemSize);
+  }
 
-	move(top: number, bottom: number) {
-		this.pad('top', top);
-		this.pad('bottom', bottom);
-	}
+  getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
+    const limitTop = box.scrollTop - arm;
+    const limitBottom = box.scrollHeight - (box.portHeight + arm);
+    const value = Math.min(limitBottom, Math.max(0, limitTop));
+    return findPositionUsingOffsets(value, offsets);
+  }
 
-	getItemSize(): number {
-		const rowHeight = this.context.settings.rowHeight as number;
-		return isNumber(rowHeight) ? rowHeight : 0;
-	}
+  move(top: number, bottom: number) {
+    this.pad('top', top);
+    this.pad('bottom', bottom);
+  }
 
-	getScrollSize(box: VscrollBox) {
-		return box.scrollHeight;
-	}
+  getItemSize(): number {
+    const rowHeight = this.context.settings.rowHeight as number;
+    return isNumber(rowHeight) ? rowHeight : 0;
+  }
 
-	getSize(box: VscrollBox) {
-		return box.portHeight;
-	}
+  getScrollSize(box: VscrollBox) {
+    return box.scrollHeight;
+  }
 
-	recycleFactory(items: Array<any>) {
-		const recycle = recycleFactory(items);
-		return (index: number, count: number) => {
-			const size = this.getItemSize();
-			if (size) {
-				return [];
-			}
+  getSize(box: VscrollBox) {
+    return box.portHeight;
+  }
 
-			return recycle(index, count);
-		};
-	}
+  recycleFactory(items: Array<any>) {
+    const recycle = recycleFactory(items);
+    return (index: number, count: number) => {
+      const size = this.getItemSize();
+      if (size) {
+        return [];
+      }
 
-	hasChanges(newBox: VscrollBox, oldBox: VscrollBox) {
-		return !oldBox.portHeight || newBox.scrollTop !== oldBox.scrollTop;
-	}
+      return recycle(index, count);
+    };
+  }
 
-	private pad(pos: string, value: number) {
-		if (this.markup.hasOwnProperty(pos)) {
-			const mark = this.markup[pos];
-			mark.style.height = value + 'px';
-		} else {
-			this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
-		}
-	}
+  hasChanges(newBox: VscrollBox, oldBox: VscrollBox) {
+    return !oldBox.portHeight || newBox.scrollTop !== oldBox.scrollTop;
+  }
+
+  private pad(pos: string, value: number) {
+    if (Object.prototype.hasOwnProperty.call(this.markup, pos)) {
+      const mark = this.markup[pos];
+      mark.style.height = value + 'px';
+    } else {
+      this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
+    }
+  }
 }

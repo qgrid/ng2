@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import * as labelService from '@qgrid/core';
 import * as valueService from '@qgrid/core';
-import { Action, Command, GridService, identity, Node, noop, Pipe, PipeUnit, RowDetailsStatus } from '@qgrid/core';
+import {
+  Action,
+  Command,
+  GridService,
+  identity,
+  Node,
+  noop,
+  Pipe,
+  PipeUnit,
+  RowDetailsStatus,
+} from '@qgrid/core';
 import { GridModelBuilder } from '../grid/grid-model.builder';
 import { GridModel } from './grid-model';
 
@@ -9,54 +19,55 @@ export { GridService } from '@qgrid/core';
 
 @Injectable()
 export class Grid {
-	constructor(private modelBuilder: GridModelBuilder) {
-	}
 
-	model(): GridModel {
-		return this.modelBuilder.build();
-	}
+  get noop() {
+    return noop;
+  }
 
-	service(model: GridModel): GridService {
-		return new GridService(model);
-	}
+  get identity() {
+    return identity;
+  }
 
-	get noop() {
-		return noop;
-	}
+  get pipe() {
+    return Pipe;
+  }
 
-	get identity() {
-		return identity;
-	}
+  get pipeUnit() {
+    return PipeUnit;
+  }
 
-	get pipe() {
-		return Pipe;
-	}
+  get Command() {
+    return Command;
+  }
 
-	get pipeUnit() {
-		return PipeUnit;
-	}
+  get Action() {
+    return Action;
+  }
 
-	get Command() {
-		return Command;
-	}
+  get Node() {
+    return Node;
+  }
 
-	get Action() {
-		return Action;
-	}
+  get RowDetailsStatus() {
+    return RowDetailsStatus;
+  }
 
-	get Node() {
-		return Node;
-	}
+  get valueFactory() {
+    return valueService.getValueFactory;
+  }
 
-	get RowDetailsStatus() {
-		return RowDetailsStatus;
-	}
+  get labelFactory() {
+    return labelService.getLabelFactory;
+  }
 
-	get valueFactory() {
-		return valueService.getValueFactory;
-	}
+  constructor(private modelBuilder: GridModelBuilder) {
+  }
 
-	get labelFactory() {
-		return labelService.getLabelFactory;
-	}
+  model(): GridModel {
+    return this.modelBuilder.build();
+  }
+
+  service(model: GridModel): GridService {
+    return new GridService(model);
+  }
 }

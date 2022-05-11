@@ -3,63 +3,62 @@ import { Action } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
-	selector: 'q-grid-action-bar',
-	templateUrl: './action-bar.component.html',
-	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'q-grid-action-bar',
+  templateUrl: './action-bar.component.html',
+  providers: [GridPlugin],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionBarComponent implements OnInit {
 
-	context: { $implicit: ActionBarComponent } = {
-		$implicit: this
-	};
+  // eslint-disable-next-line no-use-before-define
+  context: { $implicit: ActionBarComponent } = {
+    $implicit: this,
+  };
 
-	constructor(
-		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef,
-	) {
-	}
+  get actions(): Action[] {
+    const { model } = this.plugin;
+    return model.action().items;
+  }
 
-	ngOnInit() {
-		const { model, observeReply } = this.plugin;
+  constructor(
+    private plugin: GridPlugin,
+    private cd: ChangeDetectorRef,
+  ) {
+  }
 
-		observeReply(model.actionChanged)
-			.subscribe(e => {
-				const initialItems = e.state.items;
-				const isSorted = this.isSorted(initialItems);
+  ngOnInit() {
+    const { model, observeReply } = this.plugin;
 
-				if(isSorted) {
-					this.cd.markForCheck();
-					this.cd.detectChanges();
-				} else {
-					model.action({
-						items: initialItems.sort((a: Action, b: Action) => {
-							return a.command.priority - b.command.priority;
-						})
-					});
-				}
+    observeReply(model.actionChanged)
+      .subscribe(e => {
+        const initialItems = e.state.items;
+        const isSorted = this.isSorted(initialItems);
 
-				if (e.hasChanges('items')) {
-					this.cd.markForCheck();
-					this.cd.detectChanges();
-				}
-			});
-	}
+        if (isSorted) {
+          this.cd.markForCheck();
+          this.cd.detectChanges();
+        } else {
+          model.action({
+            items: initialItems.sort((a: Action, b: Action) => a.command.priority - b.command.priority),
+          });
+        }
 
-	get actions(): Action[] {
-		const { model } = this.plugin;
-		return model.action().items;
-	}
+        if (e.hasChanges('items')) {
+          this.cd.markForCheck();
+          this.cd.detectChanges();
+        }
+      });
+  }
 
-	private isSorted(actions: Action[]): boolean {
-		for (let i = 0; i < actions.length - 1; i++) {
-			const action = actions[i];
-			const nextAction = actions[i+1];
-			if (action.command.priority > nextAction.command.priority) {
-					return false;
-			}
-		}
+  private isSorted(actions: Action[]): boolean {
+    for (let i = 0; i < actions.length - 1; i++) {
+      const action = actions[i];
+      const nextAction = actions[i + 1];
+      if (action.command.priority > nextAction.command.priority) {
+        return false;
+      }
+    }
 
-		return true;
-	}
+    return true;
+  }
 }

@@ -1,19 +1,18 @@
-import {FakeLayer} from './layer';
+import { FakeLayer } from './layer';
 
 describe('FakeLayer', () => {
-	let fakeLayer = new FakeLayer();
+  const fakeLayer = new FakeLayer();
 
-	describe('resource', () => {
-		it('should be undefined', () => {
-			expect(fakeLayer.resource()).to.equal(undefined);
-		});
-	});
+  describe('resource', () => {
+    it('should be undefined', () => {
+      expect(fakeLayer.resource()).to.equal(undefined);
+    });
+  });
 
-	describe('destroy', () => {
-		it('should be undefined', () => {
-			expect(fakeLayer.destroy()).to.equal(undefined);
-		});
-	});
+  describe('destroy', () => {
+    it('should be undefined', () => {
+      expect(fakeLayer.destroy()).to.equal(undefined);
+    });
+  });
 
 });
-

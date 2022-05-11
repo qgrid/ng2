@@ -1,10 +1,10 @@
 import {
-	Directive,
-	ElementRef,
-	Input,
-	OnDestroy,
-	OnInit,
-	ViewContainerRef
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
 } from '@angular/core';
 import { ColumnModel, ColumnView, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
@@ -15,69 +15,69 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 @Directive({
-	selector: '[q-grid-core-tf]'
+  selector: '[q-grid-core-tf]',
 })
 export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
-	$implicit = this;
+  @Input('q-grid-core-tf') columnView: ColumnView;
 
-	@Input('q-grid-core-tf') columnView: ColumnView;
-	element: HTMLElement = null;
+  $implicit = this;
+  element: HTMLElement = null;
 
-	constructor(
-		public $view: GridLet,
-		private plugin: GridPlugin,
-		private cellTemplate: CellTemplateService,
-		private cellClass: CellClassService,
-		private viewContainerRef: ViewContainerRef,
-		private tr: TrhCoreDirective,
-		elementRef: ElementRef
-	) {
-		this.element = elementRef.nativeElement.parentNode;
-	}
+  get value() {
+    const column = this.column;
+    return this.$view.foot.value(column);
+  }
 
-	ngOnInit() {
-		const { column, element } = this;
-		const { table } = this.plugin;
+  get label() {
+    return this.label;
+  }
 
-		table.box.bag.foot.addCell(this);
+  get column(): ColumnModel {
+    return this.columnView.model;
+  }
 
-		this.cellClass.toBody(element, column);
+  get columnIndex() {
+    return this.columnView.columnIndex;
+  }
 
-		const link = this.cellTemplate.build('foot', this.column);
-		link(this.viewContainerRef, this);
-	}
+  get row() {
+    return this.tr.model;
+  }
 
-	get value() {
-		const column = this.column;
-		return this.$view.foot.value(column);
-	}
+  get rowIndex() {
+    return this.tr.index;
+  }
 
-	get label() {
-		return this.label;
-	}
+  constructor(
+    public $view: GridLet,
+    private plugin: GridPlugin,
+    private cellTemplate: CellTemplateService,
+    private cellClass: CellClassService,
+    private viewContainerRef: ViewContainerRef,
+    private tr: TrhCoreDirective,
+    elementRef: ElementRef,
+  ) {
+    this.element = elementRef.nativeElement.parentNode;
+  }
 
-	get column(): ColumnModel {
-		return this.columnView.model;
-	}
+  ngOnInit() {
+    const { column, element } = this;
+    const { table } = this.plugin;
 
-	get columnIndex() {
-		return this.columnView.columnIndex;
-	}
+    table.box.bag.foot.addCell(this);
 
-	get row() {
-		return this.tr.model;
-	}
+    this.cellClass.toBody(element, column);
 
-	get rowIndex() {
-		return this.tr.index;
-	}
+    const link = this.cellTemplate.build('foot', this.column);
+    link(this.viewContainerRef, this);
+  }
 
-	mode(value: string): void {
-		throw new GridError('tf-core.directive', `${value} mode is not supported`);
-	}
+  mode(value: string): void {
+    throw new GridError('tf-core.directive', `${value} mode is not supported`);
+  }
 
-	ngOnDestroy() {
-		const { table } = this.plugin;
-		table.box.bag.foot.deleteCell(this);
-	}
+  ngOnDestroy() {
+    const { table } = this.plugin;
+    table.box.bag.foot.deleteCell(this);
+  }
 }

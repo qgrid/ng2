@@ -1,23 +1,23 @@
 @at-root .q-grid-column-filter {
-    .mat-card {
-        box-shadow: none;
-        padding: 16px;
-        margin: 0;
+  .mat-card {
+    box-shadow: none;
+    padding: 16px;
+    margin: 0;
 
-        &-content {
-            margin-bottom: 0;
-        }
-
-        .q-grid-column-filter-toolbar {
-            margin-top: 0;
-        }
-
-        .mat-card-header-text {
-            overflow: hidden;
-
-            .mat-card-title {
-                @include textCutter;
-            }
-        }
+    &-content {
+      margin-bottom: 0;
     }
+
+    .q-grid-column-filter-toolbar {
+      margin-top: 0;
+    }
+
+    .mat-card-header-text {
+      overflow: hidden;
+
+      .mat-card-title {
+        @include textCutter;
+      }
+    }
+  }
 }

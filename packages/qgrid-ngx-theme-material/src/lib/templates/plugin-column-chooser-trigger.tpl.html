@@ -1,19 +1,19 @@
 <ng-template key="plugin-column-chooser-trigger.tpl.html">
-	<button mat-icon-button
-			tabindex="-1"
-			#trigger="matMenuTrigger"
-			[matMenuTriggerFor]="menu"
-			aria-label="Column chooser">
-		<mat-icon class="q-grid-icon">more_vert</mat-icon>
-	</button>
+  <button mat-icon-button
+          tabindex="-1"
+          #trigger="matMenuTrigger"
+          [matMenuTriggerFor]="menu"
+          aria-label="Column chooser">
+    <mat-icon class="q-grid-icon">more_vert</mat-icon>
+  </button>
 
-	<mat-menu #menu="matMenu"
-			  class="q-grid-column-chooser q-grid-menu">
-		<q-grid-column-chooser q-grid-menu
-							   q-grid-theme-overlay
-							   *ngIf="trigger.menuOpen"
-							   (cancel)="trigger.closeMenu()"
-							   (submit)="trigger.closeMenu()">
-		</q-grid-column-chooser>
-	</mat-menu>
+  <mat-menu #menu="matMenu"
+            class="q-grid-column-chooser q-grid-menu">
+    <q-grid-column-chooser q-grid-menu
+                           q-grid-theme-overlay
+                           *ngIf="trigger.menuOpen"
+                           (cancel)="trigger.closeMenu()"
+                           (submit)="trigger.closeMenu()">
+    </q-grid-column-chooser>
+  </mat-menu>
 </ng-template>

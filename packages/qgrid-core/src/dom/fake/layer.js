@@ -1,11 +1,10 @@
 export class FakeLayer {
-	constructor() {
-	}
+  constructor() {
+  }
 
-	resource() {
-	}
+  resource() {
+  }
 
-	destroy() {
-	}
+  destroy() {
+  }
 }
-

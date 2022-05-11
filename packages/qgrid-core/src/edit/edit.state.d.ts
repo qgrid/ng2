@@ -25,61 +25,61 @@ export declare type EditStateMethod = null | 'batch';
  * A class represent options to control q-grid edit mode.
  */
 export declare class EditState {
-	/**
+  /**
 	 * Property that controls grid edit unit.
 	 */
-	mode: EditStateMode;
+  mode: EditStateMode;
 
-	/**
+  /**
 	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
 	 */
-	status: EditStateStatus;
+  status: EditStateStatus;
 
-	/**
+  /**
 	 * Property that controls grid edit behavior.
 	 */
-	method: EditStateMethod;
+  method: EditStateMethod;
 
-	/**
+  /**
 	 * Allows to the grid user to control if cell or row can be edited or not.
 	 */
-	enter: Command;
+  enter: Command;
 
-	/**
+  /**
 	 * Allows to the grid user to control if new cell value can be stored in data source or not.
 	 */
-	commit: Command;
+  commit: Command;
 
-	/**
+  /**
 	 * Allows to the grid user to control if cell can exit edit mode.
 	 */
-	cancel: Command;
+  cancel: Command;
 
-	/**
+  /**
 	 * Allows to the grid user to control if cell can exit edit mode.
 	 */
-	reset: Command;
+  reset: Command;
 
-	/**
+  /**
 	 * Allows to the grid user to manage clear action behavior in edit mode.
 	 */
-	clear: Command;
+  clear: Command;
 
-	/**
+  /**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when cancel command should be execute on key down event.
 	 */
-	cancelShortcuts: { [key: string]: string };
+  cancelShortcuts: { [key: string]: string };
 
-	/**
+  /**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when enter command should be execute on key down event.
 	 */
-	enterShortcuts: { [key: string]: string };
+  enterShortcuts: { [key: string]: string };
 
-	/**
+  /**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when commit command should be execute on key down event.
 	 */
-	commitShortcuts: { [key: string]: string };
+  commitShortcuts: { [key: string]: string };
 }

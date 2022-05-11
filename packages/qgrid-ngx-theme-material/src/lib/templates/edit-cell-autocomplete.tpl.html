@@ -1,15 +1,14 @@
 <ng-template key="edit-cell-autocomplete.tpl.html"
              let-$cell
              let-$view="$view">
-    <q-grid-cell-editor class="q-grid-editor q-grid-position"
-                        (close)="$view.edit.cell.exit.execute($cell)"
-                        q-grid-position="td">
-        <q-grid-autocomplete-editor>
-        </q-grid-autocomplete-editor>
-        <q-grid-validator class="q-grid-validator"
-                          [key]="$cell.column.key"
-                          [type]="$cell.column.type"
-                          [value]="$view.edit.cell.value">
-        </q-grid-validator>
-    </q-grid-cell-editor>
+<q-grid-cell-editor class="q-grid-editor q-grid-position"
+                    (close)="$view.edit.cell.exit.execute($cell)"
+                    q-grid-position="td">
+    <q-grid-autocomplete-editor></q-grid-autocomplete-editor>
+    <q-grid-validator class="q-grid-validator"
+                      [key]="$cell.column.key"
+                      [type]="$cell.column.type"
+                      [value]="$view.edit.cell.value">
+    </q-grid-validator>
+  </q-grid-cell-editor>
 </ng-template>

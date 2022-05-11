@@ -6,5 +6,5 @@ export declare class IdColumnModel extends DataColumnModel {
 }
 
 export declare class IdColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

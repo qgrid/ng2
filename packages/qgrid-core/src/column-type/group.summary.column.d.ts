@@ -6,5 +6,5 @@ export declare class GroupSummaryColumnModel extends DataColumnModel {
 }
 
 export declare class GroupSummaryColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

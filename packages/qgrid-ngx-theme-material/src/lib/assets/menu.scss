@@ -1,5 +1,5 @@
-@import "../../../../qgrid-styles/scroll.scss";
+@import "../../../../qgrid-styles/scroll";
 
 @at-root .q-grid-menu {
-	@include scroll();
+  @include scroll;
 }

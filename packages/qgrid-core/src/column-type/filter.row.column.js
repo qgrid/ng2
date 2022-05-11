@@ -1,34 +1,32 @@
 import { ColumnView } from '../scene/view/column.view';
-import { ColumnModel } from './column.model';
 import { TemplatePath } from '../template/template.path';
+import { ColumnModel } from './column.model';
 
-TemplatePath.register('filter-row-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
+TemplatePath.register('filter-row-cell', (template, column) => ({
+  model: template.for,
+  resource: column.key,
+}));
 
 export class FilterRowColumnModel extends ColumnModel {
-	constructor(model) {
-		super();
+  constructor(model) {
+    super();
 
-		Object.assign(this, model);
+    Object.assign(this, model);
 
-		this.key = `$filter.row.${model.key}`;
-		this.type = 'filter-row';
-		this.category = 'control';
+    this.key = `$filter.row.${model.key}`;
+    this.type = 'filter-row';
+    this.category = 'control';
 
-		this.canResize = false;
-		this.canSort = false;
-		this.canMove = false;
+    this.canResize = false;
+    this.canSort = false;
+    this.canMove = false;
 
-		this.model = model;
-	}
+    this.model = model;
+  }
 }
 
 export class FilterRowColumn extends ColumnView {
-	constructor(model) {
-		super(new FilterRowColumnModel(model));
-	}
+  constructor(model) {
+    super(new FilterRowColumnModel(model));
+  }
 }

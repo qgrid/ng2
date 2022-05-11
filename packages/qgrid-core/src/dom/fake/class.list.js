@@ -1,10 +1,10 @@
 export class FakeClassList {
-	constructor() {
-	}
+  constructor() {
+  }
 
-	add() {
-	}
+  add() {
+  }
 
-	remove() {
-	}
+  remove() {
+  }
 }
