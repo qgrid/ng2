@@ -1,7 +1,7 @@
 import { Log } from '../infrastructure/log';
 
 export class TextSelection {
-  static set(element) {    
+  static set(element) {
     if (document.body.createTextRange) {
       const range = document.body.createTextRange();
       range.moveToElementText(element);
@@ -16,11 +16,11 @@ export class TextSelection {
       Log.error('text.selection', 'Could not select text in element: Unsupported browser.');
     }
   }
-  
+
   static clear() {
     if (window.getSelection) {
       const selection = window.getSelection();
-      selection.removeAllRanges();	
+      selection.removeAllRanges();
     }
   }
 }

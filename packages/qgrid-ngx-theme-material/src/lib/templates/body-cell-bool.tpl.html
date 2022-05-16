@@ -1,11 +1,11 @@
 <ng-template key="body-cell-bool.tpl.html"
              let-$cell>
-    <mat-icon class="q-grid-icon"
-              *ngIf="$cell.value === $cell.column.trueValue">
-        check
-    </mat-icon>
-    <mat-icon class="q-grid-icon"
-              *ngIf="$cell.column.isIndeterminate($cell.value)">
-        remove
-    </mat-icon>
+  <mat-icon *ngIf="$cell.value === $cell.column.trueValue"
+            class="q-grid-icon">
+    check
+ </mat-icon>
+  <mat-icon *ngIf="$cell.column.isIndeterminate($cell.value)"
+            class="q-grid-icon">
+    remove
+ </mat-icon>
 </ng-template>

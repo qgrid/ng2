@@ -1,16 +1,16 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
 @Pipe({
-	name: 'qGridItemLabel'
+  name: 'qGridItemLabel',
 })
 export class ItemLabelPipe implements PipeTransform {
-	constructor() { }
+  constructor() { }
 
-	transform(value: any, itemLabel: (x: any) => string) {
-		if (itemLabel) {
-			return itemLabel(value);
-		}
+  transform(value: any, itemLabel: (x: any) => string) {
+    if (itemLabel) {
+      return itemLabel(value);
+    }
 
-		return value;
-	}
+    return value;
+  }
 }

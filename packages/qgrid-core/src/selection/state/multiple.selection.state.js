@@ -1,30 +1,29 @@
 import { SubSelectionState } from './selection.state';
 
 export class MultipleSelectionState extends SubSelectionState {
-	constructor(model, service) {
-		super(model, service);
+  constructor(model, service) {
+    super(model, service);
 
-		this.items = new Map();
-	}
+    this.items = new Map();
+  }
 
-	entries() {
-		return Array.from(this.items.values());
-	}
+  entries() {
+    return Array.from(this.items.values());
+  }
 
-	selectCore(item, state, key) {
-		if (state) {
-			this.items.set(key(item), item);
-		}
-		else {
-			this.items.delete(key(item));
-		}
-	}
+  selectCore(item, state, key) {
+    if (state) {
+      this.items.set(key(item), item);
+    } else {
+      this.items.delete(key(item));
+    }
+  }
 
-	stateCore(item, key) {
-		return this.items.has(key(item));
-	}
+  stateCore(item, key) {
+    return this.items.has(key(item));
+  }
 
-	clearCore() {
-		this.items = new Map();
-	}
+  clearCore() {
+    this.items = new Map();
+  }
 }

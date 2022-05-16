@@ -1,5 +1,4 @@
-
 export class KeyCode {
-	code: string;
-	key: string;
+  code: string;
+  key: string;
 }

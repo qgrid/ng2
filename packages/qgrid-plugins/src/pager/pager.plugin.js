@@ -1,85 +1,86 @@
 import { Command, FocusAfterRenderService } from '@qgrid/core';
 
 export class PagerPlugin {
-	constructor(plugin) {
-		const { model } = plugin;
 
-		this.plugin = plugin;
+  get theme() {
+    return this.plugin.model.style().classList;
+  }
 
-		const { shortcut } = model.pagination();
+  get resource() {
+    return this.plugin.model.pagination().resource;
+  }
 
-		this.next = new Command({
-			source: 'pager',
-			shortcut: shortcut.next,
-			execute: () => {
-				new FocusAfterRenderService(plugin);
-				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
-			},
-			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
-		});
+  get size() {
+    return this.plugin.model.pagination().size;
+  }
 
-		this.prev = new Command({
-			source: 'pager',
-			shortcut: shortcut.prev,
-			execute: () => {
-				new FocusAfterRenderService(plugin);
-				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
-			},
-			canExecute: () => model.pagination().current > 0
-		});
-	}
+  set size(value) {
+    this.plugin.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
+  }
 
-	get theme() {
-		return this.plugin.model.style().classList
-	}
+  get sizeList() {
+    return this.plugin.model.pagination().sizeList;
+  }
 
-	get resource() {
-		return this.plugin.model.pagination().resource;
-	}
+  get current() {
+    return this.plugin.model.pagination().current;
+  }
 
-	get size() {
-		return this.plugin.model.pagination().size;
-	}
+  set current(value) {
+    this.plugin.model.pagination({ current: value }, { source: 'pager.view' });
+  }
 
-	set size(value) {
-		this.plugin.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
-	}
+  get from() {
+    return Math.min(this.total, this.current * this.size + 1);
+  }
 
-	get sizeList() {
-		return this.plugin.model.pagination().sizeList;
-	}
+  get to() {
+    return Math.min(this.total, (this.current + 1) * this.size);
+  }
 
-	get current() {
-		return this.plugin.model.pagination().current;
-	}
+  get total() {
+    return this.plugin.model.pagination().count;
+  }
 
-	set current(value) {
-		return this.plugin.model.pagination({ current: value }, { source: 'pager.view' });
-	}
+  get totalPages() {
+    return this.size === 0
+      ? 0
+      : Math.max(1, Math.ceil(this.total / this.size));
+  }
 
-	get from() {
-		return Math.min(this.total, this.current * this.size + 1);
-	}
+  get scroll() {
+    return this.plugin.model.scroll();
+  }
 
-	get to() {
-		return Math.min(this.total, (this.current + 1) * this.size);
-	}
+  get mode() {
+    return this.plugin.model.pagination().mode;
+  }
 
-	get total() {
-		return this.plugin.model.pagination().count;
-	}
+  constructor(plugin) {
+    const { model } = plugin;
 
-	get totalPages() {
-		return this.size === 0
-			? 0
-			: Math.max(1, Math.ceil(this.total / this.size));
-	}
+    this.plugin = plugin;
 
-	get scroll() {
-		return this.plugin.model.scroll();
-	}
+    const { shortcut } = model.pagination();
 
-	get mode() {
-		return this.plugin.model.pagination().mode;
-	}
+    this.next = new Command({
+      source: 'pager',
+      shortcut: shortcut.next,
+      execute: () => {
+        new FocusAfterRenderService(plugin);
+        model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' });
+      },
+      canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count,
+    });
+
+    this.prev = new Command({
+      source: 'pager',
+      shortcut: shortcut.prev,
+      execute: () => {
+        new FocusAfterRenderService(plugin);
+        model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
+      },
+      canExecute: () => model.pagination().current > 0,
+    });
+  }
 }

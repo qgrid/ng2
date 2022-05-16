@@ -12,14 +12,28 @@
     "lint": "lerna run lint --stream",
     "clean": "lerna run clean --stream",
     "test": "lerna run test --stream",
-    "publish:alpha": "lerna publish --canary --preid alpha --force-publish=*"
+    "copy:theme:material": "copyfiles -u 3 packages/qgrid-ngx-theme-material/dist/**/* packages/ng2-qgrid/theme/material",
+    "copy:theme:basic": "copyfiles -u 3 packages/qgrid-ngx-theme-basic/dist/**/* packages/ng2-qgrid/theme/basic",
+    "publish:alpha": "yarn copy:theme:material && yarn copy:theme:basic && lerna publish --canary --preid alpha --force-publish=*",
+    "publish:example-app": "npx angular-cli-ghpages --dir=packages/qgrid-ngx-examples/dist/",
+    "publish:example-repo": "node ./scripts/publish.example-repo"
   },
   "devDependencies": {
+    "@angular-eslint/eslint-plugin": "^13.2.1",
+    "@angular-eslint/eslint-plugin-template": "^13.2.1",
+    "@angular-eslint/template-parser": "^13.2.1",
     "codelyzer": "^6.0.2",
     "command-line-args": "^5.2.0",
+    "copyfiles": "^2.4.1",
+    "eslint-plugin-import-newlines": "^1.2.2",
     "fs": "^0.0.1-security",
+    "glob": "^7.2.0",
     "lerna": "^4.0.0",
     "path": "^0.12.7",
-    "sane": "^5.0.1"
+    "postcss": "^8.4.13",
+    "sane": "^5.0.1",
+    "shelljs": "^0.8.5",
+    "stylelint": "^14.8.2",
+    "stylelint-config-standard-scss": "^3.0.0"
   }
 }

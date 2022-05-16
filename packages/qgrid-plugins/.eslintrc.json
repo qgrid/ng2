@@ -1,0 +1,13 @@
+{
+  "extends": "../../.eslintrc.json",
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true,
+    "mocha": true
+  },
+  "globals": {
+    "window": true,
+    "document": true
+  }
+}

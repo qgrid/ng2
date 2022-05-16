@@ -1,64 +1,65 @@
 import { Command, Event, isUndefined, RowEditor } from '@qgrid/core';
 
 export class EditFormPanelPlugin {
-	constructor(plugin, context) {
-		const { model, disposable } = plugin;
 
-		this.plugin = plugin;
-		this.editor = new RowEditor(context.row, model.columnList().line);
-		this.caption = context.caption;
+  get editors() {
+    return this.editor.editors;
+  }
 
-		this.submitEvent = new Event();
-		this.cancelEvent = new Event();
-		this.resetEvent = new Event();
+  get commands() {
+    const commands = {
+      submit: new Command({
+        source: 'edit.form.panel',
+        shortcut: this.shortcutFactory('commit'),
+        execute: () => {
+          this.editor.commit();
+          this.submitEvent.emit();
+        },
+      }),
+      cancel: new Command({
+        source: 'edit.form.panel',
+        shortcut: this.shortcutFactory('cancel'),
+        execute: () => this.cancelEvent.emit(),
+      }),
+      reset: new Command({
+        source: 'edit.form.panel',
+        execute: () => {
+          this.editor.editors.forEach(e => e.reset());
+          this.resetEvent.emit();
+        },
+      }),
+    };
 
-		this.submit = this.commands.submit;
-		this.cancel = this.commands.cancel;
-		this.reset = this.commands.reset;
+    return commands;
+  }
 
-		if (!isUndefined(context.shortcut)) {
-			disposable.add(context.shortcut.register(new Map(
-				Object.entries(this.commands)
-			)));
-		}
-	}
+  constructor(plugin, context) {
+    const { model, disposable } = plugin;
 
-	get editors() {
-		return this.editor.editors;
-	}
+    this.plugin = plugin;
+    this.editor = new RowEditor(context.row, model.columnList().line);
+    this.caption = context.caption;
 
-	get commands() {
-		const commands = {
-			submit: new Command({
-				source: 'edit.form.panel',
-				shortcut: this.shortcutFactory('commit'),
-				execute: () => {
-					this.editor.commit();
-					this.submitEvent.emit();
-				}
-			}),
-			cancel: new Command({
-				source: 'edit.form.panel',
-				shortcut: this.shortcutFactory('cancel'),
-				execute: () => this.cancelEvent.emit()
-			}),
-			reset: new Command({
-				source: 'edit.form.panel',
-				execute: () => {
-					this.editor.editors.forEach(e => e.reset());
-					this.resetEvent.emit();
-				}
-			})
-		};
+    this.submitEvent = new Event();
+    this.cancelEvent = new Event();
+    this.resetEvent = new Event();
 
-		return commands;
-	}
+    this.submit = this.commands.submit;
+    this.cancel = this.commands.cancel;
+    this.reset = this.commands.reset;
 
-	shortcutFactory(type) {
-		const { model } = this.plugin;
-		return () => {
-			const shortcuts = model.edit()[type + 'Shortcuts'];
-			return shortcuts['reference'] || shortcuts['$default'];
-		};
-	}
+    if (!isUndefined(context.shortcut)) {
+      disposable.add(context.shortcut.register(new Map(
+        Object.entries(this.commands),
+      )));
+    }
+  }
+
+  shortcutFactory(type) {
+    const { model } = this.plugin;
+    return () => {
+      const shortcuts = model.edit()[type + 'Shortcuts'];
+      return shortcuts['reference'] || shortcuts['$default'];
+    };
+  }
 }

@@ -18,59 +18,59 @@ import { StyleLet } from '../style/style.let';
 import { ClipboardLet } from '../clipboard/clipboard.let';
 
 export function viewFactory(
-	plugin,
-	commandManager,
-	vscroll,
-	selectors
+  plugin,
+  commandManager,
+  vscroll,
+  selectors,
 ) {
-	const { model, disposable } = plugin;
-	const { shortcut } = model.action();
+  const { model, disposable } = plugin;
+  const { shortcut } = model.action();
 
-	const navigationShortcut = {
-		keyCode: () => shortcut.keyCode,
-		register: commands =>
-			disposable.add(
-				shortcut.register(
-					commandManager,
-					commands
-				)
-			),
-	};
+  const navigationShortcut = {
+    keyCode: () => shortcut.keyCode,
+    register: commands =>
+      disposable.add(
+        shortcut.register(
+          commandManager,
+          commands,
+        ),
+      ),
+  };
 
-	const selectionCommandManager =
-		new SelectionCommandManager(
-			model,
-			commandManager
-		);
+  const selectionCommandManager =
+    new SelectionCommandManager(
+      model,
+      commandManager,
+    );
 
-	const selectionShortcut = {
-		register: commands => {
-			disposable.add(
-				shortcut.register(
-					selectionCommandManager,
-					commands
-				)
-			);
-		}
-	};
+  const selectionShortcut = {
+    register: commands => {
+      disposable.add(
+        shortcut.register(
+          selectionCommandManager,
+          commands,
+        ),
+      );
+    },
+  };
 
-	return host => {
-		host.head = new HeadLet(plugin, selectors.th);
-		host.body = new BodyLet(plugin);
-		host.foot = new FootLet(plugin);
-		host.row = new RowLet(plugin, selectors.tr);
-		host.layout = new LayoutLet(plugin);
-		host.scroll = new ScrollLet(plugin, vscroll);
-		host.highlight = new HighlightLet(plugin);
-		host.sort = new SortLet(plugin);
-		host.pagination = new PaginationLet(plugin);
-		host.nav = new NavigationLet(plugin, navigationShortcut);
-		host.group = new GroupLet(plugin, navigationShortcut);
-		host.edit = new EditLet(plugin, navigationShortcut);
-		host.filter = new FilterLet(plugin);
-		host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);
-		host.selection = new SelectionLet(plugin, selectionShortcut);
-		host.style = new StyleLet(plugin);
-		host.clipboard = new ClipboardLet(plugin, navigationShortcut);
-	};
+  return host => {
+    host.head = new HeadLet(plugin, selectors.th);
+    host.body = new BodyLet(plugin);
+    host.foot = new FootLet(plugin);
+    host.row = new RowLet(plugin, selectors.tr);
+    host.layout = new LayoutLet(plugin);
+    host.scroll = new ScrollLet(plugin, vscroll);
+    host.highlight = new HighlightLet(plugin);
+    host.sort = new SortLet(plugin);
+    host.pagination = new PaginationLet(plugin);
+    host.nav = new NavigationLet(plugin, navigationShortcut);
+    host.group = new GroupLet(plugin, navigationShortcut);
+    host.edit = new EditLet(plugin, navigationShortcut);
+    host.filter = new FilterLet(plugin);
+    host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);
+    host.selection = new SelectionLet(plugin, selectionShortcut);
+    host.style = new StyleLet(plugin);
+    host.clipboard = new ClipboardLet(plugin, navigationShortcut);
+  };
 }

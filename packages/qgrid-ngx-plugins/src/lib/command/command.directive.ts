@@ -1,201 +1,200 @@
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
+
 import {
-	AfterViewInit, Directive,
-	DoCheck, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Optional, Output, SimpleChanges
+  AfterViewInit,
+  Directive,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnInit,
+  Optional,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
 import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 
 export class ZoneCommandManager {
-	constructor(
-		private run: <T>(f: () => T) => T,
-		private manager: CommandManager,
-		private commandArg: any
-	) {
-	}
+  constructor(
+    private run: <T>(f: () => T) => T,
+    private manager: CommandManager,
+    private commandArg: any,
+  ) {
+  }
 
-	invoke(commands: Command[]) {
-		return this.run(() =>
-			this.manager.invoke(commands, this.commandArg, 'command.directive')
-		);
-	}
+  invoke(commands: Command[]) {
+    return this.run(() =>
+      this.manager.invoke(commands, this.commandArg, 'command.directive'),
+    );
+  }
 
-	filter(commands) {
-		return this.manager.filter(commands);
-	}
+  filter(commands) {
+    return this.manager.filter(commands);
+  }
 }
 
 @Directive({
-	selector: '[q-grid-command]',
-	providers: [Disposable]
+  selector: '[q-grid-command]',
+  providers: [Disposable],
 })
 export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
-	private isAfterViewInit = false;
+  private isAfterViewInit = false;
 
-	@Input('q-grid-command')
-	command: Command<any>;
+  @Input('q-grid-command') command: Command<any>;
+  @Input('q-grid-command-arg') commandArg: any;
+  @Input('q-grid-command-use-shortcut') useCommandShortcut: boolean;
+  @Input('q-grid-command-event') commandEvent = 'click';
+  @Input('q-grid-command-use-zone') useZone: boolean;
+  @Input('q-grid-command-host') host: 'grid' | 'document' = 'grid';
+  @Output('q-grid-command-execute') commandExecute = new EventEmitter<any>();
 
-	@Input('q-grid-command-arg')
-	commandArg: any;
+  constructor(
+    private disposable: Disposable,
+    private elementRef: ElementRef,
+    private zone: NgZone,
+    @Optional() private plugin: GridPlugin,
+  ) {
+  }
 
-	@Input('q-grid-command-use-shortcut')
-	useCommandShortcut: boolean;
+  ngOnInit() {
+    const { nativeElement } = this.elementRef;
 
-	@Input('q-grid-command-event')
-	commandEvent = 'click';
+    this.aroundZone(() =>
+      nativeElement
+        .addEventListener(this.commandEvent, e => this.execute(e)),
+    );
+  }
 
-	@Input('q-grid-command-use-zone')
-	useZone: boolean;
+  ngDoCheck() {
+    if (!this.isAfterViewInit) {
+      return;
+    }
 
-	@Output('q-grid-command-execute')
-	commandExecute = new EventEmitter<any>();
+    if (this.command) {
+      this.updateState();
+    }
+  }
 
-	@Input('q-grid-command-host')
-	host: 'grid' | 'document' = 'grid';
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.command) {
+      this.unregister();
 
-	constructor(
-		private disposable: Disposable,
-		private elementRef: ElementRef,
-		private zone: NgZone,
-		@Optional() private plugin: GridPlugin
-	) {
-	}
+      if (this.command) {
+        this.register();
+      }
+    }
+  }
 
-	ngOnInit() {
-		const { nativeElement } = this.elementRef;
+  ngAfterViewInit() {
+    if (this.command) {
+      this.updateState();
+    }
 
-		this.aroundZone(() =>
-			nativeElement
-				.addEventListener(this.commandEvent, e => this.execute(e))
-		);
-	}
+    this.isAfterViewInit = true;
+  }
 
-	ngDoCheck() {
-		if (!this.isAfterViewInit) {
-			return;
-		}
+  private register() {
+    const { command, commandArg } = this;
 
-		if (this.command) {
-			this.updateState();
-		}
-	}
+    this.disposable.add(
+      command
+        .canExecuteCheck
+        .subscribe(() => this.updateState()),
+    );
 
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes.command) {
-			this.unregister();
+    if (this.useCommandShortcut && command.shortcut) {
+      if (this.plugin && this.host === 'grid') {
+        const { model } = this.plugin;
+        const { shortcut, manager } = model.action();
 
-			if (this.command) {
-				this.register();
-			}
-		}
-	}
+        const zoneManager = new ZoneCommandManager(
+          f => {
+            const result = this.aroundZone(f);
+            this.afterExecute();
+            return result;
+          },
+          manager,
+          commandArg,
+        );
 
-	ngAfterViewInit() {
-		if (this.command) {
-			this.updateState();
-		}
+        this.disposable.add(
+          shortcut.register(zoneManager, [command]),
+        );
+      } else {
+        const manager = new CommandManager(f => {
+          this.aroundZone(f);
+          this.afterExecute();
+        }, commandArg);
 
-		this.isAfterViewInit = true;
-	}
+        const shortcut = new Shortcut(new ShortcutDispatcher());
 
-	private register() {
-		const { command, commandArg } = this;
+        const keyDown = e => {
+          shortcut.keyDown(e);
+        };
 
-		this.disposable.add(
-			command
-				.canExecuteCheck
-				.subscribe(() => this.updateState())
-		);
+        document.addEventListener('keydown', keyDown);
 
-		if (this.useCommandShortcut && command.shortcut) {
-			if (this.plugin && this.host === 'grid') {
-				const { model } = this.plugin;
-				const { shortcut, manager } = model.action();
+        this.disposable.add(() =>
+          document.removeEventListener('keydown', keyDown),
+        );
 
-				const zoneManager = new ZoneCommandManager(
-					f => {
-						const result = this.aroundZone(f);
-						this.afterExecute();
-						return result;
-					},
-					manager,
-					commandArg,
-				);
+        this.disposable.add(
+          shortcut.register(manager, [command]),
+        );
+      }
+    }
+  }
 
-				this.disposable.add(
-					shortcut.register(zoneManager, [command])
-				);
-			} else {
-				const manager = new CommandManager(f => {
-					this.aroundZone(f);
-					this.afterExecute();
-				}, commandArg);
+  private execute(e?: MouseEvent) {
+    const { command, commandArg } = this;
+    const result = command.execute(commandArg) === true;
+    if (result && e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
-				const shortcut = new Shortcut(new ShortcutDispatcher());
+    this.afterExecute();
+  }
 
-				const keyDown = e => {
-					shortcut.keyDown(e);
-				};
+  private afterExecute() {
+    const { commandArg } = this;
+    this.commandExecute.emit(commandArg);
+    this.command.canExecuteCheck.next();
+  }
 
-				document.addEventListener('keydown', keyDown);
+  private unregister() {
+    this.disposable.finalize();
+  }
 
-				this.disposable.add(() =>
-					document.removeEventListener('keydown', keyDown)
-				);
+  private updateState() {
+    const nativeElement = this.elementRef.nativeElement as HTMLElement;
+    if (!nativeElement.setAttribute) {
+      return;
+    }
 
-				this.disposable.add(
-					shortcut.register(manager, [command])
-				);
-			}
-		}
-	}
+    const { command, commandArg } = this;
+    const canExecute = command.canExecute(commandArg) === true;
+    if (canExecute) {
+      if (nativeElement.hasAttribute('disabled')) {
+        nativeElement.removeAttribute('disabled');
+        nativeElement.classList.remove('q-grid-disabled');
+      }
+    } else {
+      if (!nativeElement.hasAttribute('!disabled')) {
+        nativeElement.setAttribute('disabled', 'true');
+        nativeElement.classList.add('q-grid-disabled');
+      }
+    }
+  }
 
-	private execute(e?: MouseEvent) {
-		const { command, commandArg } = this;
-		const result = command.execute(commandArg) === true;
-		if (result && e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
+  private aroundZone<T>(f: () => T): T {
+    if (this.useZone) {
+      return this.zone.run(f);
+    }
 
-		this.afterExecute();
-	}
-
-	private afterExecute() {
-		const { commandArg } = this;
-		this.commandExecute.emit(commandArg);
-		this.command.canExecuteCheck.next();
-	}
-
-	private unregister() {
-		this.disposable.finalize();
-	}
-
-	private updateState() {
-		const nativeElement = this.elementRef.nativeElement as HTMLElement;
-		if (!nativeElement.setAttribute) {
-			return;
-		}
-
-		const { command, commandArg } = this;
-		const canExecute = command.canExecute(commandArg) === true;
-		if (canExecute) {
-			if (nativeElement.hasAttribute('disabled')) {
-				nativeElement.removeAttribute('disabled');
-				nativeElement.classList.remove('q-grid-disabled');
-			}
-		} else {
-			if (!nativeElement.hasAttribute('!disabled')) {
-				nativeElement.setAttribute('disabled', 'true');
-				nativeElement.classList.add('q-grid-disabled');
-			}
-		}
-	}
-
-	private aroundZone<T>(f: () => T): T {
-		if (this.useZone) {
-			return this.zone.run(f);
-		}
-
-		return this.zone.runOutsideAngular(f);
-	}
+    return this.zone.runOutsideAngular(f);
+  }
 }

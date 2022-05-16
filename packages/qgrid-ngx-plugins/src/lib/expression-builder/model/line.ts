@@ -11,80 +11,79 @@ interface ExpressionEntry {
 }
 
 export class Line {
-	immutable = true;
-	readonly expressions: Expression[] = [];
+  immutable = true;
+  readonly expressions: Expression[] = [];
 
-	constructor(private GroupSchemaT: typeof GroupSchema) {
-	}
+  constructor(private GroupSchemaT: typeof GroupSchema) {
+  }
 
-	private getIndex(id: string) {
-		const index = this.expressions.findIndex(item => item.id === id);
-		if (index < 0) {
-			throw new GridError('line', `Expression ${id} not found`);
-		}
+  add(expression: Expression) {
+    this.expressions.push(expression);
+  }
 
-		return index;
-	}
+  clone(id: string) {
+    return cloneDeep(this.get(id)) as Expression;
+  }
 
-	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): ExpressionEntry {
-		for (let index = 0, length = expressions.length; index < length; index++) {
-			const expression = expressions[index];
-			if (expression.id === id) {
-				return { index, expression, parent };
-			}
-			if (expression instanceof GroupExpression) {
-				const group = expression as GroupExpression;
-				const groupChild = this.findById(group.expressions, id, group);
-				if (groupChild) {
-					return groupChild;
-				}
-			}
-		}
+  get(id: string) {
+    const expression = this.findById(this.expressions, id);
+    if (!expression) {
+      throw new GridError('line', `Expression ${id} not found`);
+    }
 
-		return null;
-	}
+    return expression.expression;
+  }
 
-	add(expression: Expression) {
-		this.expressions.push(expression);
-	}
+  put(id: string, node: Node, build) {
+    const index = this.getIndex(id);
+    const schema = new this.GroupSchemaT(node, this);
+    const group = new GroupExpression();
 
-	clone(id: string) {
-		return cloneDeep(this.get(id)) as Expression;
-	}
+    const item = this.findById(this.expressions, id);
+    if (item.expression instanceof GroupExpression) {
+      build(schema);
+      schema.apply(group);
+      group.id = id;
+      this.expressions.splice(index, 1, group);
+      this.immutable = false;
+    } else {
+      throw new GridError('line', 'Unsupported operation: put to expression, that is not a group');
+    }
+  }
 
-	get(id: string) {
-		const expression = this.findById(this.expressions, id);
-		if (!expression) {
-			throw new GridError('line', `Expression ${id} not found`);
-		}
+  remove(id) {
+    const item = this.findById(this.expressions, id);
+    if (item.expression instanceof GroupExpression) {
+      item.expression.expressions = [];
+    } else {
+      throw new GridError('line', 'Unsupported operation: remove expression, that is not a group');
+    }
+  }
 
-		return expression.expression;
-	}
+  private getIndex(id: string) {
+    const index = this.expressions.findIndex(item => item.id === id);
+    if (index < 0) {
+      throw new GridError('line', `Expression ${id} not found`);
+    }
 
-	put(id: string, node: Node, build) {
-		const index = this.getIndex(id);
-		const schema = new this.GroupSchemaT(node, this);
-		const group = new GroupExpression();
+    return index;
+  }
 
-		const item = this.findById(this.expressions, id);
-		if (item.expression instanceof GroupExpression) {
-			build(schema);
-			schema.apply(group);
-			group.id = id;
-			this.expressions.splice(index, 1, group);
-			this.immutable = false;
-		} else {
-			throw new GridError('line', 'Unsupported operation: put to expression, that is not a group');
-		}
-	}
+  private findById(expressions: Expression[], id: string, parent: GroupExpression = null): ExpressionEntry {
+    for (let index = 0, length = expressions.length; index < length; index++) {
+      const expression = expressions[index];
+      if (expression.id === id) {
+        return { index, expression, parent };
+      }
+      if (expression instanceof GroupExpression) {
+        const group = expression as GroupExpression;
+        const groupChild = this.findById(group.expressions, id, group);
+        if (groupChild) {
+          return groupChild;
+        }
+      }
+    }
 
-	remove(id) {
-		const item = this.findById(this.expressions, id);
-		const expressions = item.parent ? item.parent.expressions : this.expressions;
-		if (item.expression instanceof GroupExpression) {
-			item.expression.expressions = [];
-		} else {
-			throw new GridError('line', 'Unsupported operation: remove expression, that is not a group');
-		}
-	}
+    return null;
+  }
 }

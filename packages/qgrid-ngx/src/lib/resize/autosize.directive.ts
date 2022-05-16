@@ -2,75 +2,75 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Fastdom } from '@qgrid/core';
 
 @Directive({
-	selector: '[q-grid-autosize]'
+  selector: '[q-grid-autosize]',
 })
 export class AutoSizeDirective implements OnInit {
-	@Input('q-grid-autosize') selector;
-	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
-	private actualText: string;
-	private host: HTMLElement;
-	private element: HTMLInputElement;
+  private actualText: string;
+  private host: HTMLElement;
+  private element: HTMLInputElement;
 
-	constructor(element: ElementRef) {
-		this.host = element.nativeElement as HTMLInputElement;
-	}
+  @Input('q-grid-autosize') selector;
+  @Input('q-grid-autosize-empty-width') emptyWidth = 75;
 
-	ngOnInit() {
-		this.element = this.selector ? this.host.querySelector(this.selector) as HTMLInputElement : this.host as HTMLInputElement;
-	}
+  @Input('q-grid-autosize-value') set value(value: string) {
+    this.autoWidth(value);
+  }
 
-	autoWidth(text) {
-		if (!text) {
-			this.actualText = text;
-			Fastdom.measure(() => {
-				Fastdom.mutate(() => {
-					this.host.style.width = `${this.emptyWidth}px`;
-				});
-			});
-			return;
-		}
+  constructor(element: ElementRef) {
+    this.host = element.nativeElement as HTMLInputElement;
+  }
 
-		if (!this.element) {
-			return;
-		}
+  ngOnInit() {
+    this.element = this.selector ? this.host.querySelector(this.selector) as HTMLInputElement : this.host as HTMLInputElement;
+  }
 
-		if (this.actualText === text) {
-			return;
-		}
+  autoWidth(text) {
+    if (!text) {
+      this.actualText = text;
+      Fastdom.measure(() => {
+        Fastdom.mutate(() => {
+          this.host.style.width = `${this.emptyWidth}px`;
+        });
+      });
+      return;
+    }
 
-		this.actualText = text;
-		Fastdom.measure(() => {
-			const width = `${this.calculateWidth(this.element, text)}px`;
-			Fastdom.mutate(() => this.host.style.width = width);
-		});
-	}
+    if (!this.element) {
+      return;
+    }
 
-	@Input('q-grid-autosize-value')
-	set value(value: string) {
-		this.autoWidth(value);
-	}
+    if (this.actualText === text) {
+      return;
+    }
 
-	private calculateWidth(element: HTMLElement, text: string) {
-		let width = 0;
-		if (text) {
-			const document = element.ownerDocument;
-			const body = document.body;
-			const test = document.createElement('span');
+    this.actualText = text;
+    Fastdom.measure(() => {
+      const width = `${this.calculateWidth(this.element, text)}px`;
+      Fastdom.mutate(() => this.host.style.width = width);
+    });
+  }
 
-			test.innerText = text;
-			test.style.whiteSpace = 'pre';
-			test.style.visibility = 'hidden';
-			test.style.font = element.style.font;
-			test.style.fontFamily = element.style.fontFamily;
-			test.style.lineHeight = element.style.lineHeight;
-			test.style.border = element.style.border;
-			// borderBox ?
+  private calculateWidth(element: HTMLElement, text: string) {
+    let width = 0;
+    if (text) {
+      const document = element.ownerDocument;
+      const body = document.body;
+      const test = document.createElement('span');
 
-			body.appendChild(test);
-			width = test.offsetWidth;
-			test.remove();
-		}
+      test.innerText = text;
+      test.style.whiteSpace = 'pre';
+      test.style.visibility = 'hidden';
+      test.style.font = element.style.font;
+      test.style.fontFamily = element.style.fontFamily;
+      test.style.lineHeight = element.style.lineHeight;
+      test.style.border = element.style.border;
+      // borderBox ?
 
-		return width;
-	}
+      body.appendChild(test);
+      width = test.offsetWidth;
+      test.remove();
+    }
+
+    return width;
+  }
 }

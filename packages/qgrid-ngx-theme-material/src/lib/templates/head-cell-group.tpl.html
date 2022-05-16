@@ -1,10 +1,10 @@
 <ng-template key="head-cell-group.tpl.html"
              let-$cell
              let-$view="$view">
-    <label tabindex="-1"
-           [matTooltip]="$cell.column.description"
-           [matTooltipShowDelay]="800"
-           [q-grid-command]="$view.group.toggleAllStatus">
-        {{$cell.column.title}}
-    </label>
+  <label tabindex="-1"
+         [matTooltip]="$cell.column.description"
+         [matTooltipShowDelay]="800"
+         [q-grid-command]="$view.group.toggleAllStatus">
+         {{$cell.column.title}}
+  </label>
 </ng-template>

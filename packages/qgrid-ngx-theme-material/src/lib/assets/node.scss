@@ -1,40 +1,41 @@
 th.q-grid-group {
-    label {
-        cursor: pointer;
-        outline: none;
-    }
+  label {
+    cursor: pointer;
+    outline: none;
+  }
 }
 
 td.q-grid-group,
 td.q-grid-row-expand {
-    button {
-        @include buttonSizes(24px);
-        min-height: 24px;
-        margin: -1px 0 0 -6px;
-        padding: 0;
+  button {
+    @include buttonSizes(24px);
 
-        &.q-grid-expand {
-            .q-grid-icon {
-                transform: rotate(90deg);
-            }
-        }
+    min-height: 24px;
+    margin: -1px 0 0 -6px;
+    padding: 0;
 
-        .q-grid-icon {
-            opacity: 0.54;
-        }
-
-        .q-grid-group-label {
-            margin-left: -6px;
-            vertical-align: middle;
-        }
-
-        .q-grid-group-count {
-            vertical-align: middle;
-            color: $dark-secondary;
-        }
-
-        &:disabled {
-            display: none;
-        }
+    .q-grid-icon {
+      opacity: 0.54;
     }
+
+    &.q-grid-expand {
+      .q-grid-icon {
+        transform: rotate(90deg);
+      }
+    }
+
+    .q-grid-group-label {
+      margin-left: -6px;
+      vertical-align: middle;
+    }
+
+    .q-grid-group-count {
+      vertical-align: middle;
+      color: $dark-secondary;
+    }
+
+    &:disabled {
+      display: none;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 export declare class GridError extends Error {
-	constructor(name: string, message: string);
+  name: string;
 
-	name: string;
+  constructor(name: string, message: string);
 }

@@ -1,15 +1,24 @@
 import { final } from '../infrastructure/final';
 import {
-  checkButtonCode, getButtonCode, LEFT_BUTTON,
-  NO_BUTTON, stringify
+  checkButtonCode,
+  getButtonCode,
+  LEFT_BUTTON,
+  NO_BUTTON,
+  stringify,
 } from '../mouse/mouse.code';
 import { PathService } from '../path/path.service';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { eventPath } from '../services/dom';
 import { Fastdom } from '../services/fastdom';
 import { jobLine } from '../services/job.line';
+import { hasOwnProperty } from '../utility/kit';
 
 export class ViewHost {
+  get selection() {
+    const { model } = this.plugin;
+    return model.selection();
+  }
+
   constructor(plugin) {
     this.plugin = plugin;
 
@@ -36,8 +45,7 @@ export class ViewHost {
             const domRow = rowMonitor.enter();
             try {
               style.invalidate(domCell, domRow);
-            }
-            finally {
+            } finally {
               rowMonitor.exit();
               cellMonitor.exit();
             }
@@ -55,7 +63,7 @@ export class ViewHost {
     const job = jobLine(timeout);
     return (source, changes, units) => {
       model.scene({ status: 'start' }, {
-        source
+        source,
       });
 
       session.push(...units);
@@ -68,15 +76,15 @@ export class ViewHost {
             source,
             changes,
             pipe,
-            why: pipe.why || 'refresh'
-          })
+            why: pipe.why || 'refresh',
+          }),
         );
       });
     };
   }
 
   watch(service) {
-    const { model, observeReply } = this.plugin;;
+    const { model, observeReply } = this.plugin;
     const { triggers } = model.pipe();
     const { pipe } = model.data();
 
@@ -96,9 +104,11 @@ export class ViewHost {
             const units = [];
             const trigger = triggers[name];
             for (const key in e.changes) {
-              const unit = trigger[key];
-              if (unit) {
-                units.push(unit);
+              if(hasOwnProperty.call(e.changes, key)) {
+                const unit = trigger[key];
+                if (unit) {
+                  units.push(unit);
+                }
               }
             }
 
@@ -117,16 +127,16 @@ export class ViewHost {
     model.mouse({
       code: stringify(getButtonCode(e)),
       status: 'down',
-      target: td
+      target: td,
     }, {
-      source: 'mouse.down'
+      source: 'mouse.down',
     });
 
     if (checkButtonCode(e, LEFT_BUTTON)) {
       const { area, mode } = this.selection;
 
       if (td) {
-        const fromNotEditMode = edit().status === 'view'
+        const fromNotEditMode = edit().status === 'view';
 
         this.navigate(td);
         if (area === 'body') {
@@ -158,7 +168,7 @@ export class ViewHost {
       status: 'up',
       target: td,
     }, {
-      source: 'mouse.up'
+      source: 'mouse.up',
     });
 
     if (checkButtonCode(e, LEFT_BUTTON)) {
@@ -173,7 +183,7 @@ export class ViewHost {
       target: null,
       timestamp: Date.now(),
     }, {
-      source: 'mouse.up'
+      source: 'mouse.up',
     });
   }
 
@@ -191,18 +201,18 @@ export class ViewHost {
 
       const newCell = {
         rowIndex: td.rowIndex,
-        columnIndex: td.columnIndex
+        columnIndex: td.columnIndex,
       };
 
       model.mouse({
         status: 'move',
-        target: cell || newCell
+        target: cell || newCell,
       }, {
-        source: 'mouse.move'
+        source: 'mouse.move',
       });
 
       if (highlight.cell.canExecute(newCell)) {
-        highlight.cell.execute(newCell, true)
+        highlight.cell.execute(newCell, true);
       }
 
       const tr = this.findRow(e);
@@ -235,19 +245,19 @@ export class ViewHost {
         status: 'move',
         target: null,
       }, {
-        source: 'mouse.move'
+        source: 'mouse.move',
       });
     }
   }
 
-  mouseEnter(e) {
+  mouseEnter() {
     const { model } = this.plugin;
     model.mouse({
       status: 'enter',
       target: null,
-      code: null
+      code: null,
     }, {
-      source: 'mouse.enter'
+      source: 'mouse.enter',
     });
   }
 
@@ -257,9 +267,9 @@ export class ViewHost {
     model.mouse({
       status: 'leave',
       target: null,
-      code: null
+      code: null,
     }, {
-      source: 'mouse.leave'
+      source: 'mouse.leave',
     });
 
     this.clearHighlight();
@@ -327,8 +337,8 @@ export class ViewHost {
     if (!td) {
       const firstElement = path[0];
       const isEditMarker =
-        firstElement
-        && firstElement.classList.contains('q-grid-edit-marker');
+				firstElement
+				&& firstElement.classList.contains('q-grid-edit-marker');
 
       if (isEditMarker) {
         const { model } = this.plugin;
@@ -353,10 +363,5 @@ export class ViewHost {
     if (highlight.clear.canExecute()) {
       highlight.clear.execute();
     }
-  }
-
-  get selection() {
-    const { model } = this.plugin;
-    return model.selection();
   }
 }

@@ -24,15 +24,15 @@ export { DndModule } from './lib/dnd/dnd.module';
 export { DragDirective } from './lib/dnd/drag.directive';
 export { DropDirective } from './lib/dnd/drop.directive';
 export {
-	DomBag, DomBox,
-	DomCell, DomData, DomRow, DomTable, DomTd, DomTr, DomView
+  DomBag, DomBox,
+  DomCell, DomData, DomRow, DomTable, DomTd, DomTr, DomView,
 } from './lib/dom/dom';
 export { FootCoreComponent } from './lib/foot/foot-core.component';
 export { FootModule } from './lib/foot/foot.module';
 export { TfCoreDirective } from './lib/foot/tf-core.directive';
 export { Grid, GridService } from './lib/grid/grid';
 export { GridLet } from './lib/grid/grid-let';
-export { GridEvent, GridEventArg, GridModel } from './lib/grid/grid-model';
+export { GridEvent, GridEventArg, GridModel, GridNotifyModel, GridReadModel, GridWriteModel } from './lib/grid/grid-model';
 export { GridModelBuilder } from './lib/grid/grid-model.builder';
 export { GridRoot } from './lib/grid/grid-root';
 export { GridComponent } from './lib/grid/grid.component';

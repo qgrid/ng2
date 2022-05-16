@@ -1,10 +1,22 @@
 import {
-	ChangeDetectorRef, Directive,
-	ElementRef,
-	Input, OnChanges, OnDestroy,
-	OnInit, SimpleChange, SimpleChanges, ViewContainerRef
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+  ViewContainerRef,
 } from '@angular/core';
-import { ColumnModel, ColumnView, GridError, GRID_PREFIX, noop } from '@qgrid/core';
+import {
+  ColumnModel,
+  ColumnView,
+  GridError,
+  GRID_PREFIX,
+  noop,
+} from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
 import { DomTd } from '../dom/dom';
@@ -13,136 +25,136 @@ import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
 
 @Directive({
-	selector: '[q-grid-core-td]',
+  selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
-	$implicit = this;
+  @Input('q-grid-core-value') actualValue: any;
+  @Input('q-grid-core-label') actualLabel: any;
 
-	@Input('q-grid-core-value') actualValue: any;
-	@Input('q-grid-core-label') actualLabel: any;
+  @Input('q-grid-core-td') columnView: ColumnView;
 
-	@Input('q-grid-core-td') columnView: ColumnView;
+  $implicit = this;
 
-	element: HTMLElement;
-	changes: SimpleChange;
+  element: HTMLElement;
+  changes: SimpleChange;
 
-	constructor(
-		public $view: GridLet,
-		private root: GridRoot,
-		private viewContainerRef: ViewContainerRef,
-		private cellTemplate: CellTemplateService,
-		private cellClass: CellClassService,
-		private tr: TrCoreDirective,
-		private cd: ChangeDetectorRef,
-		elementRef: ElementRef
-	) {
-		this.element = elementRef.nativeElement.parentNode;
-	}
+  get value() {
+    return this.actualValue;
+  }
 
-	ngOnInit() {
-		const { table } = this.root;
-		table.box.bag.body.addCell(this);
+  set value(value) {
+    const { column, row, rowIndex, columnIndex } = this;
+    this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
+  }
 
-		this.cellClass.toBody(this.element, this.column);
+  get label() {
+    return this.actualLabel;
+  }
 
-		const link = this.cellTemplate.build('body', this.column, 'view');
-		link(this.viewContainerRef, this);
-	}
+  set label(label) {
+    const { column, row, rowIndex, columnIndex } = this;
+    this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
+  }
 
-	ngOnChanges(changes: SimpleChanges) {
-		const { actualLabel } = changes;
-		if (actualLabel && !actualLabel.firstChange && actualLabel.currentValue !== actualLabel.previousValue) {
-			this.changes = actualLabel;
-			this.mode('change');
-		}
-	}
+  get column(): ColumnModel {
+    return this.columnView.model;
+  }
 
-	mode(value: 'view' | 'edit' | 'change') {
-		const link = this.cellTemplate.build('body', this.column, value);
+  get columnIndex() {
+    return this.columnView.columnIndex;
+  }
 
-		switch (value) {
-			case 'view': {
-				this.element.classList.remove(`${GRID_PREFIX}-change`);
-				this.element.classList.remove(`${GRID_PREFIX}-edit`);
+  get row() {
+    return this.tr.model;
+  }
 
-				if (link !== noop) {
-					link(this.viewContainerRef, this);
-					this.cd.markForCheck();
-					this.cd.detectChanges();
-				}
-				break;
-			}
-			case 'edit': {
-				if (link === noop) {
-					throw new GridError(
-						`td-core.directive`,
-						`Can't find template link for edit of ${this.column.key}`
-					);
-				}
+  get rowIndex() {
+    return this.tr.index;
+  }
 
-				this.element.classList.add(`${GRID_PREFIX}-${value}`);
-				link(this.viewContainerRef, this);
-				this.cd.markForCheck();
-				this.cd.detectChanges();
-				break;
-			}
-			case 'change': {
-				if (link !== noop) {
-					this.element.classList.add(`${GRID_PREFIX}-${value}`);
-					link(this.viewContainerRef, this);
-					this.cd.markForCheck();
-					this.cd.detectChanges();
-				}
-				break;
-			}
-			default: {
-				throw new GridError('td-core.directive', `Invalid mode ${value}`);
-			}
-		}
-	}
+  get dataRowIndex() {
+    const { model } = this.root;
+    const { rows } = model.data();
+    return rows.indexOf(this.row);
+  }
 
-	get value() {
-		return this.actualValue;
-	}
+  constructor(
+    public $view: GridLet,
+    private root: GridRoot,
+    private viewContainerRef: ViewContainerRef,
+    private cellTemplate: CellTemplateService,
+    private cellClass: CellClassService,
+    private tr: TrCoreDirective,
+    private cd: ChangeDetectorRef,
+    elementRef: ElementRef,
+  ) {
+    this.element = elementRef.nativeElement.parentNode;
+  }
 
-	set value(value) {
-		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
-	}
+  ngOnInit() {
+    const { table } = this.root;
+    table.box.bag.body.addCell(this);
 
-	get label() {
-		return this.actualLabel;
-	}
+    this.cellClass.toBody(this.element, this.column);
 
-	set label(label) {
-		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
-	}
+    const link = this.cellTemplate.build('body', this.column, 'view');
+    link(this.viewContainerRef, this);
+  }
 
-	get column(): ColumnModel {
-		return this.columnView.model;
-	}
+  ngOnChanges(changes: SimpleChanges) {
+    const { actualLabel } = changes;
+    if (actualLabel && !actualLabel.firstChange && actualLabel.currentValue !== actualLabel.previousValue) {
+      this.changes = actualLabel;
+      this.mode('change');
+    }
+  }
 
-	get columnIndex() {
-		return this.columnView.columnIndex;
-	}
+  mode(value: 'view' | 'edit' | 'change') {
+    const link = this.cellTemplate.build('body', this.column, value);
 
-	get row() {
-		return this.tr.model;
-	}
+    switch (value) {
+      case 'view': {
+        this.element.classList.remove(`${GRID_PREFIX}-change`);
+        this.element.classList.remove(`${GRID_PREFIX}-edit`);
 
-	get rowIndex() {
-		return this.tr.index;
-	}
+        if (link !== noop) {
+          link(this.viewContainerRef, this);
+          this.cd.markForCheck();
+          this.cd.detectChanges();
+        }
+        break;
+      }
+      case 'edit': {
+        if (link === noop) {
+          throw new GridError(
+            'td-core.directive',
+            `Can't find template link for edit of ${this.column.key}`,
+          );
+        }
 
-	get dataRowIndex() {
-		const { model } = this.root;
-		const { rows } = model.data();
-		return rows.indexOf(this.row);
-	}
+        this.element.classList.add(`${GRID_PREFIX}-${value}`);
+        link(this.viewContainerRef, this);
+        this.cd.markForCheck();
+        this.cd.detectChanges();
+        break;
+      }
+      case 'change': {
+        if (link !== noop) {
+          this.element.classList.add(`${GRID_PREFIX}-${value}`);
+          link(this.viewContainerRef, this);
+          this.cd.markForCheck();
+          this.cd.detectChanges();
+        }
+        break;
+      }
+      default: {
+        throw new GridError('td-core.directive', `Invalid mode ${value}`);
+      }
+    }
+  }
 
-	ngOnDestroy() {
-		const { table } = this.root;
-		table.box.bag.body.deleteCell(this);
-	}
+  ngOnDestroy() {
+    const { table } = this.root;
+    table.box.bag.body.deleteCell(this);
+  }
 }

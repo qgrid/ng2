@@ -1,20 +1,23 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+// eslint-disable-next-line no-undef
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'chai-spies', 'chai'],
-    files: [
-      { pattern: 'src/**/*.spec.js', watched: false },
+    frameworks: [
+      'mocha',
+      'chai-spies',
+      'chai',
     ],
+    files: [{ pattern: 'src/**/*.spec.js', watched: false }],
     plugins: [
       'karma-mocha',
       'karma-chai-spies',
       'karma-chai',
       'karma-webpack',
       'karma-chrome-launcher',
-      'karma-mocha-reporter'
+      'karma-mocha-reporter',
     ],
     preprocessors: {
       'src/**/*.spec.js': ['webpack'],
@@ -27,14 +30,12 @@ module.exports = function (config) {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: [
-                  ['@babel/preset-env', { targets: "defaults" }]
-                ]
-              }
-            }
-          }
-        ]
-      }
+                presets: [['@babel/preset-env', { targets: 'defaults' }]],
+              },
+            },
+          },
+        ],
+      },
     },
     reporters: ['mocha'],
     port: 9876,
@@ -43,6 +44,6 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['ChromeHeadless'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
   });
 };

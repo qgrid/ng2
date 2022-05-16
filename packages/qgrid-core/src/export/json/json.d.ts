@@ -5,5 +5,5 @@ export interface JsonOptions {
 }
 
 export declare class JsonExport {
-	write(rows: any[], columns: ColumnModel[], options?: JsonOptions): string;
+  write(rows: any[], columns: ColumnModel[], options?: JsonOptions): string;
 }

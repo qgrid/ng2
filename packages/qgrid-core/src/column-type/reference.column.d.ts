@@ -6,5 +6,5 @@ export declare class ReferenceColumnModel extends DataColumnModel {
 }
 
 export class ReferenceColumn extends ColumnView {
-	constructor(model: ColumnModel);
+  constructor(model: ColumnModel);
 }

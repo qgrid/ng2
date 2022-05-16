@@ -4,7 +4,7 @@ export interface PersistenceItem {
 	title?: string;
 	modified?: Date;
 	model: {
-		[key: string]: any
+		[key: string]: any;
 	};
 	isDefault?: boolean;
 	group: string;
@@ -17,16 +17,17 @@ export interface PersistenceGroup {
 }
 
 export declare class PersistencePlugin {
-	constructor(plugin: GridPlugin, createDefaultModel: () => Model);
 
-	groups: PersistenceGroup[];
-	items: PersistenceItem[];
-	closeEvent: Event;
+  groups: PersistenceGroup[];
+  items: PersistenceItem[];
+  closeEvent: Event;
 
-	readonly blank: PersistenceItem;
-	readonly sortedItems: PersistenceItem[];
+  readonly blank: PersistenceItem;
+  readonly sortedItems: PersistenceItem[];
 
-	isActive(item: PersistenceItem): boolean;
-	isUniqueTitle(title: string): boolean;
-	stringify(item?: PersistenceItem): string;
+  constructor(plugin: GridPlugin, createDefaultModel: () => Model);
+
+  isActive(item: PersistenceItem): boolean;
+  isUniqueTitle(title: string): boolean;
+  stringify(item?: PersistenceItem): string;
 }

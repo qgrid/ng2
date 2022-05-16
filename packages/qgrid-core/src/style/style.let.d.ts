@@ -1,14 +1,14 @@
-import { StyleMonitor } from './style.monitor';
 import { GridPlugin } from '../plugin/grid.plugin';
+import { StyleMonitor } from './style.monitor';
 
 export declare class StyleLet {
-	constructor(plugin: GridPlugin);
-
-	readonly monitor: {
+  readonly monitor: {
 		row: StyleMonitor;
 		cell: StyleMonitor;
 	};
 
-	invalidate(domRow: any, domCell: any): void;
-	needInvalidate(): boolean;
+  constructor(plugin: GridPlugin);
+
+  invalidate(domRow: any, domCell: any): void;
+  needInvalidate(): boolean;
 }

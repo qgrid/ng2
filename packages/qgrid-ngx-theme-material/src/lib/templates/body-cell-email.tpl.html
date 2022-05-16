@@ -1,21 +1,21 @@
 <ng-template key="body-cell-email.tpl.html"
              let-$cell
              let-$view="$view">
-    <a href="mailto:{{$cell.value}}"
-       tabindex="-1">
-        {{$cell.label || $cell.value}}
-    </a>
-    <button *ngIf="$view.edit.cell.canEdit($cell)"
-            class="q-grid-url-edit q-grid-edit-trigger"
-            color="primary"
-            mat-icon-button
-            matTooltip="Edit Email"
-            [matTooltipShowDelay]="800"
-            matTooltipPosition="before"
-            [q-grid-command]="$view.edit.cell.enter"
-            [q-grid-command-arg]="$cell"
-            tabindex="-1"
-            aria-label="'email'">
-        <mat-icon class="q-grid-icon">edit</mat-icon>
-    </button>
+  <a href="mailto:{{$cell.value}}"
+     tabindex="-1">
+    {{$cell.label || $cell.value}}
+  </a>
+  <button *ngIf="$view.edit.cell.canEdit($cell)"
+          class="q-grid-url-edit q-grid-edit-trigger"
+          color="primary"
+          mat-icon-button
+          matTooltip="Edit Email"
+          [matTooltipShowDelay]="800"
+          matTooltipPosition="before"
+          [q-grid-command]="$view.edit.cell.enter"
+          [q-grid-command-arg]="$cell"
+          tabindex="-1"
+          aria-label="'email'">
+    <mat-icon class="q-grid-icon">edit</mat-icon>
+  </button>
 </ng-template>

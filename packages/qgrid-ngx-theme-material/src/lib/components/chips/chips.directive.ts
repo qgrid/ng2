@@ -1,14 +1,14 @@
 import { Directive, ApplicationRef } from '@angular/core';
 
 @Directive({
-	selector: '[q-grid-chips]'
+  selector: '[q-grid-chips]',
 })
 export class ChipsDirective {
-	constructor(
-		private app: ApplicationRef
-	) { }
+  constructor(
+		private app: ApplicationRef,
+  ) { }
 
-	tick() {
-		this.app.tick();
-	}
+  tick() {
+    this.app.tick();
+  }
 }

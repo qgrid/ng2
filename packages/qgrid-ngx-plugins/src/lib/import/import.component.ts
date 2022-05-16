@@ -1,81 +1,97 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, TemplateRef } from '@angular/core';
-import { Action, ColumnModel, Command, Composite, EventListener, EventManager } from '@qgrid/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  ElementRef,
+  Input,
+  TemplateRef,
+} from '@angular/core';
+import {
+  Action,
+  ColumnModel,
+  Command,
+  Composite,
+  EventListener,
+  EventManager,
+} from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 import { ImportPlugin } from '@qgrid/plugins';
 
 @Component({
-	selector: 'q-grid-import',
-	templateUrl: './import.component.html',
-	providers: [TemplateHostService, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'q-grid-import',
+  templateUrl: './import.component.html',
+  providers: [TemplateHostService, GridPlugin],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportComponent implements AfterViewInit {
-	@Input() options: any;
-	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+  @Input() options: any;
+  @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-	context: { $implicit: ImportComponent } = {
-		$implicit: this
-	};
+  // eslint-disable-next-line no-use-before-define
+  context: { $implicit: ImportComponent } = {
+    $implicit: this,
+  };
 
-	constructor(
-		private plugin: GridPlugin,
-		private templateHost: TemplateHostService,
-		private hostElement: ElementRef
-	) {
-		this.templateHost.key = () => `import`;
-	}
+  get rows() {
+    return this.plugin.model.data().rows;
+  }
 
-	ngAfterViewInit() {
-		const { model, disposable } = this.plugin;
-		const { nativeElement } = this.hostElement;
+  get columns(): ColumnModel[] {
+    return this.plugin.model.columnList().line;
+  }
 
-		const eventListener = new EventListener(nativeElement, new EventManager(this));
-		const importPlugin = new ImportPlugin(model, nativeElement, this.options);
+  get id() {
+    return this.plugin.model.grid().id;
+  }
 
-		eventListener.on('change', (e) => importPlugin.load(e));
+  constructor(
+    private plugin: GridPlugin,
+    private templateHost: TemplateHostService,
+    private hostElement: ElementRef,
+  ) {
+    this.templateHost.key = () => 'import';
+  }
 
-		const action = new Action(
-			new Command({
-				execute: () => importPlugin.upload()
-			}),
-			`Import data`,
-			'file_upload'
-		);
+  ngAfterViewInit() {
+    const { model, disposable } = this.plugin;
+    const { nativeElement } = this.hostElement;
 
-		if (this.templateRef) {
-			action.templateUrl = this.templateHost.key('trigger');
-		}
+    const eventListener = new EventListener(nativeElement, new EventManager(this));
+    const importPlugin = new ImportPlugin(model, nativeElement, this.options);
 
-		const items = Composite.list([model.action().items, [action]]);
+    eventListener.on('change', e => importPlugin.load(e));
 
-		model.action({
-			items
-		}, {
-			source: 'import.component'
-		});
+    const action = new Action(
+      new Command({
+        execute: () => importPlugin.upload(),
+      }),
+      'Import data',
+      'file_upload',
+    );
 
-		disposable.add(() => {
-			const notImportItems =
-				model.action({
-					items: model
-						.action()
-						.items
-						.filter(x => x !== action)
-				}, {
-					source: 'import.component'
-				});
-		});
-	}
+    if (this.templateRef) {
+      action.templateUrl = this.templateHost.key('trigger');
+    }
 
-	get rows() {
-		return this.plugin.model.data().rows;
-	}
+    const items = Composite.list([model.action().items, [action]]);
 
-	get columns(): ColumnModel[] {
-		return this.plugin.model.columnList().line;
-	}
+    model.action({
+      items,
+    }, {
+      source: 'import.component',
+    });
 
-	get id() {
-		return this.plugin.model.grid().id;
-	}
+    disposable.add(() => {
+      // notImportItems
+      model.action({
+        items: model
+          .action()
+          .items
+          .filter(x => x !== action),
+      }, {
+        source: 'import.component',
+      });
+    });
+  }
 }

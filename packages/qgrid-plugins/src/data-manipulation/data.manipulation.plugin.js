@@ -1,265 +1,278 @@
 import * as columnService from '@qgrid/core';
-import { Action, Command, Composite, filter, GridError, isUndefined, setLabel, setValue, takeOnce } from '@qgrid/core';
+import {
+  Action,
+  Command,
+  Composite,
+  filter,
+  GridError,
+  isUndefined,
+  setLabel,
+  setValue,
+  takeOnce,
+} from '@qgrid/core';
 import { DataManipulationState } from './data.manipulation.state';
 
 export class DataManipulationPlugin {
-	constructor(plugin) {
-		this.plugin = plugin;
 
-		this.commitCommand = new Command({
-			execute: e => {
-				if (e.column.category !== 'data') {
-					return;
-				}
+  get changes() {
+    const { model } = this.plugin;
+    return model.dataManipulation();
+  }
 
-				const rowId = this.rowId(e.rowIndex, e.row);
-				const columnId = this.columnId(e.columnIndex, e.column);
-				const { edited } = this.changes;
+  get resource() {
+    const dm = this.model.resolve(DataManipulationState);
+    return dm.state().resource;
+  }
 
-				let entries = edited.get(rowId);
-				if (!entries) {
-					entries = [];
-					edited.set(rowId, entries);
-				}
+  constructor(plugin) {
+    this.plugin = plugin;
 
-				let entryIndex = entries.findIndex(entry => entry.column === columnId);
-				let entry = entries[entryIndex];
-				if (!entry) {
-					entry = {
-						column: columnId,
-						oldValue: e.oldValue,
-						oldLabel: e.oldLabel
-					};
+    this.commitCommand = new Command({
+      execute: e => {
+        if (e.column.category !== 'data') {
+          return;
+        }
 
-					entryIndex = entries.length;
-					entries.push(entry);
-				}
+        const rowId = this.rowId(e.rowIndex, e.row);
+        const columnId = this.columnId(e.columnIndex, e.column);
+        const { edited } = this.changes;
 
-				entry.newValue = e.newValue;
-				entry.newLabel = e.newLabel;
+        let entries = edited.get(rowId);
+        if (!entries) {
+          entries = [];
+          edited.set(rowId, entries);
+        }
 
-				// TODO: understand if we need to track label changes?
-				if (!this.hasChanges(entry.newValue, entry.oldValue)) {
-					entries.splice(entryIndex, 1);
-					if (!entries.length) {
-						edited.delete(rowId);
-					}
-				}
-			}
-		});
+        let entryIndex = entries.findIndex(entry => entry.column === columnId);
+        let entry = entries[entryIndex];
+        if (!entry) {
+          entry = {
+            column: columnId,
+            oldValue: e.oldValue,
+            oldLabel: e.oldLabel,
+          };
 
-		this.actions = [
-			new Action(
-				new Command({
-					source: 'data.manipulation',
-					execute: () => {
-						const { model, observe, table } = this.plugin;
-						const { data } = model;
+          entryIndex = entries.length;
+          entries.push(entry);
+        }
 
-						const newRow = this.rowFactory(model.data().rows[0]);
-						if (isUndefined(newRow)) {
-							throw new GridError('data.manipulation', 'Setup rowFactory property to add new rows');
-						}
+        entry.newValue = e.newValue;
+        entry.newLabel = e.newLabel;
 
-						const rowId = this.rowId(0, newRow);
-						this.changes.added.add(rowId);
-						data({
-							rows: [newRow].concat(data().rows)
-						}, {
-							source: 'data.manipulation'
-						});
+        // TODO: understand if we need to track label changes?
+        if (!this.hasChanges(entry.newValue, entry.oldValue)) {
+          entries.splice(entryIndex, 1);
+          if (!entries.length) {
+            edited.delete(rowId);
+          }
+        }
+      },
+    });
 
-						observe(model.sceneChanged)
-							.pipe(
-								filter(e => e.hasChanges('status') && e.state.status === 'stop'),
-								takeOnce()
-							)
-							.subscribe(e => {
-								const index = model.view().rows.indexOf(newRow);
-								model.focus({
-									rowIndex: index
-								}, {
-									source: 'data.manipulation.plugin'
-								});
+    this.actions = [
+      new Action(
+        new Command({
+          source: 'data.manipulation',
+          execute: () => {
+            const { model, observe, table } = this.plugin;
+            const { data } = model;
 
-								table.view.focus();
-							});
-					},
-					shortcut: 'F7'
-				}),
-				'Add New Row',
-				'add'
-			)];
+            const newRow = this.rowFactory(model.data().rows[0]);
+            if (isUndefined(newRow)) {
+              throw new GridError('data.manipulation', 'Setup rowFactory property to add new rows');
+            }
 
-		this.rowActions = [
-			new Action(
-				new Command({
-					source: 'data.manipulation',
-					canExecute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						return !this.changes.deleted.has(rowId);
-					},
-					execute: e => {
-						const { model } = this.plugin;
-						const { data } = model;
+            const rowId = this.rowId(0, newRow);
+            this.changes.added.add(rowId);
+            data({
+              rows: [newRow].concat(data().rows),
+            }, {
+              source: 'data.manipulation',
+            });
 
-						const rowId = this.rowId(e.rowIndex, e.row);
-						const changes = this.changes;
-						if (changes.added.has(rowId)) {
-							changes.added.delete(rowId);
-							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
-							data({ rows }, {
-								source: 'data.manipulation'
-							});
-						}
-						else {
-							changes.deleted.add(rowId);
-						}
-					}
-				}),
-				'Delete Row',
-				'delete'
-			),
-			new Action(
-				new Command({
-					source: 'data.manipulation',
-					execute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						if (this.changes.deleted.has(rowId)) {
-							this.changes.deleted.delete(rowId);
-						}
+            observe(model.sceneChanged)
+              .pipe(
+                filter(e => e.hasChanges('status') && e.state.status === 'stop'),
+                takeOnce(),
+              )
+              .subscribe(() => {
+                const index = model.view().rows.indexOf(newRow);
+                model.focus({
+                  rowIndex: index,
+                }, {
+                  source: 'data.manipulation.plugin',
+                });
 
-						if (this.changes.edited.has(rowId)) {
-							try {
-								const { model } = this.plugin;
+                table.view.focus();
+              });
+          },
+          shortcut: 'F7',
+        }),
+        'Add New Row',
+        'add',
+      ),
+    ];
 
-								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.mapColumns(model.columnList().line);
-								for (const edit of edits) {
-									const column = columnMap[edit.column];
-									if (!column) {
-										throw new GridError('data.manipulation', `Column ${edit.column} is not found`);
-									}
+    this.rowActions = [
+      new Action(
+        new Command({
+          source: 'data.manipulation',
+          canExecute: e => {
+            const rowId = this.rowId(e.rowIndex, e.row);
+            return !this.changes.deleted.has(rowId);
+          },
+          execute: e => {
+            const { model } = this.plugin;
+            const { data } = model;
 
-									setValue(e.row, column, edit.oldValue);
-									setLabel(e.row, column, edit.oldLabel);
-								}
-							}
-							finally {
-								this.changes.edited.delete(rowId);
-							}
-						}
-					},
-					canExecute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
-					}
-				}),
-				'Revert Row',
-				'restore'
-			),
-			// new Action(
-			//	source: 'data.manipulation',
-			// 	new Command({
-			// 		execute: () => {
-			// 			// TODO make edit form service
-			// 		}
-			// 	}),
-			// 	'Edit Form',
-			// 	'edit'
-			// )
-		];
+            const rowId = this.rowId(e.rowIndex, e.row);
+            const changes = this.changes;
+            if (changes.added.has(rowId)) {
+              changes.added.delete(rowId);
+              const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
+              data({ rows }, {
+                source: 'data.manipulation',
+              });
+            } else {
+              changes.deleted.add(rowId);
+            }
+          },
+        }),
+        'Delete Row',
+        'delete',
+      ),
+      new Action(
+        new Command({
+          source: 'data.manipulation',
+          execute: e => {
+            const rowId = this.rowId(e.rowIndex, e.row);
+            if (this.changes.deleted.has(rowId)) {
+              this.changes.deleted.delete(rowId);
+            }
 
-		const { model, disposable, observeReply } = this.plugin;
+            if (this.changes.edited.has(rowId)) {
+              try {
+                const { model } = this.plugin;
 
-		this.rowId = model.data().rowId;
-		this.columnId = model.data().columnId;
+                const edits = this.changes.edited.get(rowId);
+                const columnMap = columnService.mapColumns(model.columnList().line);
+                for (const edit of edits) {
+                  const column = columnMap[edit.column];
+                  if (!column) {
+                    throw new GridError('data.manipulation', `Column ${edit.column} is not found`);
+                  }
 
-		const dm = model.resolve(DataManipulationState);
-		this.rowFactory = dm.state().rowFactory;
+                  setValue(e.row, column, edit.oldValue);
+                  setLabel(e.row, column, edit.oldLabel);
+                }
+              } finally {
+                this.changes.edited.delete(rowId);
+              }
+            }
+          },
+          canExecute: e => {
+            const rowId = this.rowId(e.rowIndex, e.row);
+            return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
+          },
+        }),
+        'Revert Row',
+        'restore',
+      ),
+      // new Action(
+      //	source: 'data.manipulation',
+      // 	new Command({
+      // 		execute: () => {
+      // 			// TODO make edit form service
+      // 		}
+      // 	}),
+      // 	'Edit Form',
+      // 	'edit'
+      // )
+    ];
 
-		const styleState = model.style();
-		const rows = Array.from(styleState.rows);
-		const cells = Array.from(styleState.cells);
-		rows.push(this.styleRow.bind(this));
-		cells.push(this.styleCell.bind(this));
+    const { model, disposable, observeReply } = this.plugin;
+
+    this.rowId = model.data().rowId;
+    this.columnId = model.data().columnId;
+
+    const dm = model.resolve(DataManipulationState);
+    this.rowFactory = dm.state().rowFactory;
+
+    const styleState = model.style();
+    const rows = Array.from(styleState.rows);
+    const cells = Array.from(styleState.cells);
+    rows.push(this.styleRow.bind(this));
+    cells.push(this.styleCell.bind(this));
 
 
-		model
-			.edit({
-				mode: 'cell',
-				commit: Composite.command([this.commitCommand, model.edit().commit])
-			})
-			.style({
-				rows, cells
-			})
-			.action({
-				items: Composite.list([this.actions, model.action().items])
-			});
+    model
+      .edit({
+        mode: 'cell',
+        commit: Composite.command([this.commitCommand, model.edit().commit]),
+      })
+      .style({
+        rows, cells,
+      })
+      .action({
+        items: Composite.list([this.actions, model.action().items]),
+      });
 
-		disposable.add(() => {
-			const { items } = model.action();
-			const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
-			model.action({ items: notDMActions });
-		});
+    disposable.add(() => {
+      const { items } = model.action();
+      const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
+      model.action({ items: notDMActions });
+    });
 
-		observeReply(model.columnListChanged)
-			.pipe(
-				filter(e => e.hasChanges('line')),
-				takeOnce()
-			)
-			.subscribe(e => {
-				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
-				if (rowOptionsColumn) {
-					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
-				}
-			});
-	}
+    observeReply(model.columnListChanged)
+      .pipe(
+        filter(e => e.hasChanges('line')),
+        takeOnce(),
+      )
+      .subscribe(e => {
+        const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
+        if (rowOptionsColumn) {
+          rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
+        }
+      });
+  }
 
-	hasChanges(newValue, oldValue) {
-		// TODO: understand if we need to parse values (e.g. '12' vs 12)
-		return newValue !== oldValue;
-	}
+  hasChanges(newValue, oldValue) {
+    if (Array.isArray(newValue) && Array.isArray(oldValue)) {
+      const haschanges = oldValue.some((item, index) => item !== newValue[index]);
 
-	styleRow(row, context) {
-		const rowId = this.rowId(context.row, row);
-		if (this.changes.deleted.has(rowId)) {
-			context.class('deleted', { opacity: 0.3 });
-		}
-	}
+      return haschanges;
+    }
 
-	styleCell(row, column, context) {
-		const rowId = this.rowId(context.row, row);
-		const changes = this.changes;
-		if (column.type === 'row-indicator') {
-			if (changes.deleted.has(rowId)) {
-				context.class('delete-indicator', { background: '#EF5350' });
-			}
-			else if (changes.added.has(rowId)) {
-				context.class('add-indicator', { background: '#C8E6C9' });
-			}
-			else if (changes.edited.has(rowId)) {
-				context.class('edit-indicator', { background: '#E3F2FD' });
-			}
+    return newValue !== oldValue;
+  }
 
-			return;
-		}
+  styleRow(row, context) {
+    const rowId = this.rowId(context.row, row);
+    if (this.changes.deleted.has(rowId)) {
+      context.class('deleted', { opacity: 0.3 });
+    }
+  }
 
-		if (changes.edited.has(rowId)) {
-			const entries = changes.edited.get(rowId);
-			if (entries.findIndex(entry => entry.column === this.columnId(context.column, column)) >= 0) {
-				context.class('edited', { background: '#E3F2FD' });
-			}
-		}
-	}
+  styleCell(row, column, context) {
+    const rowId = this.rowId(context.row, row);
+    const changes = this.changes;
+    if (column.type === 'row-indicator') {
+      if (changes.deleted.has(rowId)) {
+        context.class('delete-indicator', { background: '#EF5350' });
+      } else if (changes.added.has(rowId)) {
+        context.class('add-indicator', { background: '#C8E6C9' });
+      } else if (changes.edited.has(rowId)) {
+        context.class('edit-indicator', { background: '#E3F2FD' });
+      }
 
-	get changes() {
-		const { model } = this.plugin;
-		return model.dataManipulation();
-	}
+      return;
+    }
 
-	get resource() {
-		const dm = this.model.resolve(DataManipulationState);
-		return dm.state().resource;
-	}
+    if (changes.edited.has(rowId)) {
+      const entries = changes.edited.get(rowId);
+      if (entries.findIndex(entry => entry.column === this.columnId(context.column, column)) >= 0) {
+        context.class('edited', { background: '#E3F2FD' });
+      }
+    }
+  }
 }

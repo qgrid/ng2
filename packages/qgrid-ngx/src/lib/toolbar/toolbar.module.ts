@@ -4,17 +4,17 @@ import { ToolbarCoreComponent } from './toolbar-core.component';
 import { TemplateModule } from '../template/template.module';
 
 @NgModule({
-	declarations: [
-		ToolbarComponent,
-		ToolbarCoreComponent
-	],
-	exports: [
-		ToolbarComponent,
-		ToolbarCoreComponent
-	],
-	imports: [
-		TemplateModule
-	]
+  declarations: [
+    ToolbarComponent,
+    ToolbarCoreComponent,
+  ],
+  exports: [
+    ToolbarComponent,
+    ToolbarCoreComponent,
+  ],
+  imports: [
+    TemplateModule,
+  ],
 })
 export class ToolbarModule {
 }

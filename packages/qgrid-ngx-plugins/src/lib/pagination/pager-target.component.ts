@@ -3,87 +3,87 @@ import { Shortcut } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
-	selector: 'q-grid-pager-target',
-	templateUrl: './pager-target.component.html',
-	providers: [GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'q-grid-pager-target',
+  templateUrl: './pager-target.component.html',
+  providers: [GridPlugin],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagerTargetComponent implements OnInit {
-	private value: number;
+  private value: number;
 
-	context: { $implicit: PagerTargetComponent } = {
-		$implicit: this
-	};
+  // eslint-disable-next-line no-use-before-define
+  context: { $implicit: PagerTargetComponent } = {
+    $implicit: this,
+  };
 
-	constructor(private plugin: GridPlugin) {
-	}
+  get current() {
+    return this.plugin.model.pagination().current + 1;
+  }
 
-	ngOnInit() {
-		this.value = this.current;
-	}
+  get total() {
+    const { count, size } = this.plugin.model.pagination();
+    return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
+  }
 
-	keyDown(e: KeyboardEvent) {
-		let code = Shortcut.translate(e);
-		if (code.startsWith('numpad')) {
-			code = code.slice(6);
-		}
+  constructor(private plugin: GridPlugin) {
+  }
 
-		const value = this.value || 0;
+  ngOnInit() {
+    this.value = this.current;
+  }
 
-		switch (code) {
-			case 'enter': {
-				if (value) {
-					const current = value - 1;
-					if (this.plugin.model.pagination().current !== current) {
-						// tslint:disable-next-line:no-unused-expression
-						// new FocusAfterRender(this.plugin);
-						this.plugin.model.pagination({
-							current
-						}, {
-							source: 'pager-target.component'
-						});
-					}
-				}
-				break;
-			}
-			case 'up': {
-				if (value < this.total) {
-					this.value = value + 1;
-				}
-				break;
-			}
-			case 'down': {
-				if (value > 1) {
-					this.value = value - 1;
-				}
-				break;
-			}
-			case 'left':
-			case 'right':
-			case 'backspace': {
-				break;
-			}
-			default: {
-				const digit = Number.parseInt(code, 10);
-				const page = Number.parseInt('' + value + digit, 10);
-				const min = 1;
-				const max = this.total;
-				const isValid = page >= min && page <= max && !isNaN(digit);
+  keyDown(e: KeyboardEvent) {
+    let code = Shortcut.translate(e);
+    if (code.startsWith('numpad')) {
+      code = code.slice(6);
+    }
 
-				if (!isValid) {
-					page > this.total ? this.value = max : this.value = min;
-					e.preventDefault();
-				}
-			}
-		}
-	}
+    const value = this.value || 0;
 
-	get current() {
-		return this.plugin.model.pagination().current + 1;
-	}
+    switch (code) {
+      case 'enter': {
+        if (value) {
+          const current = value - 1;
+          if (this.plugin.model.pagination().current !== current) {
+            // new FocusAfterRender(this.plugin);
+            this.plugin.model.pagination({
+              current,
+            }, {
+              source: 'pager-target.component',
+            });
+          }
+        }
+        break;
+      }
+      case 'up': {
+        if (value < this.total) {
+          this.value = value + 1;
+        }
+        break;
+      }
+      case 'down': {
+        if (value > 1) {
+          this.value = value - 1;
+        }
+        break;
+      }
+      case 'left':
+      case 'right':
+      case 'backspace': {
+        break;
+      }
+      default: {
+        const digit = Number.parseInt(code, 10);
+        const page = Number.parseInt('' + value + digit, 10);
+        const min = 1;
+        const max = this.total;
+        const isValid = page >= min && page <= max && !isNaN(digit);
 
-	get total() {
-		const { count, size } = this.plugin.model.pagination();
-		return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
-	}
+        if (!isValid) {
+          this.value = page > this.total ? max : min;
+          e.preventDefault();
+        }
+      }
+    }
+  }
 }

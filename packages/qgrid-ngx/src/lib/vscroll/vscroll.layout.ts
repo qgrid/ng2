@@ -5,136 +5,136 @@ import { VscrollPort } from './vscroll.port';
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 
 function empty() {
-	return 0;
+  return 0;
 }
 
 export class VscrollLayout {
-	private items = [];
-	private minArm = UNSET_ARM;
-	private position = findPositionUsingOffsets(0, []);
-	private getOffsets = recycleFactory(this.items);
+  private items = [];
+  private minArm = UNSET_ARM;
+  private position = findPositionUsingOffsets(0, []);
+  private getOffsets = recycleFactory(this.items);
 
-	constructor(private port: VscrollPort) {
-	}
+  private get container() {
+    return this.port.context.container;
+  }
 
-	recycle(count: number, box: VscrollBox, force: boolean): IVscrollPosition | null {
-		const { port } = this;
-		const itemSize = port.getItemSize();
-		if (itemSize) {
-			return this.recycleItemSize(count, box, force, itemSize);
-		}
+  private get settings() {
+    return this.port.context.settings;
+  }
 
-		return this.recycleOffsets(count, box, force);
-	}
+  constructor(private port: VscrollPort) {
+  }
 
-	invalidate(position: IVscrollPosition): number {
-		const { offset } = position;
-		const pad1 = Math.max(0, offset);
-		const pad2 = Math.max(0, position.pad - pad1);
+  recycle(count: number, box: VscrollBox, force: boolean): IVscrollPosition | null {
+    const { port } = this;
+    const itemSize = port.getItemSize();
+    if (itemSize) {
+      return this.recycleItemSize(count, box, force, itemSize);
+    }
 
-		this.port.move(pad1, pad2);
-		return position.index;
-	}
+    return this.recycleOffsets(count, box, force);
+  }
 
-	reset() {
-		this.minArm = UNSET_ARM;
-		this.getOffsets = this.port.recycleFactory(this.items);
-		this.position = findPositionUsingOffsets(0, []);
-		return this.invalidate(this.position);
-	}
+  invalidate(position: IVscrollPosition): number {
+    const { offset } = position;
+    const pad1 = Math.max(0, offset);
+    const pad2 = Math.max(0, position.pad - pad1);
 
-	setItem(index: number, item: () => number) {
-		const { items } = this;
-		items[index] = item;
-		while (--index >= 0) {
-			if (items[index]) {
-				break;
-			}
+    this.port.move(pad1, pad2);
+    return position.index;
+  }
 
-			items[index] = empty;
-		}
-	}
+  reset() {
+    this.minArm = UNSET_ARM;
+    this.getOffsets = this.port.recycleFactory(this.items);
+    this.position = findPositionUsingOffsets(0, []);
+    return this.invalidate(this.position);
+  }
 
-	removeItem(index: number) {
-		const { items } = this;
-		const last = items.length - 1;
-		if (index === last) {
-			items.pop();
-			while (--index >= 0) {
-				const item = items[index];
-				if (item !== empty) {
-					break;
-				}
+  setItem(index: number, item: () => number) {
+    const { items } = this;
+    items[index] = item;
+    while (--index >= 0) {
+      if (items[index]) {
+        break;
+      }
 
-				items.pop();
-			}
-		} else {
-			items[index] = empty;
-		}
-	}
+      items[index] = empty;
+    }
+  }
 
-	private recycleOffsets(count: number, box: VscrollBox, force: boolean) {
-		const { position, port } = this;
-		const { threshold } = this.settings;
-		const offsets = this.getOffsets(position.index, count);
-		const arm = this.getArmUsingOffsets(offsets, box, position.index);
+  removeItem(index: number) {
+    const { items } = this;
+    const last = items.length - 1;
+    if (index === last) {
+      items.pop();
+      while (--index >= 0) {
+        const item = items[index];
+        if (item !== empty) {
+          break;
+        }
 
-		this.minArm = Math.min(this.minArm, arm);
+        items.pop();
+      }
+    } else {
+      items[index] = empty;
+    }
+  }
 
-		const newPosition = port.getPositionUsingOffsets(offsets, box, this.minArm);
-		if (force || position.index !== newPosition.index) {
-			const last = Math.min(offsets.length - 1, newPosition.index + threshold - 1);
-			const first = newPosition.index - 1;
-			const viewSize = (offsets[last] || 0) - (offsets[first] || 0);
-			const scrollSize = offsets[offsets.length - 1] || 0;
-			const padSize = scrollSize - viewSize;
-			newPosition.pad = padSize;
-			return this.position = newPosition;
-		}
+  private recycleOffsets(count: number, box: VscrollBox, force: boolean) {
+    const { position, port } = this;
+    const { threshold } = this.settings;
+    const offsets = this.getOffsets(position.index, count);
+    const arm = this.getArmUsingOffsets(offsets, box, position.index);
 
-		return null;
-	}
+    this.minArm = Math.min(this.minArm, arm);
 
-	private recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
-		const { position, port } = this;
-		const arm = this.getArmUsingItemSize(itemSize, box);
-		const newPosition = port.getPositionUsingItemSize(itemSize, box, arm);
+    const newPosition = port.getPositionUsingOffsets(offsets, box, this.minArm);
+    if (force || position.index !== newPosition.index) {
+      const last = Math.min(offsets.length - 1, newPosition.index + threshold - 1);
+      const first = newPosition.index - 1;
+      const viewSize = (offsets[last] || 0) - (offsets[first] || 0);
+      const scrollSize = offsets[offsets.length - 1] || 0;
+      const padSize = scrollSize - viewSize;
+      newPosition.pad = padSize;
+      return this.position = newPosition;
+    }
 
-		if (force || position.index !== newPosition.index) {
-			const { threshold } = this.settings;
-			const remain = Math.max(0, newPosition.index + threshold - this.container.count);
-			newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
-			return this.position = newPosition;
-		}
+    return null;
+  }
 
-		return null;
-	}
+  private recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
+    const { position, port } = this;
+    const arm = this.getArmUsingItemSize(itemSize, box);
+    const newPosition = port.getPositionUsingItemSize(itemSize, box, arm);
 
-	private getArmUsingItemSize(itemSize: number, box: VscrollBox) {
-		const { threshold } = this.settings;
-		const portSize = this.port.getSize(box);
-		const viewSize = threshold * itemSize;
-		return Math.max(0, (viewSize - portSize) / 2);
-	}
+    if (force || position.index !== newPosition.index) {
+      const { threshold } = this.settings;
+      const remain = Math.max(0, newPosition.index + threshold - this.container.count);
+      newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
+      return this.position = newPosition;
+    }
 
-	private getArmUsingOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
-		if (offsets.length) {
-			const { threshold } = this.settings;
-			const portSize = this.port.getSize(box);
-			const last = Math.min(offsets.length, index + threshold) - 1;
-			const first = (last + 1) - threshold;
-			const viewSize = offsets[last] - offsets[first];
-			return Math.max(0, (viewSize - portSize) / 2);
-		}
+    return null;
+  }
 
-		return UNSET_ARM;
-	}
+  private getArmUsingItemSize(itemSize: number, box: VscrollBox) {
+    const { threshold } = this.settings;
+    const portSize = this.port.getSize(box);
+    const viewSize = threshold * itemSize;
+    return Math.max(0, (viewSize - portSize) / 2);
+  }
 
-	private get container() {
-		return this.port.context.container;
-	}
+  private getArmUsingOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
+    if (offsets.length) {
+      const { threshold } = this.settings;
+      const portSize = this.port.getSize(box);
+      const last = Math.min(offsets.length, index + threshold) - 1;
+      const first = (last + 1) - threshold;
+      const viewSize = offsets[last] - offsets[first];
+      return Math.max(0, (viewSize - portSize) / 2);
+    }
 
-	private get settings() {
-		return this.port.context.settings;
-	}
+    return UNSET_ARM;
+  }
 }

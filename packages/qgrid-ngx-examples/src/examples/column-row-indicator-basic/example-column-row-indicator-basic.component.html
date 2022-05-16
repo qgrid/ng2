@@ -1,20 +1,20 @@
 <q-grid [caption]="title"
-		[rows]="rows"
-		editMode="cell">
-	<q-grid-columns>
-		<q-grid-column key="default"
-					   title="Default Template"
-					   [width]="150"
-					   type="row-indicator">
-		</q-grid-column>
-		<q-grid-column key="customTemplate"
-					   title="Custom Template"
-					   [width]="150"
-					   type="row-number">
-			<ng-template for="body"
-						 let-$cell>
-				<strong>&rarr;</strong>
-			</ng-template>
-		</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows"
+        editMode="cell">
+  <q-grid-columns>
+    <q-grid-column key="default"
+                   title="Default Template"
+                   [width]="150"
+                   type="row-indicator">
+    </q-grid-column>
+    <q-grid-column key="customTemplate"
+                   title="Custom Template"
+                   [width]="150"
+                   type="row-number">
+      <ng-template for="body"
+                   let-$cell>
+        <strong>&rarr;</strong>
+      </ng-template>
+    </q-grid-column>
+  </q-grid-columns>
 </q-grid>

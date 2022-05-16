@@ -3,18 +3,18 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-scroll-virtual-basic',
-	templateUrl: 'example-scroll-virtual-basic.component.html',
-	styleUrls: ['example-scroll-virtual-basic.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'example-scroll-virtual-basic',
+  templateUrl: 'example-scroll-virtual-basic.component.html',
+  styleUrls: ['example-scroll-virtual-basic.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualBasicComponent {
-	static id = 'scroll-virtual-basic';
+  static id = 'scroll-virtual-basic';
 
-	rows: Observable<Human[]>;
+  rows: Observable<Human[]>;
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople(100000);
-	}
+  constructor(dataService: DataService) {
+    this.rows = dataService.getPeople(100000);
+  }
 }

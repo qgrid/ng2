@@ -1,5 +1,13 @@
 import {
-	ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { Node, noop } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
@@ -9,68 +17,69 @@ import { FocusAfterRender } from '../focus/focus.service';
 const COLUMN_CHOOSER_NAME = 'qGridColumnChooser';
 
 export class RootContext {
-	constructor(public ctrl: ColumnChooserPlugin) {
-	}
+  get node(): Node {
+    return this.ctrl.treeView;
+  }
 
-	get node(): Node {
-		return this.ctrl.treeView;
-	}
+  constructor(public ctrl: ColumnChooserPlugin) {
+  }
 }
 
 @Component({
-	selector: 'q-grid-column-chooser',
-	templateUrl: './column-chooser.component.html',
-	providers: [
-		FocusAfterRender,
-		GridPlugin,
-		StateAccessor
-	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'q-grid-column-chooser',
+  templateUrl: './column-chooser.component.html',
+  providers: [
+    FocusAfterRender,
+    GridPlugin,
+    StateAccessor,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
-	private ccState = this.stateAccessor.setter(ColumnChooserState);
+  private ccState = this.stateAccessor.setter(ColumnChooserState);
 
-	@Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }); }
+  @Output('submit') submitEvent = new EventEmitter<any>();
+  @Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	@Output('submit') submitEvent = new EventEmitter<any>();
-	@Output('cancel') cancelEvent = new EventEmitter<any>();
+  context: {
+    $implicit: ColumnChooserPlugin;
+    // eslint-disable-next-line no-use-before-define
+    plugin: ColumnChooserComponent;
+  };
 
-	context: {
-		$implicit: ColumnChooserPlugin,
-		plugin: ColumnChooserComponent
-	};
+  @Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }); }
 
-	constructor(
-		private plugin: GridPlugin,
-		private zone: NgZone,
-		private cd: ChangeDetectorRef,
-		private stateAccessor: StateAccessor,
-		focusAfterRender: FocusAfterRender
-	) {
-	}
+  constructor(
+    public focusAfterRender: FocusAfterRender,
+    private plugin: GridPlugin,
+    private zone: NgZone,
+    private cd: ChangeDetectorRef,
+    private stateAccessor: StateAccessor,
+  ) {
+  }
 
-	root() {
-		return { $implicit: new RootContext(this.context.$implicit) };
-	}
+  root() {
+    return { $implicit: new RootContext(this.context.$implicit) };
+  }
 
-	ngOnChanges() {
-		const { model } = this.plugin;
-		this.stateAccessor.write(model);
-	}
+  ngOnChanges() {
+    const { model } = this.plugin;
+    this.stateAccessor.write(model);
+  }
 
-	ngOnInit() {
-		const context = {
-			name: COLUMN_CHOOSER_NAME
-		};
+  ngOnInit() {
+    const context = {
+      name: COLUMN_CHOOSER_NAME,
+    };
 
-		const columnChooser = new ColumnChooserPlugin(this.plugin, context);
-		columnChooser.submitEvent.on(() => this.submitEvent.emit());
-		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
-		columnChooser.dropEvent.on(() => {
-			this.cd.markForCheck();
-			this.zone.run(noop);
-		});
+    const columnChooser = new ColumnChooserPlugin(this.plugin, context);
+    columnChooser.submitEvent.on(() => this.submitEvent.emit());
+    columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
+    columnChooser.dropEvent.on(() => {
+      this.cd.markForCheck();
+      this.zone.run(noop);
+    });
 
-		this.context = { $implicit: columnChooser, plugin: this };
-	}
+    this.context = { $implicit: columnChooser, plugin: this };
+  }
 }

@@ -1,93 +1,94 @@
-import { escapeAttr } from '../services/css';
-import { min, max } from '../utility/kit';
 import { Guard } from '../infrastructure/guard';
+import { escapeAttr } from '../services/css';
+import { max, min } from '../utility/kit';
 
 export class Container {
-	constructor(elements) {
-		this.elements = elements;
-	}
 
-	getBoundingClientRect() {
-		const rects = this.elements.map(element => element.getBoundingClientRect());
-		const top = min(rects.map(r => r.top));
-		const left = min(rects.map(r => r.left));
-		const bottom = max(rects.map(r => r.bottom));
-		const right = max(rects.map(r => r.right));
-		return {
-			height: bottom - top,
-			width: right - left,
-			top: top,
-			left: left,
-			right: right,
-			bottom: bottom
-		};
-	}
+  get clientWidth() {
+    return max(this.elements.map(element => element.clientWidth));
+  }
 
-	addClass(name) {
-		this.elements.forEach(element => element.classList.add(escapeAttr(name)));
-	}
+  get clientHeight() {
+    return max(this.elements.map(element => element.clientHeight));
+  }
 
-	removeClass(name) {
-		this.elements.forEach(element => element.classList.remove(escapeAttr(name)));
-	}
+  get offsetWidth() {
+    return max(this.elements.map(element => element.offsetWidth));
+  }
 
-	hasClass(name) {
-		return this.elements.some(element => element.classList.contains(escapeAttr(name)));
-	}
+  get offsetHeight() {
+    return max(this.elements.map(element => element.offsetHeight));
+  }
 
-	get clientWidth() {
-		return max(this.elements.map(element => element.clientWidth));
-	}
+  get classList() {
+    return {
+      add: name => this.addClass(name),
+      remove: name => this.removeClass(name),
+      contains: name => this.hasClass(name),
+    };
+  }
 
-	get clientHeight() {
-		return max(this.elements.map(element => element.clientHeight));
-	}
+  constructor(elements) {
+    this.elements = elements;
+  }
 
-	get offsetWidth() {
-		return max(this.elements.map(element => element.offsetWidth));
-	}
+  getBoundingClientRect() {
+    const rects = this.elements.map(element => element.getBoundingClientRect());
+    const top = min(rects.map(r => r.top));
+    const left = min(rects.map(r => r.left));
+    const bottom = max(rects.map(r => r.bottom));
+    const right = max(rects.map(r => r.right));
+    return {
+      height: bottom - top,
+      width: right - left,
+      top: top,
+      left: left,
+      right: right,
+      bottom: bottom,
+    };
+  }
 
-	get offsetHeight() {
-		return max(this.elements.map(element => element.offsetHeight));
-	}
+  addClass(name) {
+    this.elements.forEach(element => element.classList.add(escapeAttr(name)));
+  }
 
-	get classList() {
-		return {
-			add: name => this.addClass(name),
-			remove: name => this.removeClass(name),
-			contains: name => this.hasClass(name)
-		};
-	}
+  removeClass(name) {
+    this.elements.forEach(element => element.classList.remove(escapeAttr(name)));
+  }
+
+  hasClass(name) {
+    return this.elements.some(element => element.classList.contains(escapeAttr(name)));
+  }
 }
 
 export class TrContainer {
-	constructor(elements) {
-		this.elements = elements;
-	}
+  get index() {
+    const tr = this.elements[0];
+    Guard.notNull(tr, 'tr');
 
-	get index() {
-		const tr = this.elements[0];
-		Guard.notNull(tr, "tr");
+    return tr.index;
+  }
 
-		return tr.index;
-	}
+  get model() {
+    const tr = this.elements[0];
+    Guard.notNull(tr, 'tr');
 
-	get model() {
-		const tr = this.elements[0];
-		Guard.notNull(tr, "tr");
+    return tr && tr.model;
+  }
 
-		return tr && tr.model;
-	}
+  get element() {
+    const { elements } = this;
+    if (elements.length > 1) {
+      return new Container(elements.map(tr => tr.element));
+    }
 
-	get element() {
-		const { elements } = this;
-		if (elements.length > 1) {
-			return new Container(elements.map(tr => tr.element));
-		}
+    const tr = this.elements[0];
+    Guard.notNull(tr, 'tr');
 
-		const tr = this.elements[0];
-		Guard.notNull(tr, "tr");
+    return tr.element;
+  }
 
-		return tr.element;
-	}
+  constructor(elements) {
+    this.elements = elements;
+  }
 }

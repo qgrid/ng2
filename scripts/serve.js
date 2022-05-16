@@ -1,12 +1,13 @@
 'use strict';
 
-const { 
+const {
 	execute,
 	sleep,
 	watchForBuild,
 	buildTheme,
 	serveApp,
 	watchTheme,
+	watchStyles
 } = require('./build.kit');
 
 const cmdArgs = require('command-line-args');
@@ -30,12 +31,15 @@ async function main() {
 	await buildAndWatch('ng2-qgrid');
 	await buildAndWatch('qgrid-ngx-theme-basic');
 	await buildAndWatch('qgrid-ngx-theme-material');
+	await buildAndWatch('qgrid-styles');
 	await buildAndWatch('qgrid-ngx-examples');
 }
 
 async function buildAndWatch(project) {
 	await buildProject(project);
-	await watchForBuild(project);
+	if (project !== 'qgrid-styles') {
+		await watchForBuild(project);
+	}
 }
 
 async function buildProject(project) {
@@ -60,7 +64,11 @@ async function buildProject(project) {
 			serveApp(serveOptions);
 			return;
 		}
-	
+		case 'qgrid-styles': {
+			watchStyles('qgrid-styles')
+			return;
+		}
+
 		default: {
 			console.log('Nothing to build');
 			return;

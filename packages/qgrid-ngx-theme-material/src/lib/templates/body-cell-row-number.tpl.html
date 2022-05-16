@@ -1,4 +1,6 @@
 <ng-template key="body-cell-row-number.tpl.html"
-             let-$cell>
-	{{$cell.rowIndex + $cell.column.startNumber}}
+             let-$cell
+             let-$view="$view">
+  {{ $cell.rowIndex + $cell.column.startNumber + $view.pagination.current *
+  $view.pagination.size }}
 </ng-template>

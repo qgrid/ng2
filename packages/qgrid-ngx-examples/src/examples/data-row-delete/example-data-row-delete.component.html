@@ -1,18 +1,18 @@
 <q-grid [caption]="title"
-		[rows]="rows | async">
-	<q-grid-columns generation="deep">
-		<q-grid-column type="row-options"
-					   key="rowOptions"
-					   pin="left"
-					   width="150"
-					   [canEdit]="false">
-			<ng-template for="body"
-						 let-$cell>
-				<button mat-button
-						(click)="deleteRow.execute($cell.row)">
-					DELETE ROW
-				</button>
-			</ng-template>
-		</q-grid-column>
-	</q-grid-columns>
+        [rows]="rows | async">
+  <q-grid-columns generation="deep">
+    <q-grid-column type="row-options"
+                   key="rowOptions"
+                   pin="left"
+                   width="150"
+                   [canEdit]="false">
+      <ng-template for="body"
+                   let-$cell>
+        <button mat-button
+                (click)="deleteRow.execute($cell.row)">
+          DELETE ROW
+        </button>
+      </ng-template>
+    </q-grid-column>
+  </q-grid-columns>
 </q-grid>

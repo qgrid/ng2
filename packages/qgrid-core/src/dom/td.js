@@ -1,87 +1,88 @@
 import { GridError } from '../infrastructure/error';
 
 export class Td {
-	constructor(td) {
-		this.td = td;
 
-		// We need to cache it due to possible virtual mode;
-		this.rowIndex = td.rowIndex;
-		this.columnIndex = td.columnIndex;
-	}
+  get element() {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	get row() {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    return this.td.element;
+  }
 
-		return this.td.row;
-	}
+  get row() {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	get column() {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    return this.td.row;
+  }
 
-		return this.td.column;
-	}
+  get column() {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	get value() {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    return this.td.column;
+  }
 
-		return this.td.value;
-	}
+  get value() {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	set value(value) {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    return this.td.value;
+  }
 
-		this.td.value = value;
-	}
+  set value(value) {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	get label() {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    this.td.value = value;
+  }
 
-		return this.td.label;
-	}
+  get label() {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	get element() {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    return this.td.label;
+  }
 
-		return this.td.element;
-	}
+  set label(label) {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
 
-	set label(label) {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    this.td.label = label;
+  }
 
-		this.td.label = label;
-	}
+  constructor(td) {
+    this.td = td;
 
-	mode(value) {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
+    // We need to cache it due to possible virtual mode;
+    this.rowIndex = td.rowIndex;
+    this.columnIndex = td.columnIndex;
+  }
 
-		this.td.mode(value);
-	}
+  static equals(x, y) {
+    if (x === y) {
+      return true;
+    }
 
-	static equals(x, y) {
-		if (x === y) {
-			return true;
-		}
+    if (!x || !y) {
+      return false;
+    }
 
-		if (!x || !y) {
-			return false;
-		}
+    return x.rowIndex === y.rowIndex && x.columnIndex === y.columnIndex;
+  }
 
-		return x.rowIndex === y.rowIndex && x.columnIndex === y.columnIndex;
-	}
+  mode(value) {
+    if (!Td.equals(this, this.td)) {
+      throw new GridError('td', 'Internal model doesn\'t match container');
+    }
+
+    this.td.mode(value);
+  }
 }

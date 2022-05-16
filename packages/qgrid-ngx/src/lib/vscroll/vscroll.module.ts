@@ -9,27 +9,27 @@ import { VscrollPortYDirective } from './vscroll-port-y.directive';
 import { VscrollDirective } from './vscroll.directive';
 
 @NgModule({
-	declarations: [
-		VscrollDirective,
-		VscrollColumnDirective,
-		VscrollRowDirective,
-		VscrollMarkDirective,
-		VscrollPortXDirective,
-		VscrollPortYDirective,
-		VscrollPipe
-	],
-	exports: [
-		VscrollDirective,
-		VscrollColumnDirective,
-		VscrollRowDirective,
-		VscrollMarkDirective,
-		VscrollPortXDirective,
-		VscrollPortYDirective,
-		VscrollPipe
-	],
-	providers: [
-		VscrollService
-	]
+  declarations: [
+    VscrollDirective,
+    VscrollColumnDirective,
+    VscrollRowDirective,
+    VscrollMarkDirective,
+    VscrollPortXDirective,
+    VscrollPortYDirective,
+    VscrollPipe,
+  ],
+  exports: [
+    VscrollDirective,
+    VscrollColumnDirective,
+    VscrollRowDirective,
+    VscrollMarkDirective,
+    VscrollPortXDirective,
+    VscrollPortYDirective,
+    VscrollPipe,
+  ],
+  providers: [
+    VscrollService,
+  ],
 })
 export class VscrollModule {
 }

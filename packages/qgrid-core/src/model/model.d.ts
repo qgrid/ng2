@@ -1,8 +1,7 @@
-import { GridState } from '../grid/grid.state';
-import { SceneState } from '../scene/scene.state';
 import { ActionState } from '../action/action.state';
 import { AnimationState } from '../animation/animation.state';
 import { BodyState } from '../body/body.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 import { ColumnListState } from '../column-list/column.list.state';
 import { DataState } from '../data/data.state';
 import { DragState } from '../drag/drag.state';
@@ -12,13 +11,13 @@ import { FetchState } from '../fetch/fetch.state';
 import { FilterState } from '../filter/filter.state';
 import { FocusState } from '../focus/focus.state';
 import { FootState } from '../foot/foot.state';
+import { GridState } from '../grid/grid.state';
 import { GroupState } from '../group/group.state';
 import { HeadState } from '../head/head.state';
 import { HighlightState } from '../highlight/highlight.state';
 import { KeyboardState } from '../keyboard/keyboard.state';
 import { LayerState } from '../layer/layer.state';
 import { LayoutState } from '../layout/layout.state';
-import { ModelTag, ModelEvent } from './model.event';
 import { MouseState } from '../mouse/mouse.state';
 import { NavigationState } from '../navigation/navigation.state';
 import { PaginationState } from '../pagination/pagination.state';
@@ -30,6 +29,7 @@ import { ProgressState } from '../progress/progress.state';
 import { RestState } from '../rest/rest.state';
 import { RowListState } from '../row-list/row.list.state';
 import { RowState } from '../row/row.state';
+import { SceneState } from '../scene/scene.state';
 import { ScrollState } from '../scroll/scroll.state';
 import { SelectionState } from '../selection/selection.state';
 import { SortState } from '../sort/sort.state';
@@ -38,15 +38,19 @@ import { ToolbarState } from '../toolbar/toolbar.state';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
-import { ClipboardState } from '../clipboard/clipboard.state';
+import { ModelEvent, ModelTag } from './model.event';
+
+// eslint-disable-next-line no-use-before-define
+type StateSetAccessor<TState> = (state: Partial<TState>, tag?: ModelTag) => Model;
+type StateGetAccessor<TState> = () => Readonly<TState>;
 
 export declare type StateSet<K extends keyof any, TState> = {
-	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
-}
+	[P in K]: StateSetAccessor<TState>;
+};
 
 export declare type StateGet<K extends keyof any, TState> = {
-	[P in K]: () => Readonly<TState>;
-}
+	[P in K]: StateGetAccessor<TState>;
+};
 
 export declare type StateChange<K extends keyof any, TState> = {
 	[P in K]: ModelEvent<TState>;
@@ -102,9 +106,9 @@ export declare type ViewAccessor = StateAccessor<'view', 'viewChanged', ViewStat
 export declare type VisibilityAccessor = StateAccessor<'visibility', 'visibilityChanged', VisibilityState>;
 export declare type ClipboardAccessor = StateAccessor<'clipboard', 'clipboardChanged', ClipboardState>;
 
-export declare type ResolveAccessor = {
+export declare interface ResolveAccessor {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
-};
+}
 
 export type Model =
 	ActionAccessor
@@ -148,3 +152,11 @@ export type Model =
 	& ViewAccessor
 	& VisibilityAccessor
 	& ResolveAccessor;
+
+type FilteredNotifyState<K extends keyof Model> = K extends `${string}Changed` ? K : never;
+type FilteredReadWriteState<K extends keyof Model> = K extends 'resolve' ? never : K extends `${string}Changed` ? never : K;
+type ExtractGeneric<K extends string, T> = T extends StateAccessor<K, `${K}Changed`, infer X> ? X : never;
+
+export type ReadModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateGetAccessor<ExtractGeneric<K, Model>> };
+export type WriteModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateSetAccessor<ExtractGeneric<K, Model>> };
+export type NotifyModel = { [K in keyof Model as FilteredNotifyState<K>]: Model[K] };

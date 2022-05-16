@@ -1,59 +1,60 @@
 import { GridError } from '../infrastructure/error';
-import { isUndefined } from '../utility/kit';
+import { hasOwnProperty, isUndefined } from '../utility/kit';
 
 const resolvers = {};
 export class TemplatePath {
-	constructor() {
-	}
 
-	static register(name, resolve) {
-		if (resolvers.hasOwnProperty(name)) {
-			throw new GridError(
-				'template.path',
-				`"${name}" is already registered`);
-		}
+  static get require() {
+    const getName = this.name;
+    return Object.keys(resolvers)
+      .reduce((memo, key) => {
+        memo[getName(key)] = `^^?${key}`;
+        return memo;
+      }, {});
+  }
 
-		resolvers[name] = resolve;
-		return TemplatePath;
-	}
+  constructor() {
+  }
 
-	static get(source) {
-		const path = this.find(source);
-		if (!path) {
-			throw new GridError(
-				'template.path',
-				'Template path can\'t be found');
-		}
+  static register(name, resolve) {
+    if (hasOwnProperty.call(resolvers, name)) {
+      throw new GridError(
+        'template.path',
+        `"${name}" is already registered`);
+    }
 
-		return path;
-	}
+    resolvers[name] = resolve;
+    return TemplatePath;
+  }
 
-	static find(source) {
-		const getName = this.name;
-		for (let key of Object.keys(resolvers)) {
-			const name = getName(key);
-			const value = source[name];
-			if (!isUndefined(value) && value !== null) {
-				const path = resolvers[key](source, value);
-				if (path) {
-					return path;
-				}
-			}
-		}
+  static get(source) {
+    const path = this.find(source);
+    if (!path) {
+      throw new GridError(
+        'template.path',
+        'Template path can\'t be found');
+    }
 
-		return null;
-	}
+    return path;
+  }
 
-	static getName(name) {
-		return '_' + name;
-	}
+  static find(source) {
+    const getName = this.name;
+    for (const key of Object.keys(resolvers)) {
+      const name = getName(key);
+      const value = source[name];
+      if (!isUndefined(value) && value !== null) {
+        const path = resolvers[key](source, value);
+        if (path) {
+          return path;
+        }
+      }
+    }
 
-	static get require() {
-		const getName = this.name;
-		return Object.keys(resolvers)
-			.reduce((memo, key) => {
-				memo[getName(key)] = `^^?${key}`;
-				return memo;
-			}, {});
-	}
+    return null;
+  }
+
+  static getName(name) {
+    return '_' + name;
+  }
 }

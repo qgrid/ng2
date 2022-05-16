@@ -1,19 +1,19 @@
 import * as columnService from '../column/column.service';
 
 export class Data {
-	constructor(model) {
-		this.model = model;
-	}
+  constructor(model) {
+    this.model = model;
+  }
 
-	columns() {
-		return this.model.view().columns;
-	}
+  columns() {
+    return this.model.view().columns;
+  }
 
-	columnMap() {
-		return columnService.mapColumns(this.columns());
-	}
+  columnMap() {
+    return columnService.mapColumns(this.columns());
+  }
 
-	rows() {
-		return this.model.scene().rows;
-	}
+  rows() {
+    return this.model.scene().rows;
+  }
 }

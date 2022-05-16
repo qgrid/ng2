@@ -1,22 +1,21 @@
 import { ColumnModel, ColumnModelPin } from '../../column-type/column.model';
+import { GridPlugin } from '../../plugin/grid.plugin';
 import { ColumnView } from '../view/column.view';
 import { RenderStrategy } from './render.strategy';
-import { GridPlugin } from '../../plugin/grid.plugin';
 
 export declare class Renderer {
-	constructor(plugin: GridPlugin);
+  defaultStrategy: RenderStrategy;
+  readonly rows: { left: any[]; right: any[]; mid: any[] };
 
-	defaultStrategy: RenderStrategy;
+  constructor(plugin: GridPlugin);
 
-	columns(row: any, pin: ColumnModelPin, rowIndex: number): ColumnView[];
-	rowspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
-	colspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
+  columns(row: any, pin: ColumnModelPin, rowIndex: number): ColumnView[];
+  rowspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
+  colspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
 
-	getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
-	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+  getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
+  setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 
-	getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
-	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
-
-	readonly rows: { left: any[], right: any[], mid: any[] };
+  getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
+  setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 }

@@ -4,16 +4,16 @@ import { TemplateModule, LayerModule } from '@qgrid/ngx';
 import { PaneComponent } from './pane.component';
 
 @NgModule({
-	declarations: [
-		PaneComponent,
-	],
-	exports: [
-		PaneComponent,
-	],
-	imports: [
-		CommonModule,
-		TemplateModule,
-		LayerModule
-	]
+  declarations: [
+    PaneComponent,
+  ],
+  exports: [
+    PaneComponent,
+  ],
+  imports: [
+    CommonModule,
+    TemplateModule,
+    LayerModule,
+  ],
 })
 export class PaneModule { }

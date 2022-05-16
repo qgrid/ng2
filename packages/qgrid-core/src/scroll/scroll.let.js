@@ -1,188 +1,189 @@
 import { Log } from '../infrastructure/log';
-import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
+import { hasOwnProperty, identity, isFunction } from '../utility/kit';
 
 export class ScrollLet {
-	constructor(plugin, vscroll) {
-		const { model, observeReply, service } = plugin;
-		const { scroll, row, pagination, fetch, pipe } = model;
 
-		this.plugin = plugin;
-	
-		const rowHeight = row().height;
-		const settings = {
-			threshold: pagination().size,
-			resetTriggers: []
-		};
+  get mode() {
+    return this.plugin.model.scroll().mode;
+  }
 
-		if (rowHeight > 0 || isFunction(rowHeight)) {
-			settings.rowHeight = rowHeight;
-		}
+  constructor(plugin, vscroll) {
+    const { model, observeReply, service } = plugin;
+    const { scroll, row, pagination, fetch, pipe } = model;
 
-		this.y = vscroll.factory(settings);
-		this.y.container.read = Fastdom.measure;
-		this.y.container.write = Fastdom.mutate;
+    this.plugin = plugin;
 
-		const subscribe =
-			(this.y.container.draw$.on || this.y.container.draw$.subscribe)
-				.bind(this.y.container.draw$);
+    const rowHeight = row().height;
+    const settings = {
+      threshold: pagination().size,
+      resetTriggers: [],
+    };
 
-		const updateCurrentPage = position => {
-			const { size, current, count } = pagination();
-			const newCurrent = size === 0
-				? 0
-				: count - 1 <= position + size
-					? Math.ceil(count / size) - 1
-					: Math.floor((position + size / 2) / size);
+    if (rowHeight > 0 || isFunction(rowHeight)) {
+      settings.rowHeight = rowHeight;
+    }
 
-			if (newCurrent !== current) {
-				pagination({ current: newCurrent }, {
-					source: 'scroll.view',
-					behavior: 'core'
-				});
-			}
-		};
+    this.y = vscroll.factory(settings);
+    this.y.container.read = Fastdom.measure;
+    this.y.container.write = Fastdom.mutate;
 
-		const updateTotalCount = () => {
-			const { effect } = pipe();
-			if (effect.hasOwnProperty('memo')) {
-				const count = effect.memo.length;
-				pagination({ count }, {
-					source: 'scroll.view',
-					behavior: 'core'
-				});
+    const subscribe =
+      (this.y.container.draw$.on || this.y.container.draw$.subscribe)
+        .bind(this.y.container.draw$);
 
-				return count;
-			}
+    const updateCurrentPage = position => {
+      const { size, current, count } = pagination();
+      const newCurrent = size === 0
+        ? 0
+        : count - 1 <= position + size
+          ? Math.ceil(count / size) - 1
+          : Math.floor((position + size / 2) / size);
 
-			return pagination().count;
-		};
+      if (newCurrent !== current) {
+        pagination({ current: newCurrent }, {
+          source: 'scroll.view',
+          behavior: 'core',
+        });
+      }
+    };
 
-		subscribe(e => {
-			const { position } = e;
-			updateCurrentPage(position);
+    const updateTotalCount = () => {
+      const { effect } = pipe();
+      if (hasOwnProperty.call(effect, 'memo')) {
+        const count = effect.memo.length;
+        pagination({ count }, {
+          source: 'scroll.view',
+          behavior: 'core',
+        });
 
-			scroll({ cursor: position }, {
-				source: 'scroll.view',
-				behavior: 'core'
-			});
-		});
+        return count;
+      }
 
-		switch (scroll().mode) {
-			case 'virtual': {
-				this.y.settings.fetch = (skip, take, d) => {
-					fetch({ skip }, {
-						source: 'scroll.view',
-						behavior: 'core'
-					});
+      return pagination().count;
+    };
 
-					if (skip === 0) {
-						const count = updateTotalCount();
-						d.resolve(count);
-					} else {
-						service.invalidate({
-							source: 'scroll.view',
-							why: 'refresh'
-						}).then(() => {
-							const count = updateTotalCount();
-							d.resolve(count);
-						});
-					}
-				};
+    subscribe(e => {
+      const { position } = e;
+      updateCurrentPage(position);
 
-				let startSource;
-				const resetTriggers = new Set(scroll().resetTriggers);
+      scroll({ cursor: position }, {
+        source: 'scroll.view',
+        behavior: 'core',
+      });
+    });
 
-				observeReply(model.sceneChanged)
-					.subscribe(e => {
-						if (e.hasChanges('status')) {
-							const { status } = e.state;
-							switch (status) {
-								case 'start': {
-									startSource = e.tag.source;
-									if (resetTriggers.has(startSource)) {
-										fetch({ skip: 0 }, {
-											source: 'scroll.view',
-											behavior: 'core'
-										});
-									}
-									break;
-								}
-								case 'stop': {
-									if (resetTriggers.has(startSource)) {
-										this.y.container.reset();
-									}
-									break;
-								}
-							}
-						}
-					});
+    switch (scroll().mode) {
+      case 'virtual': {
+        this.y.settings.fetch = (skip, take, d) => {
+          fetch({ skip }, {
+            source: 'scroll.view',
+            behavior: 'core',
+          });
 
-				break;
-			}
-			default: {
-				observeReply(model.paginationChanged)
-					.subscribe(e => {
-						if (e.tag.behavior !== 'core') {
-							this.y.container.reset();
-						}
-					});
-				break;
-			}
-		}
+          if (skip === 0) {
+            const count = updateTotalCount();
+            d.resolve(count);
+          } else {
+            service.invalidate({
+              source: 'scroll.view',
+              why: 'refresh',
+            }).then(() => {
+              const count = updateTotalCount();
+              d.resolve(count);
+            });
+          }
+        };
 
-		observeReply(model.scrollChanged)
-			.subscribe(e => {
-				if (e.tag.source === 'scroll.view') {
-					return;
-				}
+        let startSource;
+        const resetTriggers = new Set(scroll().resetTriggers);
 
-				if (e.hasChanges('mode')) {
-					switch (e.state.mode) {
-						case 'virtual': {
-							scroll({
-								map: {
-									rowToView: index => index - this.y.container.position,
-									viewToRow: index => index + this.y.container.position
-								}
-							}, {
-								source: 'scroll.view',
-								behavior: 'core'
-							});
-							break;
-						}
-						case 'default': {
-							scroll({
-								map: {
-									rowToView: identity,
-									viewToRow: identity
-								}
-							});
-							break;
-						}
-					}
-				}
+        observeReply(model.sceneChanged)
+          .subscribe(e => {
+            if (e.hasChanges('status')) {
+              const { status } = e.state;
+              switch (status) {
+                case 'start': {
+                  startSource = e.tag.source;
+                  if (resetTriggers.has(startSource)) {
+                    fetch({ skip: 0 }, {
+                      source: 'scroll.view',
+                      behavior: 'core',
+                    });
+                  }
+                  break;
+                }
+                case 'stop': {
+                  if (resetTriggers.has(startSource)) {
+                    this.y.container.reset();
+                  }
+                  break;
+                }
+              }
+            }
+          });
 
-				if (e.hasChanges('left') || e.hasChanges('top')) {
-					this.invalidate();
-				}
-			});
-	}
+        break;
+      }
+      default: {
+        observeReply(model.paginationChanged)
+          .subscribe(e => {
+            if (e.tag.behavior !== 'core') {
+              this.y.container.reset();
+            }
+          });
+        break;
+      }
+    }
 
-	invalidate() {
-		Log.info('layout', 'invalidate scroll');
+    observeReply(model.scrollChanged)
+      .subscribe(e => {
+        if (e.tag.source === 'scroll.view') {
+          return;
+        }
 
-		const { model, table } = this.plugin;
-		const { view } = table;
-		const { left, top } = model.scroll();
+        if (e.hasChanges('mode')) {
+          switch (e.state.mode) {
+            case 'virtual': {
+              scroll({
+                map: {
+                  rowToView: index => index - this.y.container.position,
+                  viewToRow: index => index + this.y.container.position,
+                },
+              }, {
+                source: 'scroll.view',
+                behavior: 'core',
+              });
+              break;
+            }
+            case 'default': {
+              scroll({
+                map: {
+                  rowToView: identity,
+                  viewToRow: identity,
+                },
+              });
+              break;
+            }
+          }
+        }
 
-		Fastdom.mutate(() => {
-			view.scrollLeft(left);
-			view.scrollTop(top);
-		});
-	}
+        if (e.hasChanges('left') || e.hasChanges('top')) {
+          this.invalidate();
+        }
+      });
+  }
 
-	get mode() {
-		return this.plugin.model.scroll().mode;
-	}
+  invalidate() {
+    Log.info('layout', 'invalidate scroll');
+
+    const { model, table } = this.plugin;
+    const { view } = table;
+    const { left, top } = model.scroll();
+
+    Fastdom.mutate(() => {
+      view.scrollLeft(left);
+      view.scrollTop(top);
+    });
+  }
 }

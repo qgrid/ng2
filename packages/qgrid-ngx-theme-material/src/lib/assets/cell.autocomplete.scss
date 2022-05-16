@@ -1,17 +1,17 @@
 .q-grid-editor {
-	&.q-grid-autocomplete {
-		width: 200px;
+  &.q-grid-autocomplete {
+    width: 200px;
 
-		input {
-			border-bottom: 2px solid $border-color-blue;
-			border-radius: 0;
-			line-height: 26px;
-			padding: 2px 2px 1px 2px;
-			height: 30px;
-		}
-	}
+    input {
+      border-bottom: 2px solid $border-color-blue;
+      border-radius: 0;
+      line-height: 26px;
+      padding: 2px 2px 1px;
+      height: 30px;
+    }
+  }
 }
 
 @at-root .q-grid-autocomplete-menu {
-	z-index: 101;
+  z-index: 101;
 }

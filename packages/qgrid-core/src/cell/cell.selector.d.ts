@@ -1,7 +1,7 @@
 import { Td } from '../dom/td';
 
 export declare class CellSelector {
-	constructor();
+  constructor();
 
-	map(items: any[]): Td[];
+  map(items: any[]): Td[];
 }

@@ -3,8 +3,8 @@ import { Td } from '../dom/td';
 import { Tr } from '../dom/tr';
 
 export declare class PathService {
-	constructor(bag: Bag);
+  constructor(bag: Bag);
 
-	cell(path: Node[]): Td;
-	row(path: Node[]): Tr;
+  cell(path: Node[]): Td;
+  row(path: Node[]): Tr;
 }

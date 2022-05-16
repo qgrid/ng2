@@ -1,25 +1,32 @@
-import { ColumnModel, Command, Event, Expression, GridPlugin } from '@qgrid/core';
+import {
+  ColumnModel,
+  Command,
+  Event,
+  Expression,
+  GridPlugin,
+} from '@qgrid/core';
 
 export declare class ColumnFilterPlugin {
-	constructor(plugin: GridPlugin, context: { column: ColumnModel });
+  by: Set<string>;
+  expression: Expression;
 
-	by: Set<string>;
-	expression: Expression;
+  cancelEvent: Event;
+  submitEvent: Event;
 
-	cancelEvent: Event;
-	submitEvent: Event;
+  getValue: (row: any) => any;
 
-	getValue: (row: any) => any;
+  column: ColumnModel;
+  value: any;
+  items: Array<any>;
 
-	column: ColumnModel;
-	value: any;
-	items: Array<any>;
+  changeOperator: Command;
+  reset: Command;
+  commit: Command;
+  cancel: Command;
 
-	changeOperator: Command;
-	reset: Command;
-	commit: Command;
-	cancel: Command;
+  hasBlanks: boolean;
 
-	hasBlanks: boolean;
-	isEmpty(): boolean;
+  constructor(plugin: GridPlugin, context: { column: ColumnModel });
+
+  isEmpty(): boolean;
 }

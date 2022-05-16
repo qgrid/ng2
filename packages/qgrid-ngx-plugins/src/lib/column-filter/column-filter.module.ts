@@ -8,26 +8,26 @@ import { ColumnFilterTriggerComponent } from './column-filter-trigger.component'
 import { ColumnFilterComponent } from './column-filter.component';
 
 @NgModule({
-	declarations: [
-		ColumnFilterComponent,
-		ColumnFilterTriggerComponent,
-		ColumnFilterByComponent,
-		ColumnFilterItemListDirective,
-		ColumnFilterItemDirective
-	],
-	exports: [
-		ColumnFilterComponent,
-		ColumnFilterTriggerComponent,
-		ColumnFilterByComponent,
-		ColumnFilterItemListDirective,
-		ColumnFilterItemDirective
-	],
-	imports: [
-		TemplateModule
-	]
+  declarations: [
+    ColumnFilterComponent,
+    ColumnFilterTriggerComponent,
+    ColumnFilterByComponent,
+    ColumnFilterItemListDirective,
+    ColumnFilterItemDirective,
+  ],
+  exports: [
+    ColumnFilterComponent,
+    ColumnFilterTriggerComponent,
+    ColumnFilterByComponent,
+    ColumnFilterItemListDirective,
+    ColumnFilterItemDirective,
+  ],
+  imports: [
+    TemplateModule,
+  ],
 })
 export class ColumnFilterModule {
-	constructor(modelBuilder: GridModelBuilder) {
-		modelBuilder.register('columnFilter', ColumnFilterState);
-	}
+  constructor(modelBuilder: GridModelBuilder) {
+    modelBuilder.register('columnFilter', ColumnFilterState);
+  }
 }

@@ -1,47 +1,47 @@
 q-grid-edit-form-trigger {
-    .q-grid-icon-button {
-        @include buttonSizes(24px);
-    }
+  .q-grid-icon-button {
+    @include buttonSizes(24px);
+  }
 
-    .q-grid-icon {
-        color: $dark-secondary;
-    }
+  .q-grid-icon {
+    color: $dark-secondary;
+  }
 }
 
 @at-root {
-    .q-grid-edit-form {
-        display: block;
-        width: 400px;
-        min-width: 400px !important;
-        height: 500px;
-        overflow: hidden !important;
-        padding: 16px 16px 0 16px;
-    }
+  .q-grid-edit-form {
+    display: block;
+    width: 400px;
+    min-width: 400px !important;
+    height: 500px;
+    overflow: hidden !important;
+    padding: 16px 16px 0;
+  }
 
-    q-grid-edit-form {
-        display: block;
-        height: 100%;
-    }
+  q-grid-edit-form {
+    display: block;
+    height: 100%;
+  }
 
-    .q-grid-edit-form-card {
-        height: 100%;
-        padding: 0;
-    }
+  .q-grid-edit-form-card {
+    height: 100%;
+    padding: 0;
+  }
 
-    .q-grid-edit-form-content {
-        height: calc(100% - 110px);
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 0;
-    }
+  .q-grid-edit-form-content {
+    height: calc(100% - 110px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+  }
 
-    .q-grid-edit-form-control {
-        display: block;
-        margin-bottom: 1.25em;
+  .q-grid-edit-form-control {
+    display: block;
+    margin-bottom: 1.25em;
 
-        &-image,
-        &-bool {
-            margin-bottom: 2.5em;
-        }
+    &-image,
+    &-bool {
+      margin-bottom: 2.5em;
     }
+  }
 }

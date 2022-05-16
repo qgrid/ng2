@@ -1,68 +1,68 @@
 import { Node } from './model/node';
 
 export class TraverseService {
-	findUp(node: Node, test: (node: Node) => boolean) {
-		while (node) {
-			if (test(node)) {
-				return node;
-			}
+  findUp(node: Node, test: (foundNode: Node) => boolean) {
+    while (node) {
+      if (test(node)) {
+        return node;
+      }
 
-			node = node.parent;
-		}
+      node = node.parent;
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	findUpSibling(node: Node) {
-		if (node.parent) {
-			const children = node.parent.children;
-			const index = children.indexOf(node);
-			if (index >= 0) {
-				if (index > 0) {
-					return children[index - 1];
-				}
+  findUpSibling(node: Node) {
+    if (node.parent) {
+      const children = node.parent.children;
+      const index = children.indexOf(node);
+      if (index >= 0) {
+        if (index > 0) {
+          return children[index - 1];
+        }
 
-				return node.parent;
-			}
-		}
+        return node.parent;
+      }
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	depth(root: Node): (reduce: any, memo: any) => any {
-		return (reduce, memo) => {
-			memo = this.visitLine(reduce, memo, root, root.line);
+  depth(root: Node): (reduce: any, memo: any) => any {
+    return (reduce, memo) => {
+      memo = this.visitLine(reduce, memo, root, root.line);
 
-			const children = root.children;
-			const length = children.length;
+      const children = root.children;
+      const length = children.length;
 
-			for (let i = 0; i < length; i++) {
-				memo = this.depth(children[i])(reduce, memo);
-			}
+      for (let i = 0; i < length; i++) {
+        memo = this.depth(children[i])(reduce, memo);
+      }
 
-			return memo;
-		};
-	}
+      return memo;
+    };
+  }
 
-	private visitLine(reduce, memo, node, line) {
-		const groups = line.expressions;
-		const length = groups.length;
+  private visitLine(reduce, memo, node, line) {
+    const groups = line.expressions;
+    const length = groups.length;
 
-		for (let i = 0; i < length; i++) {
-			memo = this.visitGroup(reduce, memo, node, line, groups[i]);
-		}
+    for (let i = 0; i < length; i++) {
+      memo = this.visitGroup(reduce, memo, node, line, groups[i]);
+    }
 
-		return memo;
-	}
+    return memo;
+  }
 
-	private visitGroup(reduce, memo, node, line, group) {
-		const expressions = group.expressions;
-		const length = expressions.length;
+  private visitGroup(reduce, memo, node, line, group) {
+    const expressions = group.expressions;
+    const length = expressions.length;
 
-		for (let i = 0; i < length; i++) {
-			memo = reduce(memo, expressions[i], line, node);
-		}
+    for (let i = 0; i < length; i++) {
+      memo = reduce(memo, expressions[i], line, node);
+    }
 
-		return memo;
-	}
+    return memo;
+  }
 }

@@ -1,33 +1,33 @@
 <q-grid [caption]="title"
-		[rows]="rows | async">
-	<q-grid-columns generation="deep">
-	</q-grid-columns>
+        [rows]="rows | async">
+  <q-grid-columns generation="deep">
+  </q-grid-columns>
 
-	<q-grid-row unit="details"
-				mode="multiple">
-		<ng-template for="details"
-					 let-$cell>
-			<q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
-					[rows]="getTheSamePhaseRows($cell.row.item) | async"
-					class="q-grid-compact">
-				<q-grid-columns>
-					<q-grid-column [canSort]="false"
-								   [canFilter]="false">
-					</q-grid-column>
-					<q-grid-column key="number"
-								   title="Number">
-					</q-grid-column>
-					<q-grid-column key="symbol"
-								   title="Symbol">
-					</q-grid-column>
-					<q-grid-column key="name"
-								   title="Name">
-					</q-grid-column>
-				</q-grid-columns>
+  <q-grid-row unit="details"
+              mode="multiple">
+    <ng-template for="details"
+                 let-$cell>
+      <q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
+              [rows]="getTheSamePhaseRows($cell.row.item) | async"
+              class="q-grid-compact">
+        <q-grid-columns>
+          <q-grid-column [canSort]="false"
+                         [canFilter]="false">
+          </q-grid-column>
+          <q-grid-column key="number"
+                         title="Number">
+          </q-grid-column>
+          <q-grid-column key="symbol"
+                         title="Symbol">
+          </q-grid-column>
+          <q-grid-column key="name"
+                         title="Name">
+          </q-grid-column>
+        </q-grid-columns>
 
-				<q-grid-visibility [toolbarBottom]="false">
-				</q-grid-visibility>
-			</q-grid>
-		</ng-template>
-	</q-grid-row>
+        <q-grid-visibility [toolbarBottom]="false">
+        </q-grid-visibility>
+      </q-grid>
+    </ng-template>
+  </q-grid-row>
 </q-grid>

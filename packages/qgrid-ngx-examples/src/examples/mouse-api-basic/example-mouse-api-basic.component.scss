@@ -1,12 +1,13 @@
 :host {
-	::ng-deep {
-		#mouse-event-log {
-			padding-inline-start: 0px;
-		}
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+  ::ng-deep {
+    #mouse-event-log {
+      padding-inline-start: 0;
+    }
 
-		#mouse-event-log > li {
-			list-style-type: none;
-			padding: 5px 10px;
-		}
-	}
+    #mouse-event-log > li {
+      list-style-type: none;
+      padding: 5px 10px;
+    }
+  }
 }

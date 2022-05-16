@@ -10,8 +10,8 @@ export declare type MouseStateStatus =
 	| 'leave';
 
 export declare class MouseState {
-	code: MouseStateCode;
-	status: MouseStateStatus;
-	target: Td;
-	timestamp: number;
+  code: MouseStateCode;
+  status: MouseStateStatus;
+  target: Td;
+  timestamp: number;
 }

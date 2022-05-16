@@ -11,7 +11,7 @@ export class UnsubscribableLike {
   unsubscribe() {
     if (!this.closed) {
       this.off();
-      
+
       this.off = null;
       this.closed = true;
     }
@@ -31,7 +31,7 @@ export class ObservableEvent {
       observer = {
         next: args[0],
         error: args[1],
-        complete: args[2]
+        complete: args[2],
       };
     }
 
@@ -85,7 +85,7 @@ export class ObservableEvent {
   toPromise() {
     return new Promise(resolve => {
       let isResolved = false;
-      const sub = this.subscribe(() => {
+      let sub = this.subscribe(() => {
         resolve();
         isResolved = true;
         if (sub) {
@@ -98,11 +98,12 @@ export class ObservableEvent {
         sub.unsubscribe();
       }
     });
-  };
+  }
 
   pipe(...operators) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     let source = this;
-    for (let op of operators) {
+    for (const op of operators) {
       source = op(source);
     }
 
@@ -128,7 +129,7 @@ export class SubjectLike extends ObservableEvent {
   constructor() {
     super(
       new Event(),
-      new Disposable()
+      new Disposable(),
     );
 
     this.isCompleted = false;
