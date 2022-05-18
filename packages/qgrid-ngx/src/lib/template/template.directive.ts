@@ -15,7 +15,7 @@ import { TemplateService } from './template.service';
   selector: 'ng-container[key]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateDirective implements DoCheck, OnChanges {
-  private viewRef: EmbeddedViewRef<any>;
+  private viewRef: EmbeddedViewRef<any> | null;
 
   @Input() key = '';
   @Input() context: any = null;

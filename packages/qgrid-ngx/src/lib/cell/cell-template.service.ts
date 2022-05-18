@@ -2,7 +2,7 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 import { ColumnModel, GridError, noop } from '@qgrid/core';
 import { TemplateService } from '../template/template.service';
 
-function canBuild(column) {
+function canBuild(column: any) {
   return column.type !== 'pad';
 }
 

@@ -47,7 +47,7 @@ export class GridModule {
     numberPipe: DecimalPipe,
     currencyPipe: CurrencyPipe,
   ) {
-    FormatService.date = (x, format) => datePipe.transform(x, format);
+    FormatService.date = (x: Date, format: string) => datePipe.transform(x, format);
     FormatService.number = (x, format) => numberPipe.transform(x, format);
     FormatService.currency = (x, format) => currencyPipe.transform(x, format);
 

@@ -37,10 +37,10 @@ export class ResizeDirective implements OnInit, OnDestroy {
     return this.plugin.model;
   }
 
-  @Input('q-grid-resize') key;
-  @Input('q-grid-resize-path') path;
-  @Input('q-grid-can-resize') canResize;
-  @Input('q-grid-resize-selector') selector;
+  @Input('q-grid-resize') key: any;
+  @Input('q-grid-resize-path') path: string;
+  @Input('q-grid-can-resize') canResize: (e: any) => boolean;
+  @Input('q-grid-resize-selector') selector: any;
 
   constructor(
     private zone: NgZone,
@@ -88,8 +88,10 @@ export class ResizeDirective implements OnInit, OnDestroy {
     const context = this.context;
 
     const host = this.select();
-    context.width = host.clientWidth;
-    context.height = host.clientHeight;
+    if(host) {
+      context.width = host.clientWidth;
+      context.height = host.clientHeight;
+    }
     context.x = e.screenX;
     context.y = e.screenY;
 
@@ -106,7 +108,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
     const { context, path, key } = this;
     const { layout } = this.model;
 
-    const state = clone(layout()[path]);
+    const state = clone(layout()[path as keyof typeof layout]);
 
     state.set(key, {
       width: context.width + e.screenX - context.x,
@@ -123,7 +125,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
     model.drag({ isActive: false });
   }
 
-  private select(): HTMLElement {
+  private select(): HTMLElement | null {
     if (this.selector === 'parent') {
       return this.element.parentElement;
     }

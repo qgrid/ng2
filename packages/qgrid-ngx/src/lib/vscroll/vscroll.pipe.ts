@@ -2,9 +2,7 @@ import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core
 import {
   Disposable,
   IVscrollContext,
-  Log,
-  ObservableLike,
-  SubjectLike,
+  Log, ObservableLike, SubjectLike, SubscribableLike
 } from '@qgrid/core';
 
 @Pipe({
@@ -17,7 +15,7 @@ export class VscrollPipe implements OnDestroy, PipeTransform {
   constructor(private cd: ChangeDetectorRef) {
   }
 
-  transform(data: any[], context: IVscrollContext): ObservableLike<any[]> {
+  transform(data: any[], context: IVscrollContext): ObservableLike<any> | PromiseLike<any> | SubjectLike<any> {
     this.disposable.finalize();
 
     if (!context) {

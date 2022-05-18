@@ -14,14 +14,14 @@ export interface VscrollPort {
 	layout: VscrollLayout;
 	context: VscrollContext;
 
-	reset();
-	hasChanges(newBox: VscrollBox, oldBox: VscrollBox);
-	emit(f: () => void);
-	move(pad1: number, pad2: number);
+	reset(): any;
+	hasChanges(newBox: VscrollBox, oldBox: VscrollBox): any;
+	emit(f: () => void): any;
+	move(pad1: number, pad2: number): any;
 	recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;
 	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;
 	getPositionUsingItemSize(itemsSize: number, box: VscrollBox, arm: number): IVscrollPosition;
-	getItemSize();
-	getScrollSize(box: VscrollBox);
-	getSize(box: VscrollBox);
+	getItemSize(): any;
+	getScrollSize(box: VscrollBox): any;
+	getSize(box: VscrollBox): any;
 }

@@ -19,12 +19,12 @@ import { capitalize } from './vscroll.utility';
   selector: '[q-grid-vscroll-port-x]',
 })
 export class VscrollPortXDirective implements VscrollPort, OnChanges {
-  private link: VscrollLink = null;
+  private link: VscrollLink;
 
   @Input('q-grid-vscroll-port-x') context: VscrollContext;
 
   markup: { [key: string]: HTMLElement } = {};
-  layout: VscrollLayout = null;
+  layout: VscrollLayout;
 
   constructor(
     private elementRef: ElementRef,

@@ -5,7 +5,7 @@ import { RenderStrategy } from './render.strategy';
 
 export declare class Renderer {
   defaultStrategy: RenderStrategy;
-  readonly rows: { left: any[]; right: any[]; mid: any[] };
+  readonly rows: Record<string, any>;
 
   constructor(plugin: GridPlugin);
 

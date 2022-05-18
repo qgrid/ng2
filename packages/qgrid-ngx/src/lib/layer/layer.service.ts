@@ -18,7 +18,7 @@ export class LayerService {
     this.container = container;
   }
 
-  create(name) {
+  create(name: any) {
     if (this.layers.has(name)) {
       return this.layers.get(name);
     }

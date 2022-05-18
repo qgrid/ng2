@@ -9,7 +9,7 @@ export class AutoSizeDirective implements OnInit {
   private host: HTMLElement;
   private element: HTMLInputElement;
 
-  @Input('q-grid-autosize') selector;
+  @Input('q-grid-autosize') selector: any;
   @Input('q-grid-autosize-empty-width') emptyWidth = 75;
 
   @Input('q-grid-autosize-value') set value(value: string) {
@@ -24,7 +24,7 @@ export class AutoSizeDirective implements OnInit {
     this.element = this.selector ? this.host.querySelector(this.selector) as HTMLInputElement : this.host as HTMLInputElement;
   }
 
-  autoWidth(text) {
+  autoWidth(text: string) {
     if (!text) {
       this.actualText = text;
       Fastdom.measure(() => {

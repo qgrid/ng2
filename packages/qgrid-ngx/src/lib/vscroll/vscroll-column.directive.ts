@@ -36,7 +36,6 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['index']) {
       if (this.port.getItemSize()) {
-        this.ngOnChanges = null;
         return;
       }
 

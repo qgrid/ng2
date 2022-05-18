@@ -25,7 +25,7 @@ export class VscrollLink {
     if (settings.placeholderHeight > 0 || settings.placeholderWidth > 0) {
       const width = settings.placeholderWidth || (isNumber(settings.columnWidth) && settings.columnWidth as number);
       const height = settings.placeholderHeight || (isNumber(settings.rowHeight) && settings.rowHeight as number);
-      view.drawPlaceholder(width, height);
+      view.drawPlaceholder(width as number, height as number);
     }
 
     view.scroll.subscribe(() => this.update(false));
@@ -67,7 +67,7 @@ export class VscrollLink {
         });
       };
 
-      const emit = f => port.emit(f);
+      const emit = (f: any) => port.emit(f);
       container.apply(draw, emit);
     }
   }

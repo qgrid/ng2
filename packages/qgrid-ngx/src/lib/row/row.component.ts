@@ -46,14 +46,14 @@ export class RowComponent implements OnChanges, OnInit {
     },
   });
 
-  @Input() behavior = [];
+  @Input() behavior: any[] = [];
 
   @Input() set mode(mode: RowStateMode) { this.rowAccessor({ mode }); }
   @Input() set unit(unit: RowStateUnit) { this.rowAccessor({ unit }); }
   @Input() set canMove(canMove: boolean) { this.rowAccessor({ canMove }); }
   @Input() set canResize(canResize: boolean) { this.rowAccessor({ canResize }); }
-  @Input() set minHeight(minHeight) { this.rowAccessor({ minHeight }); }
-  @Input() set height(height) { this.rowAccessor({ height }); }
+  @Input() set minHeight(minHeight: any) { this.rowAccessor({ minHeight }); }
+  @Input() set height(height: any) { this.rowAccessor({ height }); }
 
   constructor(
     private plugin: GridPlugin,
@@ -104,7 +104,7 @@ export class RowComponent implements OnChanges, OnInit {
     }
 
     if (this.behavior.indexOf('expandOnDblClick') >= 0) {
-      let firstClickTarget = null;
+      let firstClickTarget: any = null;
 
       observe(model.mouseChanged)
         .subscribe(e => {
@@ -115,10 +115,12 @@ export class RowComponent implements OnChanges, OnInit {
               firstClickTarget = target;
             } else {
               const dblClickInterval = 300;
-              if (firstClickTarget === target && timestamp.newValue - timestamp.oldValue <= dblClickInterval) {
-                if (target.column.type !== 'row-expand') {
-                  if (this.toggleStatus.canExecute(target.row)) {
-                    this.toggleStatus.execute(target.row);
+              const timestampNewValue = timestamp.newValue ?? 0;
+              const timestampOldValue = timestamp.oldValue ?? 0;
+              if (firstClickTarget === target && timestampNewValue - timestampOldValue <= dblClickInterval) {
+                if (target?.column.type !== 'row-expand') {
+                  if (this.toggleStatus.canExecute(target!.row)) {
+                    this.toggleStatus.execute(target!.row);
                   }
                 }
               }

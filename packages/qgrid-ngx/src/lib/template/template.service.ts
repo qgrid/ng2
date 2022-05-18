@@ -11,7 +11,7 @@ export class TemplateService {
 		private templateCache: TemplateCacheService,
   ) { }
 
-  find(keys: string | string[]): TemplateLink {
+  find(keys: string | string[]): TemplateLink | null {
     if (isString(keys)) {
       const key = keys as string;
       const link = this.templateCache.get(key) || this.templateLink.get(key);
@@ -21,9 +21,11 @@ export class TemplateService {
     if (isArray(keys)) {
       return this.lookInCache(keys) || this.lookInLink(keys);
     }
+
+    return null;
   }
 
-  private lookInCache(keys) {
+  private lookInCache(keys: any) {
     for (const key of keys) {
       const link = this.templateCache.get(key);
       if (link) {
@@ -34,7 +36,7 @@ export class TemplateService {
     return null;
   }
 
-  private lookInLink(keys) {
+  private lookInLink(keys: any) {
     for (const key of keys) {
       const link = this.templateLink.get(key);
       if (link) {

@@ -38,7 +38,7 @@ export class DragDirective {
 
     if (this.drag.canExecute(eventArg) === false) {
       e.preventDefault();
-      transfer.effectAllowed = 'none';
+      transfer!.effectAllowed = 'none';
       return false;
     }
 
@@ -50,8 +50,8 @@ export class DragDirective {
 
     this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
-    transfer.setData(DragService.mimeType, DragService.encode(data));
-    transfer.effectAllowed = this.effect || 'move';
+    transfer!.setData(DragService.mimeType, DragService.encode(data));
+    transfer!.effectAllowed = this.effect || 'move';
 
     DragService.data = data;
     DragService.area = this.area;
@@ -78,8 +78,8 @@ export class DragDirective {
     this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 
     DragService.data = null;
-    DragService.area = null;
-    DragService.element = null;
-    DragService.startPosition = null;
+    // DragService.area = null;
+    // DragService.element = null;
+    // DragService.startPosition = null;
   }
 }

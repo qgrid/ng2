@@ -21,7 +21,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
   @Input('q-grid-core-tf') columnView: ColumnView;
 
   $implicit = this;
-  element: HTMLElement = null;
+  element: HTMLElement;
 
   get value() {
     const column = this.column;
@@ -29,7 +29,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
   }
 
   get label() {
-    return this.label;
+    return this.value;
   }
 
   get column(): ColumnModel {

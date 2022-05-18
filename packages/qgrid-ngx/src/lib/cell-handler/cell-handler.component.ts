@@ -57,7 +57,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
         if (e.hasChanges('status')) {
           if (e.state.status === 'endBatch' && this.endBatchEdit) {
             this.endBatchEdit();
-            this.endBatchEdit = null;
+            // this.endBatchEdit = null;
           }
         }
       });

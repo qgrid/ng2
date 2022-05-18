@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { Bag } from '@qgrid/core';
 import { DomTr } from '../dom/dom';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -15,7 +16,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 export class TrhCoreDirective implements DomTr, OnInit, OnDestroy {
   @Input('q-grid-core-index') index: number;
   @Input('q-grid-core-trh') model: any;
-  @Input('q-grid-core-source') source;
+  @Input('q-grid-core-source') source: any;
 
   element: HTMLElement;
 
@@ -28,10 +29,10 @@ export class TrhCoreDirective implements DomTr, OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.plugin.table.box.bag[this.source].addRow(this);
+    this.plugin.table.box.bag[this.source as keyof { body: Bag; head: Bag; foot: Bag; }].addRow(this);
   }
 
   ngOnDestroy() {
-    this.plugin.table.box.bag[this.source].deleteRow(this);
+    this.plugin.table.box.bag[this.source as keyof { body: Bag; head: Bag; foot: Bag; }].deleteRow(this);
   }
 }
