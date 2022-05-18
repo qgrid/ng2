@@ -17,10 +17,13 @@ export class EbClassDirective implements OnInit, DoCheck {
   private evaluate: (value: any) => any;
   private oldClassList: Array<string> = [];
 
-  @Input('q-grid-eb-class') klass: any;
+  @Input('q-grid-eb-class') class: any;
   @Input('q-grid-eb-class-model') model: any;
 
-  constructor(private elementRef: ElementRef, @Optional() private node: EbNodeComponent) {
+  constructor(
+    private elementRef: ElementRef,
+    @Optional() private node: EbNodeComponent,
+  ) {
   }
 
   ngOnInit() {
@@ -28,7 +31,7 @@ export class EbClassDirective implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    const result = this.evaluate(this.klass);
+    const result = this.evaluate(this.class);
     if (result) {
       const classList = this.fetchClasses(result);
       if (this.oldClassList.length !== classList.length
