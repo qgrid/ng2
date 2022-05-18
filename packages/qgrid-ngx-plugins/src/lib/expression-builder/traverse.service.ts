@@ -1,6 +1,10 @@
+import { GroupExpression, Expression } from './model/expression';
+import { Line } from './model/line';
 import { Node } from './model/node';
 
-export class TraverseService {
+type TraverseReduce<T> = (memo: T, expresseion: Expression, line: Line, node: Node) => T;
+
+export class TraverseService<T> {
   findUp(node: Node, test: (foundNode: Node) => boolean) {
     while (node) {
       if (test(node)) {
@@ -29,7 +33,7 @@ export class TraverseService {
     return null;
   }
 
-  depth(root: Node): (reduce: any, memo: any) => any {
+  depth(root: Node): (reduce: TraverseReduce<T>, memo: T) => T {
     return (reduce, memo) => {
       memo = this.visitLine(reduce, memo, root, root.line);
 
@@ -44,8 +48,8 @@ export class TraverseService {
     };
   }
 
-  private visitLine(reduce, memo, node, line) {
-    const groups = line.expressions;
+  private visitLine(reduce: TraverseReduce<T>, memo: T, node: Node, line: Line) {
+    const groups = line.expressions as GroupExpression[];
     const length = groups.length;
 
     for (let i = 0; i < length; i++) {
@@ -55,7 +59,7 @@ export class TraverseService {
     return memo;
   }
 
-  private visitGroup(reduce, memo, node, line, group) {
+  private visitGroup(reduce: TraverseReduce<T>, memo: T, node: Node, line: Line, group: GroupExpression) {
     const expressions = group.expressions;
     const length = expressions.length;
 

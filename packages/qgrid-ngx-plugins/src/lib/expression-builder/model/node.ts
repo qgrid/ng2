@@ -2,7 +2,7 @@ import { GridError } from '@qgrid/ngx';
 import { Line } from './line';
 
 export class Node {
-  readonly attributes: { [key: string]: any } = {};
+  readonly attributes: { [key: string]: unknown } = {};
   // eslint-disable-next-line no-use-before-define
   children: Node[] = [];
   level: number;

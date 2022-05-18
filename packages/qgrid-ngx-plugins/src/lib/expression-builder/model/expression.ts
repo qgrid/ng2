@@ -1,8 +1,12 @@
+import { Watcher } from '../digest/watch';
+
 export abstract class Expression {
   id: string;
   type: string;
   templateUrl = '';
   method: string[] = [];
+  $watch?: Watcher;
+  isValid?(): boolean;
 }
 
 export class GroupExpression extends Expression {

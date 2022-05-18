@@ -1,5 +1,6 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { Watcher } from './digest/watch';
+import { Expression } from './model/expression';
 import { Line } from './model/line';
 import { Node } from './model/node';
 
@@ -12,14 +13,14 @@ export class EbExpressionComponent implements OnInit, DoCheck {
 
   @Input() node: Node;
   @Input() line: Line;
-  @Input() model: any;
+  @Input() model: Expression;
 
-  context: { $implicit: any; node: Node; line: Line };
+  context: { $implicit: Expression; node: Node; line: Line };
 
   ngOnInit() {
     this.context = { $implicit: this.model, node: this.node, line: this.line };
 
-    const $watch = this.model.$watch;
+    const { $watch } = this.model;
     if ($watch) {
       this.watchers =
         Object

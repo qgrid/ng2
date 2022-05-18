@@ -18,7 +18,7 @@ import { WhereSchema } from './schema/where.schema';
   providers: [FocusAfterRender, GridPlugin],
 })
 export class QueryBuilderPanelComponent implements OnInit {
-  private traverse = new TraverseService();
+  private traverse = new TraverseService<boolean>();
   private plan: INodeSchema;
 
   @Output() close = new EventEmitter<any>();
