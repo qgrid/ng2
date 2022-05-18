@@ -21,7 +21,14 @@
     "lib": [
       "dom",
       "esnext"
-    ]
+    ],
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
