@@ -8,7 +8,7 @@ import { Log } from '@qgrid/core';
 export class CurrencyPipe implements PipeTransform {
   constructor(private pipe: NgCurrencyPipe) { }
 
-  transform(value: any, currencyCode?: string, display?: boolean, digitsInfo?: any, locale?: any) {
+  transform(value: string | number, currencyCode?: string, display?: boolean, digitsInfo?: string, locale?: string) {
     try {
       return this.pipe.transform(value, currencyCode, display, digitsInfo, locale);
     } catch (ex) {

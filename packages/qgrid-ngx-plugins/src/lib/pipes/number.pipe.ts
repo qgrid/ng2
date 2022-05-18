@@ -8,7 +8,7 @@ import { Log } from '@qgrid/core';
 export class NumberPipe implements PipeTransform {
   constructor(private pipe: DecimalPipe) { }
 
-  transform(value: any, digitsInfo?: any, locale?: any) {
+  transform(value: string | number, digitsInfo?: string, locale?: string) {
     try {
       return this.pipe.transform(value, digitsInfo, locale);
     } catch (ex) {

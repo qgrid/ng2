@@ -4,9 +4,7 @@ import { PipeTransform, Pipe } from '@angular/core';
   name: 'qGridItemLabel',
 })
 export class ItemLabelPipe implements PipeTransform {
-  constructor() { }
-
-  transform(value: any, itemLabel: (x: any) => string) {
+  transform(value: unknown, itemLabel: (x: unknown) => string) {
     if (itemLabel) {
       return itemLabel(value);
     }

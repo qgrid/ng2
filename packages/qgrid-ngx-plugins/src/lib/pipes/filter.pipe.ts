@@ -5,7 +5,7 @@ import { filterNode, Node, predicateFactory } from '@qgrid/core';
   name: 'qGridFilter',
 })
 export class FilterPipe implements PipeTransform {
-  transform(items: any[] | Node, { search = null, type = 'plain' }) {
+  transform(items: unknown[] | Node, { search = null, type = 'plain' }) {
     if (search || search === 0 || search === false) {
       const predicate = predicateFactory(search);
       switch (type) {
@@ -14,7 +14,7 @@ export class FilterPipe implements PipeTransform {
           return filterNode(root, predicate);
         }
         default: {
-          return (items as any[]).filter(predicate);
+          return (items as unknown[]).filter(predicate);
         }
       }
     }
