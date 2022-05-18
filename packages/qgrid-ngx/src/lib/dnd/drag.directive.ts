@@ -78,8 +78,5 @@ export class DragDirective {
     this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 
     DragService.data = null;
-    // DragService.area = null;
-    // DragService.element = null;
-    // DragService.startPosition = null;
   }
 }
