@@ -16,7 +16,7 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
   providers: [GridPlugin, TemplateHostService],
 })
 export class ActionComponent implements OnInit {
-  @ContentChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
+  @ContentChild(TemplateRef, { static: true }) templateRef: TemplateRef<unknown>;
 
   @Input() title: string;
   @Input() icon: string;

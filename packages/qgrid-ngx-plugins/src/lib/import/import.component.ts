@@ -16,17 +16,17 @@ import {
   EventManager,
 } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
-import { ImportPlugin } from '@qgrid/plugins';
+import { ImportOptions, ImportPlugin } from '@qgrid/plugins';
 
 @Component({
   selector: 'q-grid-import',
-  templateUrl: './import.component.html',
+  template: '',
   providers: [TemplateHostService, GridPlugin],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportComponent implements AfterViewInit {
-  @Input() options: any;
-  @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+  @Input() options: ImportOptions;
+  @ContentChild(TemplateRef) templateRef: TemplateRef<unknown>;
 
   // eslint-disable-next-line no-use-before-define
   context: { $implicit: ImportComponent } = {

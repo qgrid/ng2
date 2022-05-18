@@ -16,10 +16,10 @@ import { BackdropService } from '../backdrop/backdrop.service';
 })
 export class FileDirective {
   private reader = new FileReader();
-  private _value: any;
+  private _value: File;
   private _label: string;
 
-  @Output('q-grid-fileChange') valueChange = new EventEmitter<any>();
+  @Output('q-grid-fileChange') valueChange = new EventEmitter<File>();
   @Output('q-grid-file-labelChange') labelChange = new EventEmitter<string>();
 
   @Input('q-grid-file-is-valid') isValid: (name: string) => boolean = yes;
@@ -28,7 +28,7 @@ export class FileDirective {
     return this._value;
   }
 
-  set value(value: any) {
+  set value(value: File) {
     if (value !== this._value) {
       this._value = value;
       this.valueChange.emit(value);

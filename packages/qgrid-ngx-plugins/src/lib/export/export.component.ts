@@ -12,13 +12,13 @@ import { ExportPlugin } from '@qgrid/plugins';
 
 @Component({
   selector: 'q-grid-export',
-  templateUrl: './export.component.html',
+  template: '',
   providers: [TemplateHostService, GridPlugin],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
   @Input() type: string;
-  @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+  @ContentChild(TemplateRef) templateRef: TemplateRef<unknown>;
 
   // eslint-disable-next-line no-use-before-define
   context: { $implicit: ExportComponent } = {

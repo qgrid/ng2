@@ -20,7 +20,7 @@ import { FocusAfterRender } from '../focus/focus.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnSortComponent implements AfterViewInit {
-  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<unknown>;
   @Input() column: ColumnModel;
 
   // eslint-disable-next-line no-use-before-define

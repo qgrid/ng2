@@ -38,8 +38,8 @@ export class ColumnFilterComponent implements OnInit {
   @Input() column: ColumnModel;
   @Input() search = '';
 
-  @Output('submit') submitEvent = new EventEmitter<any>();
-  @Output('cancel') cancelEvent = new EventEmitter<any>();
+  @Output('submit') submitEvent = new EventEmitter<void>();
+  @Output('cancel') cancelEvent = new EventEmitter<void>();
 
   context: {
     $implicit: ColumnFilterPlugin;

@@ -14,11 +14,11 @@ import {
 export class BackdropDirective {
   private backdrop: HTMLElement;
 
-  @Output('q-grid-backdrop') close = new EventEmitter<any>();
+  @Output('q-grid-backdrop') close = new EventEmitter<void>();
 
   @Input('q-grid-backdrop-selector') selector = '';
 
-  @Input('q-grid-backdrop-active') set backdropHost(value: any) {
+  @Input('q-grid-backdrop-active') set backdropHost(value: boolean) {
     if (!value) {
       if (this.backdrop) {
         this.backdrop.remove();
@@ -49,6 +49,8 @@ export class BackdropDirective {
     });
   }
 
-  constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
-  }
+  constructor(
+    private zone: NgZone,
+    @Inject(DOCUMENT) private document: Document,
+  ) { }
 }

@@ -21,7 +21,7 @@ export class QueryBuilderPanelComponent implements OnInit {
   private traverse = new TraverseService<boolean>();
   private plan: INodeSchema;
 
-  @Output() close = new EventEmitter<any>();
+  @Output() close = new EventEmitter<void>();
 
   node: Node;
   queryService: QueryBuilderService;

@@ -7,11 +7,14 @@ import { parseFactory } from '@qgrid/core';
 export class TimeDirective {
   private toMidnight: (x: Date | string) => Date = parseFactory('date');
 
-  constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
+  constructor(
+    templateRef: TemplateRef<unknown>,
+    viewContainerRef: ViewContainerRef,
+  ) {
     viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
   }
 
-  time(previous, current) {
+  time(previous: string | Date, current: string) {
     if (!previous) {
       previous = new Date();
     }
