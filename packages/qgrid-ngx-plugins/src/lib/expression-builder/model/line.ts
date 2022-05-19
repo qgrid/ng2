@@ -5,19 +5,19 @@ import { GroupSchema } from './group.schema';
 import { Node } from './node';
 
 interface ExpressionEntry {
-	index: number;
-	expression: Expression;
-	parent: GroupExpression;
+  index: number;
+  expression: Expression;
+  parent: GroupExpression;
 }
 
 export class Line {
   immutable = true;
-  readonly expressions: Expression[] = [];
+  readonly expressions: GroupExpression[] = [];
 
   constructor(private GroupSchemaT: typeof GroupSchema) {
   }
 
-  add(expression: Expression) {
+  add(expression: GroupExpression) {
     this.expressions.push(expression);
   }
 
@@ -25,16 +25,16 @@ export class Line {
     return cloneDeep(this.get(id)) as Expression;
   }
 
-  get(id: string) {
+  get(id: string): GroupExpression {
     const expression = this.findById(this.expressions, id);
     if (!expression) {
       throw new GridError('line', `Expression ${id} not found`);
     }
 
-    return expression.expression;
+    return expression.expression as GroupExpression;
   }
 
-  put(id: string, node: Node, build) {
+  put(id: string, node: Node, build: any) {
     const index = this.getIndex(id);
     const schema = new this.GroupSchemaT(node, this);
     const group = new GroupExpression();
@@ -51,7 +51,7 @@ export class Line {
     }
   }
 
-  remove(id) {
+  remove(id: string) {
     const item = this.findById(this.expressions, id);
     if (item.expression instanceof GroupExpression) {
       item.expression.expressions = [];

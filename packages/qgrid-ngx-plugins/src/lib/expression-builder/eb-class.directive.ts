@@ -9,16 +9,20 @@ import {
 import { isArray } from '@qgrid/core';
 import { evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';
+import { Expression } from './model/expression';
+
+type EbClassType = string | string[] | { [key: string]: boolean | ((...args: unknown[]) => boolean) };
+type EvaluatedEbClass = string | string[] | { [key: string]: boolean };
 
 @Directive({
   selector: '[q-grid-eb-class]',
 })
 export class EbClassDirective implements OnInit, DoCheck {
-  private evaluate: (value: any) => any;
+  private evaluate: (value: EbClassType) => EvaluatedEbClass;
   private oldClassList: Array<string> = [];
 
-  @Input('q-grid-eb-class') class: any;
-  @Input('q-grid-eb-class-model') model: any;
+  @Input('q-grid-eb-class') class: EbClassType;
+  @Input('q-grid-eb-class-model') model: Expression;
 
   constructor(
     private elementRef: ElementRef,
@@ -49,9 +53,9 @@ export class EbClassDirective implements OnInit, DoCheck {
     }
   }
 
-  private fetchClasses(meta) {
+  private fetchClasses(meta: EbClassType): string[] {
     if (isArray(meta)) {
-      return meta;
+      return meta as string[];
     }
 
     const keys = Object.keys(meta);

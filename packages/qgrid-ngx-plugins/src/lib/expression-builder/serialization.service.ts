@@ -1,14 +1,15 @@
 /* eslint-disable no-use-before-define */
 import { Injectable } from '@angular/core';
-import { GroupExpression } from './model/expression';
+import { Expression, GroupExpression } from './model/expression';
 import { Line } from './model/line';
 import { Node } from './model/node';
 import { INodeSchema } from './model/node.schema';
 import { indexOf, override } from './utility';
 
 class Serializer {
-  constructor(private node: Node) {
-  }
+  constructor(
+    private node: Node,
+  ) { }
 
   serialize(): ISerializationNode {
     const groups = this.node.line.expressions.map(expr => this.serializeGroup(expr));
@@ -21,7 +22,7 @@ class Serializer {
     };
   }
 
-  serializeGroup(group): ISerializationGroup {
+  serializeGroup(group: GroupExpression): ISerializationGroup {
     return {
       id: group.id,
       expressions: group.expressions
@@ -30,7 +31,7 @@ class Serializer {
     };
   }
 
-  serializeExpression(expression): ISerializationExpression {
+  serializeExpression(expression: ISerializationExpression): ISerializationExpression {
     const result = {} as ISerializationExpression;
 
     const serializeAttr = this.node.attr('serialize');
@@ -47,11 +48,11 @@ class Serializer {
     return result;
   }
 
-  serializeAttributes(node: Node) {
+  serializeAttributes(node: Node): object {
     const serializeAttr = node.attr('serialize');
     if (serializeAttr && serializeAttr['@attr']) {
       const props = serializeAttr['@attr'];
-      return props.reduce((memo, attr) => {
+      return props.reduce((memo: object, attr: string) => {
         memo[attr] = node.attr(attr);
         return memo;
       }, {});
@@ -59,7 +60,7 @@ class Serializer {
     return {};
   }
 
-  canSerialize(expression) {
+  canSerialize(expression: Expression) {
     const serializeAttr = this.node.attr('serialize');
     if (!serializeAttr) {
       return false;
@@ -152,6 +153,7 @@ export declare interface ISerializationNode {
   attributes: any;
   children: ISerializationNode[];
   line: ISerializationGroup[];
+  kind?: string;
 }
 
 export declare interface ISerializationGroup {
@@ -162,7 +164,9 @@ export declare interface ISerializationGroup {
 export declare interface ISerializationExpression {
   id: string;
   type: string;
-  method: Array<string>;
+  method: string[];
+  value?: string | null;
+  values?: string[];
 }
 
 @Injectable()

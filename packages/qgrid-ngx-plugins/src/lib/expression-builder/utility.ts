@@ -1,6 +1,6 @@
 import { clone } from '@qgrid/core';
 
-export function indexOf(array, predicate) {
+export function indexOf<T>(array: T[], predicate: (val: T, i: number) => boolean) {
   for (let i = 0, length = array.length; i < length; i++) {
     if (predicate(array[i], i)) {
       return i;
@@ -9,11 +9,10 @@ export function indexOf(array, predicate) {
   return -1;
 }
 
-export function defaults<T>(...args: any[]): T {
-  const dst = args[0];
-  const result = clone(dst) as T;
+export function defaults<T>(dst?: T, ...args: unknown[]): T {
+  const result = clone(dst);
 
-  for (let i = 1, sourcesLength = args.length; i < sourcesLength; i++) {
+  for (let i = 0, sourcesLength = args.length; i < sourcesLength; i++) {
     const source = args[i];
 
     if (!source) {
@@ -33,7 +32,7 @@ export function defaults<T>(...args: any[]): T {
   return result;
 }
 
-export function override(dst, src) {
+export function override<T extends object>(dst: T, src: object): T {
   const keys = Object.keys(src);
   const length = keys.length;
 

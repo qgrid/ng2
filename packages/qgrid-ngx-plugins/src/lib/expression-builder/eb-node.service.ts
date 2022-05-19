@@ -2,8 +2,8 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Node } from './model/node';
 
 export interface EbNodeServiceEventArg<T> {
-	newValue: T;
-	oldValue: T;
+  newValue: T;
+  oldValue: T;
 }
 
 @Injectable()

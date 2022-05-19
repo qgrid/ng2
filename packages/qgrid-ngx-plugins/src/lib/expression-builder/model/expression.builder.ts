@@ -10,21 +10,22 @@ import { EmptyStatement, IStatement } from './statement';
 
 
 export class ExpressionBuilder {
-  constructor(private settings) {
-  }
+  constructor(
+    private settings: IStatement,
+  ) { }
 
-  build<T>(statements: Array<IStatement>): T {
+  build(statements: IStatement[]) {
     const NodeSchemaT = nodeSchema(GroupSchema);
 
     const settings = this.settings;
     statements
       .concat([new EmptyStatement()])
       .forEach(statement => {
-        const factory = function (...args) {
+        const factory = function (...args: [Expression] | [string, Expression]) {
           let id = guid();
           let sampleExpression: Expression;
           if (args.length > 1) {
-            id = args[0];
+            id = args[0] as string;
             sampleExpression = args[1];
           } else if (args.length === 1) {
             sampleExpression = args[0];
@@ -32,7 +33,7 @@ export class ExpressionBuilder {
 
           const build = function (node: Node, line: Line) {
             const expression =
-              utility.defaults<Expression>(
+              utility.defaults(
                 sampleExpression,
                 statement.defaults,
                 settings.defaults,
@@ -81,19 +82,19 @@ export class ExpressionBuilder {
           return this;
         };
 
-        const groupFactory = function (...args) {
+        const groupFactory = function (...args: (string | Expression)[]) {
           let id = guid();
           let sampleExpression: Expression;
           if (args.length > 1) {
-            id = args[0];
-            sampleExpression = args[1];
+            id = args[0] as string;
+            sampleExpression = args[1] as Expression;
           } else if (args.length === 1) {
-            sampleExpression = args[0];
+            sampleExpression = args[0] as Expression;
           }
 
-          const build = function (node, line, expressionGroup) {
+          const build = function (node: Node, line: Line, expressionGroup: GroupExpression) {
             const expression =
-              utility.defaults<Expression>(
+              utility.defaults(
                 sampleExpression,
                 statement.defaults,
                 settings.defaults,
@@ -119,6 +120,6 @@ export class ExpressionBuilder {
       });
 
     // TODO: think how to avoid this
-    return new NodeSchemaT() as T;
+    return new NodeSchemaT();
   }
 }

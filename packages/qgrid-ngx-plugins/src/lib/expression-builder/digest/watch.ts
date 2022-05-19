@@ -1,3 +1,4 @@
+import { Expression } from '../model/expression';
 import { evaluateFactory } from './evaluate';
 
 export class Watcher {
@@ -6,11 +7,11 @@ export class Watcher {
   private isFirstRun = true;
 
   constructor(
-		private expression: any,
-		private key: string,
-		private handler: (context: any, e: any) => void,
-		private args = []) {
-
+    private expression: Expression,
+    private key: string,
+    private handler: (context: any, e: any) => void,
+    private args = [],
+  ) {
     this.evaluate = evaluateFactory(expression, args);
     this.oldValue = this.evaluate(expression[key]);
   }

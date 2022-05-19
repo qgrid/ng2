@@ -1,9 +1,11 @@
 import { isArray, isFunction, isObject } from '@qgrid/core';
+import { Expression } from '../model/expression';
 
-export function evaluateFactory(expression, args) {
+export function evaluateFactory(expression: Expression, args: unknown[]) {
   return visit;
 
-  function visit(value) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function visit(value: any) {
     if (isArray(value)) {
       return visitArray(value);
     } else if (isFunction(value)) {
@@ -15,7 +17,7 @@ export function evaluateFactory(expression, args) {
     return value;
   }
 
-  function visitObject(inst) {
+  function visitObject(inst: object) {
     const keys = Object.keys(inst);
     const length = keys.length;
     const result = {};
@@ -27,7 +29,7 @@ export function evaluateFactory(expression, args) {
     return result;
   }
 
-  function visitArray(list) {
+  function visitArray(list: unknown[]) {
     const result = [];
     for (let i = 0, length = list.length; i < length; i++) {
       result[i] = visit(list[i]);
@@ -35,7 +37,7 @@ export function evaluateFactory(expression, args) {
     return result;
   }
 
-  function visitFunction(delegate) {
+  function visitFunction(delegate: (...argums: unknown[]) => unknown) {
     return delegate.apply(expression, args);
   }
 }

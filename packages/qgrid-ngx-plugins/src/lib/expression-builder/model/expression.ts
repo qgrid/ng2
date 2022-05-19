@@ -5,6 +5,7 @@ export abstract class Expression {
   type: string;
   templateUrl = '';
   method: string[] = [];
+  value?: string | null;
   $watch?: Watcher;
   isValid?(): boolean;
 }

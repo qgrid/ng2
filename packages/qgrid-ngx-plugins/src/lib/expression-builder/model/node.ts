@@ -1,18 +1,23 @@
 import { GridError } from '@qgrid/ngx';
 import { Line } from './line';
+import { INodeSchema } from './node.schema';
 
 export class Node {
-  readonly attributes: { [key: string]: unknown } = {};
+  readonly attributes: { [key: string]: string } = {};
   // eslint-disable-next-line no-use-before-define
   children: Node[] = [];
   level: number;
   line: Line;
 
-  constructor(public id: string, public schema, public parent?: Node) {
+  constructor(
+    public id: string,
+    public schema: INodeSchema,
+    public parent?: Node,
+  ) {
     this.level = parent ? parent.level + 1 : 0;
   }
 
-  attr(key: string, value?) {
+  attr(key: string, value?: string): string {
     if (arguments.length === 2) {
       this.attributes[key] = value;
     } else {
