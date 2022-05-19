@@ -5,11 +5,12 @@ import { Expression } from '../expression-builder/model/expression';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { Line } from '../expression-builder/model/line';
 import { Node } from '../expression-builder/model/node';
-import { INodeSchema } from '../expression-builder/model/node.schema';
 import { typeMapping } from './schema/operator';
 
 export interface Column {
-  key: string; title: string; type: string;
+  key: string;
+  title: string;
+  type: string;
 }
 
 export interface ColumnMap {
@@ -17,8 +18,8 @@ export interface ColumnMap {
 }
 
 interface QueryBuilderSchemaSettings {
-  [key: string]: string | string[] | boolean |
-  ((node?: Node, line?: Line, key?: string) => Promise<string[]> | string | string[] | boolean | void) | QueryBuilderSchemaSettings;
+  [key: string]: string | string[] | boolean | QueryBuilderSchemaSettings |
+  ((node?: Node, line?: Line, key?: string) => Promise<string[]> | string | string[] | boolean | void);
 }
 
 interface QueryBuilderSchemaAttributes {
@@ -152,7 +153,7 @@ export class QueryBuilderService {
       },
     };
 
-    return new ExpressionBuilder(settings as any)
-      .build(statements) as any;
+    return new ExpressionBuilder(settings)
+      .build<IQueryBuilderSchema>(statements);
   }
 }

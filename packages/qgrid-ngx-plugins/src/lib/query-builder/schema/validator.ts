@@ -43,7 +43,7 @@ export class Validator {
     let validate: ((value: string | string[]) => string[]) = () => trueResult;
     if (rule) {
       const schema = { [id]: rule };
-      validate = function test(value): Array<string> {
+      validate = function test(value): string[] {
         if (isArray(value)) {
           const result = [];
           for (const item of value) {

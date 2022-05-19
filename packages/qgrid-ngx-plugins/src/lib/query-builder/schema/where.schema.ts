@@ -38,7 +38,8 @@ export class WhereSchema {
     const suggests = suggestsFactory(service, '#field');
     const validator = new Validator(service);
 
-    return this.service.build()
+    return this.service
+      .build()
       .node('#logical', function (logical) {
         logical
           .attr('serialize', {
@@ -90,8 +91,10 @@ export class WhereSchema {
 
                   if (ops.indexOf(op.value) < 0) {
                     op.value = ops.length ? ops[0] : null;
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     (op as any).change();
                   } else {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const operand = line.get('#operand').expressions[0] as (Expression & { validate: () => any[] });
                     if (operand.validate) {
                       const result = operand.validate();
@@ -109,6 +112,7 @@ export class WhereSchema {
                 getOptions: function (node: Node, line: Line) {
                   const field: Expression = line.get('#field').expressions[0];
                   const name = field.value;
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   const type = (field as any).getType(name);
 
                   return type ? typeMapping[type] : [];
@@ -126,7 +130,7 @@ export class WhereSchema {
                     case 'not like':
                     case 'starts with':
                     case 'ends with':
-                      line.put('#operand', node, function (schema: IQueryBuilderSchema) {
+                      line.put<IQueryBuilderSchema>('#operand', node, function (schema) {
                         schema.input('#value', {
                           classes: {
                             'qb-operand': true,
@@ -152,7 +156,7 @@ export class WhereSchema {
                       });
                       break;
                     case 'between':
-                      line.put('#operand', node, function (operand) {
+                      line.put<IQueryBuilderSchema>('#operand', node, function (operand) {
                         operand
                           .input('#from', {
                             classes: {

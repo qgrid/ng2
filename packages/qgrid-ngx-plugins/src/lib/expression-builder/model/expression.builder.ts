@@ -5,16 +5,15 @@ import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Line } from './line';
 import { Node } from './node';
-import { INodeSchema, nodeSchema } from './node.schema';
+import { nodeSchema } from './node.schema';
 import { EmptyStatement, IStatement } from './statement';
-
 
 export class ExpressionBuilder {
   constructor(
-    private settings: IStatement,
+    private settings: Partial<IStatement>,
   ) { }
 
-  build(statements: IStatement[]): INodeSchema {
+  build<T>(statements: IStatement[]): T {
     const NodeSchemaT = nodeSchema(GroupSchema);
 
     const settings = this.settings;
@@ -120,6 +119,6 @@ export class ExpressionBuilder {
       });
 
     // TODO: think how to avoid this
-    return new NodeSchemaT();
+    return new NodeSchemaT() as any as T;
   }
 }

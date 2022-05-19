@@ -1,10 +1,10 @@
-import { cloneDeep } from '@qgrid/core';
+import { cloneDeep, Expression } from '@qgrid/core';
 import { GridError } from '@qgrid/ngx';
 
 import { ISerializationGroup, ISerializationNode } from '../../expression-builder/serialization.service';
 import { camelCaseMapping } from './operator';
 
-export function visit(item: ISerializationNode) {
+export function visit(item: ISerializationNode): Expression {
   switch (item.id) {
     case '#root':
       return visit(item.children[0]);
@@ -25,7 +25,7 @@ export function visit(item: ISerializationNode) {
   }
 }
 
-function visitGroup(node: ISerializationNode) {
+function visitGroup(node: ISerializationNode): Expression {
   const line = node.line;
   const opExpr = find(line, '#logical-op', '#logical-op');
   const children = node.children.filter(notPlaceholder).map(visit);
@@ -58,11 +58,11 @@ function visitCondition(node: ISerializationNode) {
   const opExpr = find(line, '#operator', '#operator');
   const value = opExpr.value.toUpperCase();
 
-  let condition: { left: string; op: string; right?: string | string[]; kind?: 'condition' };
+  let condition: Expression = { kind: 'condition' } as Expression;
   switch (value) {
     case 'IS NOT EMPTY':
     case 'IS EMPTY':
-      condition = visitUnary(line, opExpr.value);
+      condition = { ...condition, ...visitUnary(line, opExpr.value) };
       break;
     case 'EQUALS':
     case 'NOT EQUALS':
@@ -74,23 +74,21 @@ function visitCondition(node: ISerializationNode) {
     case 'NOT LIKE':
     case 'STARTS WITH':
     case 'ENDS WITH':
-      condition = visitBinary(line, opExpr.value);
+      condition = { ...condition, ...visitBinary(line, opExpr.value) };
       break;
     case 'BETWEEN':
-      condition = visitBetween(line);
+      condition = { ...condition, ...visitBetween(line) };
       break;
     case 'IN':
-      condition = visitIn(line);
+      condition = { ...condition, ...visitIn(line) };
       break;
     default:
       throw new GridError('converter', `Invalid operation ${value}`);
   }
-
-  condition.kind = 'condition';
   return condition;
 }
 
-function visitUnary(line: ISerializationGroup[], op: string) {
+function visitUnary(line: ISerializationGroup[], op: string): Omit<Expression, 'right' | 'kind'> {
   const left = visitField(line);
 
   return {
@@ -99,7 +97,7 @@ function visitUnary(line: ISerializationGroup[], op: string) {
   };
 }
 
-function visitBinary(line: ISerializationGroup[], op: string) {
+function visitBinary(line: ISerializationGroup[], op: string): Omit<Expression, 'kind'> {
   const left = visitField(line);
   const right = find(line, '#operand', '#value') || find(line, '#fieldRight');
 
@@ -110,7 +108,7 @@ function visitBinary(line: ISerializationGroup[], op: string) {
   };
 }
 
-function visitIn(line: ISerializationGroup[]) {
+function visitIn(line: ISerializationGroup[]): Omit<Expression, 'kind'> {
   const left = visitField(line);
   const right = find(line, '#operand', '#in-operand') || find(line, '#fieldRight');
 
@@ -121,7 +119,7 @@ function visitIn(line: ISerializationGroup[]) {
   };
 }
 
-function visitBetween(line: ISerializationGroup[]) {
+function visitBetween(line: ISerializationGroup[]): Omit<Expression, 'kind'> {
   const left = visitField(line);
   const from = find(line, '#operand', '#from') || find(line, '#fieldFrom');
   const to = find(line, '#operand', '#to') || find(line, '#fieldTo');
