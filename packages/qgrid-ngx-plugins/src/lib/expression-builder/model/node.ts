@@ -17,7 +17,7 @@ export class Node {
     this.level = parent ? parent.level + 1 : 0;
   }
 
-  attr(key: string, value?: string): string {
+  attr(key: string, value?: string): string | void {
     if (arguments.length === 2) {
       this.attributes[key] = value;
     } else {
@@ -25,8 +25,7 @@ export class Node {
     }
   }
 
-  classes() {
-  }
+  classes() { }
 
   addChildAfter(child: Node, after?: Node) {
     const index = after ? this.children.indexOf(after) : this.children.length - 1;
@@ -76,7 +75,7 @@ export class Node {
     this.children = [];
   }
 
-  toString(indent = 0) {
+  toString(indent = 0): string {
     return Array(indent).join('-') + ' ' + this.level + '\n' +
       this.children
         .map(child => child.toString(indent + 1))

@@ -17,11 +17,12 @@ export interface INodeSchema {
 
 export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
   return class NodeSchema implements INodeSchema {
-    plan = [];
-    planMap = {};
+    plan: ((node: Node, line?: Line) => ReturnType<Node['attr']> | Node)[] = [];
+    planMap: { [key: string]: (node: Node, line: Line) => Node } = {};
 
-    constructor(public schemaMap = {}) {
-    }
+    constructor(
+      public schemaMap: { [key: string]: INodeSchema } = {},
+    ) { }
 
     clone(): INodeSchema {
       const schema = new NodeSchema({ ...this.schemaMap });
@@ -30,7 +31,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
       return schema;
     }
 
-    attr(key: string, value: unknown): INodeSchema {
+    attr(key: string, value: string): INodeSchema {
       this.plan.push(node => node.attr(key, value));
       return this;
     }
@@ -71,7 +72,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
         throw new GridError('node.schema', 'Build function is not defined');
       }
 
-      const buildGroup = (node, line) => {
+      const buildGroup = (node: Node, line: Line) => {
         const group = new GroupExpression();
         group.id = id;
 
@@ -89,7 +90,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
       return this;
     }
 
-    get(id: string): INodeSchema {
+    get(id: string) {
       const schema = this.schemaMap[id];
       if (!schema) {
         throw new GridError('node.schema', `Schema ${id} is not found`);
@@ -98,7 +99,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
       return schema;
     }
 
-    materialize(id: string): Node {
+    materialize(id: string) {
       const schema = this.get(id);
       return schema.apply(new Node(id, schema));
     }

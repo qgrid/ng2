@@ -19,7 +19,7 @@ type EvaluatedEbClass = string | string[] | { [key: string]: boolean };
 })
 export class EbClassDirective implements OnInit, DoCheck {
   private evaluate: (value: EbClassType) => EvaluatedEbClass;
-  private oldClassList: Array<string> = [];
+  private oldClassList: string[] = [];
 
   @Input('q-grid-eb-class') class: EbClassType;
   @Input('q-grid-eb-class-model') model: Expression;

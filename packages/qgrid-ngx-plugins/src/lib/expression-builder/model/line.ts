@@ -3,6 +3,7 @@ import { GridError } from '@qgrid/ngx';
 import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Node } from './node';
+import { INodeSchema } from './node.schema';
 
 interface ExpressionEntry {
   index: number;
@@ -14,15 +15,16 @@ export class Line {
   immutable = true;
   readonly expressions: GroupExpression[] = [];
 
-  constructor(private GroupSchemaT: typeof GroupSchema) {
-  }
+  constructor(
+    private GroupSchemaT: typeof GroupSchema,
+  ) { }
 
   add(expression: GroupExpression) {
     this.expressions.push(expression);
   }
 
-  clone(id: string) {
-    return cloneDeep(this.get(id)) as Expression;
+  clone(id: string): GroupExpression {
+    return cloneDeep(this.get(id));
   }
 
   get(id: string): GroupExpression {
@@ -34,7 +36,7 @@ export class Line {
     return expression.expression as GroupExpression;
   }
 
-  put(id: string, node: Node, build: any) {
+  put(id: string, node: Node, build: (sc: INodeSchema | GroupSchema) => void) {
     const index = this.getIndex(id);
     const schema = new this.GroupSchemaT(node, this);
     const group = new GroupExpression();

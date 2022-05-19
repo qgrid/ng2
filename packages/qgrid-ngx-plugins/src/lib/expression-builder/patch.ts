@@ -36,12 +36,14 @@ export function methodsOf<T>(inst: T) {
 }
 
 export function withFactory<T>(inst: T, key: string, sourceFn: () => unknown) {
-  const withFn = (...withArgs) =>
-    inst[key] = (...keyArgs) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const withFn = (...withArgs: any[]) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    inst[key] = (...keyArgs: any[]) =>
       sourceFn.apply(inst, withArgs.concat(keyArgs));
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (withFn as any).decorator = (...args) => {
+  (withFn as any).decorator = (...args: any[]) => {
     const decorate = args[0];
     args = args.slice(1);
 

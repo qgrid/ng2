@@ -5,7 +5,7 @@ import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Line } from './line';
 import { Node } from './node';
-import { nodeSchema } from './node.schema';
+import { INodeSchema, nodeSchema } from './node.schema';
 import { EmptyStatement, IStatement } from './statement';
 
 
@@ -14,7 +14,7 @@ export class ExpressionBuilder {
     private settings: IStatement,
   ) { }
 
-  build(statements: IStatement[]) {
+  build(statements: IStatement[]): INodeSchema {
     const NodeSchemaT = nodeSchema(GroupSchema);
 
     const settings = this.settings;
@@ -56,7 +56,7 @@ export class ExpressionBuilder {
               const sourceFunction = expression[key];
 
               if (isFunction(sourceFunction)) {
-                expression[key] = (...context) => {
+                expression[key] = (...context: unknown[]) => {
                   const result = sourceFunction.apply(expression, context);
 
                   // TODO add decorator for mutable methods instead of trigger

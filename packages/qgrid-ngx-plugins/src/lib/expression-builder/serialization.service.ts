@@ -31,7 +31,7 @@ class Serializer {
     };
   }
 
-  serializeExpression(expression: ISerializationExpression): ISerializationExpression {
+  serializeExpression(expression: ISerializationExpression) {
     const result = {} as ISerializationExpression;
 
     const serializeAttr = this.node.attr('serialize');
@@ -72,8 +72,9 @@ class Serializer {
 }
 
 class Deserializer {
-  constructor(private schema: INodeSchema) {
-  }
+  constructor(
+    private schema: INodeSchema,
+  ) { }
 
   deserialize(data: ISerializationNode, parent: Node = null, nodeMap?: { [key: string]: Node }) {
     nodeMap = nodeMap || {};
@@ -118,7 +119,7 @@ class Deserializer {
     const dataExpressions = dataGroup.expressions;
     const length = dataExpressions.length;
 
-    let index;
+    let index: number;
     for (let i = 0; i < length; i++) {
       const dataExp = dataExpressions[i];
       index = indexOf(group.expressions, expr => expr.id === dataExp.id);
@@ -150,7 +151,8 @@ function traverse(node: Node, map: { [key: string]: Node }) {
 
 export declare interface ISerializationNode {
   id: string;
-  attributes: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attributes: { [key: string]: any };
   children: ISerializationNode[];
   line: ISerializationGroup[];
   kind?: string;
