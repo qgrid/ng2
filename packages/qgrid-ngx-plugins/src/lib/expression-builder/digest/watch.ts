@@ -9,7 +9,8 @@ export class Watcher {
   constructor(
     private expression: Expression,
     private key: string,
-    private handler: (context: Expression, e: unknown) => void,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private handler: (context: any, e: any) => void,
     private args = [],
   ) {
     this.evaluate = evaluateFactory(expression, args);
@@ -22,7 +23,8 @@ export class Watcher {
     if (this.isFirstRun || this.oldValue !== newValue) {
       this.isFirstRun = false;
 
-      this.handler.apply(this.expression, [newValue, this.oldValue].concat(this.args));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.handler.apply(this.expression, [newValue, this.oldValue].concat(this.args) as any);
       this.oldValue = newValue;
     }
   }

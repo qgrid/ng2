@@ -11,7 +11,7 @@ export function method<T>(inst: T, key: string) {
 export function methodsOf<T>(inst: T) {
   const keys = Object.keys(inst);
   const length = keys.length;
-  const patch: { [key: string]: { with: () => unknown } } = {};
+  const patch: { [key: string]: { with: (...args: unknown[]) => unknown } } = {};
 
   for (let i = 0; i < length; i++) {
     const key = keys[i];
@@ -35,11 +35,9 @@ export function methodsOf<T>(inst: T) {
   };
 }
 
-export function withFactory<T>(inst: T, key: string, sourceFn: () => unknown) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const withFn = (...withArgs: any[]) =>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    inst[key] = (...keyArgs: any[]) =>
+export function withFactory<T>(inst: T, key: string, sourceFn: (...args: unknown[]) => unknown) {
+  const withFn = (...withArgs: unknown[]) =>
+    inst[key] = (...keyArgs: unknown[]) =>
       sourceFn.apply(inst, withArgs.concat(keyArgs));
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
