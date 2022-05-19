@@ -52,6 +52,7 @@ export class PaneComponent implements OnInit {
     const scope = this.parse();
     if (scope) {
       const [state, prop] = scope;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       observeReply(model[`${state}Changed`] as GridEvent<any>)
         .subscribe({
           next: e => {
