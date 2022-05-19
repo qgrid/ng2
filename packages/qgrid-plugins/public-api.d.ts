@@ -20,7 +20,7 @@ export { ExportPlugin } from './src/export/export.plugin';
 // focus
 export { FocusPlugin } from './src/focus/focus.plugin';
 // import
-export { ImportPlugin } from './src/import/import.plugin';
+export { ImportPlugin, ImportOptions } from './src/import/import.plugin';
 // pager
 export { PagerPlugin } from './src/pager/pager.plugin';
 // persistence

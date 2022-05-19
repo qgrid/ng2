@@ -381,7 +381,7 @@ export { Resource } from './src/resource/resource';
 // export { EnumerableResource } from './src/resource/resource.enumerable';
 // export { factory } from './src/resource/resource.factory';
 // rest
-export { RestState } from './src/rest/rest.state';
+export { RestState, RestSerialized } from './src/rest/rest.state';
 // row-details
 export { RowDetails } from './src/row-details/row.details';
 export { RowDetailsLet } from './src/row-details/row.details.let';
