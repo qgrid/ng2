@@ -7,14 +7,8 @@ import { ResizeModule } from '../resize/resize.module';
 import { DndModule } from '../dnd/dnd.module';
 
 @NgModule({
-  declarations: [
-    HeadCoreComponent,
-    ThCoreDirective,
-  ],
-  exports: [
-    HeadCoreComponent,
-    ThCoreDirective,
-  ],
+  declarations: [HeadCoreComponent, ThCoreDirective],
+  exports: [HeadCoreComponent, ThCoreDirective],
   imports: [
     CommonModule,
     RowModule,

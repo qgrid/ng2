@@ -6,7 +6,7 @@ import { VscrollContext } from './vscroll.context';
 export function applyHTML(element: HTMLElement) {
   element.tabIndex = 0;
   element.style.outline = 'none';
-  (element.style as any).overflowAnchor = 'none';
+  element.style.overflowAnchor = 'none';
 }
 
 export interface VscrollPort {
@@ -14,14 +14,14 @@ export interface VscrollPort {
 	layout: VscrollLayout;
 	context: VscrollContext;
 
-	reset(): any;
-	hasChanges(newBox: VscrollBox, oldBox: VscrollBox): any;
-	emit(f: () => void): any;
-	move(pad1: number, pad2: number): any;
+	reset(): void;
+	hasChanges(newBox: VscrollBox, oldBox: VscrollBox): boolean;
+	emit(f: () => void): void;
+	move(pad1: number, pad2: number): void;
 	recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;
 	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;
 	getPositionUsingItemSize(itemsSize: number, box: VscrollBox, arm: number): IVscrollPosition;
-	getItemSize(): any;
-	getScrollSize(box: VscrollBox): any;
-	getSize(box: VscrollBox): any;
+	getItemSize(): number;
+	getScrollSize(box: VscrollBox): number;
+	getSize(box: VscrollBox): number;
 }

@@ -14,15 +14,10 @@ import { GridModelBuilder } from './grid-model.builder';
 import { GridComponent } from './grid.component';
 
 @NgModule({
-  declarations: [
-    GridComponent,
-  ],
-  exports: [
-    GridComponent,
-  ],
+  declarations: [GridComponent],
+  exports: [GridComponent],
   imports: [
     CommonModule,
-
     BoxModule,
     LayerModule,
     MarkupModule,

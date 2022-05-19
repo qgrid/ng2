@@ -23,7 +23,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
   $implicit = this;
   element: HTMLElement;
   value: any;
-  label: any;
+  label: string;
 
   get column(): ColumnModel {
     return this.columnView.model;

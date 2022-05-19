@@ -9,15 +9,10 @@ import { DndModule } from '../dnd/dnd.module';
 import { VscrollModule } from '../vscroll/vscroll.module';
 
 @NgModule({
-  declarations: [
-    TableCoreComponent,
-  ],
-  exports: [
-    TableCoreComponent,
-  ],
+  declarations: [TableCoreComponent],
+  exports: [TableCoreComponent],
   imports: [
     CommonModule,
-
     HeadModule,
     FootModule,
     BodyModule,

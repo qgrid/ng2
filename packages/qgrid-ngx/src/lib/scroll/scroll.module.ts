@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { ScrollService } from './scroll.service';
 
 @NgModule({
-  providers: [
-    ScrollService,
-  ],
+  providers: [ScrollService],
 })
 export class ScrollModule {
 }

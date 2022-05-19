@@ -67,7 +67,7 @@ export class VscrollLink {
         });
       };
 
-      const emit = (f: any) => port.emit(f);
+      const emit = (f: () => void) => port.emit(f);
       container.apply(draw, emit);
     }
   }

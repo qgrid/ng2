@@ -5,12 +5,8 @@ import { CellHandlerModule } from '../cell-handler/cell-handler.module';
 import { TableModule } from '../table/table.module';
 
 @NgModule({
-  declarations: [
-    ViewCoreComponent,
-  ],
-  exports: [
-    ViewCoreComponent,
-  ],
+  declarations: [ViewCoreComponent],
+  exports: [ViewCoreComponent],
   imports: [
     CommonModule,
     CellHandlerModule,

@@ -9,7 +9,7 @@ export class AutoSizeDirective implements OnInit {
   private host: HTMLElement;
   private element: HTMLInputElement;
 
-  @Input('q-grid-autosize') selector: any;
+  @Input('q-grid-autosize') selector: string;
   @Input('q-grid-autosize-empty-width') emptyWidth = 75;
 
   @Input('q-grid-autosize-value') set value(value: string) {

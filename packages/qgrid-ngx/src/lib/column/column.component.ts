@@ -142,7 +142,9 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
     if (withKey) {
       if (this.parentHost) {
-        this.parentHost.column.children!.push(column);
+        if (this.parentHost.column.children) {
+          this.parentHost.column.children.push(column);
+        }
       } else {
         this.columnList.add(column);
       }
@@ -181,7 +183,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
     const { column } = this.selfHost;
     if (!(column && column.source === 'template')) {
-      return
+      return;
     }
     if(!column.key) {
       return;

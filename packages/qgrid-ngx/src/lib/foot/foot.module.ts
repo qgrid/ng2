@@ -5,18 +5,9 @@ import { RowModule } from '../row/row.module';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    FootCoreComponent,
-    TfCoreDirective,
-  ],
-  exports: [
-    FootCoreComponent,
-    TfCoreDirective,
-  ],
-  imports: [
-    CommonModule,
-    RowModule,
-  ],
+  declarations: [FootCoreComponent, TfCoreDirective],
+  exports: [FootCoreComponent ,TfCoreDirective],
+  imports: [CommonModule, RowModule],
 })
 export class FootModule {
 }

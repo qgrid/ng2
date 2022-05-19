@@ -154,7 +154,7 @@ export class GridComponent implements OnInit, OnChanges {
     private cd: ChangeDetectorRef,
     private stateAccessor: StateAccessor,
     private modelBuilder: GridModelBuilder,
-    @Inject(DOCUMENT) private document: any,
+    @Inject(DOCUMENT) private document: Document,
     theme: ThemeService,
   ) {
     if (!theme.component) {

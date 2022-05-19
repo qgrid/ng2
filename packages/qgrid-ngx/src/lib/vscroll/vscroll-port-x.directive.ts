@@ -41,11 +41,11 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
     }
   }
 
-  reset() {
+  reset(): void {
     this.view.resetX();
   }
 
-  emit(f: () => void) {
+  emit(f: () => void): void {
     const { settings } = this.context;
 
     if (settings.emit) {
@@ -71,7 +71,7 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
     return findPositionUsingOffsets(value, offsets);
   }
 
-  move(left: number, right: number) {
+  move(left: number, right: number): void {
     this.pad('left', left);
     this.pad('right', right);
   }
@@ -81,15 +81,15 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
     return isNumber(columnWidth) ? columnWidth : 0;
   }
 
-  getScrollSize(box: VscrollBox) {
+  getScrollSize(box: VscrollBox): number {
     return box.scrollWidth;
   }
 
-  getSize(box: VscrollBox) {
+  getSize(box: VscrollBox): number {
     return box.portWidth;
   }
 
-  recycleFactory(items: Array<any>) {
+  recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number> {
     const recycle = recycleFactory(items);
     return (index: number, count: number) => {
       const size = this.getItemSize();
@@ -101,11 +101,11 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
     };
   }
 
-  hasChanges(newBox: VscrollBox, oldBox: VscrollBox) {
+  hasChanges(newBox: VscrollBox, oldBox: VscrollBox): boolean {
     return !oldBox.portWidth || newBox.scrollWidth !== oldBox.scrollWidth;
   }
 
-  private pad(pos: string, value: number) {
+  private pad(pos: string, value: number): void {
     if (Object.prototype.hasOwnProperty.call(this.markup, pos)) {
       const mark = this.markup[pos];
       mark.style.width = value + 'px';

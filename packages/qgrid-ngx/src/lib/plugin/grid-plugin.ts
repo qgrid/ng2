@@ -3,7 +3,8 @@ import {
   Event,
   GridLet,
   Lazy,
-  ObservableEvent, ObservableReplyEvent
+  ObservableEvent,
+  ObservableReplyEvent,
 } from '@qgrid/core';
 import { DomTable } from '../dom/dom';
 import { Grid, GridService } from '../grid/grid';

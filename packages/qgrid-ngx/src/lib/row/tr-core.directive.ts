@@ -16,7 +16,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
   @Input('q-grid-core-index') viewIndex: number;
   @Input('q-grid-core-tr') model: any;
-  @Input('q-grid-core-source') source: any;
+  @Input('q-grid-core-source') source: string;
 
   element: HTMLElement;
 
@@ -33,10 +33,10 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.plugin.table.box.bag[this.source as keyof { body: Bag; head: Bag; foot: Bag; }].addRow(this);
+    this.plugin.table.box.bag[this.source as keyof { body: Bag; head: Bag; foot: Bag }].addRow(this);
   }
 
   ngOnDestroy() {
-    this.plugin.table.box.bag[this.source as keyof { body: Bag; head: Bag; foot: Bag; }].deleteRow(this);
+    this.plugin.table.box.bag[this.source as keyof { body: Bag; head: Bag; foot: Bag }].deleteRow(this);
   }
 }

@@ -20,27 +20,27 @@ export class ColumnListService {
   constructor(private plugin: GridPlugin) {
   }
 
-  add(column: ColumnModel) {
+  add(column: ColumnModel): void {
     this.host.instance.add(column);
   }
 
-  copy(target: any, source: any) {
+  copy(target: any, source: any): void {
     this.host.instance.copy(target, source);
   }
 
-  generateKey(source: any) {
+  generateKey(source: any): string {
     return this.host.instance.generateKey(source);
   }
 
-  extract(key: any, type: any): ColumnModel {
+  extract(key: string, type: string): ColumnModel {
     return this.host.instance.extract(key, type);
   }
 
-  register(column: ColumnModel) {
+  register(column: ColumnModel): void {
     this.host.instance.register(column);
   }
 
-  delete(key: string) {
+  delete(key: string): void {
     this.host.instance.delete(key);
   }
 }

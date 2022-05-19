@@ -3,15 +3,9 @@ import { CommonModule } from '@angular/common';
 import { CellHandlerComponent } from './cell-handler.component';
 
 @NgModule({
-  declarations: [
-    CellHandlerComponent,
-  ],
-  exports: [
-    CellHandlerComponent,
-  ],
-  imports: [
-    CommonModule,
-  ],
+  declarations: [CellHandlerComponent],
+  exports: [CellHandlerComponent],
+  imports: [CommonModule],
 })
 export class CellHandlerModule {
 }

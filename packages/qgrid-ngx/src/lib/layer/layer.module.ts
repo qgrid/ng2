@@ -15,9 +15,7 @@ import { TemplateModule } from '../template/template.module';
     LayerCoreDirective,
     LayerComponent,
   ],
-  imports: [
-    TemplateModule,
-  ],
+  imports: [TemplateModule],
 })
 export class LayerModule {
 }

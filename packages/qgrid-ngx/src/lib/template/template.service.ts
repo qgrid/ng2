@@ -19,13 +19,13 @@ export class TemplateService {
     }
 
     if (isArray(keys)) {
-      return this.lookInCache(keys) || this.lookInLink(keys);
+      return this.lookInCache(keys as string[]) || this.lookInLink(keys as string[]);
     }
 
     return null;
   }
 
-  private lookInCache(keys: any) {
+  private lookInCache(keys: string[]) {
     for (const key of keys) {
       const link = this.templateCache.get(key);
       if (link) {
@@ -36,7 +36,7 @@ export class TemplateService {
     return null;
   }
 
-  private lookInLink(keys: any) {
+  private lookInLink(keys: string[]) {
     for (const key of keys) {
       const link = this.templateLink.get(key);
       if (link) {

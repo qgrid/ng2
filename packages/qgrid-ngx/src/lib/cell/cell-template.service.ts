@@ -2,18 +2,18 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 import { ColumnModel, GridError, noop } from '@qgrid/core';
 import { TemplateService } from '../template/template.service';
 
-function canBuild(column: any) {
+function canBuild(column: ColumnModel) {
   return column.type !== 'pad';
 }
 
 function buildId(source: string, column: ColumnModel, mode = 'view') {
-  const { key, type, itemType } = column as any;
+  const { key, type, itemType } = column;
   return `${source}-${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`;
 }
 
 function buildKeys(source: string, column: ColumnModel, mode = 'view') {
-  const { key, itemType } = column as any;
-  let { type } = column as any;
+  const { key, itemType } = column;
+  let { type } = column;
 
   switch (mode) {
     case 'view': {

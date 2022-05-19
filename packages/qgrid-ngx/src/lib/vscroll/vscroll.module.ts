@@ -27,9 +27,7 @@ import { VscrollDirective } from './vscroll.directive';
     VscrollPortYDirective,
     VscrollPipe,
   ],
-  providers: [
-    VscrollService,
-  ],
+  providers: [VscrollService],
 })
 export class VscrollModule {
 }

@@ -46,14 +46,14 @@ export class RowComponent implements OnChanges, OnInit {
     },
   });
 
-  @Input() behavior: any[] = [];
+  @Input() behavior: string[] = [];
 
   @Input() set mode(mode: RowStateMode) { this.rowAccessor({ mode }); }
   @Input() set unit(unit: RowStateUnit) { this.rowAccessor({ unit }); }
   @Input() set canMove(canMove: boolean) { this.rowAccessor({ canMove }); }
   @Input() set canResize(canResize: boolean) { this.rowAccessor({ canResize }); }
-  @Input() set minHeight(minHeight: any) { this.rowAccessor({ minHeight }); }
-  @Input() set height(height: any) { this.rowAccessor({ height }); }
+  @Input() set minHeight(minHeight: number) { this.rowAccessor({ minHeight }); }
+  @Input() set height(height: (element: HTMLElement, index: number) => number) { this.rowAccessor({ height }); }
 
   constructor(
     private plugin: GridPlugin,
@@ -104,7 +104,7 @@ export class RowComponent implements OnChanges, OnInit {
     }
 
     if (this.behavior.indexOf('expandOnDblClick') >= 0) {
-      let firstClickTarget: any = null;
+      let firstClickTarget: unknown = null;
 
       observe(model.mouseChanged)
         .subscribe(e => {
@@ -119,8 +119,8 @@ export class RowComponent implements OnChanges, OnInit {
               const timestampOldValue = timestamp.oldValue ?? 0;
               if (firstClickTarget === target && timestampNewValue - timestampOldValue <= dblClickInterval) {
                 if (target?.column.type !== 'row-expand') {
-                  if (this.toggleStatus.canExecute(target!.row)) {
-                    this.toggleStatus.execute(target!.row);
+                  if (this.toggleStatus.canExecute(target?.row)) {
+                    this.toggleStatus.execute(target?.row);
                   }
                 }
               }

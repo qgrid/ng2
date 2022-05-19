@@ -37,16 +37,16 @@ export class ResizeDirective implements OnInit, OnDestroy {
     return this.plugin.model;
   }
 
-  @Input('q-grid-resize') key: any;
+  @Input('q-grid-resize') key: string;
   @Input('q-grid-resize-path') path: string;
   @Input('q-grid-can-resize') canResize: (e: any) => boolean;
-  @Input('q-grid-resize-selector') selector: any;
+  @Input('q-grid-resize-selector') selector: string;
 
   constructor(
     private zone: NgZone,
     @Optional() private plugin: GridPlugin,
     private qgrid: Grid,
-    @Inject(DOCUMENT) document: any,
+    @Inject(DOCUMENT) document: Document,
     elementRef: ElementRef,
   ) {
     this.element = elementRef.nativeElement;

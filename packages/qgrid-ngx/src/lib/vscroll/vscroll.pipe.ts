@@ -2,7 +2,9 @@ import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core
 import {
   Disposable,
   IVscrollContext,
-  Log, ObservableLike, SubjectLike, SubscribableLike
+  Log,
+  ObservableLike,
+  SubjectLike,
 } from '@qgrid/core';
 
 @Pipe({

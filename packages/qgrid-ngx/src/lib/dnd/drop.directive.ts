@@ -105,7 +105,9 @@ export class DropDirective implements OnInit {
     e.preventDefault();
 
     this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-dragover`);
-    e.dataTransfer!.dropEffect = 'move';
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = 'move';
+    }
     return false;
   }
 
@@ -117,7 +119,9 @@ export class DropDirective implements OnInit {
     }
 
     if (this.area !== DragService.area) {
-      e.dataTransfer!.dropEffect = 'none';
+      if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = 'none';
+      }
       return false;
     }
 
@@ -142,7 +146,9 @@ export class DropDirective implements OnInit {
         DragService.data = eventArg.dragData;
       }
 
-      e.dataTransfer!.dropEffect = 'move';
+      if(e.dataTransfer) {
+        e.dataTransfer.dropEffect = 'move';
+      }
     }
 
     return false;
