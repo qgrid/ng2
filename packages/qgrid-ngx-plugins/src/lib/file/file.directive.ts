@@ -16,10 +16,10 @@ import { BackdropService } from '../backdrop/backdrop.service';
 })
 export class FileDirective {
   private reader = new FileReader();
-  private _value: File;
+  private _value: ArrayBuffer | string;
   private _label: string;
 
-  @Output('q-grid-fileChange') valueChange = new EventEmitter<File>();
+  @Output('q-grid-fileChange') valueChange = new EventEmitter<ArrayBuffer | string>();
   @Output('q-grid-file-labelChange') labelChange = new EventEmitter<string>();
 
   @Input('q-grid-file-is-valid') isValid: (name: string) => boolean = yes;
@@ -28,7 +28,7 @@ export class FileDirective {
     return this._value;
   }
 
-  set value(value: File) {
+  set value(value: ArrayBuffer | string) {
     if (value !== this._value) {
       this._value = value;
       this.valueChange.emit(value);
@@ -49,8 +49,8 @@ export class FileDirective {
   constructor(
     @Optional() private backdropService: BackdropService,
     disposable: Disposable,
-    elementRef: ElementRef) {
-
+    elementRef: ElementRef,
+  ) {
     const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 
     disposable.add(listener.on('change', this.onUpload));
@@ -61,8 +61,8 @@ export class FileDirective {
     this.reader.onloadend = e => this.onLoadEnd(e);
   }
 
-  onUpload(e) {
-    const { files } = e.target;
+  onUpload(e: Event) {
+    const { files } = <HTMLInputElement>e.target;
     const file = files[0];
     if (file && this.isValid(file.name)) {
       this.reader.readAsDataURL(file);
@@ -70,7 +70,7 @@ export class FileDirective {
     }
   }
 
-  onLoadEnd(e) {
+  onLoadEnd(e: ProgressEvent<FileReader>) {
     if (e.target.readyState === this.reader.DONE) {
       this.value = e.target.result;
     }

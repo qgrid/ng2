@@ -17,7 +17,7 @@ export class Node {
     this.level = parent ? parent.level + 1 : 0;
   }
 
-  attr(key: string, value?: string): string | void {
+  attr(key: string, value?: string): string {
     if (arguments.length === 2) {
       this.attributes[key] = value;
     } else {
