@@ -14,7 +14,7 @@ export class DatePipe implements PipeTransform {
       return this.pipe.transform(value, format, timezone, locale);
     } catch (ex) {
       Log.warn('DatePipe', ex.message);
-      return value;
+      return value as string;
     }
   }
 }

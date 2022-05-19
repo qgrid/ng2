@@ -6,14 +6,16 @@ import { Log } from '@qgrid/core';
   name: 'qGridNumber',
 })
 export class NumberPipe implements PipeTransform {
-  constructor(private pipe: DecimalPipe) { }
+  constructor(
+    private pipe: DecimalPipe,
+  ) { }
 
-  transform(value: string | number, digitsInfo?: string, locale?: string) {
+  transform(value: string | number | unknown, digitsInfo?: string, locale?: string) {
     try {
-      return this.pipe.transform(value, digitsInfo, locale);
+      return this.pipe.transform(value as string | number, digitsInfo, locale);
     } catch (ex) {
       Log.warn('NumberPipe', ex.message);
-      return value;
+      return value as string;
     }
   }
 }
