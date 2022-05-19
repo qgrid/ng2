@@ -78,7 +78,7 @@ export class RuleComponent implements OnChanges {
       .keys(changes)
       .forEach(key => {
         if (!['for', 'key'].includes(key) && changes[key].firstChange) {
-          rule[key] = this[key];
+          rule[key as 'for' | 'key'] = this[key as 'for' | 'key'];
         }
       });
 

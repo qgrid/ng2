@@ -21,7 +21,7 @@ export class LiveRowComponent implements OnInit {
 
   ngOnInit() {
     const { model } = this.plugin;
-    let currentRows: any[];
+    let currentRows: unknown[];
 
     model.animation({
       apply: model.animation().apply.concat((memo, context, complete) => {
@@ -91,6 +91,8 @@ export class LiveRowComponent implements OnInit {
         Fastdom.mutate(() => {
           const animatedRows = [];
           oldTr.addClass(`${GRID_PREFIX}-live-row`);
+          console.log(oldTr.getElement());
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (oldTr.getElement() as any)
             .elements
             .forEach(rowElement =>

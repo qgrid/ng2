@@ -17,11 +17,13 @@ import {
 import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 
+type CommangArg = unknown;
+
 export class ZoneCommandManager {
   constructor(
     private run: <T>(f: () => T) => T,
     private manager: CommandManager,
-    private commandArg: any,
+    private commandArg: CommangArg,
   ) {
   }
 
@@ -43,13 +45,13 @@ export class ZoneCommandManager {
 export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
   private isAfterViewInit = false;
 
-  @Input('q-grid-command') command: Command<any>;
-  @Input('q-grid-command-arg') commandArg: any;
+  @Input('q-grid-command') command: Command<CommangArg>;
+  @Input('q-grid-command-arg') commandArg: CommangArg;
   @Input('q-grid-command-use-shortcut') useCommandShortcut: boolean;
   @Input('q-grid-command-event') commandEvent = 'click';
   @Input('q-grid-command-use-zone') useZone: boolean;
   @Input('q-grid-command-host') host: 'grid' | 'document' = 'grid';
-  @Output('q-grid-command-execute') commandExecute = new EventEmitter<any>();
+  @Output('q-grid-command-execute') commandExecute = new EventEmitter<CommangArg>();
 
   constructor(
     private disposable: Disposable,

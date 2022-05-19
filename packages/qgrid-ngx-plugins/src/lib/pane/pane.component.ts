@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { isUndefined } from '@qgrid/core';
-import { GridError, GridEventArg, GridPlugin, TemplateHostService } from '@qgrid/ngx';
+import { GridError, GridEvent, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 type PaneSide = 'left' | 'right';
 const DEFAULT_SIDE: PaneSide = 'right';
@@ -24,7 +24,7 @@ export class PaneComponent implements OnInit {
     [side in PaneSide]?: {
       // eslint-disable-next-line no-use-before-define
       $implicit: PaneComponent;
-      value: any;
+      value: unknown;
     }
   };
 
@@ -52,16 +52,18 @@ export class PaneComponent implements OnInit {
     const scope = this.parse();
     if (scope) {
       const [state, prop] = scope;
-      observeReply(model[`${state}Changed`])
-        .subscribe((e: GridEventArg<any>) => {
-          if (!prop || e.hasChanges(prop)) {
-            this.open(DEFAULT_SIDE);
-          }
+      observeReply(model[`${state}Changed`] as GridEvent<any>)
+        .subscribe({
+          next: e => {
+            if (!prop || e.hasChanges(prop)) {
+              this.open(DEFAULT_SIDE);
+            }
+          },
         });
     }
   }
 
-  open(side: PaneSide = DEFAULT_SIDE, value?: any) {
+  open(side: PaneSide = DEFAULT_SIDE, value?: unknown) {
     const { table, model } = this.plugin;
 
     const scope = this.parse();

@@ -17,7 +17,7 @@ import { EditFormPanelPlugin } from '@qgrid/plugins';
 })
 export class EditFormComponent implements OnInit {
   @Input() caption: string;
-  @Input() row: any;
+  @Input() row: unknown;
 
   @Output() cancel = new EventEmitter();
   @Output() reset = new EventEmitter();

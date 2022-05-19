@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,8 +6,8 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { RestState } from '@qgrid/core';
-import { GridPlugin, StateAccessor } from '@qgrid/ngx';
+import { RestSerialized, RestState } from '@qgrid/core';
+import { GridModel, GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { RestPlugin } from '@qgrid/plugins';
 
 @Component({
@@ -23,7 +23,7 @@ export class RestComponent implements OnInit, OnChanges {
 
   @Input('url') set restUrl(url: string) { this.restState({ url }); }
   @Input('method') set restMethod(method: string) { this.restState({ method }); }
-  @Input('serialize') set restSerialize(serialize: (x: any) => any) { this.restState({ serialize }); }
+  @Input('serialize') set restSerialize(serialize: (x: GridModel) => RestSerialized) { this.restState({ serialize }); }
 
   constructor(
     private http: HttpClient,
@@ -41,8 +41,10 @@ export class RestComponent implements OnInit, OnChanges {
     const rest = new RestPlugin(
       this.plugin.model,
       {
-        get: (url, params) => this.http.get(url, { params }).toPromise(),
-        post: (url, data) => this.http.post(url, { data }).toPromise(),
+        get: (url: string, params: HttpParams | {
+          [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+        }) => this.http.get(url, { params }).toPromise(),
+        post: (url: string, data: unknown) => this.http.post(url, { data }).toPromise(),
       },
     );
 

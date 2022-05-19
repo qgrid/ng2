@@ -7,9 +7,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class EditFormTriggerComponent {
   @Input() caption: string;
-  @Input() row: any;
+  @Input() row: unknown;
 
-  context: any = {
+  // eslint-disable-next-line no-use-before-define
+  context: { $implicit: EditFormTriggerComponent } = {
     $implicit: this,
   };
 }

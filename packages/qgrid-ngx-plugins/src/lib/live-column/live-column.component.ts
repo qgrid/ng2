@@ -5,6 +5,7 @@ import {
   NgZone,
   OnInit,
 } from '@angular/core';
+import { ColumnView } from '@qgrid/core';
 import { Fastdom, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
@@ -23,7 +24,7 @@ export class LiveColumnComponent implements OnInit {
     let startPos: number;
     let endPos: number;
     const { model } = this.plugin;
-    let currentColumns: any[];
+    let currentColumns: ColumnView[];
 
     model.animation({
       apply: model.animation().apply.concat((memo, context, complete) => {

@@ -15,10 +15,10 @@ import { Disposable, GridModel } from '@qgrid/ngx';
   providers: [Disposable],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReferenceEditorComponent implements AfterViewInit {
-  private state: any;
+export class ReferenceEditorComponent<T> implements AfterViewInit {
+  private state: T;
 
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<T>();
   @Output() afterSubmit = new EventEmitter();
   @Output() afterCancel = new EventEmitter();
 
@@ -29,7 +29,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
   model: GridModel;
 
   // eslint-disable-next-line no-use-before-define
-  context: { $implicit: ReferenceEditorComponent } = {
+  context: { $implicit: ReferenceEditorComponent<T> } = {
     $implicit: this,
   };
 

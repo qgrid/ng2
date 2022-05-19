@@ -24,12 +24,12 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') class: string;
 
-  @ViewChild('currency', { static: true }) currencyTemplate: TemplateRef<any>;
-  @ViewChild('number', { static: true }) numberTemplate: TemplateRef<any>;
-  @ViewChild('time', { static: true }) timeTemplate: TemplateRef<any>;
-  @ViewChild('text', { static: true }) textTemplate: TemplateRef<any>;
+  @ViewChild('currency', { static: true }) currencyTemplate: TemplateRef<HTMLElement>;
+  @ViewChild('number', { static: true }) numberTemplate: TemplateRef<HTMLElement>;
+  @ViewChild('time', { static: true }) timeTemplate: TemplateRef<HTMLElement>;
+  @ViewChild('text', { static: true }) textTemplate: TemplateRef<HTMLElement>;
 
-  timeoutId: any = null;
+  timeoutId: ReturnType<typeof setTimeout> = null;
 
   constructor(private zone: NgZone) {
   }
@@ -62,7 +62,7 @@ export class LiveCellComponent implements OnInit, OnDestroy {
       case 'currency':
         return +value.currentValue - +value.previousValue;
       default:
-        return null;
+        return 0;
     }
   }
 

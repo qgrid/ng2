@@ -8,8 +8,9 @@ import {
 } from '@angular/core';
 import { EventListener, EventManager, Shortcut } from '@qgrid/core';
 import { GridError, GridPlugin } from '@qgrid/ngx';
+import { TabTrapInDirective } from './tab-trap-in.directive';
 
-type TrapTarget = 'start' | 'end';
+export type TrapTarget = 'start' | 'end';
 
 @Component({
   selector: 'q-grid-tab-trap',
@@ -28,7 +29,7 @@ export class TabTrapComponent {
     $implicit: this,
   };
 
-  traps = new Map<TrapTarget, HTMLElement>();
+  traps = new Map<TrapTarget, TabTrapInDirective>();
 
   constructor(
     private plugin: GridPlugin,
@@ -76,12 +77,12 @@ export class TabTrapComponent {
     switch (target) {
       case 'start': {
         const end = this.traps.get('end');
-        end.focus();
+        end?.focus();
         break;
       }
       case 'end': {
         const start = this.traps.get('start');
-        start.focus();
+        start?.focus();
         break;
       }
       default:

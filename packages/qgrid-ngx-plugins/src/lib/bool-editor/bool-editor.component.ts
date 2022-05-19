@@ -8,18 +8,20 @@ import {
 } from '@angular/core';
 import { BoolColumnModel } from '@qgrid/core';
 
+type ValueType = unknown;
+
 @Component({
   selector: 'q-grid-bool-editor',
   templateUrl: './bool-editor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoolEditorComponent implements OnInit {
-  private state: any;
+  private state: ValueType;
 
   @Input() autofocus = false;
   @Input() column: BoolColumnModel;
   @Input() label: string;
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<ValueType>();
 
   // eslint-disable-next-line no-use-before-define
   context: { $implicit: BoolEditorComponent } = {

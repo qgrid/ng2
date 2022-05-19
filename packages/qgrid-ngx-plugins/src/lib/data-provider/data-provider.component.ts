@@ -17,11 +17,11 @@ import { GridModel, GridPlugin } from '@qgrid/ngx';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataProviderComponent implements OnInit {
-  private next: (rows: any[]) => void;
+  private next: (rows: unknown[]) => void;
 
   @Output() requestRows = new EventEmitter<GridModel>();
 
-  @Input('rows') set rows(value: any[]) {
+  @Input('rows') set rows(value: unknown[]) {
     if (Array.isArray(value)) {
       const next = this.next;
       if (next) {
