@@ -35,7 +35,7 @@ export class QueryBuilderPanelComponent implements OnInit {
     execute: () => {
       const current = this.nodeService.current;
       const parent = this.findLogicalNode(current);
-      const group = parent.clone();
+      const group = parent?.clone();
       parent.addChildAfter(group, current.id === '#condition' && current);
       if (current.id === '#condition') {
         this.nodeService.current = group;
@@ -49,7 +49,7 @@ export class QueryBuilderPanelComponent implements OnInit {
       const current = this.nodeService.current;
       const parent = this.findLogicalNode(current);
       const rule = this.plan.materialize('#condition');
-      parent.addChildAfter(rule, current.id === '#condition' && current);
+      parent?.addChildAfter(rule, current.id === '#condition' && current);
       if (current.id === '#condition') {
         this.nodeService.current = rule;
       }
@@ -65,12 +65,12 @@ export class QueryBuilderPanelComponent implements OnInit {
       } else {
         const previous = this.traverse.findUpSibling(current);
         this.nodeService.current = previous;
-        current.remove();
+        current?.remove();
       }
     },
     canExecute: () => {
       const current = this.nodeService.current;
-      return current && (current.id === '#condition' || (current.level > 1 || current.children.length > 0));
+      return !!current && (current.id === '#condition' || (current.level > 1 || current.children.length > 0));
     },
   });
 
@@ -96,7 +96,7 @@ export class QueryBuilderPanelComponent implements OnInit {
         (memo, expression, line, node) =>
           node.attr('placeholder')
             ? memo
-            : memo && expression.isValid()
+            : memo && !!expression.isValid?.()
         , true);
     },
   });
@@ -134,6 +134,7 @@ export class QueryBuilderPanelComponent implements OnInit {
     this.queryService = new QueryBuilderService(this.plugin.model);
 
     const schema = new WhereSchema(this.queryService);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.plan = schema.factory() as any;
     this.node = this.plan.apply();
 

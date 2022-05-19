@@ -1,40 +1,53 @@
 import * as columnService from '@qgrid/core';
 import { getValueFactory, isUndefined, uniq } from '@qgrid/core';
 import { GridError, GridModel } from '@qgrid/ngx';
+import { Expression } from '../expression-builder/model/expression';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
+import { Line } from '../expression-builder/model/line';
 import { Node } from '../expression-builder/model/node';
+import { INodeSchema } from '../expression-builder/model/node.schema';
 import { typeMapping } from './schema/operator';
 
 export interface Column {
-	key: string; title: string; type: string;
+  key: string; title: string; type: string;
 }
 
 export interface ColumnMap {
-	[key: string]: Column;
+  [key: string]: Column;
+}
+
+interface QueryBuilderSchemaSettings {
+  [key: string]: string | string[] | boolean |
+  ((node?: Node, line?: Line, key?: string) => Promise<string[]> | string | string[] | boolean | void) | QueryBuilderSchemaSettings;
+}
+
+interface QueryBuilderSchemaAttributes {
+  [key: string]: boolean | string[] | ((node: Node) => boolean);
 }
 
 export interface IQueryBuilderSchema {
-	apply(node?: Node): Node;
-	attr(key: string, value: any): IQueryBuilderSchema;
-	node(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
-	group(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
-	get(id: string): IQueryBuilderSchema;
-	materialize(id: string): Node;
+  apply(node?: Node): Node;
+  attr(key: string, value: QueryBuilderSchemaAttributes): IQueryBuilderSchema;
+  node(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
+  group(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
+  get(id: string): IQueryBuilderSchema;
+  materialize(id: string): Node;
 
-	autocomplete(id: string, settings?: any): IQueryBuilderSchema;
-	button(id: string, settings?: any): IQueryBuilderSchema;
-	input(id: string, settings?: any): IQueryBuilderSchema;
-	iconButton(id: string, settings?: any): IQueryBuilderSchema;
-	label(id: string, settings?: any): IQueryBuilderSchema;
-	multiselect(id: string, settings?: any): IQueryBuilderSchema;
-	select(id: string, settings?: any): IQueryBuilderSchema;
+  autocomplete(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  button(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  input(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  iconButton(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  label(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  multiselect(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  select(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
 }
 
 export class QueryBuilderService {
-  constructor(private model: GridModel) {
-  }
+  constructor(
+    private model: GridModel,
+  ) { }
 
-  columns(): Array<Column> {
+  columns(): Column[] {
     const model = this.model;
     return model
       .columnList()
@@ -54,7 +67,7 @@ export class QueryBuilderService {
     }, {});
   }
 
-  submit(expression) {
+  submit(expression: Expression) {
     const model = this.model;
     model.filter({
       by: expression,
@@ -63,7 +76,7 @@ export class QueryBuilderService {
     });
   }
 
-  suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
+  suggest(key: string, skip: number, take: number, search: string, selection?: string[]): Promise<string[]> {
     selection = (selection || []).map(item => ('' + item).toLowerCase());
 
     const model = this.model;
@@ -81,9 +94,9 @@ export class QueryBuilderService {
         .map(getValue)
         .filter(item =>
           !isUndefined(item) &&
-					item !== '' &&
-					item !== null &&
-					selection.indexOf(('' + item).toLowerCase()) < 0,
+          item !== '' &&
+          item !== null &&
+          selection.indexOf(('' + item).toLowerCase()) < 0,
         );
 
       const uniqueView = uniq(view);
@@ -139,7 +152,7 @@ export class QueryBuilderService {
       },
     };
 
-    return new ExpressionBuilder(settings)
-      .build<IQueryBuilderSchema>(statements);
+    return new ExpressionBuilder(settings as any)
+      .build(statements) as any;
   }
 }

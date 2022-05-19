@@ -1,11 +1,14 @@
 import { isArray, noop } from '@qgrid/core';
+import { Expression, GroupExpression } from '../../expression-builder/model/expression';
+import { Line } from '../../expression-builder/model/line';
+import { Node } from '../../expression-builder/model/node';
 import { IQueryBuilderSchema, QueryBuilderService } from '../query-builder.service';
 import { typeMapping } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { Validator } from './validator';
 
-export const getValue = (line, id, props) => {
-  const group = line.get(id);
+export const getValue = (line: Line, id: string, props: string[]) => {
+  const group = line.get(id) as GroupExpression;
   if (group) {
     if (group.expressions.length === 1) {
       const expr = group.expressions[0];
@@ -25,10 +28,11 @@ export const getValue = (line, id, props) => {
 };
 
 export class WhereSchema {
-  constructor(private service: QueryBuilderService) {
-  }
+  constructor(
+    private service: QueryBuilderService,
+  ) { }
 
-  factory(): IQueryBuilderSchema {
+  factory() {
     const service = this.service;
     const suggest = suggestFactory(service, '#field');
     const suggests = suggestsFactory(service, '#field');
@@ -42,7 +46,7 @@ export class WhereSchema {
           })
           .attr('class', {
             'qb-logical': true,
-            'qb-and': function (node) {
+            'qb-and': function (node: Node) {
               const op = node.line.get('#logical-op');
               return op.expressions[0].value === 'AND';
             },
@@ -86,9 +90,9 @@ export class WhereSchema {
 
                   if (ops.indexOf(op.value) < 0) {
                     op.value = ops.length ? ops[0] : null;
-                    op.change();
+                    (op as any).change();
                   } else {
-                    const operand = line.get('#operand').expressions[0];
+                    const operand = line.get('#operand').expressions[0] as (Expression & { validate: () => any[] });
                     if (operand.validate) {
                       const result = operand.validate();
                       if (result.length) {
@@ -102,15 +106,15 @@ export class WhereSchema {
               })
               .select('#operator', {
                 classes: ['qb-operator'],
-                getOptions: function (node, line) {
-                  const field = line.get('#field').expressions[0];
+                getOptions: function (node: Node, line: Line) {
+                  const field: Expression = line.get('#field').expressions[0];
                   const name = field.value;
-                  const type = field.getType(name);
+                  const type = (field as any).getType(name);
 
                   return type ? typeMapping[type] : [];
                 },
                 value: 'EQUALS',
-                change: function (node, line) {
+                change: function (node: Node, line: Line) {
                   switch (this.value.toLowerCase()) {
                     case 'equals':
                     case 'not equals':
@@ -122,14 +126,14 @@ export class WhereSchema {
                     case 'not like':
                     case 'starts with':
                     case 'ends with':
-                      line.put('#operand', node, function (schema) {
+                      line.put('#operand', node, function (schema: IQueryBuilderSchema) {
                         schema.input('#value', {
                           classes: {
                             'qb-operand': true,
                             'qb-has-value': function () {
                               return !!this.value;
                             },
-                            'qb-invalid': function (n) {
+                            'qb-invalid': function (n: Node) {
                               return !this.isValid(n);
                             },
                           },
@@ -141,8 +145,8 @@ export class WhereSchema {
                           placeholderText: 'Select value',
                           suggest: suggest,
                           options: null,
-                          refresh: function (n, l) {
-                            this.options = this.suggest(n, l);
+                          refresh: function (n: Node, l: Line) {
+                            this.options = <(nn: Node, ll: Line) => Promise<string>>this.suggest(n, l);
                           },
                         });
                       });
@@ -156,7 +160,7 @@ export class WhereSchema {
                               'qb-has-value': function () {
                                 return !!this.value;
                               },
-                              'qb-invalid': function (n) {
+                              'qb-invalid': function (n: Node) {
                                 return !this.isValid(n);
                               },
                             },
@@ -178,7 +182,7 @@ export class WhereSchema {
                               'qb-has-value': function () {
                                 return !!this.value;
                               },
-                              'qb-invalid': function (n) {
+                              'qb-invalid': function (n: Node) {
                                 return !this.isValid(n);
                               },
                             },
@@ -190,14 +194,14 @@ export class WhereSchema {
                             placeholderText: 'Select value',
                             suggest: suggest,
                             options: null,
-                            refresh: function (n, l) {
-                              this.options = this.suggest(n, l);
+                            refresh: function (n: Node, l: Line) {
+                              this.options = <(nn: Node, ll: Line) => Promise<string>>this.suggest(n, l);
                             },
                           });
                       });
                       break;
                     case 'in':
-                      line.put('#operand', node, function (schema) {
+                      line.put('#operand', node, function (schema: IQueryBuilderSchema) {
                         schema
                           .label('#in-open', {
                             text: '(',
@@ -220,8 +224,8 @@ export class WhereSchema {
                             options: suggests,
                             placeholderText: 'Select value',
                             add: function (n, l, v) {
-                              if (v && this.values.indexOf(v) < 0) {
-                                this.values.push(v);
+                              if (v && (this.values as string[]).indexOf(v) < 0) {
+                                (this.values as string[]).push(v);
                               }
                             },
                           })
@@ -237,27 +241,27 @@ export class WhereSchema {
                   }
                 },
               })
-              .group('#operand', function (schema) {
+              .group('#operand', function (schema: IQueryBuilderSchema) {
                 schema.autocomplete('#value', {
                   classes: {
                     'qb-operand': true,
                     'qb-has-value': function () {
                       return !!this.value;
                     },
-                    'qb-invalid': function (node) {
+                    'qb-invalid': function (node: Node) {
                       return !this.isValid(node);
                     },
                   },
                   value: null,
-                  validate: function (node, line) {
-                    const field = line.get('#field').expressions[0].value;
+                  validate: function (node: Node, line: Line) {
+                    const field = (line.get('#field') as GroupExpression).expressions[0].value;
                     return validator.for(field)(this.value);
                   },
                   placeholderText: 'Select value',
                   suggest: suggest,
                   options: null,
-                  refresh: function (node, line) {
-                    this.options = this.suggest(node, line);
+                  refresh: function (node: Node, line: Line) {
+                    this.options = <(nn: Node, ll: Line) => Promise<string>>this.suggest(node, line);
                   },
                 });
               });

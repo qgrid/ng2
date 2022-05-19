@@ -4,8 +4,8 @@ import { ColumnMap, QueryBuilderService } from '../query-builder.service';
 
 export class Validator {
   private columnMap: ColumnMap;
-  private trueResult: Array<string> = [];
-  private validators: { [key: string]: (value: any) => Array<string> } = {};
+  private trueResult: string[] = [];
+  private validators: { [key: string]: (value: string) => string[] } = {};
   private rules = {
     'bool': ['required'],
     'currency': ['required', 'decimal'],
@@ -40,7 +40,7 @@ export class Validator {
     const trueResult = this.trueResult;
     const id = column.type;
     const rule = this.rules[id];
-    let validate: ((value: any) => string[]) = () => trueResult;
+    let validate: ((value: string | string[]) => string[]) = () => trueResult;
     if (rule) {
       const schema = { [id]: rule };
       validate = function test(value): Array<string> {
