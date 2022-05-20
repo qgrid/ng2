@@ -143,9 +143,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
     if (withKey) {
       if (this.parentHost) {
-        if (this.parentHost.column.children) {
-          this.parentHost.column.children.push(column);
-        }
+        this.parentHost.column.children?.push(column);
       } else {
         this.columnList.add(column);
       }
@@ -156,7 +154,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
         Object
           .keys(this)
           .filter(key => !isUndefined(this.key) && Object.prototype.hasOwnProperty.call(column, key))
-          .reduce((memo: any, key: string) => {
+          .reduce((memo: { [key: string]: ColumnModel }, key: string) => {
             memo[key] = column[key as keyof ColumnModel];
             return memo;
           }, {}) as ColumnModel;
@@ -183,12 +181,8 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     const { column } = this.selfHost;
-    if (!(column && column.source === 'template')) {
-      return;
+    if (column && column.key && column.source === 'template') {
+      this.columnList.delete(column.key);
     }
-    if(!column.key) {
-      return;
-    }
-    this.columnList.delete(column.key);
   }
 }

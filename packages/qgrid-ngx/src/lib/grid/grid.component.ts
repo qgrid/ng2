@@ -92,7 +92,7 @@ export class GridComponent implements OnInit, OnChanges {
   private sortState = this.stateAccessor.setter(SortState);
   private styleState = this.stateAccessor.setter(StyleState);
 
-  themeComponent: unknown;
+  themeComponent: any;
 
   @Input() set model(value: GridModel) {
     this.root.model = value;

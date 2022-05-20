@@ -117,7 +117,8 @@ export class RowComponent implements OnChanges, OnInit {
               const dblClickInterval = 300;
               const timestampNewValue = timestamp.newValue ?? 0;
               const timestampOldValue = timestamp.oldValue ?? 0;
-              if (firstClickTarget === target && timestampNewValue - timestampOldValue <= dblClickInterval) {
+              const delay = timestampNewValue - timestampOldValue;
+              if (firstClickTarget === target && delay <= dblClickInterval) {
                 if (target?.column.type !== 'row-expand') {
                   if (this.toggleStatus.canExecute(target?.row)) {
                     this.toggleStatus.execute(target?.row);

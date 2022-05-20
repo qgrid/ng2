@@ -37,7 +37,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
     return this.plugin.model;
   }
 
-  @Input('q-grid-resize') key: string;
+  @Input('q-grid-resize') key?: string;
   @Input('q-grid-resize-path') path: string;
   @Input('q-grid-can-resize') canResize: (e: unknown) => boolean;
   @Input('q-grid-resize-selector') selector: string;
@@ -88,10 +88,8 @@ export class ResizeDirective implements OnInit, OnDestroy {
     const context = this.context;
 
     const host = this.select();
-    if(host) {
-      context.width = host.clientWidth;
-      context.height = host.clientHeight;
-    }
+    context.width = host?.clientWidth as number;
+    context.height = host?.clientHeight as number;
     context.x = e.screenX;
     context.y = e.screenY;
 
