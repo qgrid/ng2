@@ -4,7 +4,7 @@ import { VscrollContext } from './vscroll.context';
 
 @Injectable()
 export class VscrollService {
-  context(settings: Partial<IVscrollSettings> = {}) {
+  context(settings: Partial<IVscrollSettings> = {}): VscrollContext {
     const context = new VscrollContext();
     Object.assign(context.settings, settings);
 

@@ -13,7 +13,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
   selector: '[q-grid-drag]',
 })
 export class DragDirective {
-  @Input('q-grid-drag-data') data: any;
+  @Input('q-grid-drag-data') data: unknown;
   @Input('q-grid-drag-effect') effect: undefined | 'move';
   @Input('q-grid-drag') drag: Command;
   @Input('q-grid-drop-area') area: string;

@@ -86,6 +86,7 @@ export class DropDirective implements OnInit {
 
     this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
     const eventArg = {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       path: (e as any).path,
       dragData: DragService.data,
       dropData: this.dropData,

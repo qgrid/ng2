@@ -39,7 +39,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
 
   @Input('q-grid-resize') key: string;
   @Input('q-grid-resize-path') path: string;
-  @Input('q-grid-can-resize') canResize: (e: any) => boolean;
+  @Input('q-grid-can-resize') canResize: (e: unknown) => boolean;
   @Input('q-grid-resize-selector') selector: string;
 
   constructor(

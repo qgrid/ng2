@@ -9,7 +9,7 @@ export class TemplateLinkService {
     return this.cache.get(key);
   }
 
-  put(key: string, value: TemplateLink) {
+  put(key: string, value: TemplateLink): void {
     this.cache.set(key, value);
   }
 }

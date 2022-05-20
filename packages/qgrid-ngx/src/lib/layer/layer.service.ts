@@ -14,11 +14,11 @@ export class LayerService {
   constructor(private templateService: TemplateService) {
   }
 
-  init(container: ViewContainerRef) {
+  init(container: ViewContainerRef): void {
     this.container = container;
   }
 
-  create(name: string) {
+  create(name: string): Layer {
     if (this.layers.has(name)) {
       return this.layers.get(name);
     }
@@ -47,7 +47,7 @@ export class LayerService {
     return layer;
   }
 
-  private getHostElement() {
+  private getHostElement(): HTMLElement | null {
     const { nativeElement } = this.container.element;
     for (let el = nativeElement; el; el = el.parentElement) {
       if (el.tagName === 'Q-GRID') {

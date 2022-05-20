@@ -53,7 +53,7 @@ export class RowComponent implements OnChanges, OnInit {
   @Input() set canMove(canMove: boolean) { this.rowAccessor({ canMove }); }
   @Input() set canResize(canResize: boolean) { this.rowAccessor({ canResize }); }
   @Input() set minHeight(minHeight: number) { this.rowAccessor({ minHeight }); }
-  @Input() set height(height: (element: HTMLElement, index: number) => number) { this.rowAccessor({ height }); }
+  @Input() set height(height: number | ((element: HTMLElement, index: number) => number)) { this.rowAccessor({ height }); }
 
   constructor(
     private plugin: GridPlugin,

@@ -11,7 +11,7 @@ export class ColumnBodyTemplateDirective implements OnInit {
 
   constructor(
     private templateCache: TemplateCacheService,
-    private templateRef: TemplateRef<any>,
+    private templateRef: TemplateRef<unknown>,
   ) {
   }
 

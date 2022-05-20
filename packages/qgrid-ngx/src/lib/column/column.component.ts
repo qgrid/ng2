@@ -18,6 +18,7 @@ import {
   ColumnModelWidthMode,
   guid,
   isUndefined,
+  Row,
 } from '@qgrid/core';
 import { ColumnListService } from '../column-list/column-list.service';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -73,17 +74,17 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() index: number;
 
-  @Input() label: ((row: any, value?: any) => any) | any;
+  @Input() label: ((row: Row, value?: unknown) => string) | any;
   @Input() labelPath: string;
 
-  @Input() itemLabel: (row: any, value?: any) => any;
+  @Input() itemLabel: (row: any, value?: unknown) => string;
   @Input() itemFormat: string;
   @Input() itemType: string;
 
-  @Input() value: (row: any, value?: any) => any;
+  @Input() value: (row: Row, value?: unknown) => any;
   @Input() path: string;
 
-  @Input() compare: (x: any, y: any) => number;
+  @Input() compare: (x: number, y: number) => number;
 
   @Input() trueValue: any;
   @Input() falseValue: any;

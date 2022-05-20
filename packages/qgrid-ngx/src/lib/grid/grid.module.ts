@@ -50,6 +50,7 @@ export class GridModule {
     FormatService.number = (x, format) => numberPipe.transform(x, format);
     FormatService.currency = (x, format) => currencyPipe.transform(x, format);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Fastdom.invoke = task => zone.runOutsideAngular<any>(task);
   }
 }

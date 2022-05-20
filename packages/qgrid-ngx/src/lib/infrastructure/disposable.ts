@@ -5,7 +5,7 @@ import { Disposable as DisposableCore, DisposableResource } from '@qgrid/core';
 export class Disposable implements OnDestroy {
   private disposable = new DisposableCore();
 
-  add(resource: DisposableResource) {
+  add(resource: DisposableResource): void {
     this.disposable.add(resource);
   }
 
@@ -13,7 +13,7 @@ export class Disposable implements OnDestroy {
     return this.disposable.remove(resource);
   }
 
-  finalize() {
+  finalize(): void {
     this.disposable.finalize();
   }
 

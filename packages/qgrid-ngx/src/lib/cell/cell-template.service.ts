@@ -59,7 +59,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 @Injectable()
 export class CellTemplateService {
-  private commits = new Map<string, (container: ViewContainerRef, context: any) => void>();
+  private commits = new Map<string, (container: ViewContainerRef, context: unknown) => void>();
 
   constructor(private templateService: TemplateService) { }
 
@@ -80,7 +80,7 @@ export class CellTemplateService {
       return noop;
     }
 
-    commit = (container: ViewContainerRef, context: any) => {
+    commit = (container: ViewContainerRef, context: unknown) => {
       container.clear();
       return container.createEmbeddedView(templateLink.template, context);
     };

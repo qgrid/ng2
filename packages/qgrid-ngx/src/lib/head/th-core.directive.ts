@@ -22,6 +22,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 
   $implicit = this;
   element: HTMLElement;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
   label: string;
 

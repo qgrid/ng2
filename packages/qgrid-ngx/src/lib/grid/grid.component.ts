@@ -32,6 +32,7 @@ import {
   GroupStateMode,
   GroupStateSummary,
   PivotState,
+  Row,
   ScrollState,
   ScrollStateMode,
   SelectionState,
@@ -91,7 +92,7 @@ export class GridComponent implements OnInit, OnChanges {
   private sortState = this.stateAccessor.setter(SortState);
   private styleState = this.stateAccessor.setter(StyleState);
 
-  themeComponent: any;
+  themeComponent: unknown;
 
   @Input() set model(value: GridModel) {
     this.root.model = value;
@@ -114,7 +115,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input('interactionMode') set gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
 
   @Input('columns') set dataColumns(columns: Array<ColumnModel>) { if (Array.isArray(columns)) { this.dataState({ columns }); } }
-  @Input('rows') set dataRows(rows: Array<any>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }
+  @Input('rows') set dataRows(rows: Array<Row>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }
 
   @Input() set editCancel(cancel: Command) { this.editState({ cancel }); }
   @Input() set editCommit(commit: Command) { this.editState({ commit }); }
@@ -131,7 +132,7 @@ export class GridComponent implements OnInit, OnChanges {
 
   @Input() set pivotBy(by: Array<string>) { this.pivotState({ by }); }
 
-  @Input('selection') set selectionItems(items: Array<any>) { this.selectionState({ items }); }
+  @Input('selection') set selectionItems(items: Array<unknown>) { this.selectionState({ items }); }
   @Input() set selectionArea(area: SelectionStateArea) { this.selectionState({ area }); }
   @Input() set selectionMode(mode: SelectionStateMode) { this.selectionState({ mode }); }
   @Input() set selectionUnit(unit: SelectionStateUnit) { this.selectionState({ unit }); }

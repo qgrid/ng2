@@ -15,10 +15,10 @@ import { TemplateService } from './template.service';
   selector: 'ng-container[key]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateDirective implements DoCheck, OnChanges {
-  private viewRef: EmbeddedViewRef<any> | null;
+  private viewRef: EmbeddedViewRef<unknown> | null;
 
   @Input() key = '';
-  @Input() context: any = null;
+  @Input() context: unknown = null;
   @Input() check = false;
 
   constructor(

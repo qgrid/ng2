@@ -15,7 +15,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 })
 export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
   @Input('q-grid-core-index') viewIndex: number;
-  @Input('q-grid-core-tr') model: any;
+  @Input('q-grid-core-tr') model: unknown;
   @Input('q-grid-core-source') source: string;
 
   element: HTMLElement;
