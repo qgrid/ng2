@@ -1,30 +1,27 @@
 import { Expression } from '../model/expression';
-import { evaluateFactory } from './evaluate';
+import { Evaluate, evaluateFactory, Evaluated } from './evaluate';
 
 export class Watcher {
-  private evaluate: (x: unknown) => unknown;
-  private oldValue: unknown;
+  private evaluate: Evaluate;
+  private oldValue: Evaluated<Expression[keyof Expression]>;
   private isFirstRun = true;
 
   constructor(
     private expression: Expression,
-    private key: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private handler: (context: any, e: any) => void,
-    private args = [],
+    private key: keyof Expression,
+    private handler: (context: Expression, e: unknown) => void,
+    private args: Evaluated<Expression[keyof Expression]>[] = [],
   ) {
     this.evaluate = evaluateFactory(expression, args);
-    this.oldValue = this.evaluate(expression[key]);
+    this.oldValue = this.evaluate<Expression[keyof Expression]>(expression[key]);
   }
 
   detect() {
     const inst = this.expression[this.key];
-    const newValue = this.evaluate(inst);
+    const newValue = this.evaluate<Expression[keyof Expression]>(inst);
     if (this.isFirstRun || this.oldValue !== newValue) {
       this.isFirstRun = false;
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.handler.apply(this.expression, [newValue, this.oldValue].concat(this.args) as any);
+      this.handler.apply(this.expression, [newValue, this.oldValue].concat(this.args));
       this.oldValue = newValue;
     }
   }
