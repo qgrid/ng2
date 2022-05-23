@@ -1,13 +1,13 @@
 {
-  "extends": "../../.eslintrc.json",
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "jest": true,
-    "mocha": true
-  },
+  "extends": "../../.eslintrc.angular.json",
   "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    "project": ["./tsconfig.lib.json"],
+    "createDefaultProgram": true,
+    "overrides": [
+      {
+        "files": ["*.html"],
+        "parser": "@angular-eslint/template-parser"
+      }
+    ]
   }
 }
