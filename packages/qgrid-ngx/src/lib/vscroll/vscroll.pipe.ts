@@ -17,7 +17,7 @@ export class VscrollPipe implements OnDestroy, PipeTransform {
   constructor(private cd: ChangeDetectorRef) {
   }
 
-  transform(data: any[], context: IVscrollContext): ObservableLike<any> | PromiseLike<any> | SubjectLike<any> {
+  transform(data: any[], context: IVscrollContext): SubjectLike<any> {
     this.disposable.finalize();
 
     if (!context) {

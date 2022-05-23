@@ -3,9 +3,16 @@ import { GridPlugin } from '../../plugin/grid.plugin';
 import { ColumnView } from '../view/column.view';
 import { RenderStrategy } from './render.strategy';
 
+export interface RowPosition {
+  left: any[];
+  mid: any[];
+  right: any[];
+  [key: string]: any[];
+}
+
 export declare class Renderer {
   defaultStrategy: RenderStrategy;
-  readonly rows: Record<string, any>;
+  readonly rows: RowPosition;
 
   constructor(plugin: GridPlugin);
 

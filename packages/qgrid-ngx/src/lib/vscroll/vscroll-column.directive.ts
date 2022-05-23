@@ -14,6 +14,7 @@ import { VscrollPortYDirective } from './vscroll-port-y.directive';
 })
 export class VscrollColumnDirective implements OnDestroy, OnChanges {
   private column: HTMLElement;
+  private onChangesRan = false;
 
   private get layout() {
     return this.port.layout;
@@ -34,8 +35,12 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (this.onChangesRan) {
+      return;
+    }
     if (changes['index']) {
       if (this.port.getItemSize()) {
+        this.onChangesRan = true;
         return;
       }
 

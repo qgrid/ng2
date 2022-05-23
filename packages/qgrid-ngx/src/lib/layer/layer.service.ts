@@ -18,9 +18,9 @@ export class LayerService {
     this.container = container;
   }
 
-  create(name: string): Layer | undefined {
+  create(name: string): Layer {
     if (this.layers.has(name)) {
-      return this.layers.get(name);
+      return this.layers.get(name) as Layer;
     }
 
     const { container, templateService } = this;

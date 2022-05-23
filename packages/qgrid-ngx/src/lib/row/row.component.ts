@@ -11,6 +11,7 @@ import {
   RowState,
   RowStateMode,
   RowStateUnit,
+  Td,
 } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
@@ -104,7 +105,7 @@ export class RowComponent implements OnChanges, OnInit {
     }
 
     if (this.behavior.indexOf('expandOnDblClick') >= 0) {
-      let firstClickTarget: unknown = null;
+      let firstClickTarget: Td | null = null;
 
       observe(model.mouseChanged)
         .subscribe(e => {
