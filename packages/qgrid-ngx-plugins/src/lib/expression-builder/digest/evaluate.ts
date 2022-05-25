@@ -11,7 +11,7 @@ export type Evaluate = <T>(value: T | T[] | ((...x: any[]) => T)) => Evaluated<T
 export function evaluateFactory<K>(expression: K, args: unknown[]) {
   return visit as Evaluate;
 
-  function visit<T>(value: T | T[] | ((...x: any[]) => T)): Evaluated<T> {
+  function visit<T>(value: T | T[] | ((...x: any[]) => T)): Evaluated<T> | Evaluated<T>[] {
     if (isArray(value)) {
       return visitArray<T>(value as T[]);
     } else if (isFunction(value)) {
@@ -43,6 +43,6 @@ export function evaluateFactory<K>(expression: K, args: unknown[]) {
   }
 
   function visitFunction<T>(delegate: (...argums: any[]) => T): Evaluated<T> {
-    return delegate.apply(expression, args);
+    return delegate.apply(expression, args) as Evaluated<T>;
   }
 }

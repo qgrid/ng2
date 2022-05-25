@@ -28,7 +28,7 @@ export class EbExpressionComponent implements OnInit, DoCheck {
           .map(key =>
             new Watcher(
               this.model,
-              key,
+              key as keyof Expression,
               $watch[key],
               [this.node, this.line],
             ),
