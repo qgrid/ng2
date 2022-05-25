@@ -6,7 +6,7 @@ import { Directive, ElementRef, NgZone } from '@angular/core';
 export class MenuDirective {
   constructor(element: ElementRef, zone: NgZone) {
     zone.runOutsideAngular(() =>
-      element.nativeElement.addEventListener('click', e => e.stopPropagation()),
+      element.nativeElement.addEventListener('click', (e: Event) => e.stopPropagation()),
     );
   }
 }
