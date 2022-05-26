@@ -10,6 +10,7 @@ import {
   Command,
   Composite,
   filter,
+  NotifyModel,
   PersistenceSchedule,
   PersistenceService,
   PersistenceState,
@@ -107,8 +108,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
         const { settings, storage, defaultGroup } = model.persistence();
         for (const state of Object.keys(settings)) {
           for (const key of settings[state]) {
+            const action = state + 'Changed' as keyof NotifyModel;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            observe(model[state + 'Changed'] as GridEvent<any>)
+            observe((model as NotifyModel)[action] as GridEvent<any>)
               .pipe(
                 // TODO: get rid of e.tag.source check
                 filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service'),

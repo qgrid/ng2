@@ -33,7 +33,7 @@ export class ZoneCommandManager {
     );
   }
 
-  filter(commands) {
+  filter(commands: Command[]) {
     return this.manager.filter(commands);
   }
 }
@@ -66,7 +66,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
     this.aroundZone(() =>
       nativeElement
-        .addEventListener(this.commandEvent, e => this.execute(e)),
+        .addEventListener(this.commandEvent, (e: MouseEvent) => this.execute(e)),
     );
   }
 
@@ -133,7 +133,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
         const shortcut = new Shortcut(new ShortcutDispatcher());
 
-        const keyDown = e => {
+        const keyDown = (e: KeyboardEvent) => {
           shortcut.keyDown(e);
         };
 
