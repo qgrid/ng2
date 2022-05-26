@@ -2,12 +2,12 @@ import { isArray, noop } from '@qgrid/core';
 import { Expression, GroupExpression } from '../../expression-builder/model/expression';
 import { Line } from '../../expression-builder/model/line';
 import { Node } from '../../expression-builder/model/node';
-import { IQueryBuilderSchema, QueryBuilderService } from '../query-builder.service';
+import { IQueryBuilderSchema, QueryBuilderService, QueryBuilderSettings } from '../query-builder.service';
 import { typeMapping } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { Validator } from './validator';
 
-export const getValue = (line: Line, id: string, props: string[]) => {
+export const getValue = (line: Line, id: string, props: string[]): string => {
   const group = line.get(id) as GroupExpression;
   if (group) {
     if (group.expressions.length === 1) {
@@ -37,6 +37,29 @@ export class WhereSchema {
     const suggest = suggestFactory(service, '#field');
     const suggests = suggestsFactory(service, '#field');
     const validator = new Validator(service);
+
+    const hasValue = function (this: QueryBuilderSettings) {
+      return !!(this.value as string);
+    };
+
+    const isValid = function (this: QueryBuilderSettings & { isValid: (nd: Node) => boolean }, n: Node) {
+      return !this.isValid(n);
+    };
+
+    const validate = function (line: Line) {
+      return function (this: QueryBuilderSettings) {
+        const field = line.get('#field').expressions[0].value;
+        return validator.for(field)(this.value as string);
+      };
+    };
+
+    const refresh = function (
+      this: QueryBuilderSettings & { suggest: (nn: Node, ll: Line) => Promise<string[]> },
+      n: Node,
+      l: Line,
+    ) {
+      this.options = this.suggest(n, l);
+    };
 
     return this.service
       .build()
@@ -83,19 +106,17 @@ export class WhereSchema {
                   const column = service.columns().filter(c => c.key === key)[0];
                   return (column && column.type) || null;
                 },
-                change: function (node, line) {
-                  const field = this.value;
+                change: function (this: QueryBuilderSettings & { getType: (f: string) => string }, node, line) {
+                  const field = this.value as string;
                   const type = this.getType(field);
                   const ops = typeMapping[type] || [];
                   const op = line.get('#operator').expressions[0];
 
                   if (ops.indexOf(op.value) < 0) {
                     op.value = ops.length ? ops[0] : null;
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (op as any).change();
+                    (op as Expression & { change: () => void }).change();
                   } else {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const operand = line.get('#operand').expressions[0] as (Expression & { validate: () => any[] });
+                    const operand = line.get('#operand').expressions[0] as (Expression & { validate: () => string[] });
                     if (operand.validate) {
                       const result = operand.validate();
                       if (result.length) {
@@ -112,14 +133,13 @@ export class WhereSchema {
                 getOptions: function (node: Node, line: Line) {
                   const field: Expression = line.get('#field').expressions[0];
                   const name = field.value;
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  const type = (field as any).getType(name);
+                  const type = (field as (Expression & { getType: (n: string) => string })).getType(name);
 
-                  return type ? typeMapping[type] : [];
+                  return type ? typeMapping[type] as string[] : [];
                 },
                 value: 'EQUALS',
-                change: function (node: Node, line: Line) {
-                  switch (this.value.toLowerCase()) {
+                change: function (this: QueryBuilderSettings, node: Node, line: Line) {
+                  switch ((this.value as string).toLowerCase()) {
                     case 'equals':
                     case 'not equals':
                     case 'greater than':
@@ -134,24 +154,15 @@ export class WhereSchema {
                         schema.input('#value', {
                           classes: {
                             'qb-operand': true,
-                            'qb-has-value': function () {
-                              return !!this.value;
-                            },
-                            'qb-invalid': function (n: Node) {
-                              return !this.isValid(n);
-                            },
+                            'qb-has-value': hasValue,
+                            'qb-invalid': isValid,
                           },
                           value: getValue(line, '#operand', ['value', 'values']),
-                          validate: function () {
-                            const field = line.get('#field').expressions[0].value;
-                            return validator.for(field)(this.value);
-                          },
+                          validate: validate(line),
                           placeholderText: 'Select value',
                           suggest: suggest,
                           options: null,
-                          refresh: function (n: Node, l: Line) {
-                            this.options = <(nn: Node, ll: Line) => Promise<string>>this.suggest(n, l);
-                          },
+                          refresh: refresh,
                         });
                       });
                       break;
@@ -161,17 +172,10 @@ export class WhereSchema {
                           .input('#from', {
                             classes: {
                               'qb-operand': true,
-                              'qb-has-value': function () {
-                                return !!this.value;
-                              },
-                              'qb-invalid': function (n: Node) {
-                                return !this.isValid(n);
-                              },
+                              'qb-has-value': hasValue,
+                              'qb-invalid': isValid,
                             },
-                            validate: function () {
-                              const field = line.get('#field').expressions[0].value;
-                              return validator.for(field)(this.value);
-                            },
+                            validate: validate(line),
                             options: suggest,
                             value: null,
                             placeholderText: 'Select value',
@@ -183,24 +187,15 @@ export class WhereSchema {
                           .input('#to', {
                             classes: {
                               'qb-operand': true,
-                              'qb-has-value': function () {
-                                return !!this.value;
-                              },
-                              'qb-invalid': function (n: Node) {
-                                return !this.isValid(n);
-                              },
+                              'qb-has-value': hasValue,
+                              'qb-invalid': isValid,
                             },
                             value: null,
-                            validate: function () {
-                              const field = line.get('#field').expressions[0].value;
-                              return validator.for(field)(this.value);
-                            },
+                            validate: validate(line),
                             placeholderText: 'Select value',
                             suggest: suggest,
                             options: null,
-                            refresh: function (n: Node, l: Line) {
-                              this.options = <(nn: Node, ll: Line) => Promise<string>>this.suggest(n, l);
-                            },
+                            refresh: refresh,
                           });
                       });
                       break;
@@ -213,21 +208,19 @@ export class WhereSchema {
                           .multiselect('#in-operand', {
                             classes: {
                               'qb-operand': true,
-                              'qb-has-value': function () {
-                                return !!this.values.length;
+                              'qb-has-value': function (this: QueryBuilderSettings) {
+                                return !!(this.values as string[]).length;
                               },
-                              'qb-invalid': function (n) {
-                                return !this.isValid(n);
-                              },
+                              'qb-invalid': isValid,
                             },
-                            validate: function () {
+                            validate: function (this: QueryBuilderSettings) {
                               const field = line.get('#field').expressions[0].value;
-                              return validator.for(field)(this.values);
+                              return validator.for(field)(this.values as string[]);
                             },
                             values: [],
                             options: suggests,
                             placeholderText: 'Select value',
-                            add: function (n, l, v) {
+                            add: function (this: QueryBuilderSettings, n, l, v) {
                               if (v && (this.values as string[]).indexOf(v) < 0) {
                                 (this.values as string[]).push(v);
                               }
@@ -249,24 +242,18 @@ export class WhereSchema {
                 schema.autocomplete('#value', {
                   classes: {
                     'qb-operand': true,
-                    'qb-has-value': function () {
-                      return !!this.value;
-                    },
-                    'qb-invalid': function (node: Node) {
-                      return !this.isValid(node);
-                    },
+                    'qb-has-value': hasValue,
+                    'qb-invalid': isValid,
                   },
                   value: null,
-                  validate: function (node: Node, line: Line) {
-                    const field = (line.get('#field') as GroupExpression).expressions[0].value;
-                    return validator.for(field)(this.value);
+                  validate: function (this: QueryBuilderSettings, node: Node, line: Line) {
+                    const field = line.get('#field').expressions[0].value;
+                    return validator.for(field)(this.value as string);
                   },
                   placeholderText: 'Select value',
                   suggest: suggest,
                   options: null,
-                  refresh: function (node: Node, line: Line) {
-                    this.options = <(nn: Node, ll: Line) => Promise<string>>this.suggest(node, line);
-                  },
+                  refresh: refresh,
                 });
               });
           });

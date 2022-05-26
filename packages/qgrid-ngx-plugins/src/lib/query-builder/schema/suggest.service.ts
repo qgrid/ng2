@@ -3,7 +3,7 @@ import { Node } from '../../expression-builder/model/node';
 import { QueryBuilderService } from '../query-builder.service';
 
 export function suggestFactory(service: QueryBuilderService, name: string) {
-  return function (node: Node, line: Line) {
+  return function (this: { value: string }, node: Node, line: Line) {
     const search = (this.value || '').toLowerCase();
     const field = line.get(name).expressions[0].value;
     return service.suggest(field, 0, 10, search);
@@ -11,11 +11,11 @@ export function suggestFactory(service: QueryBuilderService, name: string) {
 }
 
 export function suggestsFactory(service: QueryBuilderService, name: string) {
-  return function (node: Node, line: Line) {
+  return function (this: { search: string; values: string[] }, node: Node, line: Line) {
     const search = this.search;
     const field = line.get(name).expressions[0].value;
     const selection: string[] =
-      (this.values as string[] || [])
+      (this.values || [])
         .map(item => ('' + item).toLowerCase());
 
     return new Promise<string[]>((resolve, reject) =>

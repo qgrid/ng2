@@ -7,18 +7,17 @@ import {
   Optional,
 } from '@angular/core';
 import { isArray } from '@qgrid/core';
-import { evaluateFactory } from './digest/evaluate';
+import { Evaluate, evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';
 import { Expression } from './model/expression';
 
 type EbClassType = string | string[] | { [key: string]: boolean | ((...args: unknown[]) => boolean) };
-type EvaluatedEbClass = string | string[] | { [key: string]: boolean };
 
 @Directive({
   selector: '[q-grid-eb-class]',
 })
 export class EbClassDirective implements OnInit, DoCheck {
-  private evaluate: (value: EbClassType) => EvaluatedEbClass;
+  private evaluate: Evaluate;
   private oldClassList: string[] = [];
 
   @Input('q-grid-eb-class') class: EbClassType;
@@ -27,15 +26,14 @@ export class EbClassDirective implements OnInit, DoCheck {
   constructor(
     private elementRef: ElementRef,
     @Optional() private node: EbNodeComponent,
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.evaluate = evaluateFactory(this.model, [this.node ? this.node.model : null]);
   }
 
   ngDoCheck() {
-    const result = this.evaluate(this.class);
+    const result = this.evaluate<EbClassType>(this.class);
     if (result) {
       const classList = this.fetchClasses(result);
       if (this.oldClassList.length !== classList.length

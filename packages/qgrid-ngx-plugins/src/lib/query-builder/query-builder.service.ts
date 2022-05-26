@@ -17,9 +17,15 @@ export interface ColumnMap {
   [key: string]: Column;
 }
 
-interface QueryBuilderSchemaSettings {
-  [key: string]: string | string[] | boolean | QueryBuilderSchemaSettings |
-  ((node?: Node, line?: Line, key?: string) => Promise<string[]> | string | string[] | boolean | void);
+type AcceptableValues = string | string[] | Promise<string[]> | boolean;
+
+type QueryBuilderSetting =
+  AcceptableValues |
+  { [key: string]: boolean | ((node?: Node) => boolean) } |
+  ((node?: Node, line?: Line, key?: string) => AcceptableValues | void);
+
+export interface QueryBuilderSettings {
+  [key: string]: QueryBuilderSetting;
 }
 
 interface QueryBuilderSchemaAttributes {
@@ -34,13 +40,13 @@ export interface IQueryBuilderSchema {
   get(id: string): IQueryBuilderSchema;
   materialize(id: string): Node;
 
-  autocomplete(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
-  button(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
-  input(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
-  iconButton(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
-  label(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
-  multiselect(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
-  select(id: string, settings?: QueryBuilderSchemaSettings): IQueryBuilderSchema;
+  autocomplete(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  button(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  input(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  iconButton(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  label(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  multiselect(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  select(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
 }
 
 export class QueryBuilderService {
@@ -147,7 +153,7 @@ export class QueryBuilderService {
 
     const settings = {
       defaults: {
-        isValid: function () {
+        isValid: function (this: { validate: () => string[]; state: string[] }) {
           return !this.validate || !(this.state = this.validate()).length;
         },
       },
