@@ -23,21 +23,14 @@ export function evaluateFactory<K>(expression: K, args: unknown[]) {
   }
 
   function visitObject<T>(inst: T): Evaluated<T> {
-    const keys = Object.keys(inst);
-    const length = keys.length;
-    const result = {} as Evaluated<T>;
-    for (let i = 0; i < length; i++) {
-      const key = keys[i];
-      result[key] = visit(inst[key]);
-    }
-
-    return result;
+    return (Object.keys(inst) as Array<keyof T>)
+      .reduce((memo, key) => ({ ...memo, [key]: visit(inst[key]) }), {} as Evaluated<T>);
   }
 
   function visitArray<T>(list: T[]) {
-    const result = [] as Evaluated<T>;
+    const result = [] as Evaluated<T>[];
     for (let i = 0, length = list.length; i < length; i++) {
-      result[i] = visit(list[i]);
+      result[i] = visit(list[i]) as Evaluated<T>;
     }
     return result;
   }

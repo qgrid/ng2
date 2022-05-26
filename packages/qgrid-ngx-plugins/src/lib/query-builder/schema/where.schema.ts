@@ -14,12 +14,12 @@ export const getValue = (line: Line, id: string, props: string[]): string => {
       const expr = group.expressions[0];
       const prop = props.filter(p => Object.prototype.hasOwnProperty.call(expr, p))[0];
       if (prop) {
-        const value = expr[prop];
-        if (isArray(value) && value.length) {
-          return value[0];
+        const value = expr[prop as keyof Expression];
+        if (isArray(value) && (value as string[]).length) {
+          return (value as string[])[0];
         }
 
-        return value;
+        return value as string;
       }
     }
   }
@@ -108,7 +108,7 @@ export class WhereSchema {
                 },
                 change: function (this: QueryBuilderSettings & { getType: (f: string) => string }, node, line) {
                   const field = this.value as string;
-                  const type = this.getType(field);
+                  const type = this.getType(field) as keyof typeof typeMapping;
                   const ops = typeMapping[type] || [];
                   const op = line.get('#operator').expressions[0];
 
@@ -133,9 +133,9 @@ export class WhereSchema {
                 getOptions: function (node: Node, line: Line) {
                   const field: Expression = line.get('#field').expressions[0];
                   const name = field.value;
-                  const type = (field as (Expression & { getType: (n: string) => string })).getType(name);
+                  const type = (field as (Expression & { getType: (n: string) => keyof typeof typeMapping })).getType(name);
 
-                  return type ? typeMapping[type] as string[] : [];
+                  return type ? typeMapping[type] : [];
                 },
                 value: 'EQUALS',
                 change: function (this: QueryBuilderSettings, node: Node, line: Line) {

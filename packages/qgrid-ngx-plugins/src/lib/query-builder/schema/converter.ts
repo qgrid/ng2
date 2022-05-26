@@ -93,7 +93,7 @@ function visitUnary(line: ISerializationGroup[], op: string): Omit<Expression, '
 
   return {
     left: left.value,
-    op: camelCaseMapping[op.toUpperCase()],
+    op: camelCaseMapping[op.toUpperCase() as keyof typeof camelCaseMapping],
   };
 }
 
@@ -103,7 +103,7 @@ function visitBinary(line: ISerializationGroup[], op: string): Omit<Expression, 
 
   return {
     left: left.value,
-    op: camelCaseMapping[op.toUpperCase()],
+    op: camelCaseMapping[(op.toUpperCase() as keyof typeof camelCaseMapping)],
     right: right.value,
   };
 }

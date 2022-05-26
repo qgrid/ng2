@@ -69,9 +69,9 @@ export class QueryBuilderService {
 
   columnMap(): ColumnMap {
     return this.columns().reduce((memo, column) => {
-      memo[column.key] = column;
+      memo[column.key as keyof ColumnMap] = column;
       return memo;
-    }, {});
+    }, {} as ColumnMap);
   }
 
   submit(expression: Expression) {

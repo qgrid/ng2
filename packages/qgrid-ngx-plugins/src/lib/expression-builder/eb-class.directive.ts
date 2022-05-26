@@ -11,7 +11,7 @@ import { Evaluate, evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';
 import { Expression } from './model/expression';
 
-type EbClassType = string | string[] | { [key: string]: boolean | ((...args: unknown[]) => boolean) };
+type EbClassType = string | string[] | Record<string, unknown>;
 
 @Directive({
   selector: '[q-grid-eb-class]',
@@ -60,7 +60,7 @@ export class EbClassDirective implements OnInit, DoCheck {
     const classList = [];
     for (let i = 0, length = keys.length; i < length; i++) {
       const key = keys[i];
-      if (meta[key]) {
+      if ((meta as { [key: string]: unknown })[key]) {
         classList.push(key);
       }
     }

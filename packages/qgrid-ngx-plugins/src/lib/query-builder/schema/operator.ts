@@ -1,5 +1,9 @@
-function swap(inst: { [key: string]: string }): { [key: string]: string } {
-  const result = {};
+type Swap<T extends { [key: string]: string }> = {
+  [key in T[keyof T]as string]: keyof T;
+};
+
+function swap<T extends { [key: string]: string }>(inst: T): Swap<T> {
+  const result = {} as Swap<T>;
   for (const prop in inst) {
     if (Object.prototype.hasOwnProperty.call(inst, prop)) {
       result[inst[prop]] = prop;

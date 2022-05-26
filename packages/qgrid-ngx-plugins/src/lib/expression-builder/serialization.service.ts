@@ -34,11 +34,11 @@ class Serializer {
   serializeExpression(expression: ISerializationExpression) {
     const result = {} as ISerializationExpression;
 
-    const serializeAttr = this.node.attr('serialize');
+    const serializeAttr = this.node.attr('serialize') as { [key: string]: (keyof ISerializationExpression)[] };
     const serializableProps = serializeAttr[expression.id];
     for (let i = 0, length = serializableProps.length; i < length; i++) {
       const prop = serializableProps[i];
-      result[prop] = expression[prop];
+      result[prop] = expression[prop] as string & string[];
     }
 
     result.id = expression.id;
@@ -48,20 +48,20 @@ class Serializer {
     return result;
   }
 
-  serializeAttributes(node: Node): object {
-    const serializeAttr = node.attr('serialize');
+  serializeAttributes(node: Node) {
+    const serializeAttr = node.attr('serialize') as { ['@attr']: string[] };
     if (serializeAttr && serializeAttr['@attr']) {
-      const props = serializeAttr['@attr'];
-      return props.reduce((memo: object, attr: string) => {
+      const props: string[] = serializeAttr['@attr'];
+      return props.reduce((memo, attr) => {
         memo[attr] = node.attr(attr);
         return memo;
-      }, {});
+      }, {} as { [key: string]: string | Record<string, unknown> });
     }
     return {};
   }
 
   canSerialize(expression: Expression) {
-    const serializeAttr = this.node.attr('serialize');
+    const serializeAttr = this.node.attr('serialize') as { [key: string]: string[] };
     if (!serializeAttr) {
       return false;
     }

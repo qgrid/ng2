@@ -17,7 +17,7 @@ export class Node {
     this.level = parent ? parent.level + 1 : 0;
   }
 
-  attr(key: string, value?: string): string {
+  attr(key: string, value?: string): string | Record<string, unknown> {
     if (arguments.length === 2) {
       this.attributes[key] = value;
     } else {

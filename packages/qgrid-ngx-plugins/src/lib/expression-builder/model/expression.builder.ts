@@ -32,7 +32,7 @@ export class ExpressionBuilder {
 
           const build = function (node: Node, line: Line) {
             const expression =
-              utility.defaults(
+              utility.defaults<Expression>(
                 sampleExpression,
                 statement.defaults,
                 settings.defaults,
@@ -49,10 +49,10 @@ export class ExpressionBuilder {
             line.add(group);
             patch.methodsOf(expression).with(node, line);
 
-            const keys = Object.keys(expression);
+            const keys = Object.keys(expression) as Array<keyof Expression>;
 
             keys.forEach(key => {
-              const sourceFunction = expression[key];
+              const sourceFunction = expression[key] as (...arg: unknown[]) => boolean;
 
               if (isFunction(sourceFunction)) {
                 expression[key] = (...context: unknown[]) => {
@@ -61,8 +61,8 @@ export class ExpressionBuilder {
                   // TODO add decorator for mutable methods instead of trigger
                   if (!line.immutable) {
                     expression.method = expression.method || [];
-                    if (expression.method.indexOf(key) < 0) {
-                      expression.method.push(key);
+                    if (expression.method.indexOf(key as string) < 0) {
+                      expression.method.push(key as string);
                     }
 
                     line.immutable = true;
@@ -93,7 +93,7 @@ export class ExpressionBuilder {
 
           const build = function (node: Node, line: Line, expressionGroup: GroupExpression) {
             const expression =
-              utility.defaults(
+              utility.defaults<Expression>(
                 sampleExpression,
                 statement.defaults,
                 settings.defaults,
@@ -114,8 +114,8 @@ export class ExpressionBuilder {
           return this;
         };
 
-        NodeSchemaT.prototype[statement.type] = factory;
-        GroupSchema.prototype[statement.type] = groupFactory;
+        (NodeSchemaT as typeof NodeSchemaT & { prototype: any }).prototype[statement.type as keyof typeof NodeSchemaT] = factory;
+        (GroupSchema as typeof GroupSchema & { prototype: any }).prototype[statement.type as keyof typeof GroupSchema] = groupFactory;
       });
 
     // TODO: think how to avoid this
