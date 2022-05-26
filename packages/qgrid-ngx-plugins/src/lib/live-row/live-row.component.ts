@@ -34,7 +34,7 @@ export class LiveRowComponent implements OnInit {
         }
 
         const { rowId } = model.data();
-        const animations = [];
+        const animations: Promise<void>[] = [];
 
         for (let rowIndex = 0, length = previousRows.length; rowIndex < length; rowIndex++) {
           const newRowIndex = currentRows.findIndex((row, i) => rowId(i, row) === rowId(rowIndex, previousRows[rowIndex]));
@@ -54,7 +54,7 @@ export class LiveRowComponent implements OnInit {
   }
 
   private fadeOutRow(index: number) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const tr = this.plugin.table.body.row(index);
       if (!tr.model()) {
         reject(`Can't find model for row ${index}`);
@@ -67,7 +67,7 @@ export class LiveRowComponent implements OnInit {
           { duration: this.duration },
         );
 
-        animation.onfinish = () => resolve(null);
+        animation.onfinish = () => resolve();
       });
     });
   }
@@ -75,7 +75,7 @@ export class LiveRowComponent implements OnInit {
   private moveRow(from: number, to: number) {
     const { table } = this.plugin;
 
-    return new Promise((animationEnd, animationError) => {
+    return new Promise<void>((animationEnd, animationError) => {
       const oldTr = table.body.row(from);
       const newTr = table.body.row(to);
 
@@ -89,14 +89,13 @@ export class LiveRowComponent implements OnInit {
         const offset = newTr.rect().top - oldTr.rect().top;
 
         Fastdom.mutate(() => {
-          const animatedRows = [];
+          const animatedRows: Promise<void>[] = [];
           oldTr.addClass(`${GRID_PREFIX}-live-row`);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (oldTr.getElement() as any)
+          (oldTr.getElement() as unknown as { elements: HTMLElement[] })
             .elements
             .forEach(rowElement =>
               animatedRows.push(
-                new Promise(animationRowEnd => {
+                new Promise<void>(animationRowEnd => {
                   const animation = rowElement.animate(
                     [{ transform: 'translateY(0px)' }, { transform: `translateY(${offset}px)` }],
                     { duration: this.duration },
@@ -105,12 +104,12 @@ export class LiveRowComponent implements OnInit {
                   animation.onfinish = () => Fastdom.mutate(() => {
                     oldTr.removeClass(`${GRID_PREFIX}-live-row`);
                     oldTr.removeClass(`${GRID_PREFIX}-drag`);
-                    animationRowEnd(null);
+                    animationRowEnd();
                   });
                 })),
             );
 
-          Promise.all(animatedRows).finally(() => animationEnd(null));
+          Promise.all(animatedRows).finally(() => animationEnd());
         });
       });
     });

@@ -37,7 +37,7 @@ export class LiveColumnComponent implements OnInit {
         }
 
         const { columnId } = model.data();
-        const animations = [];
+        const animations: Promise<void>[] = [];
 
         startPos = currentColumns.length;
         endPos = 0;
@@ -72,7 +72,7 @@ export class LiveColumnComponent implements OnInit {
   private moveColumn(from: number, to: number, startPos: number, endPos: number) {
     const { table } = this.plugin;
 
-    return new Promise((animationEnd, animationError) => {
+    return new Promise<void>((animationEnd, animationError) => {
       const oldColumn = table.body.column(from);
       const newColumn = table.body.column(to);
       const startColumn = table.body.column(startPos);
@@ -98,10 +98,10 @@ export class LiveColumnComponent implements OnInit {
         }
 
         Fastdom.mutate(() => {
-          const animatedCells = [];
+          const animatedCells: Promise<void>[] = [];
           oldColumn.addClass(`${GRID_PREFIX}-live-column`);
           oldColumn.cells().forEach(cell => animatedCells.push(
-            new Promise(columnAnimationEnd => {
+            new Promise<void>(columnAnimationEnd => {
               const animation = cell.model().element.animate(
                 [{ transform: 'translateX(0px)' }, { transform: `translateX(${offset}px)` }],
                 { duration: this.duration },
@@ -110,11 +110,11 @@ export class LiveColumnComponent implements OnInit {
               animation.onfinish = () => Fastdom.mutate(() => {
                 oldColumn.removeClass(`${GRID_PREFIX}-live-column`);
                 oldColumn.removeClass(`${GRID_PREFIX}-drag`);
-                columnAnimationEnd(null);
+                columnAnimationEnd();
               });
             })));
 
-          Promise.all(animatedCells).finally(() => animationEnd(null));
+          Promise.all(animatedCells).finally(() => animationEnd());
         });
       });
     });
