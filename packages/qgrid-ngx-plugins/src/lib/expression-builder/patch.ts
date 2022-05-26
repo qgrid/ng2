@@ -1,6 +1,8 @@
 import { isFunction } from '@qgrid/core';
 
-export function method<T>(inst: T, key: string) {
+type ObjectWithFn = Record<string, (...args: unknown[]) => unknown>;
+
+export function method<T extends ObjectWithFn>(inst: T, key: string) {
   const sourceFn = inst[key];
 
   return {
@@ -8,37 +10,36 @@ export function method<T>(inst: T, key: string) {
   };
 }
 
-export function methodsOf<T>(inst: T) {
-  const keys = Object.keys(inst);
+export function methodsOf<T extends ObjectWithFn>(inst: T) {
+  const keys = Object.keys(inst) as Array<keyof T>;
   const length = keys.length;
-  const patch: { [key: string]: { with: (...args: unknown[]) => unknown } } = {};
+  const patch = {} as { [key in keyof T]: { with: (...args: unknown[]) => unknown } };
 
   for (let i = 0; i < length; i++) {
     const key = keys[i];
     if (isFunction(inst[key])) {
-      patch[key] = method(inst, key);
+      patch[key] = method(inst, key as string);
     }
   }
 
   return {
     with: (...args: unknown[]) => {
-      const patchKeys = Object.keys(patch);
+      const patchKeys = Object.keys(patch) as Array<keyof T>;
       const patchLength = patchKeys.length;
 
       for (let i = 0; i < patchLength; i++) {
         const key = patchKeys[i];
 
-        (inst as T & { action: string }).action = key;
+        (inst as T & { action: keyof T }).action = key;
         patch[key].with.apply(inst, args);
       }
     },
   };
 }
 
-export function withFactory<T>(inst: T, key: string, sourceFn: (...args: unknown[]) => unknown) {
+export function withFactory(inst: ObjectWithFn, key: string, sourceFn: (...args: unknown[]) => unknown) {
   const withFn = (...withArgs: unknown[]) =>
-    inst[key] = (...keyArgs: unknown[]) =>
-      sourceFn.apply(inst, withArgs.concat(keyArgs));
+    inst[key] = (...keyArgs: unknown[]) => sourceFn.apply(inst, withArgs.concat(keyArgs));
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (withFn as any).decorator = (...args: any[]) => {

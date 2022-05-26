@@ -9,8 +9,8 @@ export function indexOf<T>(array: T[], predicate: (val: T, i: number) => boolean
   return -1;
 }
 
-export function defaults<T>(dst?: T, ...args: unknown[]): T {
-  const result = clone(dst);
+export function defaults<T>(dst?: T, ...args: Partial<T>[]): T {
+  const result = clone(dst) as T;
 
   for (let i = 0, sourcesLength = args.length; i < sourcesLength; i++) {
     const source = args[i];
@@ -19,7 +19,7 @@ export function defaults<T>(dst?: T, ...args: unknown[]): T {
       continue;
     }
 
-    const keys = Object.keys(source);
+    const keys = Object.keys(source) as Array<keyof T>;
 
     for (let k = 0, keysLength = keys.length; k < keysLength; k++) {
       const key = keys[k];
@@ -32,8 +32,8 @@ export function defaults<T>(dst?: T, ...args: unknown[]): T {
   return result;
 }
 
-export function override<T extends object>(dst: T, src: object): T {
-  const keys = Object.keys(src);
+export function override<T>(dst: T, src: Partial<T>): T {
+  const keys = Object.keys(src) as Array<keyof T>;
   const length = keys.length;
 
   for (let i = 0; i < length; i++) {

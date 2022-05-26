@@ -17,7 +17,7 @@ import { ExportPlugin } from '@qgrid/plugins';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
-  @Input() type: string;
+  @Input() type: Exclude<keyof ExportPlugin, 'type'>;
   @ContentChild(TemplateRef) templateRef: TemplateRef<unknown>;
 
   // eslint-disable-next-line no-use-before-define
