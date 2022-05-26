@@ -24,7 +24,7 @@
     ],
     "alwaysStrict": true,
     "noImplicitAny": false,
-    "noImplicitThis": false,
+    "noImplicitThis": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "strictFunctionTypes": true,

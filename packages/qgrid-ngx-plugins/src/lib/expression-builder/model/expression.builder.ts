@@ -5,7 +5,7 @@ import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Line } from './line';
 import { Node } from './node';
-import { nodeSchema } from './node.schema';
+import { nodeSchema, Schema } from './node.schema';
 import { EmptyStatement, IStatement } from './statement';
 
 export class ExpressionBuilder {
@@ -20,7 +20,7 @@ export class ExpressionBuilder {
     statements
       .concat([new EmptyStatement()])
       .forEach(statement => {
-        const factory = function (...args: [Expression] | [string, Expression]) {
+        const factory = function (this: Schema, ...args: [Expression] | [string, Expression]) {
           let id = guid();
           let sampleExpression: Expression;
           if (args.length > 1) {
@@ -81,7 +81,7 @@ export class ExpressionBuilder {
           return this;
         };
 
-        const groupFactory = function (...args: (string | Expression)[]) {
+        const groupFactory = function (this: Schema, ...args: (string | Expression)[]) {
           let id = guid();
           let sampleExpression: Expression;
           if (args.length > 1) {

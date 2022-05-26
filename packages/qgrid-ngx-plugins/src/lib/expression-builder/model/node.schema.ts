@@ -15,14 +15,27 @@ export interface INodeSchema {
   materialize(id: string): Node;
 }
 
-export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
-  return class NodeSchema implements INodeSchema {
-    plan: ((node: Node, line?: Line) => ReturnType<Node['attr']> | Node)[] = [];
-    planMap: { [key: string]: (node: Node, line: Line) => Node } = {};
+export abstract class Schema implements INodeSchema {
+  schemaMap: { [key: string]: INodeSchema } = {};
+  plan: ((node: Node, line?: Line, expressionGroup?: GroupExpression) => ReturnType<Node['attr']> | Node)[] = [];
+  planMap: { [key: string]: (node: Node, line: Line) => Node } = {};
 
+  abstract apply(node?: Node): Node;
+  abstract attr(key: string, value: unknown): INodeSchema;
+  abstract node(id: string, build: (schema: INodeSchema) => void): INodeSchema;
+  abstract group(id: string, build: (schema: GroupSchema) => void): INodeSchema;
+  abstract get(id: string): INodeSchema;
+  abstract materialize(id: string): Node;
+
+}
+
+export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
+  return class NodeSchema extends Schema {
     constructor(
       public schemaMap: { [key: string]: INodeSchema } = {},
-    ) { }
+    ) {
+      super();
+    }
 
     clone(): INodeSchema {
       const schema = new NodeSchema({ ...this.schemaMap });

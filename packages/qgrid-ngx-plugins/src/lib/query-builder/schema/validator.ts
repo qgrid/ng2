@@ -5,7 +5,7 @@ import { ColumnMap, QueryBuilderService } from '../query-builder.service';
 export class Validator {
   private columnMap: ColumnMap;
   private trueResult: string[] = [];
-  private validators: { [key: string]: (value: string) => string[] } = {};
+  private validators: { [key: string]: (value: string | string[]) => string[] } = {};
   private rules = {
     'bool': ['required'],
     'currency': ['required', 'decimal'],
