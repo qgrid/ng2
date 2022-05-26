@@ -91,7 +91,6 @@ export class LiveRowComponent implements OnInit {
         Fastdom.mutate(() => {
           const animatedRows = [];
           oldTr.addClass(`${GRID_PREFIX}-live-row`);
-          console.log(oldTr.getElement());
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (oldTr.getElement() as any)
             .elements
