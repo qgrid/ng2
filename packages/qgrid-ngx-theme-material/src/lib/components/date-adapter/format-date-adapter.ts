@@ -7,7 +7,7 @@ export class FormatDateAdapter extends NativeDateAdapter {
 
   format(date: Date, displayFormat: any): string {
     if (this.useFormat) {
-      return this.datePipe.transform(date, this.useFormat);
+      return this.datePipe.transform(date, this.useFormat) as string;
     }
 
     return super.format(date, displayFormat);
