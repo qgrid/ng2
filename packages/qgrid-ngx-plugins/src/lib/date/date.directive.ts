@@ -9,9 +9,9 @@ export class DateDirective {
   private toMidnight: (x: Date | string) => Date = parseFactory('date');
 
   constructor(
-    templateRef: TemplateRef<any>,
+    templateRef: TemplateRef<unknown>,
     viewContainerRef: ViewContainerRef,
-		private dateService: DateService,
+    private dateService: DateService,
   ) {
     viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
   }

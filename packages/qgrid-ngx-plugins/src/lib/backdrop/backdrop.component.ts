@@ -19,8 +19,8 @@ import { BackdropService } from './backdrop.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackdropComponent implements OnInit, OnDestroy {
-  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
-  @Output('close') closeEvent = new EventEmitter<any>();
+  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<unknown>;
+  @Output('close') closeEvent = new EventEmitter<void>();
   @Input() propagate = true;
 
   // eslint-disable-next-line no-use-before-define

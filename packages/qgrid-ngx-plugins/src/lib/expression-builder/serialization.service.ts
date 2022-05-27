@@ -1,14 +1,15 @@
 /* eslint-disable no-use-before-define */
 import { Injectable } from '@angular/core';
-import { GroupExpression } from './model/expression';
+import { Expression, GroupExpression } from './model/expression';
 import { Line } from './model/line';
 import { Node } from './model/node';
 import { INodeSchema } from './model/node.schema';
 import { indexOf, override } from './utility';
 
 class Serializer {
-  constructor(private node: Node) {
-  }
+  constructor(
+    private node: Node,
+  ) { }
 
   serialize(): ISerializationNode {
     const groups = this.node.line.expressions.map(expr => this.serializeGroup(expr));
@@ -21,7 +22,7 @@ class Serializer {
     };
   }
 
-  serializeGroup(group): ISerializationGroup {
+  serializeGroup(group: GroupExpression): ISerializationGroup {
     return {
       id: group.id,
       expressions: group.expressions
@@ -30,14 +31,14 @@ class Serializer {
     };
   }
 
-  serializeExpression(expression): ISerializationExpression {
+  serializeExpression(expression: ISerializationExpression) {
     const result = {} as ISerializationExpression;
 
-    const serializeAttr = this.node.attr('serialize');
+    const serializeAttr = this.node.attr('serialize') as { [key: string]: (keyof ISerializationExpression)[] };
     const serializableProps = serializeAttr[expression.id];
     for (let i = 0, length = serializableProps.length; i < length; i++) {
       const prop = serializableProps[i];
-      result[prop] = expression[prop];
+      result[prop] = expression[prop] as string & string[];
     }
 
     result.id = expression.id;
@@ -48,19 +49,19 @@ class Serializer {
   }
 
   serializeAttributes(node: Node) {
-    const serializeAttr = node.attr('serialize');
+    const serializeAttr = node.attr('serialize') as { ['@attr']: string[] };
     if (serializeAttr && serializeAttr['@attr']) {
-      const props = serializeAttr['@attr'];
+      const props: string[] = serializeAttr['@attr'];
       return props.reduce((memo, attr) => {
         memo[attr] = node.attr(attr);
         return memo;
-      }, {});
+      }, {} as { [key: string]: string | Record<string, unknown> });
     }
     return {};
   }
 
-  canSerialize(expression) {
-    const serializeAttr = this.node.attr('serialize');
+  canSerialize(expression: Expression) {
+    const serializeAttr = this.node.attr('serialize') as { [key: string]: string[] };
     if (!serializeAttr) {
       return false;
     }
@@ -71,8 +72,9 @@ class Serializer {
 }
 
 class Deserializer {
-  constructor(private schema: INodeSchema) {
-  }
+  constructor(
+    private schema: INodeSchema,
+  ) { }
 
   deserialize(data: ISerializationNode, parent: Node = null, nodeMap?: { [key: string]: Node }) {
     nodeMap = nodeMap || {};
@@ -117,7 +119,7 @@ class Deserializer {
     const dataExpressions = dataGroup.expressions;
     const length = dataExpressions.length;
 
-    let index;
+    let index: number;
     for (let i = 0; i < length; i++) {
       const dataExp = dataExpressions[i];
       index = indexOf(group.expressions, expr => expr.id === dataExp.id);
@@ -149,9 +151,11 @@ function traverse(node: Node, map: { [key: string]: Node }) {
 
 export declare interface ISerializationNode {
   id: string;
-  attributes: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attributes: { [key: string]: any };
   children: ISerializationNode[];
   line: ISerializationGroup[];
+  kind?: string;
 }
 
 export declare interface ISerializationGroup {
@@ -162,7 +166,9 @@ export declare interface ISerializationGroup {
 export declare interface ISerializationExpression {
   id: string;
   type: string;
-  method: Array<string>;
+  method: string[];
+  value?: string | null;
+  values?: string[];
 }
 
 @Injectable()

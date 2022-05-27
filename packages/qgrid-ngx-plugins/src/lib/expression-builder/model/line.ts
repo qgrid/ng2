@@ -5,44 +5,47 @@ import { GroupSchema } from './group.schema';
 import { Node } from './node';
 
 interface ExpressionEntry {
-	index: number;
-	expression: Expression;
-	parent: GroupExpression;
+  index: number;
+  expression: Expression;
+  parent: GroupExpression;
 }
 
 export class Line {
   immutable = true;
-  readonly expressions: Expression[] = [];
+  readonly expressions: GroupExpression[] = [];
 
-  constructor(private GroupSchemaT: typeof GroupSchema) {
-  }
+  constructor(
+    private GroupSchemaT: typeof GroupSchema,
+  ) { }
 
-  add(expression: Expression) {
+  add(expression: GroupExpression) {
     this.expressions.push(expression);
   }
 
-  clone(id: string) {
-    return cloneDeep(this.get(id)) as Expression;
+  clone(id: string): GroupExpression {
+    return cloneDeep(this.get(id));
   }
 
-  get(id: string) {
+  get(id: string): GroupExpression {
     const expression = this.findById(this.expressions, id);
     if (!expression) {
       throw new GridError('line', `Expression ${id} not found`);
     }
 
-    return expression.expression;
+    return expression.expression as GroupExpression;
   }
 
-  put(id: string, node: Node, build) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  put<T extends { apply: (...args: any[]) => any }>(id: string, node: Node, build: (schema: T) => void) {
     const index = this.getIndex(id);
-    const schema = new this.GroupSchemaT(node, this);
+    const groupSchema = new this.GroupSchemaT(node, this);
     const group = new GroupExpression();
 
     const item = this.findById(this.expressions, id);
     if (item.expression instanceof GroupExpression) {
-      build(schema);
-      schema.apply(group);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      build(groupSchema as any);
+      groupSchema.apply(group);
       group.id = id;
       this.expressions.splice(index, 1, group);
       this.immutable = false;
@@ -51,7 +54,7 @@ export class Line {
     }
   }
 
-  remove(id) {
+  remove(id: string) {
     const item = this.findById(this.expressions, id);
     if (item.expression instanceof GroupExpression) {
       item.expression.expressions = [];

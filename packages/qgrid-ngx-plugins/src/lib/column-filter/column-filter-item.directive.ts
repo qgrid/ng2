@@ -5,7 +5,7 @@ import { ColumnFilterItemListDirective } from './column-filter-item-list.directi
   selector: '[q-grid-column-filter-item]',
 })
 export class ColumnFilterItemDirective implements OnInit {
-  @Input('q-grid-column-filter-item') value: any;
+  @Input('q-grid-column-filter-item') value: string;
 
   $implicit = this;
 

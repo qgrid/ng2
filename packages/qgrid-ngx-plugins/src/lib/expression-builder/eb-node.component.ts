@@ -9,10 +9,11 @@ import { Node } from './model/node';
 export class EbNodeComponent {
   @Input() model: Node;
 
-  constructor(public service: EbNodeService) {
-  }
+  constructor(
+    public service: EbNodeService,
+  ) { }
 
-  select(e) {
+  select(e: MouseEvent) {
     e.stopPropagation();
 
     if (this.model.parent) {

@@ -5,26 +5,26 @@ import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Line } from './line';
 import { Node } from './node';
-import { nodeSchema } from './node.schema';
+import { nodeSchema, Schema } from './node.schema';
 import { EmptyStatement, IStatement } from './statement';
 
-
 export class ExpressionBuilder {
-  constructor(private settings) {
-  }
+  constructor(
+    private settings: Partial<IStatement>,
+  ) { }
 
-  build<T>(statements: Array<IStatement>): T {
+  build<T>(statements: IStatement[]): T {
     const NodeSchemaT = nodeSchema(GroupSchema);
 
     const settings = this.settings;
     statements
       .concat([new EmptyStatement()])
       .forEach(statement => {
-        const factory = function (...args) {
+        const factory = function (this: Schema, ...args: [Expression] | [string, Expression]) {
           let id = guid();
           let sampleExpression: Expression;
           if (args.length > 1) {
-            id = args[0];
+            id = args[0] as string;
             sampleExpression = args[1];
           } else if (args.length === 1) {
             sampleExpression = args[0];
@@ -49,20 +49,20 @@ export class ExpressionBuilder {
             line.add(group);
             patch.methodsOf(expression).with(node, line);
 
-            const keys = Object.keys(expression);
+            const keys = Object.keys(expression) as Array<keyof Expression>;
 
             keys.forEach(key => {
-              const sourceFunction = expression[key];
+              const sourceFunction = expression[key] as (...arg: unknown[]) => boolean;
 
               if (isFunction(sourceFunction)) {
-                expression[key] = (...context) => {
+                expression[key] = (...context: unknown[]) => {
                   const result = sourceFunction.apply(expression, context);
 
                   // TODO add decorator for mutable methods instead of trigger
                   if (!line.immutable) {
                     expression.method = expression.method || [];
-                    if (expression.method.indexOf(key) < 0) {
-                      expression.method.push(key);
+                    if (expression.method.indexOf(key as string) < 0) {
+                      expression.method.push(key as string);
                     }
 
                     line.immutable = true;
@@ -81,17 +81,17 @@ export class ExpressionBuilder {
           return this;
         };
 
-        const groupFactory = function (...args) {
+        const groupFactory = function (this: Schema, ...args: (string | Expression)[]) {
           let id = guid();
           let sampleExpression: Expression;
           if (args.length > 1) {
-            id = args[0];
-            sampleExpression = args[1];
+            id = args[0] as string;
+            sampleExpression = args[1] as Expression;
           } else if (args.length === 1) {
-            sampleExpression = args[0];
+            sampleExpression = args[0] as Expression;
           }
 
-          const build = function (node, line, expressionGroup) {
+          const build = function (node: Node, line: Line, expressionGroup: GroupExpression) {
             const expression =
               utility.defaults<Expression>(
                 sampleExpression,
@@ -114,11 +114,11 @@ export class ExpressionBuilder {
           return this;
         };
 
-        NodeSchemaT.prototype[statement.type] = factory;
-        GroupSchema.prototype[statement.type] = groupFactory;
+        (NodeSchemaT as typeof NodeSchemaT & { prototype: any }).prototype[statement.type as keyof typeof NodeSchemaT] = factory;
+        (GroupSchema as typeof GroupSchema & { prototype: any }).prototype[statement.type as keyof typeof GroupSchema] = groupFactory;
       });
 
     // TODO: think how to avoid this
-    return new NodeSchemaT() as T;
+    return new NodeSchemaT() as any as T;
   }
 }

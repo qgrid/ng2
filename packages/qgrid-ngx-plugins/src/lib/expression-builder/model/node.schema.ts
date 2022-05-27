@@ -5,22 +5,36 @@ import { Line } from './line';
 import { Node } from './node';
 
 export interface INodeSchema {
-	schemaMap: { [key: string]: INodeSchema };
+  schemaMap: { [key: string]: INodeSchema };
 
-	apply(node?: Node): Node;
-	attr(key: string, value: any): INodeSchema;
-	node(id: string, build: (schema: INodeSchema) => void): INodeSchema;
-	group(id: string, build: (schema: GroupSchema) => void): INodeSchema;
-	get(id: string): INodeSchema;
-	materialize(id: string): Node;
+  apply(node?: Node): Node;
+  attr(key: string, value: unknown): INodeSchema;
+  node(id: string, build: (schema: INodeSchema) => void): INodeSchema;
+  group(id: string, build: (schema: GroupSchema) => void): INodeSchema;
+  get(id: string): INodeSchema;
+  materialize(id: string): Node;
 }
 
-export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
-  return class NodeSchema implements INodeSchema {
-    plan = [];
-    planMap = {};
+export abstract class Schema implements INodeSchema {
+  schemaMap: { [key: string]: INodeSchema } = {};
+  plan: ((node: Node, line?: Line, expressionGroup?: GroupExpression) => ReturnType<Node['attr']> | Node)[] = [];
+  planMap: { [key: string]: (node: Node, line: Line) => Node } = {};
 
-    constructor(public schemaMap = {}) {
+  abstract apply(node?: Node): Node;
+  abstract attr(key: string, value: unknown): INodeSchema;
+  abstract node(id: string, build: (schema: INodeSchema) => void): INodeSchema;
+  abstract group(id: string, build: (schema: GroupSchema) => void): INodeSchema;
+  abstract get(id: string): INodeSchema;
+  abstract materialize(id: string): Node;
+
+}
+
+export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
+  return class NodeSchema extends Schema {
+    constructor(
+      public schemaMap: { [key: string]: INodeSchema } = {},
+    ) {
+      super();
     }
 
     clone(): INodeSchema {
@@ -30,7 +44,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
       return schema;
     }
 
-    attr(key: string, value: any) {
+    attr(key: string, value: string): INodeSchema {
       this.plan.push(node => node.attr(key, value));
       return this;
     }
@@ -46,7 +60,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
       return node;
     }
 
-    node(id: string, build: (schema: INodeSchema) => void) {
+    node(id: string, build: (schema: INodeSchema) => void): INodeSchema {
       if (!build) {
         throw new GridError('node.schema', 'Build function is not defined');
       }
@@ -66,12 +80,12 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
       return this;
     }
 
-    group(id: string, build: (schema: GroupSchema) => void) {
+    group(id: string, build: (schema: GroupSchema) => void): INodeSchema {
       if (!build) {
         throw new GridError('node.schema', 'Build function is not defined');
       }
 
-      const buildGroup = (node, line) => {
+      const buildGroup = (node: Node, line: Line) => {
         const group = new GroupExpression();
         group.id = id;
 
@@ -98,7 +112,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
       return schema;
     }
 
-    materialize(id: string): Node {
+    materialize(id: string) {
       const schema = this.get(id);
       return schema.apply(new Node(id, schema));
     }

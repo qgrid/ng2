@@ -38,8 +38,8 @@ export class RootContext {
 export class ColumnChooserComponent implements OnInit, OnChanges {
   private ccState = this.stateAccessor.setter(ColumnChooserState);
 
-  @Output('submit') submitEvent = new EventEmitter<any>();
-  @Output('cancel') cancelEvent = new EventEmitter<any>();
+  @Output('submit') submitEvent = new EventEmitter<void>();
+  @Output('cancel') cancelEvent = new EventEmitter<void>();
 
   context: {
     $implicit: ColumnChooserPlugin;

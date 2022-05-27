@@ -1,8 +1,10 @@
-import { cloneDeep } from '@qgrid/core';
+import { cloneDeep, Expression } from '@qgrid/core';
 import { GridError } from '@qgrid/ngx';
+
+import { ISerializationGroup, ISerializationNode } from '../../expression-builder/serialization.service';
 import { camelCaseMapping } from './operator';
 
-export function visit(item) {
+export function visit(item: ISerializationNode): Expression {
   switch (item.id) {
     case '#root':
       return visit(item.children[0]);
@@ -23,7 +25,7 @@ export function visit(item) {
   }
 }
 
-function visitGroup(node) {
+function visitGroup(node: ISerializationNode): Expression {
   const line = node.line;
   const opExpr = find(line, '#logical-op', '#logical-op');
   const children = node.children.filter(notPlaceholder).map(visit);
@@ -51,16 +53,16 @@ function visitGroup(node) {
     }), children[0]);
 }
 
-function visitCondition(node) {
+function visitCondition(node: ISerializationNode) {
   const line = node.line;
   const opExpr = find(line, '#operator', '#operator');
   const value = opExpr.value.toUpperCase();
 
-  let condition;
+  let condition: Expression = { kind: 'condition' } as Expression;
   switch (value) {
     case 'IS NOT EMPTY':
     case 'IS EMPTY':
-      condition = visitUnary(line, opExpr.value);
+      condition = { ...condition, ...visitUnary(line, opExpr.value) };
       break;
     case 'EQUALS':
     case 'NOT EQUALS':
@@ -72,43 +74,41 @@ function visitCondition(node) {
     case 'NOT LIKE':
     case 'STARTS WITH':
     case 'ENDS WITH':
-      condition = visitBinary(line, opExpr.value);
+      condition = { ...condition, ...visitBinary(line, opExpr.value) };
       break;
     case 'BETWEEN':
-      condition = visitBetween(line);
+      condition = { ...condition, ...visitBetween(line) };
       break;
     case 'IN':
-      condition = visitIn(line);
+      condition = { ...condition, ...visitIn(line) };
       break;
     default:
       throw new GridError('converter', `Invalid operation ${value}`);
   }
-
-  condition.kind = 'condition';
   return condition;
 }
 
-function visitUnary(line, op) {
+function visitUnary(line: ISerializationGroup[], op: string): Omit<Expression, 'right' | 'kind'> {
   const left = visitField(line);
 
   return {
     left: left.value,
-    op: camelCaseMapping[op.toUpperCase()],
+    op: camelCaseMapping[op.toUpperCase() as keyof typeof camelCaseMapping],
   };
 }
 
-function visitBinary(line, op) {
+function visitBinary(line: ISerializationGroup[], op: string): Omit<Expression, 'kind'> {
   const left = visitField(line);
   const right = find(line, '#operand', '#value') || find(line, '#fieldRight');
 
   return {
     left: left.value,
-    op: camelCaseMapping[op.toUpperCase()],
+    op: camelCaseMapping[(op.toUpperCase() as keyof typeof camelCaseMapping)],
     right: right.value,
   };
 }
 
-function visitIn(line) {
+function visitIn(line: ISerializationGroup[]): Omit<Expression, 'kind'> {
   const left = visitField(line);
   const right = find(line, '#operand', '#in-operand') || find(line, '#fieldRight');
 
@@ -119,7 +119,7 @@ function visitIn(line) {
   };
 }
 
-function visitBetween(line) {
+function visitBetween(line: ISerializationGroup[]): Omit<Expression, 'kind'> {
   const left = visitField(line);
   const from = find(line, '#operand', '#from') || find(line, '#fieldFrom');
   const to = find(line, '#operand', '#to') || find(line, '#fieldTo');
@@ -131,15 +131,15 @@ function visitBetween(line) {
   };
 }
 
-function visitField(line) {
+function visitField(line: ISerializationGroup[]) {
   return find(line, '#field') || find(line, '#fieldLeft');
 }
 
-function notPlaceholder(node) {
+function notPlaceholder(node: ISerializationNode) {
   return !node.attributes.placeholder;
 }
 
-function find(line, groupId: string, exprId?: string) {
+function find(line: ISerializationGroup[], groupId: string, exprId?: string) {
   const group = findById(line, groupId);
   if (!group) {
     return null;
@@ -148,7 +148,7 @@ function find(line, groupId: string, exprId?: string) {
   return findById(group.expressions, exprId || groupId);
 }
 
-function findById(items, id: string) {
+function findById<T extends { id: string }>(items: T[], id: string) {
   const result = items.filter(item => item.id === id);
   const length = result.length;
 

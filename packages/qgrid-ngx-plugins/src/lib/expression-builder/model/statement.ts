@@ -1,7 +1,7 @@
 export interface IStatement {
-	type: string;
-	templateKey: string;
-	defaults?: any;
+  type: string;
+  templateKey: string;
+  defaults?: unknown;
 }
 
 export class EmptyStatement implements IStatement {

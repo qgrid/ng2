@@ -50,7 +50,7 @@ export class RuleComponent implements OnChanges {
   @Input('equalToField') equal_to_field: string;
   @Input('listOf') list_of: string[];
 
-  @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<unknown>;
 
   // eslint-disable-next-line no-use-before-define
   context: { $implicit: RuleComponent } = {
@@ -78,7 +78,7 @@ export class RuleComponent implements OnChanges {
       .keys(changes)
       .forEach(key => {
         if (!['for', 'key'].includes(key) && changes[key].firstChange) {
-          rule[key] = this[key];
+          rule[key as 'for' | 'key'] = this[key as 'for' | 'key'];
         }
       });
 

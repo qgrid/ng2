@@ -1,40 +1,60 @@
 import * as columnService from '@qgrid/core';
 import { getValueFactory, isUndefined, uniq } from '@qgrid/core';
 import { GridError, GridModel } from '@qgrid/ngx';
+import { Expression } from '../expression-builder/model/expression';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
+import { Line } from '../expression-builder/model/line';
 import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
 
 export interface Column {
-	key: string; title: string; type: string;
+  key: string;
+  title: string;
+  type: string;
 }
 
 export interface ColumnMap {
-	[key: string]: Column;
+  [key: string]: Column;
+}
+
+type AcceptableValues = string | string[] | Promise<string[]> | boolean;
+
+type QueryBuilderSetting =
+  AcceptableValues |
+  { [key: string]: boolean | ((node?: Node) => boolean) } |
+  ((node?: Node, line?: Line, key?: string) => AcceptableValues | void);
+
+export interface QueryBuilderSettings {
+  [key: string]: QueryBuilderSetting;
+}
+
+interface QueryBuilderSchemaAttributes {
+  [key: string]: boolean | string[] | ((node: Node) => boolean);
 }
 
 export interface IQueryBuilderSchema {
-	apply(node?: Node): Node;
-	attr(key: string, value: any): IQueryBuilderSchema;
-	node(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
-	group(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
-	get(id: string): IQueryBuilderSchema;
-	materialize(id: string): Node;
+  apply(node?: Node): Node;
+  attr(key: string, value: QueryBuilderSchemaAttributes): IQueryBuilderSchema;
+  node(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
+  group(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
+  get(id: string): IQueryBuilderSchema;
+  materialize(id: string): Node;
 
-	autocomplete(id: string, settings?: any): IQueryBuilderSchema;
-	button(id: string, settings?: any): IQueryBuilderSchema;
-	input(id: string, settings?: any): IQueryBuilderSchema;
-	iconButton(id: string, settings?: any): IQueryBuilderSchema;
-	label(id: string, settings?: any): IQueryBuilderSchema;
-	multiselect(id: string, settings?: any): IQueryBuilderSchema;
-	select(id: string, settings?: any): IQueryBuilderSchema;
+  autocomplete(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  button(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  input(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  iconButton(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  label(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  multiselect(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
+  select(id: string, settings?: QueryBuilderSettings): IQueryBuilderSchema;
 }
 
 export class QueryBuilderService {
-  constructor(private model: GridModel) {
-  }
+  constructor(
+    private model: GridModel,
+  ) { }
 
-  columns(): Array<Column> {
+  columns(): Column[] {
     const model = this.model;
     return model
       .columnList()
@@ -49,12 +69,12 @@ export class QueryBuilderService {
 
   columnMap(): ColumnMap {
     return this.columns().reduce((memo, column) => {
-      memo[column.key] = column;
+      memo[column.key as keyof ColumnMap] = column;
       return memo;
-    }, {});
+    }, {} as ColumnMap);
   }
 
-  submit(expression) {
+  submit(expression: Expression) {
     const model = this.model;
     model.filter({
       by: expression,
@@ -63,7 +83,7 @@ export class QueryBuilderService {
     });
   }
 
-  suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
+  suggest(key: string, skip: number, take: number, search: string, selection?: string[]): Promise<string[]> {
     selection = (selection || []).map(item => ('' + item).toLowerCase());
 
     const model = this.model;
@@ -81,9 +101,9 @@ export class QueryBuilderService {
         .map(getValue)
         .filter(item =>
           !isUndefined(item) &&
-					item !== '' &&
-					item !== null &&
-					selection.indexOf(('' + item).toLowerCase()) < 0,
+          item !== '' &&
+          item !== null &&
+          selection.indexOf(('' + item).toLowerCase()) < 0,
         );
 
       const uniqueView = uniq(view);
@@ -133,7 +153,7 @@ export class QueryBuilderService {
 
     const settings = {
       defaults: {
-        isValid: function () {
+        isValid: function (this: { validate: () => string[]; state: string[] }) {
           return !this.validate || !(this.state = this.validate()).length;
         },
       },

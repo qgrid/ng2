@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { isArray, predicateFactory } from '@qgrid/core';
+import { ColumnModel, Fetch, isArray, predicateFactory } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
@@ -13,7 +13,7 @@ export class AutoCompleteEditorComponent {
     return this.plugin.view.edit.cell;
   }
 
-  options: any[] = [];
+  options: unknown[] = [];
 
   // eslint-disable-next-line no-use-before-define
   context: { $implicit: AutoCompleteEditorComponent } = {
@@ -21,7 +21,7 @@ export class AutoCompleteEditorComponent {
   };
 
   get items() {
-    return (this.cell.fetch as any).result;
+    return (this.cell.fetch as Fetch).result as unknown[];
   }
 
   get title() {
@@ -53,12 +53,12 @@ export class AutoCompleteEditorComponent {
     this.options = [];
   }
 
-  itemLabelFactory(column) {
+  itemLabelFactory(column: ColumnModel) {
     const { itemLabel } = column;
     if (itemLabel) {
-      return item => itemLabel(item);
+      return (item: unknown) => itemLabel(item);
     }
 
-    return item => item;
+    return (item: unknown) => item;
   }
 }

@@ -5,11 +5,14 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { isUndefined } from '@qgrid/core';
-import { GridError, GridEventArg, GridPlugin, TemplateHostService } from '@qgrid/ngx';
+import { isUndefined, NotifyModel, ReadModel, Table } from '@qgrid/core';
+import { GridError, GridEvent, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 type PaneSide = 'left' | 'right';
 const DEFAULT_SIDE: PaneSide = 'right';
+
+type PaneTriggerOn = keyof ReadModel;
+type PaneTriggerFor<K extends keyof ReadModel> = keyof ReturnType<ReadModel[K]>;
 
 @Component({
   selector: 'q-grid-pane',
@@ -24,7 +27,7 @@ export class PaneComponent implements OnInit {
     [side in PaneSide]?: {
       // eslint-disable-next-line no-use-before-define
       $implicit: PaneComponent;
-      value: any;
+      value: unknown;
     }
   };
 
@@ -52,22 +55,25 @@ export class PaneComponent implements OnInit {
     const scope = this.parse();
     if (scope) {
       const [state, prop] = scope;
-      observeReply(model[`${state}Changed`])
-        .subscribe((e: GridEventArg<any>) => {
-          if (!prop || e.hasChanges(prop)) {
-            this.open(DEFAULT_SIDE);
-          }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      observeReply(model[`${state}Changed` as keyof NotifyModel] as GridEvent<any>)
+        .subscribe({
+          next: e => {
+            if (!prop || e.hasChanges(prop)) {
+              this.open(DEFAULT_SIDE);
+            }
+          },
         });
     }
   }
 
-  open(side: PaneSide = DEFAULT_SIDE, value?: any) {
-    const { table, model } = this.plugin;
+  open(side: PaneSide = DEFAULT_SIDE, value?: unknown) {
+    const { table, model }: { table: Table; model: ReadModel } = this.plugin;
 
     const scope = this.parse();
     if (scope && isUndefined(value)) {
       const [state, prop] = scope;
-      value = model[state]()[prop];
+      value = model[state]()[prop as PaneTriggerFor<keyof ReadModel>];
     }
 
     this.context[side] = { $implicit: this, value };
@@ -98,7 +104,8 @@ export class PaneComponent implements OnInit {
 
   private parse() {
     const { model } = this.plugin;
-    const parts = this.trigger ? this.trigger.split('.') : [];
+    const parts = (this.trigger ? this.trigger.split('.') : []) as [PaneTriggerOn, PaneTriggerFor<PaneTriggerOn>];
+
     if (parts.length > 0) {
       const [state, prop] = parts;
       if (!model[state]) {

@@ -21,7 +21,7 @@ export class DataManipulationComponent implements OnInit, OnChanges {
     $implicit: DataManipulationPlugin;
   };
 
-  @Input('rowFactory') set dataManipulationRowFactory(rowFactory: (x: any) => any) { this.dmState({ rowFactory }); }
+  @Input('rowFactory') set dataManipulationRowFactory(rowFactory: (x: unknown) => unknown) { this.dmState({ rowFactory }); }
 
   constructor(
     private plugin: GridPlugin,

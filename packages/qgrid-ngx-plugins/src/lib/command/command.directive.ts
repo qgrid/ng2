@@ -17,11 +17,13 @@ import {
 import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 
+type CommangArg = unknown;
+
 export class ZoneCommandManager {
   constructor(
     private run: <T>(f: () => T) => T,
     private manager: CommandManager,
-    private commandArg: any,
+    private commandArg: CommangArg,
   ) {
   }
 
@@ -31,7 +33,7 @@ export class ZoneCommandManager {
     );
   }
 
-  filter(commands) {
+  filter(commands: Command[]) {
     return this.manager.filter(commands);
   }
 }
@@ -43,13 +45,13 @@ export class ZoneCommandManager {
 export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
   private isAfterViewInit = false;
 
-  @Input('q-grid-command') command: Command<any>;
-  @Input('q-grid-command-arg') commandArg: any;
+  @Input('q-grid-command') command: Command<CommangArg>;
+  @Input('q-grid-command-arg') commandArg: CommangArg;
   @Input('q-grid-command-use-shortcut') useCommandShortcut: boolean;
   @Input('q-grid-command-event') commandEvent = 'click';
   @Input('q-grid-command-use-zone') useZone: boolean;
   @Input('q-grid-command-host') host: 'grid' | 'document' = 'grid';
-  @Output('q-grid-command-execute') commandExecute = new EventEmitter<any>();
+  @Output('q-grid-command-execute') commandExecute = new EventEmitter<CommangArg>();
 
   constructor(
     private disposable: Disposable,
@@ -64,7 +66,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
     this.aroundZone(() =>
       nativeElement
-        .addEventListener(this.commandEvent, e => this.execute(e)),
+        .addEventListener(this.commandEvent, (e: MouseEvent) => this.execute(e)),
     );
   }
 
@@ -131,7 +133,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
         const shortcut = new Shortcut(new ShortcutDispatcher());
 
-        const keyDown = e => {
+        const keyDown = (e: KeyboardEvent) => {
           shortcut.keyDown(e);
         };
 

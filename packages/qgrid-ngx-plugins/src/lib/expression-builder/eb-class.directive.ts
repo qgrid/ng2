@@ -7,28 +7,33 @@ import {
   Optional,
 } from '@angular/core';
 import { isArray } from '@qgrid/core';
-import { evaluateFactory } from './digest/evaluate';
+import { Evaluate, evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';
+import { Expression } from './model/expression';
+
+type EbClassType = string | string[] | Record<string, unknown>;
 
 @Directive({
   selector: '[q-grid-eb-class]',
 })
 export class EbClassDirective implements OnInit, DoCheck {
-  private evaluate: (value: any) => any;
-  private oldClassList: Array<string> = [];
+  private evaluate: Evaluate;
+  private oldClassList: string[] = [];
 
-  @Input('q-grid-eb-class') klass: any;
-  @Input('q-grid-eb-class-model') model: any;
+  @Input('q-grid-eb-class') class: EbClassType;
+  @Input('q-grid-eb-class-model') model: Expression;
 
-  constructor(private elementRef: ElementRef, @Optional() private node: EbNodeComponent) {
-  }
+  constructor(
+    private elementRef: ElementRef,
+    @Optional() private node: EbNodeComponent,
+  ) { }
 
   ngOnInit() {
     this.evaluate = evaluateFactory(this.model, [this.node ? this.node.model : null]);
   }
 
   ngDoCheck() {
-    const result = this.evaluate(this.klass);
+    const result = this.evaluate<EbClassType>(this.class);
     if (result) {
       const classList = this.fetchClasses(result);
       if (this.oldClassList.length !== classList.length
@@ -46,16 +51,16 @@ export class EbClassDirective implements OnInit, DoCheck {
     }
   }
 
-  private fetchClasses(meta) {
+  private fetchClasses(meta: EbClassType): string[] {
     if (isArray(meta)) {
-      return meta;
+      return meta as string[];
     }
 
     const keys = Object.keys(meta);
     const classList = [];
     for (let i = 0, length = keys.length; i < length; i++) {
       const key = keys[i];
-      if (meta[key]) {
+      if ((meta as { [key: string]: unknown })[key]) {
         classList.push(key);
       }
     }

@@ -5,7 +5,7 @@ import { isArray, isUndefined, Log } from '@qgrid/core';
   name: 'qGridArray',
 })
 export class ArrayPipe implements PipeTransform {
-  transform(value: any) {
+  transform(value: unknown[]) {
     if (isArray(value)) {
       return value;
     }

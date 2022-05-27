@@ -13,6 +13,7 @@ import {
   flatten,
   getValue,
   Guard,
+  ReadModel,
   uniq,
 } from '@qgrid/core';
 import {
@@ -26,6 +27,10 @@ import {
 import { ColumnFilterPlugin, ColumnFilterState } from '@qgrid/plugins';
 import { FocusAfterRender } from '../focus/focus.service';
 
+type ReadModelStatesContains<V> = {
+  [K in keyof ReadModel as ReadModel[K] extends (() => Readonly<V>) ? K : never]: ReadModel[K];
+};
+
 @Component({
   selector: 'q-grid-column-filter',
   templateUrl: './column-filter.component.html',
@@ -38,8 +43,8 @@ export class ColumnFilterComponent implements OnInit {
   @Input() column: ColumnModel;
   @Input() search = '';
 
-  @Output('submit') submitEvent = new EventEmitter<any>();
-  @Output('cancel') cancelEvent = new EventEmitter<any>();
+  @Output('submit') submitEvent = new EventEmitter<void>();
+  @Output('cancel') cancelEvent = new EventEmitter<void>();
 
   context: {
     $implicit: ColumnFilterPlugin;
@@ -120,7 +125,7 @@ export class ColumnFilterComponent implements OnInit {
           const isBlank = model.filter().assertFactory().isNull;
           try {
             if (!items.length) {
-              const source = model[columnFilter.state().source];
+              const source = (model as ReadModel)[columnFilter.state().source as keyof ReadModelStatesContains<{ rows: unknown[] }>];
               Guard.notNull(source, 'source');
 
               const sourceState = source();
@@ -128,7 +133,7 @@ export class ColumnFilterComponent implements OnInit {
 
               let values = null;
               if (columnFilterPlugin.column.type === 'array') {
-                values = flatten(sourceState.rows.map(row => getValue(row, column)));
+                values = flatten(sourceState.rows.map((row: unknown) => getValue(row, column)));
               } else {
                 values = sourceState.rows.map(columnFilterPlugin.getValue);
               }

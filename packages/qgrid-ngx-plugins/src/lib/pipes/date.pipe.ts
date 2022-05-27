@@ -8,13 +8,13 @@ import { Log } from '@qgrid/core';
 export class DatePipe implements PipeTransform {
   constructor(private pipe: NgDatePipe) { }
 
-  transform(value: any, format?: any, timezone?: any, locale?: any) {
+  transform(value: string | number | Date, format?: string, timezone?: string, locale?: string) {
     try {
       // The value expression: a Date object, a number (milliseconds since UTC epoch), or an ISO string
       return this.pipe.transform(value, format, timezone, locale);
     } catch (ex) {
       Log.warn('DatePipe', ex.message);
-      return value;
+      return value as string;
     }
   }
 }

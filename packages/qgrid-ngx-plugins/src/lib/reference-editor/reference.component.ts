@@ -22,25 +22,25 @@ import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
   providers: [Disposable],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReferenceComponent implements OnInit {
-  private _value: any;
+export class ReferenceComponent<T> implements OnInit {
+  private _value: T | T[];
   private _model: GridModel;
   private _reference: {
     commit: Command;
     cancel: Command;
-    value: any;
+    value: T | T[];
   };
 
   @Output() modelChange = new EventEmitter<GridModel>();
-  @Output() valueChange = new EventEmitter<any>();
-  @Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
+  @Output() valueChange = new EventEmitter<T | T[]>();
+  @Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: T | T[] }>();
 
   @Input() caption = '';
   @Input() autofocus = false;
   @Input() cell: CellView;
 
   // eslint-disable-next-line no-use-before-define
-  context: { $implicit: ReferenceComponent } = {
+  context: { $implicit: ReferenceComponent<T> } = {
     $implicit: this,
   };
 
@@ -81,13 +81,13 @@ export class ReferenceComponent implements OnInit {
       value: this.value,
     };
 
-    this.model = this.cell.column.editorOptions.modelFactory({
+    this.model = this.cell.column.editorOptions?.modelFactory?.({
       reference: this.reference,
       row: this.cell.row,
       column: this.cell.column,
       getValue: getValueFactory(this.cell.column),
       createDefaultModel: () => this.modelBuilder.build(),
-    } as any);
+    }) || this.modelBuilder.build();
 
     const selectionService = new SelectionService(this.model);
     this.disposable.add(
@@ -99,7 +99,7 @@ export class ReferenceComponent implements OnInit {
             const { value } = this.reference;
             if (!isUndefined(value)) {
               const entries = isArray(value) ? value : [value];
-              const items = selectionService.map(entries);
+              const items = selectionService.map(entries as T[]);
               this.model.selection({
                 items,
               }, {

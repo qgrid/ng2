@@ -8,7 +8,7 @@ import { Log } from '@qgrid/core';
 export class TimePipe implements PipeTransform {
   constructor(private pipe: DatePipe) { }
 
-  transform(value: any, format?: any, timezone?: any, locale?: any) {
+  transform(value: string | number | Date, format?: string, timezone?: string, locale?: string) {
     try {
       return this.pipe.transform(value, format, timezone, locale);
     } catch (ex) {

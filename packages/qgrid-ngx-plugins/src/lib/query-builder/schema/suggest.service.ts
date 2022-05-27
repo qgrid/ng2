@@ -1,7 +1,9 @@
+import { Line } from '../../expression-builder/model/line';
+import { Node } from '../../expression-builder/model/node';
 import { QueryBuilderService } from '../query-builder.service';
 
 export function suggestFactory(service: QueryBuilderService, name: string) {
-  return function (node, line) {
+  return function (this: { value: string }, node: Node, line: Line) {
     const search = (this.value || '').toLowerCase();
     const field = line.get(name).expressions[0].value;
     return service.suggest(field, 0, 10, search);
@@ -9,14 +11,14 @@ export function suggestFactory(service: QueryBuilderService, name: string) {
 }
 
 export function suggestsFactory(service: QueryBuilderService, name: string) {
-  return function (node, line) {
+  return function (this: { search: string; values: string[] }, node: Node, line: Line) {
     const search = this.search;
     const field = line.get(name).expressions[0].value;
-    const selection =
+    const selection: string[] =
       (this.values || [])
         .map(item => ('' + item).toLowerCase());
 
-    return new Promise((resolve, reject) =>
+    return new Promise<string[]>((resolve, reject) =>
       service
         .suggest(field, 0, 10, search, selection)
         .then(items => {

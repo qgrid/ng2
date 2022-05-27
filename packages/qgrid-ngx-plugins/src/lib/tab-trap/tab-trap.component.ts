@@ -8,6 +8,9 @@ import {
 } from '@angular/core';
 import { EventListener, EventManager, Shortcut } from '@qgrid/core';
 import { GridError, GridPlugin } from '@qgrid/ngx';
+import { TabTrapInDirective } from './tab-trap-in.directive';
+
+export type TrapTarget = 'start' | 'end';
 
 @Component({
   selector: 'q-grid-tab-trap',
@@ -18,7 +21,7 @@ import { GridError, GridPlugin } from '@qgrid/ngx';
 export class TabTrapComponent {
   private isActivating = false;
 
-  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<unknown>;
   @Input() roundTrip = false;
 
   // eslint-disable-next-line no-use-before-define
@@ -26,9 +29,12 @@ export class TabTrapComponent {
     $implicit: this,
   };
 
-  traps = new Map<string, any>();
+  traps = new Map<TrapTarget, TabTrapInDirective>();
 
-  constructor(private plugin: GridPlugin, elementRef: ElementRef) {
+  constructor(
+    private plugin: GridPlugin,
+    elementRef: ElementRef,
+  ) {
     const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
     listener.on('keydown', e => {
       const code = Shortcut.translate(e);
@@ -38,7 +44,7 @@ export class TabTrapComponent {
     });
   }
 
-  activate(target) {
+  activate(target: TrapTarget) {
     if (this.isActivating) {
       return;
     }
@@ -55,7 +61,7 @@ export class TabTrapComponent {
     }
   }
 
-  exit(target) {
+  exit(target: TrapTarget) {
     const e = {
       key: 'Tab',
       keyCode: 9,
@@ -67,16 +73,16 @@ export class TabTrapComponent {
     shortcut.keyDown(e, 'tab-trap');
   }
 
-  goRound(target) {
+  goRound(target: TrapTarget) {
     switch (target) {
       case 'start': {
         const end = this.traps.get('end');
-        end.focus();
+        end?.focus();
         break;
       }
       case 'end': {
         const start = this.traps.get('start');
-        start.focus();
+        start?.focus();
         break;
       }
       default:
