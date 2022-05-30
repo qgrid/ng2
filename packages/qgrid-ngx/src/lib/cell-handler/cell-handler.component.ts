@@ -25,7 +25,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
   providers: [GridPlugin],
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-  private endBatchEdit: () => void;
+  private endBatchEdit: (() => void) | null;
 
   @ViewChild('marker', { static: true }) marker: ElementRef;
 
@@ -57,6 +57,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
         if (e.hasChanges('status')) {
           if (e.state.status === 'endBatch' && this.endBatchEdit) {
             this.endBatchEdit();
+            this.endBatchEdit = null;
           }
         }
       });

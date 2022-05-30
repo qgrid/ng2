@@ -1,5 +1,7 @@
+import { Nullable } from '../utility/kit';
+
 export declare class FormatService {
-  static number(x: number, format: string): string | null;
-  static date(x: Date, format: string): string | null;
-  static currency(x: number, format: string): string | null;
+  static number(x: number, format: string): Nullable<string>;
+  static date(x: Date, format: string): Nullable<string>;
+  static currency(x: number, format: string): Nullable<string>;
 }

@@ -115,7 +115,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input('interactionMode') set gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
 
   @Input('columns') set dataColumns(columns: Array<ColumnModel>) { if (Array.isArray(columns)) { this.dataState({ columns }); } }
-  @Input('rows') set dataRows(rows: Array<Row>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }
+  @Input('rows') set dataRows(rows: Array<any>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }
 
   @Input() set editCancel(cancel: Command) { this.editState({ cancel }); }
   @Input() set editCommit(commit: Command) { this.editState({ commit }); }
