@@ -28,5 +28,3 @@ export declare function cloneDeep(value: any): any;
 export declare function flatten<T>(collection: Array<Array<T>>): T[];
 export declare function binarySearch<T>(list: Array<any>, value: any): number;
 export declare function getTypeName(ctor: new () => any): string;
-
-export declare type Nullable<T> = T | null;

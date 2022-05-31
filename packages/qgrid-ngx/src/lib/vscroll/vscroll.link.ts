@@ -44,7 +44,9 @@ export class VscrollLink {
         return;
       }
 
-      container.position = layout.reset();
+      if (layout) {
+        container.position = layout.reset();
+      }
       port.reset();
 
       container.fetchPage(0);
@@ -58,13 +60,18 @@ export class VscrollLink {
 
     const { port, container, box } = this;
     const count = container.count;
+    if(!port.layout) {
+      return;
+    }
     const position = port.layout.recycle(count, box, force);
     if (position) {
       const draw = () => {
-        container.position = port.layout.invalidate(position);
-        container.draw$.emit({
-          position: container.position,
-        });
+        if (port.layout) {
+          container.position = port.layout.invalidate(position);
+          container.draw$.emit({
+            position: container.position,
+          });
+        }
       };
 
       const emit = (f: () => void) => port.emit(f);

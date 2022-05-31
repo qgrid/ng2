@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { isNumber } from '@qgrid/core';
+import { isNumber, Nullable } from '@qgrid/core';
 import { VscrollBox } from './vscroll.box';
 import { VscrollContext } from './vscroll.context';
 import { VscrollDirective } from './vscroll.directive';
@@ -24,7 +24,7 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
   @Input('q-grid-vscroll-port-x') context: VscrollContext;
 
   markup: { [key: string]: HTMLElement } = {};
-  layout: VscrollLayout;
+  layout: Nullable<VscrollLayout> = null;
 
   constructor(
     private elementRef: ElementRef,

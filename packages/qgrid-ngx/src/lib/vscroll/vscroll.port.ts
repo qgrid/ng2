@@ -2,6 +2,7 @@ import { VscrollBox } from './vscroll.box';
 import { IVscrollPosition } from './vscroll.position';
 import { VscrollLayout } from './vscroll.layout';
 import { VscrollContext } from './vscroll.context';
+import { Nullable } from '@qgrid/core';
 
 export function applyHTML(element: HTMLElement) {
   element.tabIndex = 0;
@@ -11,7 +12,7 @@ export function applyHTML(element: HTMLElement) {
 
 export interface VscrollPort {
 	markup: { [key: string]: HTMLElement };
-	layout: VscrollLayout;
+	layout: Nullable<VscrollLayout>;
 	context: VscrollContext;
 
 	reset(): void;

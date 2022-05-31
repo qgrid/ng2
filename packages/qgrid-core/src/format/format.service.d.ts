@@ -1,4 +1,4 @@
-import { Nullable } from '../utility/kit';
+import { Nullable } from '../utility/types';
 
 export declare class FormatService {
   static number(x: number, format: string): Nullable<string>;

@@ -51,21 +51,21 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
           const change = e['index'];
           const newIndex = change.currentValue;
           const oldIndex = change.previousValue;
-          layout.removeItem(oldIndex);
+          layout?.removeItem(oldIndex);
 
           const size = sizeFactory(rowHeight, container, column, newIndex);
-          layout.setItem(newIndex, size);
+          layout?.setItem(newIndex, size);
         }
       };
 
       const firstChange = changes['index'];
       const firstIndex = firstChange.currentValue;
       const firstSize = sizeFactory(rowHeight, container, column, firstIndex);
-      layout.setItem(firstIndex, firstSize);
+      layout?.setItem(firstIndex, firstSize);
     }
   }
 
   ngOnDestroy() {
-    this.port.layout.removeItem(this.index);
+    this.port.layout?.removeItem(this.index);
   }
 }

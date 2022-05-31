@@ -9,6 +9,7 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
+import { Nullable } from '@qgrid/core';
 import { TemplateService } from './template.service';
 
 @Directive({
@@ -18,7 +19,7 @@ export class TemplateDirective implements DoCheck, OnChanges {
   private viewRef: EmbeddedViewRef<unknown> | null;
 
   @Input() key = '';
-  @Input() context: unknown = null;
+  @Input() context: Nullable<{ $implicit: Object }> = null;
   @Input() check = false;
 
   constructor(

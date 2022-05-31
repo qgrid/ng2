@@ -14,6 +14,7 @@ import {
   jobLine,
   NavigationState,
   RowDetails,
+  Nullable
 } from '@qgrid/core';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -25,7 +26,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
   providers: [GridPlugin],
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-  private endBatchEdit: (() => void) | null;
+  private endBatchEdit: Nullable<() => void>;
 
   @ViewChild('marker', { static: true }) marker: ElementRef;
 
