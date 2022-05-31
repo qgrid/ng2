@@ -1,9 +1,9 @@
-import { Model } from '../model/model';
 import { Table } from '../dom/table';
-import { GridLet } from '../grid/grid.let';
-import { ObservableLike } from '../rx/rx';
 import { Event } from '../event/event';
+import { GridLet } from '../grid/grid.let';
 import { GridService } from '../grid/grid.service';
+import { Model } from '../model/model';
+import { ObservableLike } from '../rx/rx';
 
 export interface GridPlugin {
     readonly model: Model;

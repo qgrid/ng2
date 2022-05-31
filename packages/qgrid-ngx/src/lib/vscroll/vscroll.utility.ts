@@ -10,10 +10,12 @@ export function placeholderBitmap(width: number, height: number) {
   canvas.height = Math.max(height * 2, 1);
 
   const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-  ctx.fillRect(0, 0, minWidth, minHeight);
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-  ctx.fillRect(width, height, minWidth, minHeight);
+  if (ctx) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+    ctx.fillRect(0, 0, minWidth, minHeight);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    ctx.fillRect(width, height, minWidth, minHeight);
+  }
 
   return canvas.toDataURL();
 }

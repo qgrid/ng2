@@ -13,7 +13,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
   selector: '[q-grid-drag]',
 })
 export class DragDirective {
-  @Input('q-grid-drag-data') data: any;
+  @Input('q-grid-drag-data') data: string | number | undefined | Node;
   @Input('q-grid-drag-effect') effect: undefined | 'move';
   @Input('q-grid-drag') drag: Command;
   @Input('q-grid-drop-area') area: string;
@@ -38,7 +38,9 @@ export class DragDirective {
 
     if (this.drag.canExecute(eventArg) === false) {
       e.preventDefault();
-      transfer.effectAllowed = 'none';
+      if (transfer) {
+        transfer.effectAllowed = 'none';
+      }
       return false;
     }
 
@@ -50,8 +52,10 @@ export class DragDirective {
 
     this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
-    transfer.setData(DragService.mimeType, DragService.encode(data));
-    transfer.effectAllowed = this.effect || 'move';
+    if(transfer) {
+      transfer.setData(DragService.mimeType, DragService.encode(data));
+      transfer.effectAllowed = this.effect || 'move';
+    }
 
     DragService.data = data;
     DragService.area = this.area;
@@ -78,8 +82,5 @@ export class DragDirective {
     this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 
     DragService.data = null;
-    DragService.area = null;
-    DragService.element = null;
-    DragService.startPosition = null;
   }
 }

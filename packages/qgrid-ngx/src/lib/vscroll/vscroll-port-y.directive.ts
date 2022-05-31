@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { isNumber } from '@qgrid/core';
+import { isNumber, Nullable } from '@qgrid/core';
 import { VscrollBox } from './vscroll.box';
 import { VscrollContext } from './vscroll.context';
 import { VscrollDirective } from './vscroll.directive';
@@ -19,11 +19,11 @@ import { capitalize } from './vscroll.utility';
   selector: '[q-grid-vscroll-port-y]',
 })
 export class VscrollPortYDirective implements VscrollPort, OnChanges {
-  private link: VscrollLink = null;
+  private link: VscrollLink;
 
   @Input('q-grid-vscroll-port-y') context: VscrollContext;
 
-  layout: VscrollLayout = null;
+  layout: Nullable<VscrollLayout> = null;
   markup: { [key: string]: HTMLElement } = {};
 
   constructor(
@@ -41,11 +41,11 @@ export class VscrollPortYDirective implements VscrollPort, OnChanges {
     }
   }
 
-  public reset() {
+  reset(): void {
     this.view.resetY();
   }
 
-  emit(f: () => void) {
+  emit(f: () => void): void {
     const { settings } = this.context;
     if (settings.emit) {
       settings.emit(f);
@@ -68,7 +68,7 @@ export class VscrollPortYDirective implements VscrollPort, OnChanges {
     return findPositionUsingOffsets(value, offsets);
   }
 
-  move(top: number, bottom: number) {
+  move(top: number, bottom: number): void {
     this.pad('top', top);
     this.pad('bottom', bottom);
   }
@@ -78,15 +78,15 @@ export class VscrollPortYDirective implements VscrollPort, OnChanges {
     return isNumber(rowHeight) ? rowHeight : 0;
   }
 
-  getScrollSize(box: VscrollBox) {
+  getScrollSize(box: VscrollBox): number {
     return box.scrollHeight;
   }
 
-  getSize(box: VscrollBox) {
+  getSize(box: VscrollBox): number {
     return box.portHeight;
   }
 
-  recycleFactory(items: Array<any>) {
+  recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number> {
     const recycle = recycleFactory(items);
     return (index: number, count: number) => {
       const size = this.getItemSize();
@@ -98,11 +98,11 @@ export class VscrollPortYDirective implements VscrollPort, OnChanges {
     };
   }
 
-  hasChanges(newBox: VscrollBox, oldBox: VscrollBox) {
+  hasChanges(newBox: VscrollBox, oldBox: VscrollBox): boolean {
     return !oldBox.portHeight || newBox.scrollTop !== oldBox.scrollTop;
   }
 
-  private pad(pos: string, value: number) {
+  private pad(pos: string, value: number): void {
     if (Object.prototype.hasOwnProperty.call(this.markup, pos)) {
       const mark = this.markup[pos];
       mark.style.height = value + 'px';

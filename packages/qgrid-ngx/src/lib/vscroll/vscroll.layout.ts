@@ -9,7 +9,7 @@ function empty() {
 }
 
 export class VscrollLayout {
-  private items = [];
+  private items: (() => number)[] = [];
   private minArm = UNSET_ARM;
   private position = findPositionUsingOffsets(0, []);
   private getOffsets = recycleFactory(this.items);

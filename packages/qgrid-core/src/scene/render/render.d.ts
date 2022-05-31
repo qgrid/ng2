@@ -3,9 +3,11 @@ import { GridPlugin } from '../../plugin/grid.plugin';
 import { ColumnView } from '../view/column.view';
 import { RenderStrategy } from './render.strategy';
 
+export type RowsSite = Record<'left' | 'mid' | 'right' | 'bottom' | 'body', any[]>;
+
 export declare class Renderer {
   defaultStrategy: RenderStrategy;
-  readonly rows: { left: any[]; right: any[]; mid: any[] };
+  readonly rows: RowsSite;
 
   constructor(plugin: GridPlugin);
 

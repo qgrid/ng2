@@ -14,7 +14,7 @@ export class StateAccessor {
     };
   }
 
-  write(model: GridModel) {
+  write(model: GridModel): void {
     for (const setter of this.setters) {
       setter(model);
     }

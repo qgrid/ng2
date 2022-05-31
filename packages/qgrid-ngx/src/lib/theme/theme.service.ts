@@ -11,7 +11,7 @@ export class ThemeService {
   private themeName = '';
 
   changed = new Event<ThemeNameChangeEventArg>();
-  component: any;
+  component: unknown;
 
   get name() {
     return this.themeName;

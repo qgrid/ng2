@@ -525,6 +525,7 @@ export {
   uniq,
   yes,
 } from './src/utility/kit';
+export { Nullable } from './src/utility/types';
 // validation
 export {
   createValidator,

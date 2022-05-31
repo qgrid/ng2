@@ -36,6 +36,7 @@ export class VscrollRowDirective implements OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['index']) {
       if (this.port.getItemSize()) {
+        // @ts-ignore: Type null is not assignable to type (changes: SimpleChanges) => void
         this.ngOnChanges = null;
         return;
       }
@@ -47,21 +48,21 @@ export class VscrollRowDirective implements OnDestroy, OnChanges {
           const change = e['index'];
           const newIndex = change.currentValue;
           const oldIndex = change.previousValue;
-          layout.removeItem(oldIndex);
+          layout?.removeItem(oldIndex);
 
           const size = sizeFactory(rowHeight, container, row, newIndex);
-          layout.setItem(newIndex, size);
+          layout?.setItem(newIndex, size);
         }
       };
 
       const firstChange = changes['index'];
       const firstNewIndex = firstChange.currentValue;
       const firstSize = sizeFactory(rowHeight, container, row, firstNewIndex);
-      layout.setItem(firstNewIndex, firstSize);
+      layout?.setItem(firstNewIndex, firstSize);
     }
   }
 
   ngOnDestroy() {
-    this.port.layout.removeItem(this.index);
+    this.port.layout?.removeItem(this.index);
   }
 }

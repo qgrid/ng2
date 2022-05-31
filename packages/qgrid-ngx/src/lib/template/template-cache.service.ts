@@ -8,7 +8,7 @@ export class TemplateCacheService {
   constructor() {
   }
 
-  get(key: string): TemplateLink {
+  get(key: string): TemplateLink | undefined {
     return this.cache.get(key);
   }
 

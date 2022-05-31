@@ -25,7 +25,7 @@ export class VscrollLink {
     if (settings.placeholderHeight > 0 || settings.placeholderWidth > 0) {
       const width = settings.placeholderWidth || (isNumber(settings.columnWidth) && settings.columnWidth as number);
       const height = settings.placeholderHeight || (isNumber(settings.rowHeight) && settings.rowHeight as number);
-      view.drawPlaceholder(width, height);
+      view.drawPlaceholder(width as number, height as number);
     }
 
     view.scroll.subscribe(() => this.update(false));
@@ -44,7 +44,9 @@ export class VscrollLink {
         return;
       }
 
-      container.position = layout.reset();
+      if (layout) {
+        container.position = layout.reset();
+      }
       port.reset();
 
       container.fetchPage(0);
@@ -58,16 +60,21 @@ export class VscrollLink {
 
     const { port, container, box } = this;
     const count = container.count;
+    if(!port.layout) {
+      return;
+    }
     const position = port.layout.recycle(count, box, force);
     if (position) {
       const draw = () => {
-        container.position = port.layout.invalidate(position);
-        container.draw$.emit({
-          position: container.position,
-        });
+        if (port.layout) {
+          container.position = port.layout.invalidate(position);
+          container.draw$.emit({
+            position: container.position,
+          });
+        }
       };
 
-      const emit = f => port.emit(f);
+      const emit = (f: () => void) => port.emit(f);
       container.apply(draw, emit);
     }
   }

@@ -65,12 +65,12 @@ export class BodyCoreComponent implements OnInit {
           scrollSettings,
         ));
 
-      disposable.add(listener.on('wheel', e => host.wheel(e)));
-      disposable.add(listener.on('mouseleave', e => host.mouseLeave(e)));
+      disposable.add(listener.on('wheel', (e: WheelEvent) => host.wheel(e)));
+      disposable.add(listener.on('mouseleave', (e: WheelEvent) => host.mouseLeave(e)));
     });
 
     observeReply(model.sceneChanged)
-      .subscribe(e => {
+      .subscribe((e: any) => {
         if (model.grid().interactionMode === 'detached') {
           if (e.hasChanges('status')) {
             switch (e.state.status) {
@@ -86,22 +86,22 @@ export class BodyCoreComponent implements OnInit {
       });
 
     observe(model.sceneChanged)
-      .subscribe(e => {
+      .subscribe((e: any) => {
         if (e.hasChanges('status') && e.state.status === 'push') {
           this.cd.markForCheck();
         }
       });
   }
 
-  columnId(index: number, item: ColumnView) {
+  columnId(index: number, item: ColumnView): string | undefined {
     return item.model.key;
   }
 
-  rowId(index: number) {
+  rowId(index: number): number {
     return index;
   }
 
-  mapToDataIndex(viewIndex: number) {
+  mapToDataIndex(viewIndex: number): number {
     return this.$view.scroll.y.container.position + viewIndex;
   }
 }

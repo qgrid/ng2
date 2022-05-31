@@ -2,18 +2,18 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 import { ColumnModel, GridError, noop } from '@qgrid/core';
 import { TemplateService } from '../template/template.service';
 
-function canBuild(column) {
+function canBuild(column: ColumnModel) {
   return column.type !== 'pad';
 }
 
 function buildId(source: string, column: ColumnModel, mode = 'view') {
-  const { key, type, itemType } = column as any;
+  const { key, type, itemType } = column;
   return `${source}-${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`;
 }
 
 function buildKeys(source: string, column: ColumnModel, mode = 'view') {
-  const { key, itemType } = column as any;
-  let { type } = column as any;
+  const { key, itemType } = column;
+  let { type } = column;
 
   switch (mode) {
     case 'view': {
@@ -59,7 +59,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 @Injectable()
 export class CellTemplateService {
-  private commits = new Map<string, (container: ViewContainerRef, context: any) => void>();
+  private commits = new Map<string, (container: ViewContainerRef, context: unknown) => void>();
 
   constructor(private templateService: TemplateService) { }
 
@@ -80,7 +80,7 @@ export class CellTemplateService {
       return noop;
     }
 
-    commit = (container: ViewContainerRef, context: any) => {
+    commit = (container: ViewContainerRef, context: unknown) => {
       container.clear();
       return container.createEmbeddedView(templateLink.template, context);
     };

@@ -18,6 +18,7 @@ import {
   ColumnModelWidthMode,
   guid,
   isUndefined,
+  Row,
 } from '@qgrid/core';
 import { ColumnListService } from '../column-list/column-list.service';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -73,17 +74,17 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() index: number;
 
-  @Input() label: ((row: any, value?: any) => any) | any;
+  @Input() label: ((row: Row, value?: unknown) => string) | any;
   @Input() labelPath: string;
 
-  @Input() itemLabel: (row: any, value?: any) => any;
+  @Input() itemLabel: (row: any, value?: unknown) => string;
   @Input() itemFormat: string;
   @Input() itemType: string;
 
-  @Input() value: (row: any, value?: any) => any;
+  @Input() value: (row: Row, value?: unknown) => any;
   @Input() path: string;
 
-  @Input() compare: (x: any, y: any) => number;
+  @Input() compare: (x: number, y: number) => number;
 
   @Input() trueValue: any;
   @Input() falseValue: any;
@@ -109,7 +110,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
     // We want to update model when ngOntInit is triggered and not in afterViewInit
     // so we apply dirty hack to understand if column is cohort or not.
     const element = this.elementRef.nativeElement as HTMLElement;
-    if (element.children.length && element.children.item(0).tagName === 'Q-GRID-COLUMN') {
+    if (element.children.length && element.children.item(0)?.tagName === 'Q-GRID-COLUMN') {
       this.type = 'cohort';
       if (!withKey) {
         this.key = `$cohort-${this.title || guid()}`;
@@ -142,7 +143,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
     if (withKey) {
       if (this.parentHost) {
-        this.parentHost.column.children.push(column);
+        this.parentHost.column.children?.push(column);
       } else {
         this.columnList.add(column);
       }
@@ -152,9 +153,9 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
       const settings =
         Object
           .keys(this)
-          .filter(key => !isUndefined(this[key]) && Object.prototype.hasOwnProperty.call(column, key))
-          .reduce((memo, key) => {
-            memo[key] = column[key];
+          .filter(key => !isUndefined(this.key) && Object.prototype.hasOwnProperty.call(column, key))
+          .reduce((memo: { [key: string]: ColumnModel }, key: string) => {
+            memo[key] = column[key as keyof ColumnModel];
             return memo;
           }, {}) as ColumnModel;
 
@@ -180,7 +181,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     const { column } = this.selfHost;
-    if (column && column.source === 'template') {
+    if (column && column.key && column.source === 'template') {
       this.columnList.delete(column.key);
     }
   }

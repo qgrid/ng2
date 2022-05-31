@@ -9,16 +9,17 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
+import { Nullable } from '@qgrid/core';
 import { TemplateService } from './template.service';
 
 @Directive({
   selector: 'ng-container[key]', // eslint-disable-line @angular-eslint/directive-selector
 })
 export class TemplateDirective implements DoCheck, OnChanges {
-  private viewRef: EmbeddedViewRef<any>;
+  private viewRef: EmbeddedViewRef<unknown> | null;
 
   @Input() key = '';
-  @Input() context: any = null;
+  @Input() context: Nullable<{ $implicit: Object }> = null;
   @Input() check = false;
 
   constructor(

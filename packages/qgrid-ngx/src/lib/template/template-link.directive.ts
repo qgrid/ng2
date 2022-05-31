@@ -9,7 +9,7 @@ export class TemplateLinkDirective implements OnInit {
   @Input() key = '';
   @Input() context = {};
 
-  constructor(private templateLink: TemplateLinkService, private templateRef: TemplateRef<any>) {
+  constructor(private templateLink: TemplateLinkService, private templateRef: TemplateRef<unknown>) {
   }
 
   ngOnInit() {

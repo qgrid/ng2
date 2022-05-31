@@ -1,4 +1,4 @@
-function findIndexAt(items: Array<number>, value: number) {
+function findIndexAt(items: Array<number>, value: number): number {
   const length = items.length;
   let min = 0;
   let max = length - 1;

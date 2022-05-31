@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isArray, isString } from '@qgrid/core';
+import { isArray, isString, Nullable } from '@qgrid/core';
 import { TemplateCacheService } from './template-cache.service';
 import { TemplateLink } from './template-link';
 import { TemplateLinkService } from './template-link.service';
@@ -11,7 +11,7 @@ export class TemplateService {
 		private templateCache: TemplateCacheService,
   ) { }
 
-  find(keys: string | string[]): TemplateLink {
+  find(keys: string | string[]): Nullable<TemplateLink> {
     if (isString(keys)) {
       const key = keys as string;
       const link = this.templateCache.get(key) || this.templateLink.get(key);
@@ -19,11 +19,13 @@ export class TemplateService {
     }
 
     if (isArray(keys)) {
-      return this.lookInCache(keys) || this.lookInLink(keys);
+      return this.lookInCache(keys as string[]) || this.lookInLink(keys as string[]);
     }
+
+    return null;
   }
 
-  private lookInCache(keys) {
+  private lookInCache(keys: string[]) {
     for (const key of keys) {
       const link = this.templateCache.get(key);
       if (link) {
@@ -34,7 +36,7 @@ export class TemplateService {
     return null;
   }
 
-  private lookInLink(keys) {
+  private lookInLink(keys: string[]) {
     for (const key of keys) {
       const link = this.templateLink.get(key);
       if (link) {

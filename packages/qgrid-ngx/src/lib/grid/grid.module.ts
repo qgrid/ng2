@@ -22,7 +22,6 @@ import { GridComponent } from './grid.component';
   ],
   imports: [
     CommonModule,
-
     BoxModule,
     LayerModule,
     MarkupModule,
@@ -47,10 +46,11 @@ export class GridModule {
     numberPipe: DecimalPipe,
     currencyPipe: CurrencyPipe,
   ) {
-    FormatService.date = (x, format) => datePipe.transform(x, format);
+    FormatService.date = (x: Date, format: string) => datePipe.transform(x, format);
     FormatService.number = (x, format) => numberPipe.transform(x, format);
     FormatService.currency = (x, format) => currencyPipe.transform(x, format);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Fastdom.invoke = task => zone.runOutsideAngular<any>(task);
   }
 }

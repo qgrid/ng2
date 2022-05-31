@@ -32,6 +32,7 @@ import {
   GroupStateMode,
   GroupStateSummary,
   PivotState,
+  Row,
   ScrollState,
   ScrollStateMode,
   SelectionState,
@@ -131,7 +132,7 @@ export class GridComponent implements OnInit, OnChanges {
 
   @Input() set pivotBy(by: Array<string>) { this.pivotState({ by }); }
 
-  @Input('selection') set selectionItems(items: Array<any>) { this.selectionState({ items }); }
+  @Input('selection') set selectionItems(items: Array<unknown>) { this.selectionState({ items }); }
   @Input() set selectionArea(area: SelectionStateArea) { this.selectionState({ area }); }
   @Input() set selectionMode(mode: SelectionStateMode) { this.selectionState({ mode }); }
   @Input() set selectionUnit(unit: SelectionStateUnit) { this.selectionState({ unit }); }
@@ -154,7 +155,7 @@ export class GridComponent implements OnInit, OnChanges {
     private cd: ChangeDetectorRef,
     private stateAccessor: StateAccessor,
     private modelBuilder: GridModelBuilder,
-    @Inject(DOCUMENT) private document: any,
+    @Inject(DOCUMENT) private document: Document,
     theme: ThemeService,
   ) {
     if (!theme.component) {

@@ -29,7 +29,7 @@ import { TrCoreDirective } from '../row/tr-core.directive';
 })
 export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
   @Input('q-grid-core-value') actualValue: any;
-  @Input('q-grid-core-label') actualLabel: any;
+  @Input('q-grid-core-label') actualLabel: string;
 
   @Input('q-grid-core-td') columnView: ColumnView;
 

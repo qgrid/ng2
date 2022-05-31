@@ -17,7 +17,6 @@ import { VscrollModule } from '../vscroll/vscroll.module';
   ],
   imports: [
     CommonModule,
-
     HeadModule,
     FootModule,
     BodyModule,
