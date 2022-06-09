@@ -1,3 +1,3 @@
 declare module 'css.escape' {
-    export function cssEscape(x: string);
+    export function cssEscape(x: string): any;
 }
