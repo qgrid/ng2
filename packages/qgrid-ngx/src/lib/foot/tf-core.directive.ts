@@ -29,7 +29,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
   }
 
   get label() {
-    return this.label;
+    return thi;
   }
 
   get column(): ColumnModel {

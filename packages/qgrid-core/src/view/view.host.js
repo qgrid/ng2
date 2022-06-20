@@ -104,7 +104,7 @@ export class ViewHost {
             const units = [];
             const trigger = triggers[name];
             for (const key in e.changes) {
-              if(hasOwnProperty.call(e.changes, key)) {
+              if (hasOwnProperty.call(e.changes, key)) {
                 const unit = trigger[key];
                 if (unit) {
                   units.push(unit);
@@ -204,6 +204,7 @@ export class ViewHost {
         columnIndex: td.columnIndex,
       };
 
+      // todo: fix
       model.mouse({
         status: 'move',
         target: cell || newCell,
@@ -282,7 +283,6 @@ export class ViewHost {
     }
 
     const { model, view } = this.plugin;
-    const editMode = model.edit().mode;
     switch (unit) {
       case 'row': {
         if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
@@ -292,7 +292,7 @@ export class ViewHost {
               view.selection.toggleRow.execute(cell.row, 'body');
             }
           }
-        } else if (!editMode && cell.column.category !== 'control') {
+        } else if (cell.column.category !== 'control') {
           if (view.selection.toggleRow.canExecute(cell.row)) {
             view.selection.toggleRow.execute(cell.row, 'body');
           }
@@ -302,10 +302,7 @@ export class ViewHost {
       }
 
       case 'column': {
-        if (!editMode) {
-          view.selection.toggleColumn.execute(cell.column, 'body');
-        }
-
+        view.selection.toggleColumn.execute(cell.column, 'body');
         break;
       }
 
@@ -337,8 +334,8 @@ export class ViewHost {
     if (!td) {
       const firstElement = path[0];
       const isEditMarker =
-				firstElement
-				&& firstElement.classList.contains('q-grid-edit-marker');
+        firstElement
+        && firstElement.classList.contains('q-grid-edit-marker');
 
       if (isEditMarker) {
         const { model } = this.plugin;
