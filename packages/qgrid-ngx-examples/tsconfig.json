@@ -15,9 +15,21 @@
     "lib": [
       "esnext",
       "dom"
-    ]
+    ],
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "enableResourceInlining": true,
+    "strictTemplates": true,
+    "strictInjectionParameters": true,
+    "enableI18nLegacyMessageIdFormat": false,
   }
 }
