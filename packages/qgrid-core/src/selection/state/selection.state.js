@@ -10,7 +10,7 @@ export class SubSelectionState {
   select(item, state = true, key) {
     key = key || this.keyFactory();
     if (isArray(item)) {
-      item.forEach(item => this.select(item, state, key));
+      item.forEach(x => this.select(x, state, key));
       return;
     }
 
@@ -37,8 +37,8 @@ export class SubSelectionState {
   state(item, key) {
     key = key || this.keyFactory();
     if (isArray(item)) {
-      const all = item.every(item => this.state(item, key));
-      return all ? true : item.some(item => this.state(item, key)) ? null : false;
+      const all = item.every(x => this.state(x, key));
+      return all ? true : item.some(x => this.state(x, key)) ? null : false;
     }
 
     if (item instanceof Node) {
@@ -59,13 +59,13 @@ export class SubSelectionState {
 
     const key = this.keyFactory();
 
-    const notSelected = items.findIndex(item => this.state(item, key) === false);
+    const notSelected = items.findIndex(x => this.state(x, key) === false);
     if (notSelected < 0) {
       return true;
     }
 
     return notSelected === 0
-      ? items.every(item => this.state(item, key) === false)
+      ? items.every(x => this.state(x, key) === false)
         ? false
         : null
       : null;

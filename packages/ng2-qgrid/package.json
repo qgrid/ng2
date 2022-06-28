@@ -1,6 +1,7 @@
 {
   "name": "ng2-qgrid",
   "version": "13.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "ng build",
     "build:watch": "ng build --watch",

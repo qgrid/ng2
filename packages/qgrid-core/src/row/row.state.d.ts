@@ -30,7 +30,7 @@ export declare class RowState {
 	 */
   unit: RowStateUnit;
 
-  height: (element: HTMLElement, index: number) => number | number;
+  height: ((element: HTMLElement, index: number) => number) | number;
 
   /**
 	 * Indicates row details status, key is a data row value is a details status.

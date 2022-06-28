@@ -2,6 +2,7 @@
   "name": "qgrid",
   "private": "true",
   "version": "13.0.0",
+  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],

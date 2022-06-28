@@ -1,6 +1,7 @@
 {
   "name": "@qgrid/plugins",
   "version": "13.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c -w",

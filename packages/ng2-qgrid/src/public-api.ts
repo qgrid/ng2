@@ -52,6 +52,12 @@ export {
   TextColumnModel as TextColumn,
   TimeColumnModel as TimeColumn,
   UrlColumnModel as UrlColumn,
+  getValueFactory,
+  getValue,
+  setValue,
+  getLabelFactory,
+  getLabel,
+  setLabel
 } from '@qgrid/core';
 // @qgrid/ngx
 export {

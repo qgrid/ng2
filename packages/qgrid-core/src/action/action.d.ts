@@ -28,7 +28,7 @@ export declare class Action {
 	 * * Custom template calls command execute method.
 	 * * Command keyboard shortcut is pressed.
 	 */
-  command: Command;
+  command: Command<any>;
 
   /**
 	 * A text to show in the button, or tooltip to show if the icon property is set.
@@ -46,7 +46,7 @@ export declare class Action {
   templateUrl: string;
 
   constructor(
-		command: Command,
+		command: Command<any>,
 		title?: string,
 		icon?: string,
 		templateUrl?: string,

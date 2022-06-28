@@ -1,7 +1,9 @@
 {
   "extends": "../../.eslintrc.angular.json",
   "parserOptions": {
-    "project": ["./tsconfig.lib.json"],
+    "project": [
+      "./tsconfig.lib.json"
+    ],
     "createDefaultProgram": true
   }
 }

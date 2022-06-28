@@ -20,7 +20,7 @@ export function match(context) {
         return row => getValue(row, column);
       }
 
-      return labelFactory(columnMap[key]);
+      return labelFactory(column);
     };
 
     const assertColumnFactory = key => assertFactory(columnMap[key]);

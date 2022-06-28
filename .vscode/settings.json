@@ -2,6 +2,7 @@
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.preferences.quoteStyle": "single",
   "javascript.preferences.quoteStyle": "single",
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
   "html.format.wrapAttributes": "force-aligned",
   "files.insertFinalNewline": true,
   "editor.tabSize": 2,

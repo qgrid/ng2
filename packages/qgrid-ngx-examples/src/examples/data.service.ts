@@ -78,7 +78,7 @@ export class DataService {
     return this.http.get<Quote[]>('assets/quotes/9.json');
   }
 
-  getAtomPresets(id, user): Observable<any> {
+  getAtomPresets(id: string, user: string): Observable<any> {
     const commonPresets = this.http.get<any[]>('assets/presets/atoms.json');
     const items = JSON.parse(localStorage.getItem(id));
     if (items && Object.prototype.hasOwnProperty.call(items, user)) {
@@ -89,7 +89,7 @@ export class DataService {
     return commonPresets;
   }
 
-  setAtomPresets(id, user, items): Observable<any> {
+  setAtomPresets(id: string, user: string, items): Observable<any> {
     const oldItems = JSON.parse(localStorage.getItem(id));
     const newItems = {
       ...oldItems,

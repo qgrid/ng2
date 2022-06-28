@@ -27,54 +27,55 @@ import { CommandContext } from './command.context';
  *
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
-export declare class Command<T = any> {
+export declare class Command<T = unknown> {
+  /**
+   * A sequence of keyboard key codes to execute the command.
+   * Here are some examples:
+   *
+   * * shift+a
+   * * ctrl+s
+   * * f2
+   *
+   */
+  shortcut: string;
 
   /**
-	 * Indicates if a command can be invoked. Use one argument to support typescript generic typification.
- * By default true value is returned.
-	 */
-  canExecute: (e?: T, ...args: any[]) => boolean;
+   * Command priority that can be used by command manager to specify order of commands to execute.
+   * For example, if several commands have the same shortcut, you may need to see in which order
+   * these commands should be executed.
+   */
+  priority: number;
 
   /**
-	 * Triggers canExecute method on UI.
-	 */
+   * Indicates an origin of the command.
+   */
+  source: string;
+
+  /**
+   * If a command is executed by q-grid command manager, the sink value contains
+   * the last canExecute result.
+   */
+  sink: any;
+
+  /**
+   * Triggers canExecute method on UI.
+   */
   canExecuteCheck: SubjectLike<T>;
 
-  /**
-	 * Invokes the command. Use one argument to support typescript generic typification.
- * Sometimes interaction model requires to return a value, for example, default command manager
- * stops to process next commands if false is returned by the command execute method.
-	 */
-  execute: (e?: T, ...args: any[]) => any;
+  constructor(context?: Partial<CommandContext<T>>);
 
   /**
-	 * A sequence of keyboard key codes to execute the command.
- * Here are some examples:
-	 *
-	 * * shift+a
-	 * * ctrl+s
-	 * * f2
-	 *
-	 */
-  shortcut?: string;
+   * Indicates if a command can be invoked. Use one argument to support typescript generic typification.
+   * By default true value is returned.
+   */
+  canExecute(e: T, ...args: any[]): boolean;
+  canExecute(): boolean;
 
   /**
-	 * Command priority that can be used by command manager to specify order of commands to execute.
- * For example, if several commands have the same shortcut, you may need to see in which order
- * these commands should be executed.
-	 */
-  priority?: number;
-
-  /**
-	 * Indicates an origin of the command.
-	 */
-  source?: string;
-
-  /**
-	 * If a command is executed by q-grid command manager, the sink value contains
-	 * the last canExecute result.
-	 */
-  sink?: any;
-
-  constructor(context?: CommandContext<T>);
+   * Invokes the command. Use one argument to support typescript generic typification.
+   * Sometimes interaction model requires to return a value, for example, default command manager
+   * stops to process next commands if false is returned by the command execute method.
+   */
+  execute(e: T, ...args: any[]): any;
+  execute(): any;
 }

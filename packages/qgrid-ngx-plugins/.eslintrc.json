@@ -1,12 +1,16 @@
 {
   "extends": "../../.eslintrc.angular.json",
   "parserOptions": {
-    "project": ["./tsconfig.lib.json"],
+    "project": [
+      "./tsconfig.lib.json"
+    ],
     "createDefaultProgram": true
   },
   "overrides": [
     {
-      "files": ["*.html"],
+      "files": [
+        "*.html"
+      ],
       "parser": "@angular-eslint/template-parser"
     }
   ]
