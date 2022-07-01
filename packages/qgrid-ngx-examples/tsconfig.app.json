@@ -10,10 +10,13 @@
   ],
   "references": [
     {
-      "path": "../qgrid-ngx",
+      "path": "../ng2-qgrid",
     },
     {
       "path": "../qgrid-ngx-theme-material",
+    },
+    {
+      "path": "../qgrid-ngx-theme-basic",
     }
   ]
 }

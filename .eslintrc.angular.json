@@ -41,40 +41,41 @@
       "parserOptions": {
         "project": [
           "**/tsconfig.json"
-        ],
-      },
-      {
-        "files": [
-          "*.html"
-        ],
-        "extends": [
-          "plugin:@angular-eslint/template/recommended"
-        ],
-        "rules": {
-          "indent": "off",
-          "spaced-comment": "off"
-        }
-      },
-      {
-        "files": [
-          "*.module.ts"
-        ],
-        "rules": {
-          "array-element-newline": [
-            "error",
-            {
-              "multiline": true,
-              "minItems": 1
-            }
-          ],
-          "array-bracket-newline": [
-            "error",
-            {
-              "multiline": true,
-              "minItems": 1
-            }
-          ]
-        }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "indent": "off",
+        "spaced-comment": "off"
+      }
+    },
+    {
+      "files": [
+        "*.module.ts"
+      ],
+      "rules": {
+        "array-element-newline": [
+          "error",
+          {
+            "multiline": true,
+            "minItems": 1
+          }
+        ],
+        "array-bracket-newline": [
+          "error",
+          {
+            "multiline": true,
+            "minItems": 1
+          }
+        ]
+      }
+    }
+  ]
+}

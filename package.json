@@ -7,12 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --stream",
-    "build:app": "lerna run build --stream --scope qgrid-ngx-examples",
+    "build": "lerna run build --stream --concurrency 1",
+    "build:app": "lerna run build --stream --scope qgrid-ngx-examples --concurrency 1",
     "start": "yarn clean && node ./scripts/serve.js",
-    "lint": "lerna run lint --stream",
-    "clean": "lerna run clean --stream",
-    "test": "lerna run test --stream",
+    "lint": "lerna run lint --stream --concurrency 1",
+    "clean": "lerna run clean --stream --concurrency 1",
+    "test": "lerna run test --stream --concurrency 1",
     "copy:theme:material": "copyfiles -u 3 packages/qgrid-ngx-theme-material/dist/**/* packages/ng2-qgrid/theme/material",
     "copy:theme:basic": "copyfiles -u 3 packages/qgrid-ngx-theme-basic/dist/**/* packages/ng2-qgrid/theme/basic",
     "publish:alpha": "yarn copy:theme:material && yarn copy:theme:basic && lerna publish --canary --preid alpha --force-publish=*",
