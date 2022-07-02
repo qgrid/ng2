@@ -203,7 +203,7 @@ export class GridComponent implements OnInit, OnChanges {
         docListener.on('mousedown', e => {
           if (model.edit().status === 'edit') {
             const path = eventPath(e);
-            const clickedOutside = path.every(x => x !== nativeElement && !x.classList.contains('q-grid-editor-part'));
+            const clickedOutside = path.every(x => x !== nativeElement && x.classList && !x.classList.contains('q-grid-editor-part'));
             if (clickedOutside) {
               model.edit({
                 status: 'view',
