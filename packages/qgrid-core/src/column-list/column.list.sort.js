@@ -129,7 +129,8 @@ function everyNextIsNew(current, screen, index) {
   const { line } = current;
 
   let n;
-  while ((n = line[++index])) {
+  // eslint-disable-next-line no-cond-assign
+  while (n = line[++index]) {
     if (screen.set.has(n.key.model.key)) {
       return false;
     }

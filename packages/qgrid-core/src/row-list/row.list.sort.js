@@ -24,7 +24,8 @@ export function sortFactory(model) {
         })
         .reduce((memo, row) => {
           let indexRow;
-          while (indexRow === positions.get(cursor)) {
+          // eslint-disable-next-line no-cond-assign
+          while (indexRow = positions.get(cursor)) {
             positions.delete(cursor);
             memo.push(indexRow);
             cursor++;
