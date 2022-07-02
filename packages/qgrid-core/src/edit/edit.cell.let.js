@@ -152,8 +152,14 @@ export class EditCellLet {
         canExecute: cell => {
           // TODO: source should be set up from outside
           const source = cell ? 'mouse' : 'keyboard';
-          if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode())) {
-            return false;
+          if (source === 'keyboard') {
+            const keyCode = this.shortcut.keyCode();
+            // as we using wildcard we are filtering this command here
+            // be checking if pressed key is 'tab' or 'ctrl' etc.
+            // todo: make it better
+            if (Shortcut.isControl(keyCode)) {
+              return false;
+            }
           }
 
           cell = cell || model.navigation().cell;
@@ -168,10 +174,10 @@ export class EditCellLet {
           }
 
           return cell
-						&& cell.column.canEdit
-						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
-						&& model.edit().status === 'view'
-						&& model.edit().enter.canExecute(this.contextFactory(cell, cell.value, cell.label));
+            && cell.column.canEdit
+            && (cell.column.category === 'control' || model.edit().mode === 'cell')
+            && model.edit().status === 'view'
+            && model.edit().enter.canExecute(this.contextFactory(cell, cell.value, cell.label));
         },
         execute: (cell, e) => {
           Log.info('cell.edit', 'edit mode');
@@ -210,10 +216,10 @@ export class EditCellLet {
         canExecute: cell => {
           cell = cell || this.editor.td;
           const canEdit = cell
-						&& Td.equals(cell, this.editor.td)
-						&& cell.column.canEdit
-						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
-						&& model.edit().status === 'edit';
+            && Td.equals(cell, this.editor.td)
+            && cell.column.canEdit
+            && (cell.column.category === 'control' || model.edit().mode === 'cell')
+            && model.edit().status === 'edit';
           if (canEdit) {
             const context = this.contextFactory(cell, this.value, this.label, this.tag);
             const key = context.column.key;
@@ -283,10 +289,10 @@ export class EditCellLet {
         canExecute: cell => {
           cell = cell || this.editor.td;
           return cell
-						&& cell.column.canEdit
-						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
-						&& model.edit().status === 'edit'
-						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
+            && cell.column.canEdit
+            && (cell.column.category === 'control' || model.edit().mode === 'cell')
+            && model.edit().status === 'edit'
+            && model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
         },
         execute: (cell, e) => {
           Log.info('cell.edit', 'cancel');
@@ -315,10 +321,10 @@ export class EditCellLet {
         canExecute: cell => {
           cell = cell || this.editor.td;
           return cell
-						&& cell.column.canEdit
-						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
-						&& model.edit().status === 'edit'
-						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
+            && cell.column.canEdit
+            && (cell.column.category === 'control' || model.edit().mode === 'cell')
+            && model.edit().status === 'edit'
+            && model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
         },
         execute: (cell, e) => {
           Log.info('cell.edit', 'reset');
@@ -370,10 +376,10 @@ export class EditCellLet {
         canExecute: cell => {
           cell = cell || this.editor.td;
           return cell
-						&& cell.column.canEdit
-						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
-						&& model.edit().status === 'edit'
-						&& model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
+            && cell.column.canEdit
+            && (cell.column.category === 'control' || model.edit().mode === 'cell')
+            && model.edit().status === 'edit'
+            && model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
         },
         execute: (cell, e) => {
           Log.info('cell.edit', 'clear');
