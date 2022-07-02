@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { Grid, GridModel, Command } from 'ng2-qgrid';
+import { Grid, Command } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['edit-cell-basic', 'Cell values can be edited, "Gender" has a custom edit template'];
 
@@ -17,9 +17,9 @@ export class ExampleEditCellBasicComponent implements AfterViewInit {
   title = EXAMPLE_TAGS[1];
 
   rows$: Observable<Human[]> = this.dataService.getPeople();
-  gridModel: GridModel;
+  gridModel = this.qgrid.model();
 
-  commit = new Command({
+  commit = new Command<{ newValue: any }>({
     execute: e => console.log('commit: ' + e.newValue),
   });
 
@@ -27,10 +27,10 @@ export class ExampleEditCellBasicComponent implements AfterViewInit {
     execute: () => console.log('cancel'),
   });
 
-  constructor(private dataService: DataService,
-		private qgrid: Grid,
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid,
   ) {
-    this.gridModel = qgrid.model();
   }
 
   ngAfterViewInit() {

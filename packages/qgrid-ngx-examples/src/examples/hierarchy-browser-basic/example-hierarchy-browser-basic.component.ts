@@ -23,7 +23,7 @@ export class ExampleHierarchyBrowserBasicComponent {
     (root as any).isVisited = false;
 
     const tree = [root];
-    const treePipe = (memo, context, next) => {
+    const treePipe: typeof qgrid.pipe.view = (memo, context, next) => {
       memo.nodes = tree;
       next(memo);
     };
@@ -40,14 +40,15 @@ export class ExampleHierarchyBrowserBasicComponent {
       })
       .group({
         toggle: new Command({
-          execute: function execute(node) {
-            if (node.isVisited) {
+          execute: node => {
+            if ((node as any).isVisited) {
               return;
             }
 
             const level = node.level + 1;
 
-            node.isVisited = true;
+            (node as any).isVisited = true;
+
             node.children = [
               new Node(`folder [${level}.0] `, level, 'group'),
               new Node(`folder [${level}.1] `, level, 'group'),
@@ -63,7 +64,7 @@ export class ExampleHierarchyBrowserBasicComponent {
         mode: 'multiple',
         unit: 'row',
         area: 'custom',
-        rowKey: node => node.key,
+        rowKey: (node: Node) => node.key,
       });
   }
 }

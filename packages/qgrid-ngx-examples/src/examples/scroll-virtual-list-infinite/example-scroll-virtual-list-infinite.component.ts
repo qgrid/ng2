@@ -22,7 +22,7 @@ export class ExampleScrollVirtualListInfiniteComponent {
     },
   });
 
-  items = [];
+  items: number[] = [];
 
   constructor(private vscroll: VscrollService) {
   }

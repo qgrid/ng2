@@ -36,7 +36,7 @@ export interface EditorOptions {
 		column: ColumnModel;
 		getValue: (row: any) => any;
 		reference: {
-			commit: Command<{ entries: any[] }>;
+			commit: Command<{ entries: any[]; items: any[] }>;
 			cancel: Command;
 			value: any;
 		};

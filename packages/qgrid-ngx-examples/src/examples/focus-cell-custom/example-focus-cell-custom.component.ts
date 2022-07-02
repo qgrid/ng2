@@ -18,13 +18,15 @@ export class ExampleFocusCellCustomComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  rows: Observable<Atom[]>;
+  rows = this.dataService.getAtoms();
 
-  constructor(dataService: DataService, private qgrid: Grid) {
-    this.rows = dataService.getAtoms();
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid
+  ) {
   }
 
-  focus(rowIndex) {
+  focus(rowIndex: string) {
     const { model } = this.grid;
     const service = this.qgrid.service(model);
 

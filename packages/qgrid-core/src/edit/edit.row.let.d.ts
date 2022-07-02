@@ -4,10 +4,10 @@ import { RowEditor } from './edit.row.editor';
 
 export declare class EditRowLet {
   readonly editor: RowEditor;
-  readonly enter: Command;
-  readonly commit: Command;
-  readonly cancel: Command;
-  readonly reset: Command;
+  readonly enter: Command<any>;
+  readonly commit: Command<any>;
+  readonly cancel: Command<any>;
+  readonly reset: Command<any>;
 
   constructor(
 		plugin: GridPlugin,

@@ -26,7 +26,7 @@ export class ReferenceComponent implements OnInit {
   private _value: any;
   private _model: GridModel;
   private _reference: {
-    commit: Command<{ entries: any[] }>;
+    commit: Command<{ entries: any[]; items: any[] }>;
     cancel: Command;
     value: any;
   };
@@ -88,7 +88,7 @@ export class ReferenceComponent implements OnInit {
         column: this.cell.column,
         getValue: getValueFactory(this.cell.column),
         createDefaultModel: () => this.modelBuilder.build(),
-      });;
+      });
 
       const selectionService = new SelectionService(this.model);
       this.disposable.add(

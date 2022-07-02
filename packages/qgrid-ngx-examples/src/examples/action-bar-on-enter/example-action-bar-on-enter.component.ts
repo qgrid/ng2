@@ -1,13 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import {
-  GridModel,
-  Action,
-  GridService,
-  Command,
-  Grid,
-} from 'ng2-qgrid';
+import { DataService } from '../data.service';
+import { Action, Command, Grid } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['action-bar-on-enter', 'Row actions appear on enter key press'];
 
@@ -22,9 +15,9 @@ export class ExampleActionBarOnEnterComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  rows: Observable<Atom[]>;
-  gridModel: GridModel;
-  gridService: GridService;
+  rows = this.dataService.getAtoms();
+  gridModel = this.qgrid.model();
+  gridService = this.qgrid.service(this.gridModel);
 
   rowOptions = {
     trigger: 'focus',
@@ -34,8 +27,11 @@ export class ExampleActionBarOnEnterComponent {
   pickCommand = new Command({
     execute: () => {
       const { cell } = this.gridModel.navigation();
-      const { columns } = this.gridModel.view();
+      if (!cell) {
+        return;
+      }
 
+      const { columns } = this.gridModel.view();
       const newColumnIndex = columns.findIndex(c => c.key === 'rowOptions');
 
       this.gridService.focus(cell.rowIndex, newColumnIndex);
@@ -55,10 +51,9 @@ export class ExampleActionBarOnEnterComponent {
     shortcut: 'enter',
   });
 
-  constructor(dataService: DataService, qgrid: Grid) {
-    this.rows = dataService.getAtoms();
-
-    this.gridModel = qgrid.model();
-    this.gridService = qgrid.service(this.gridModel);
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid,
+  ) {
   }
 }

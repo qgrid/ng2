@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
 import { PersistenceStorage } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['persistence-on-state-change', 'Grid state is saved on model change'];
@@ -16,11 +15,9 @@ export class ExamplePersistenceOnStateChangeComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  rows$: Observable<Atom[]>;
-
+  rows$ = this.dataService.getAtoms();
   storage = new PersistenceStorage(sessionStorage);
 
-  constructor(dataService: DataService) {
-    this.rows$ = dataService.getAtoms();
+  constructor(private dataService: DataService) {
   }
 }

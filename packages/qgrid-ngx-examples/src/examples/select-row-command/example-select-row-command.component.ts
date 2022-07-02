@@ -40,12 +40,13 @@ export class ExampleSelectRowCommandComponent implements AfterViewInit {
     },
   });
 
-  selectionToggle = new Command({
+  selectionToggle = new Command<{ items: any[] }>({
     canExecute: e => e.items[0] !== this.gridModel.selection().items[0],
   });
 
-  constructor(private dataService: DataService,
-		private qgrid: Grid,
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid,
   ) {
     this.gridModel = qgrid.model();
   }

@@ -20,7 +20,7 @@ export class ExampleDynamicColumnModelComponent {
     this.reset();
   }
 
-  addColumn(side) {
+  addColumn(side: 'left' | 'right' | 'middle') {
     const id = this.getRandomId();
     const column = {
       type: 'text',
@@ -42,6 +42,7 @@ export class ExampleDynamicColumnModelComponent {
         : Math.floor(columns.length / 2);
       columns.splice(middlePos, 0, column);
     }
+
     rows.forEach(r => r[id] = `value - ${id}`);
     this.gridModel.data({ columns, rows });
   }

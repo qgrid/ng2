@@ -1,5 +1,5 @@
 <q-grid [caption]="title"
-        [rows]="rows | async"
+        [rows]="rows$ | async"
         [model]="gridModel"
         selectionUnit="row"
         selectionMode="multiple"

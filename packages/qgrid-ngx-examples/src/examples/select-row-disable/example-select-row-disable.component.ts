@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
-import { DataService, Human } from '../data.service';
-import { Observable } from 'rxjs';
-import { Grid, GridModel, Command } from 'ng2-qgrid';
+import { DataService } from '../data.service';
+import { Grid, Command } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['select-row-disable', 'Rows can be selected using checkboxes. Some rows are disabled'];
 
@@ -16,14 +15,13 @@ export class ExampleSelectRowDisableComponent implements AfterViewInit {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  rows: Observable<Human[]>;
-  gridModel: GridModel;
+  rows$ = this.dataService.getPeople();
+  gridModel = this.qgrid.model();
 
-  constructor(dataService: DataService,
+  constructor(
+    private dataService: DataService,
 		private qgrid: Grid,
   ) {
-    this.rows = dataService.getPeople();
-    this.gridModel = qgrid.model();
   }
 
   ngAfterViewInit() {

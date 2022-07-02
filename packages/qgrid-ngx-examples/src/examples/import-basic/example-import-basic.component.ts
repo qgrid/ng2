@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as XLSX from 'xlsx';
-
 import { DataService, Atom } from '../data.service';
-import { Grid, GridModel } from 'ng2-qgrid';
+import { Grid } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['import-basic', 'Table data can be imported from file'];
 
@@ -19,10 +18,9 @@ export class ExampleImportBasicComponent implements AfterViewInit {
   title = EXAMPLE_TAGS[1];
 
   rows: Observable<Atom[]> = of([]);
-  gridModel: GridModel;
+  gridModel = this.qgrid.model();
 
   constructor(private qgrid: Grid) {
-    this.gridModel = qgrid.model();
   }
   ngAfterViewInit() {
     this.gridModel.plugin({

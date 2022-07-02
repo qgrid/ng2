@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { GridModel, Grid, PersistenceStorage } from 'ng2-qgrid';
-
 import { DataService, Atom } from '../data.service';
 
 const EXAMPLE_TAGS = ['persistence-server', 'Settings are stored on server and can be saved/loaded in the save/load menu'];
@@ -25,22 +23,24 @@ export class ExamplePersistenceServerComponent {
 
   get storage(): PersistenceStorage {
     return {
-      getItem: id => new Promise(resolve => {
-        this.dataService
-          .getAtomPresets(id, this.currentUser)
-          .subscribe(resolve);
-      }),
-      setItem: (id, items) => new Promise(resolve => {
-        this.dataService
-          .setAtomPresets(id, this.currentUser, items)
-          .subscribe(resolve);
-      }),
+      getItem: (id: string) =>
+        new Promise<any>(resolve => {
+          this.dataService
+            .getAtomPresets(id, this.currentUser)
+            .subscribe(() => resolve(null));
+        }),
+      setItem: (id: string, items: any) =>
+        new Promise(resolve => {
+          this.dataService
+            .setAtomPresets(id, this.currentUser, items)
+            .subscribe(resolve);
+        }),
     };
   }
 
   constructor(
-		private dataService: DataService,
-		private qgrid: Grid,
+    private dataService: DataService,
+    private qgrid: Grid,
   ) {
     this.rows = dataService.getAtoms();
     this.users = dataService.getUsers();

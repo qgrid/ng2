@@ -34,7 +34,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
   }
 
   ngOnInit() {
-    const isUndef = x => x === undefined;
+    const isUndef = (x: any) => x === undefined;
 
     this.columns = [
       {
@@ -73,9 +73,9 @@ export class ExampleEditRowBasicComponent implements OnInit {
         key: 'teammates',
         title: 'Teammates',
         type: 'reference',
-        value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
-        label: item => (item.teammates || [])
-          .map(x => `${x.name.last} ${x.name.first}`)
+        value: (item: any, value: any[]) => isUndef(value) ? item.teammates || [] : item.teammates = value,
+        label: (item: any) => (item.teammates || [])
+          .map((x: Human) => `${x.name.last} ${x.name.first}`)
           .join(', '),
         editorOptions: {
           modelFactory: () => {
@@ -85,7 +85,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
               .selection({
                 mode: 'multiple',
                 unit: 'row',
-                rowKey: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first),
+                rowKey: (x: Human) => (rows as Human[]).findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first),
               })
               .columnList({
                 generation: 'deep',
@@ -106,14 +106,14 @@ export class ExampleEditRowBasicComponent implements OnInit {
         key: 'comment',
         title: 'Comment',
         type: 'text',
-        value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
+        value: (item: Human, value: string) => isUndef(value) ? item.comment || '' : item.comment = value,
         editor: 'text-area',
       },
       {
         key: 'password',
         title: 'Password',
         type: 'password',
-        value: (item, value) => isUndef(value) ? item.password || '' : item.password = value,
+        value: (item: Human, value: string) => isUndef(value) ? item.password || '' : item.password = value,
       },
       {
         key: 'contact.address.zip',
@@ -143,8 +143,8 @@ export class ExampleEditRowBasicComponent implements OnInit {
         key: 'contact.email.primary',
         title: 'Primary Email',
         type: 'email',
-        label: (item, label) => isUndef(label) ? item.emailLabel || item.contact.email[0] : item.emailLabel = label,
-        value: (item, value) => isUndef(value) ? item.contact.email[0] : item.contact.email[0] = value,
+        label: (item: any, label: string) => isUndef(label) ? item.emailLabel || item.contact.email[0] : item.emailLabel = label,
+        value: (item: Human, value: string) => isUndef(value) ? item.contact.email[0] : item.contact.email[0] = value,
       },
       {
         key: 'likes',
@@ -160,16 +160,16 @@ export class ExampleEditRowBasicComponent implements OnInit {
         key: 'modifiedTime',
         title: 'Modified Time',
         type: 'time',
-        value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value,
+        value: (item: any, value: string) => isUndef(value) ? item.modified || '' : item.modified = value,
       },
       {
         key: 'webPage',
         title: 'Web Page',
         type: 'url',
-        value: (item, value) => isUndef(value)
+        value: (item: any, value: string) => isUndef(value)
           ? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
           : item.webPage = value,
-        label: (item, label) => isUndef(label)
+        label: (item: any, label: string) => isUndef(label)
           ? item.webPageLabel || `${item.name.last} ${item.name.first}`
           : item.webPageLabel = label,
       },
@@ -177,8 +177,8 @@ export class ExampleEditRowBasicComponent implements OnInit {
         key: 'attachment',
         title: 'Attachment',
         type: 'file',
-        value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
-        label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
+        value: (item: any, value: any) => isUndef(value) ? item.attachment : item.attachment = value,
+        label: (item: any, label: string) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
       },
     ];
   }

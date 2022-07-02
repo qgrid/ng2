@@ -27,7 +27,7 @@ import { CommandContext } from './command.context';
  *
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
-export declare class Command<T = unknown> {
+export declare class Command<T = any> {
   /**
    * A sequence of keyboard key codes to execute the command.
    * Here are some examples:

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../data.service';
-import { GridModel, Grid } from 'ng2-qgrid';
+import { Atom, DataService } from '../data.service';
+import { Grid } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['define-column-async', 'Table content is loaded asynchronously'];
 
@@ -15,10 +15,12 @@ export class ExampleDefineColumnAsyncComponent implements OnInit {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  gridModel: GridModel;
+  gridModel = this.qgrid.model();
 
-  constructor(private dataService: DataService, qgrid: Grid) {
-    this.gridModel = qgrid.model();
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid,
+  ) {
   }
 
   ngOnInit() {
@@ -36,8 +38,8 @@ export class ExampleDefineColumnAsyncComponent implements OnInit {
               },
               {
                 key: 'symbol+name',
-                label: row => `[${row.symbol}]${row.name}`,
-                value: row => row.symbol,
+                label: (row: Atom) => `[${row.symbol}]${row.name}`,
+                value: (row: Atom) => row.symbol,
                 width: 150,
               },
             ],
