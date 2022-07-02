@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
-import { GridModel, Grid } from 'ng2-qgrid';
+import { Grid } from 'ng2-qgrid';
 import { BehaviorSubject } from 'rxjs';
 
 const EXAMPLE_TAGS = ['destroy-grid-model', 'Table content can be destroyed/restored using UI button'];
@@ -16,21 +16,25 @@ export class ExampleDestroyGridModelComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-  gridModel: GridModel;
+  gridModel = this.qgrid.model();
   isVisible = false;
 
   handlerCount$ = new BehaviorSubject<number>(0);
 
   constructor(
-		private cd: ChangeDetectorRef,
-		dataService: DataService,
-		qgrid: Grid,
+    dataService: DataService,
+    private qgrid: Grid,
   ) {
-    this.gridModel = qgrid.model();
-
     dataService
       .getPeople()
       .subscribe(rows => this.gridModel.data({ rows }));
+
+    this.gridModel.actionChanged.watch(e => {
+      if (e.hasChanges('items')) {
+        // one user event that should not be destroyed
+        console.log('action items changed');
+      }
+    });
   }
 
   getHandlerCount(): number {

@@ -2,6 +2,7 @@
         (click)="toggleVisibility()">
   {{ isVisible? 'Hide' : 'Show' }} [handler counter: {{handlerCount$ | async}}]
 </button>
+
 <ng-container *ngIf="isVisible">
   <q-grid [caption]="title"
           [model]="gridModel"
