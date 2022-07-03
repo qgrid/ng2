@@ -1,6 +1,6 @@
 {
   "name": "@qgrid/ngx",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "license": "MIT",
   "scripts": {
     "build": "ng build",
@@ -31,8 +31,8 @@
     "@angular/compiler": "13.1.1",
     "@angular/compiler-cli": "13.1.1",
     "@angular/core": "13.1.1",
-    "@qgrid/core": "*",
-    "@qgrid/plugins": "*",
+    "@qgrid/core": "^13.1.0",
+    "@qgrid/plugins": "^13.1.0",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
     "eslint": "^8.12.0",
@@ -41,8 +41,8 @@
     "typescript": "4.5.4"
   },
   "peerDependencies": {
-    "@angular/core": "~13.1.1",
     "@angular/common": "~13.1.1",
+    "@angular/core": "~13.1.1",
     "@angular/forms": "~13.1.1",
     "@qgrid/core": "*",
     "@qgrid/plugins": "*"
