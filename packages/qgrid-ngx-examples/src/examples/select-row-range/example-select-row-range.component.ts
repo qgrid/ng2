@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Grid } from 'ng2-qgrid';
-import { Observable } from 'rxjs';
-import { DataService, Human } from '../data.service';
+import { DataService } from '../data.service';
+
+const EXAMPLE_TAGS = ['select-row-range', 'Select Row Range by Mouse Drag'];
 
 @Component({
   selector: 'example-select-row-basic',
@@ -11,10 +12,11 @@ import { DataService, Human } from '../data.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectRowRangeComponent {
-  static id = 'select-row-range';
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
   gridModel = this.qgrid.model();
-  rows$: Observable<Human[]> = this.dataService.getPeople();
+  rows$ = this.dataService.getPeople();
 
   constructor(
 		private dataService: DataService,

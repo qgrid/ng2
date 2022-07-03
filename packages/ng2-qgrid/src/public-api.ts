@@ -81,6 +81,7 @@ export {
   ColumnListService,
   ColumnModule,
   DirtyDirective,
+  DirtyHostDirective,
   Disposable,
   DndModule,
   DomBag,

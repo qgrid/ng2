@@ -10,6 +10,7 @@ export { CellHandlerModule } from './lib/cell-handler/cell-handler.module';
 export { CellTemplateService } from './lib/cell/cell-template.service';
 export { ChangeDetectorModule } from './lib/change-detector/change-detector.module';
 export { DirtyDirective } from './lib/change-detector/dirty.directive';
+export { DirtyHostDirective } from './lib/change-detector/dirty-host.directive';
 export { ColumnListComponent } from './lib/column-list/column-list.component';
 export { ColumnListModule } from './lib/column-list/column-list.module';
 export { ColumnListService } from './lib/column-list/column-list.service';

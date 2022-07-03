@@ -1,7 +1,7 @@
 <ng-template key="body-cell-select.tpl.html"
              let-$cell
              let-$view="$view">
-  <ng-container [q-grid-dirty]="$view.selection.stateCheck | async">
+  <ng-container [q-grid-dirty]="$view.selection.stateCheck">
     <mat-checkbox [indeterminate]="$view.selection.isIndeterminate($cell.row)"
                   [checked]="$view.selection.state($cell.row)"
                   [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
