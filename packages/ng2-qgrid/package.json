@@ -15,7 +15,8 @@
     "dist/fesm2016",
     "dist/fesm2020",
     "dist/lib",
-    "dist/public-api.d.ts"
+    "dist/public-api.d.ts",
+    "theme"
   ],
   "devDependencies": {
     "@angular-devkit/architect": "^0.1301.2",
