@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { PipeUnit } from '@qgrid/core/public-api';
+import { PipeUnit } from '@qgrid/core';
 import { GridModel, GridPlugin } from '@qgrid/ngx';
 
 @Component({
