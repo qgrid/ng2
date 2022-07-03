@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Human } from '../data.service';
-import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
+
+const EXAMPLE_TAGS = ['select-row-edit', 'Rows can be selected using checkboxes. Cell data can be edited'];
 
 @Component({
   selector: 'example-select-row-edit',
@@ -10,11 +11,11 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleSelectRowEditComponent {
-  static id = 'select-row-edit';
+  static tags = EXAMPLE_TAGS;
+  title = EXAMPLE_TAGS[1];
 
-  rows$: Observable<Human[]>;
+  rows$ = this.dataService.getPeople();
 
-  constructor(dataService: DataService) {
-    this.rows$ = dataService.getPeople();
+  constructor(private dataService: DataService) {
   }
 }
