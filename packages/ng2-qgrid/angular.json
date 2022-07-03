@@ -1,7 +1,10 @@
 {
   "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "0ea58b2a-b0ce-4b38-aaf9-8be34b2b06bd"
+    "analytics": "0ea58b2a-b0ce-4b38-aaf9-8be34b2b06bd",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "version": 1,
   "projects": {
@@ -29,6 +32,15 @@
             "main": "src/test.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }

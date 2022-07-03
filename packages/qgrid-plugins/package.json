@@ -1,6 +1,6 @@
 {
   "name": "@qgrid/plugins",
-  "version": "13.1.0",
+  "version": "14.0.0",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
@@ -16,7 +16,6 @@
     "@qgrid/core": "*"
   },
   "devDependencies": {
-    "@qgrid/core": "^13.1.0",
     "@rollup/plugin-commonjs": "22.0.1",
     "@rollup/plugin-node-resolve": "13.3.0",
     "rimraf": "^3.0.2",
@@ -24,7 +23,7 @@
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-sourcemaps": "0.6.3",
     "rollup-plugin-terser": "^7.0.2",
-    "typescript": "4.5.4"
+    "typescript": "4.7.4"
   },
   "eslintConfig": {
     "globals": {

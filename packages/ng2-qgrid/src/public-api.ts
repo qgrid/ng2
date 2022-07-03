@@ -57,7 +57,7 @@ export {
   setValue,
   getLabelFactory,
   getLabel,
-  setLabel
+  setLabel,
 } from '@qgrid/core';
 // @qgrid/ngx
 export {
