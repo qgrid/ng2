@@ -5,6 +5,7 @@
   "private": "true",
   "scripts": {
     "build": "ng build",
+    "build:prod": "ng build --configuration production --base-href \"https://qgrid.github.io/ng2/\"",
     "build:watch": "ng build --watch",
     "lint": "ng lint",
     "clean": "rimraf ./dist"
