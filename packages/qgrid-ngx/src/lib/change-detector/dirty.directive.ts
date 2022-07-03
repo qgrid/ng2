@@ -1,9 +1,7 @@
 import {
   ChangeDetectorRef,
   Directive,
-  forwardRef,
   Host,
-  Inject,
   Input,
   NgZone,
   OnDestroy,
