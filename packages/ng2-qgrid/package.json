@@ -26,7 +26,6 @@
     "@angular/cli": "13.1.2",
     "@angular/compiler": "13.1.1",
     "@angular/compiler-cli": "13.1.1",
-    "@angular/core": "13.1.1",
     "@angular-eslint/builder": "13.2.1",
     "@angular-eslint/eslint-plugin": "13.2.1",
     "@angular-eslint/eslint-plugin-template": "13.2.1",
@@ -35,19 +34,17 @@
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
     "eslint": "^8.12.0",
-    "@qgrid/core": "*",
-    "@qgrid/ngx": "*",
-    "@qgrid/ngx-plugins": "*",
-    "@qgrid/plugins": "*",
     "ng-packagr": "13.1.2",
     "rimraf": "^3.0.2",
     "typescript": "4.5.4"
   },
   "peerDependencies": {
-    "@angular/animations": "~13.1.1",
+    "@angular/core": "~13.1.1",
     "@angular/common": "~13.1.1",
-    "@angular/forms": "~13.1.1",
-		"@qgrid/core": "*",
+    "@angular/forms": "~13.1.1"
+  },
+  "dependencies": {
+    "@qgrid/core": "*",
     "@qgrid/ngx": "*",
     "@qgrid/ngx-plugins": "*",
     "@qgrid/plugins": "*"
