@@ -7,17 +7,17 @@ export class SubSelectionState {
     this.service = service;
   }
 
-  select(item, state = true, key) {
+  select(item, state = true, key, source) {
     key = key || this.keyFactory();
     if (isArray(item)) {
-      item.forEach(x => this.select(x, state, key));
+      item.forEach(x => this.select(x, state, key, source));
       return;
     }
 
     if (item instanceof Node) {
       const { rows } = this.model.data();
       if (rows.length) {
-        item.rows.forEach(index => this.select(rows[index], state, key));
+        item.rows.forEach(index => this.select(rows[index], state, key, source));
         return;
       }
     }
