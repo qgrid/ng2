@@ -15,7 +15,8 @@
     "test": "lerna run test --stream --concurrency 1",
     "copy:theme:material": "copyfiles -u 3 packages/qgrid-ngx-theme-material/dist/**/* packages/ng2-qgrid/theme/material",
     "copy:theme:basic": "copyfiles -u 3 packages/qgrid-ngx-theme-basic/dist/**/* packages/ng2-qgrid/theme/basic",
-    "publish:alpha": "yarn copy:theme:material && yarn copy:theme:basic && lerna publish --canary --preid alpha --force-publish=*",
+    "clean:theme": "rimraf packages/ng2-qgrid/theme",
+    "publish:alpha": "yarn copy:theme:material && yarn copy:theme:basic && lerna publish --canary --preid alpha --force-publish=* && yarn clean:theme",
     "publish:example-app": "npx angular-cli-ghpages --dir=packages/qgrid-ngx-examples/dist/",
     "publish:example-repo": "node ./scripts/publish.example-repo"
   },
