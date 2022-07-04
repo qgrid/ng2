@@ -36,7 +36,8 @@
     "ng-packagr": "~13.1.2",
     "rimraf": "^3.0.2",
     "tslib": "^2.4.0",
-    "typescript": "~4.5.4"
+    "typescript": "~4.5.4",
+    "ng2-qgrid": "*"
   },
   "peerDependencies": {
     "@angular/cdk": "^13.3.9",
