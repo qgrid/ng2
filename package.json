@@ -19,7 +19,7 @@
     "publish:before": "yarn copy:theme:material && yarn copy:theme:basic",
     "publish:example-app": "gh-pages -d packages/qgrid-ngx-examples/dist/",
     "publish:example-repo": "node ./scripts/publish.example-repo",
-    "publish": "yarn publish:before && lerna publish --force-publish=* && yarn publish:after",
+    "publish:lib": "yarn publish:before && lerna publish --force-publish=* && yarn publish:after",
     "start": "yarn clean && node ./scripts/serve.js",
     "test": "lerna run test --stream --concurrency 1"
   },
