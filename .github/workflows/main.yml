@@ -13,7 +13,7 @@ env:
 
 jobs:
   code_lint:
-    name: Code lint
+    name: code lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,8 +43,8 @@ jobs:
         run: |
           yarn run lint
 
-  qgrid_core_unit_tests:
-    name: Qgrid-core unit tests
+  unit_tests:
+    name: unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -74,8 +74,8 @@ jobs:
         run: |
           yarn run test
 
-  library_build:
-    name: Library build
+  lib_build:
+    name: library build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -104,34 +104,3 @@ jobs:
       - name: Build library
         run: |
           yarn run build
-
-  app_build:
-    name: App build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ env.PRIMARY_NODE_VERSION }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ env.PRIMARY_NODE_VERSION }}
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: Install dependencies
-        run: |
-          npm install
-
-      - name: Build app
-        run: |
-          npm run build:app
