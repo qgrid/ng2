@@ -1,6 +1,6 @@
 {
   "name": "qgrid-ngx-examples",
-  "version": "13.1.0",
+  "version": "13.3.0",
   "description": "Angular Grid",
   "private": "true",
   "scripts": {
@@ -31,10 +31,10 @@
     "@angular/platform-browser": "^13.3.8",
     "@angular/platform-browser-dynamic": "^13.3.8",
     "@angular/router": "^13.3.8",
-    "@qgrid/ngx-theme-basic": "*",
-    "@qgrid/ngx-theme-material": "*",
+    "@qgrid/ngx-theme-basic": "^13.3.0",
+    "@qgrid/ngx-theme-material": "^13.3.0",
     "file-saver": "^2.0.5",
-    "ng2-qgrid": "^13.1.0",
+    "ng2-qgrid": "^13.3.0",
     "rxjs": "^6.6.7",
     "xlsx": "^0.17.4",
     "zone.js": "^0.11.6"
@@ -50,8 +50,8 @@
     "@angular/cli": "~13.3.8",
     "@angular/compiler": "~13.3.8",
     "@angular/compiler-cli": "~13.3.8",
-    "@types/xlsx": "^0.0.36",
     "@types/file-saver": "^2.0.4",
+    "@types/xlsx": "^0.0.36",
     "@typescript-eslint/eslint-plugin": "~5.17.0",
     "@typescript-eslint/parser": "~5.17.0",
     "eslint": "^8.19.0",

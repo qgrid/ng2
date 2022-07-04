@@ -1,6 +1,6 @@
 {
   "name": "@qgrid/core",
-  "version": "13.1.0",
+  "version": "13.3.0",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
