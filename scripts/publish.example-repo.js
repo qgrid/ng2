@@ -4,13 +4,12 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 const cmdArgs = require('command-line-args');
-const package = require('../package.json');
 const { relativeCopySync, toComponentName } = require('./build.kit');
 
 const ROOT_PATH = path.resolve('.');
 const EXAMPLES_PATH = path.join(ROOT_PATH, './packages/qgrid-ngx-examples/src/examples');
 const TARGET_REPO_PATH = path.join(ROOT_PATH, '../ng2-example');
-const REPO_URL = 'git@github.com:qgrid/ng2-example.git';
+const REPO_URL = 'https://github.com/qgrid/ng2-example.git';
 
 const args = cmdArgs([
   {
@@ -41,22 +40,6 @@ shell.rm(...rmParams);
 shell.exec(`git clone ${REPO_URL} ${TARGET_REPO_PATH}`);
 shell.cd(TARGET_REPO_PATH);
 
-console.log(`------UPD PACKAGE/${package.version}------`);
-// add dependency to ng2-qgrid
-shell.exec(`npm i @qgrid/core@${package.version} --save`, { silent });
-shell.exec(`npm i @qgrid/plugins@${package.version} --save`, { silent });
-shell.exec(`npm i @qgrid/ngx@${package.version} --save`, { silent });
-shell.exec(`npm i @qgrid/ngx-plugins@${package.version} --save`, { silent });
-shell.exec(`npm i ng2-qgrid@${package.version} --save`, { silent });
-
-console.log('------UPD MASTER------');
-shell.exec('git add package.json', { silent });
-shell.exec(`git commit -m "ng2-qgrid/${package.version}"`, { silent });
-
-// remove node_modules
-shell.exec('git clean -fd', { silent });
-shell.exec('git push', { silent });
-
 console.log(`------READ ${EXAMPLES_PATH}/${pattern}------`);
 const examples = fs
   .readdirSync(EXAMPLES_PATH)
@@ -80,8 +63,8 @@ examples.forEach(example => {
   shell.exec(`git checkout -b ${branch}`, { silent });
 
   // copy files from example to bucket
-  const src = `${EXAMPLES_PATH}/${example}`;
-  const dst = `${TARGET_REPO_PATH}/src/app`;
+  const src = path.join(EXAMPLES_PATH, example);
+  const dst = path.join(TARGET_REPO_PATH, 'src', 'app');
 
   const visit = ({ dstPath, content }) => {
     const ext = path.extname(dstPath);
