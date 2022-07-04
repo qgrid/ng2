@@ -18,7 +18,7 @@ export class ExamplePluginMyPagerComponent implements OnInit {
     return this.plugin.model;
   }
 
-  goto = new Command({
+  goto = new Command<number>({
     execute: page => this.currentPage = page,
     canExecute: page => page >= 0 && page < this.numberOfPages,
   });

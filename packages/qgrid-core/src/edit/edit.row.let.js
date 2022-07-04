@@ -53,7 +53,7 @@ export class EditRowLet {
 						&& model.edit().status === 'edit'
 						&& model.edit().commit.canExecute(this.contextFactory(row));
         },
-        execute: (cell, e) => {
+        execute: (row, e) => {
           Log.info('row.edit', 'commit');
           if (e) {
             e.stopImmediatePropagation();

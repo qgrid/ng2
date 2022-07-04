@@ -1,7 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
-import { Grid, GridModel } from 'ng2-qgrid';
-import { Observable } from 'rxjs';
-import { Atom, DataService } from '../data.service';
+import { Grid } from 'ng2-qgrid';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'example-visibility-model',
@@ -13,14 +12,13 @@ import { Atom, DataService } from '../data.service';
 export class ExampleVisibilityStateComponent implements AfterViewInit {
   static id = 'visibility-model';
 
-  rows: Observable<Atom[]>;
-  gridModel: GridModel;
+  rows$ = this.dataService.getAtoms();
+  gridModel = this.qgrid.model();
 
-  constructor(dataService: DataService,
-		private qgrid: Grid,
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid,
   ) {
-    this.rows = dataService.getAtoms();
-    this.gridModel = qgrid.model();
   }
 
   ngAfterViewInit() {

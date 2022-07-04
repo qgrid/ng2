@@ -93,7 +93,7 @@ export class ColumnFilterComponent implements OnInit {
         const service = this.qgrid.service(model);
         // We need to close items property for correct reset behavior
         const items = columnFilterPlugin.items;
-        if (filterState.fetch !== this.qgrid.noop) {
+        if (column.key && filterState.fetch !== this.qgrid.noop) {
           const cancelBusy = service.busy();
           const select = filterState
             .fetch(column.key, {
@@ -126,7 +126,7 @@ export class ColumnFilterComponent implements OnInit {
               const sourceState = source();
               Guard.hasProperty(sourceState, 'rows');
 
-              let values = null;
+              let values: any[];
               if (columnFilterPlugin.column.type === 'array') {
                 values = flatten(sourceState.rows.map(row => getValue(row, column)));
               } else {

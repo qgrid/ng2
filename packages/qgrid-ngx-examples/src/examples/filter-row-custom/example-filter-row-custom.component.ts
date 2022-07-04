@@ -20,7 +20,7 @@ export class ExampleFilterRowCustomComponent {
   rows: Observable<Atom[]>;
   gridModel: GridModel = this.qgrid.model();
 
-  search = {
+  search: Record<string, any> = {
     name: '',
     phase: '',
   };

@@ -1,8 +1,8 @@
-<q-grid caption="Select Row Basic"
+<q-grid [caption]="title"
         [rows]="rows$ | async"
         selectionUnit="row"
         selectionMode="multiple"
-        selectionArea="body"
+        selectionArea="custom"
         editMode="cell">
   <q-grid-columns generation="deep">
   </q-grid-columns>

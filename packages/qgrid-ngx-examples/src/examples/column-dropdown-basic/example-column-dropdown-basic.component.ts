@@ -28,7 +28,7 @@ export class ExampleColumnDropdownBasicComponent {
   ];
 
   boolFunctionFetchOptions = {
-    fetch: row => [
+    fetch: (row: any) => [
       true,
       false,
       null,

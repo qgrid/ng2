@@ -219,7 +219,7 @@ export class DataManipulationPlugin {
 
     disposable.add(() => {
       const { items } = model.action();
-      const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
+      const notDMActions = items.filter(x => this.actions.every(y => y !== x));
       model.action({ items: notDMActions });
     });
 

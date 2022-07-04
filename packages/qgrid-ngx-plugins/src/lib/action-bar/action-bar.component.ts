@@ -31,26 +31,24 @@ export class ActionBarComponent implements OnInit {
 
     observeReply(model.actionChanged)
       .subscribe(e => {
-        const initialItems = e.state.items;
-        const isSorted = this.isSorted(initialItems);
-
-        if (isSorted) {
-          this.cd.markForCheck();
-          this.cd.detectChanges();
-        } else {
-          model.action({
-            items: initialItems.sort((a: Action, b: Action) => a.command.priority - b.command.priority),
-          });
-        }
-
         if (e.hasChanges('items')) {
+          const { items } = e.state;
+          const inRightOrder = this.checkOrder(items);
+
+          if (!inRightOrder) {
+            // todo: make it better
+            model.action({
+              items: items.sort((a: Action, b: Action) => a.command.priority - b.command.priority),
+            });
+          }
+
           this.cd.markForCheck();
           this.cd.detectChanges();
         }
       });
   }
 
-  private isSorted(actions: Action[]): boolean {
+  private checkOrder(actions: Action[]): boolean {
     for (let i = 0; i < actions.length - 1; i++) {
       const action = actions[i];
       const nextAction = actions[i + 1];

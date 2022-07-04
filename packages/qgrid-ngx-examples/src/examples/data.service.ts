@@ -13,9 +13,9 @@ export class Human {
   birthday: string;
   memberSince: string;
   name: {
-		first: string;
-		last: string;
-	};
+    first: string;
+    last: string;
+  };
 }
 
 export class Atom {
@@ -78,23 +78,27 @@ export class DataService {
     return this.http.get<Quote[]>('assets/quotes/9.json');
   }
 
-  getAtomPresets(id, user): Observable<any> {
+  getAtomPresets(id: string, user: string): Observable<any[]> {
     const commonPresets = this.http.get<any[]>('assets/presets/atoms.json');
-    const items = JSON.parse(localStorage.getItem(id));
+    const items = JSON.parse(localStorage.getItem(id) as string);
+
     if (items && Object.prototype.hasOwnProperty.call(items, user)) {
-      return combineLatest([commonPresets, of(items[user] as any[])]).pipe(
-        map((...lists) => lists.reduce((memo, list) => memo.concat(list), [])),
-      );
+      return combineLatest([commonPresets, of(items[user] as any[])])
+        .pipe(
+          map(([xs, ys]) => xs.concat(ys)),
+        );
     }
+
     return commonPresets;
   }
 
-  setAtomPresets(id, user, items): Observable<any> {
-    const oldItems = JSON.parse(localStorage.getItem(id));
+  setAtomPresets(id: string, user: string, items: any[]): Observable<any> {
+    const oldItems = JSON.parse(localStorage.getItem(id) as string);
     const newItems = {
       ...oldItems,
       ...{ [user]: items },
     };
+
     localStorage.setItem(id, JSON.stringify(newItems));
     return of(newItems[user]);
   }

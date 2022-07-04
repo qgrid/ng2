@@ -55,7 +55,7 @@ export class ExampleColumnReferenceBasicComponent {
           ],
         })
         .selection({
-          rowKey: x => x.value,
+          rowKey: (x: any) => x.value,
         })
         .visibility({
           toolbar: {
@@ -76,13 +76,13 @@ export class ExampleColumnReferenceBasicComponent {
       // We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
       reference.commit = new Command({
         execute: e => {
-          row[column.key] = e.items;
+          row[column.key || ''] = e.items;
           // To prevent default cell commit return false.
           return false;
         },
       });
 
-      reference.value = this.convert(row[column.key]);
+      reference.value = this.convert(row[column.key || '']);
 
       const model = this.qgrid.model();
       model
@@ -98,7 +98,7 @@ export class ExampleColumnReferenceBasicComponent {
         .selection({
           unit: 'row',
           mode: 'multiple',
-          rowKey: x => x.value,
+          rowKey: (x: any) => x.value,
         });
 
       return model;
@@ -111,12 +111,12 @@ export class ExampleColumnReferenceBasicComponent {
       // We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
       reference.commit = new Command({
         execute: e => {
-          row[column.key] = e.items[0];
+          row[column.key || ''] = e.items[0];
           return false;
         },
       });
 
-      reference.value = { value: row[column.key] };
+      reference.value = { value: row[column.key || ''] };
 
       const model = this.qgrid.model();
       model
@@ -156,7 +156,7 @@ export class ExampleColumnReferenceBasicComponent {
         .selection({
           unit: 'row',
           mode: 'multiple',
-          rowKey: x => x.value,
+          rowKey: (x: any) => x.value,
         });
 
       return model;
@@ -165,6 +165,6 @@ export class ExampleColumnReferenceBasicComponent {
 
   constructor(private qgrid: Grid) { }
 
-  complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
-  convert = rows => rows.map(value => ({ value }));
+  complexValuesLabel = (row: any) => row.complexValues.map((x: any) => x.value).join(', ');
+  convert = (rows: any[]) => rows.map(value => ({ value }));
 }

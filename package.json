@@ -1,39 +1,49 @@
 {
   "name": "qgrid",
   "private": "true",
-  "version": "13.0.0",
+  "version": "13.3.0",
+  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --stream",
-    "build:app": "lerna run build --stream --scope qgrid-ngx-examples",
-    "start": "yarn clean && node ./scripts/serve.js",
-    "lint": "lerna run lint --stream",
-    "clean": "lerna run clean --stream",
-    "test": "lerna run test --stream",
-    "copy:theme:material": "copyfiles -u 3 packages/qgrid-ngx-theme-material/dist/**/* packages/ng2-qgrid/theme/material",
+    "build:example-app": "lerna run build:prod --stream --scope qgrid-ngx-examples --concurrency 1",
+    "build": "lerna run build --stream --concurrency 1",
+    "clean": "lerna run clean --stream --concurrency 1",
     "copy:theme:basic": "copyfiles -u 3 packages/qgrid-ngx-theme-basic/dist/**/* packages/ng2-qgrid/theme/basic",
-    "publish:alpha": "yarn copy:theme:material && yarn copy:theme:basic && lerna publish --canary --preid alpha --force-publish=*",
-    "publish:example-app": "npx angular-cli-ghpages --dir=packages/qgrid-ngx-examples/dist/",
-    "publish:example-repo": "node ./scripts/publish.example-repo"
+    "copy:theme:material": "copyfiles -u 3 packages/qgrid-ngx-theme-material/dist/**/* packages/ng2-qgrid/theme/material",
+    "lerna": "lerna",
+    "lint": "lerna run lint --stream --concurrency 1",
+    "publish:after": "rimraf packages/ng2-qgrid/theme",
+    "publish:alpha": "yarn publish:before && lerna publish --canary --preid alpha --force-publish=* && yarn publish:after",
+    "publish:before": "yarn copy:theme:material && yarn copy:theme:basic",
+    "publish:example-app": "gh-pages -d packages/qgrid-ngx-examples/dist/",
+    "publish:example-repo": "node ./scripts/publish.example-repo",
+    "publish:lib": "yarn publish:before && lerna publish --force-publish=* && yarn publish:after",
+    "start": "yarn clean && node ./scripts/serve.js",
+    "test": "lerna run test --stream --concurrency 1"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "^13.2.1",
-    "@angular-eslint/eslint-plugin-template": "^13.2.1",
-    "@angular-eslint/template-parser": "^13.2.1",
-    "codelyzer": "^6.0.2",
+    "@angular-eslint/eslint-plugin": "~13.2.1",
+    "@angular-eslint/eslint-plugin-template": "~13.2.1",
+    "@angular-eslint/template-parser": "~13.2.1",
     "command-line-args": "^5.2.0",
     "copyfiles": "^2.4.1",
+    "eslint": "^8.19.0",
     "eslint-plugin-import-newlines": "^1.2.2",
     "fs": "^0.0.1-security",
+    "gh-pages": "4.0.0",
     "glob": "^7.2.0",
-    "lerna": "^4.0.0",
+    "lerna": "^5.1.6",
     "path": "^0.12.7",
     "postcss": "^8.4.13",
     "sane": "^5.0.1",
     "shelljs": "^0.8.5",
     "stylelint": "^14.8.2",
-    "stylelint-config-standard-scss": "^3.0.0"
+    "stylelint-config-standard-scss": "^3.0.0",
+    "typescript": "~4.5.4"
+  },
+  "dependencies": {
+    "ng2-qgrid": "^13.3.0"
   }
 }

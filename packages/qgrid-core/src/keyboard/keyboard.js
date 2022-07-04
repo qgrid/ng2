@@ -2,6 +2,7 @@ const controlSet = new Set([
   'shift',
   'ctrl',
   'alt',
+  'tab',
   'pause',
   'break',
   'capslock',
@@ -31,7 +32,7 @@ const controlSet = new Set([
   'scrolllock',
 ]);
 
-const nonPrintableSet = new Set(['enter']);
+const nonPrintableSet = new Set(['enter', 'tab']);
 
 const codeMap = new Map()
   .set(8, 'backspace')

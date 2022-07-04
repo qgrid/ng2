@@ -352,8 +352,10 @@ export class SelectionLet {
   selectRange(startCell, endCell, source) {
     const buildRange = this.selectionRange.build();
     const range = buildRange(startCell, endCell);
-    const commit = this.select(range, true, source);
-    commit();
+    if (this.rangeHasChanged(range)) {
+      const commit = this.select(range, true, source);
+      commit();
+    }
   }
 
   toggle(items, source = 'custom') {
@@ -396,7 +398,7 @@ export class SelectionLet {
     if (toggle.canExecute(e)) {
       toggle.execute(e);
 
-      this.form.select(items, state);
+      this.form.select(items, state, null, source);
 
       return () => {
         const items = this.selectionService.map(this.form.entries());
@@ -404,9 +406,9 @@ export class SelectionLet {
           source: 'selection.view',
         });
       };
-    } else {
-      return noop;
     }
+
+    return noop;
   }
 
   state(item) {
@@ -436,5 +438,24 @@ export class SelectionLet {
         column,
       },
     }, { source: 'selection.view' });
+  }
+
+  rangeHasChanged(range) {
+    const { model } = this.plugin;
+    const { items } = model.selection();
+    if (range.length !== items.length) {
+      return true;
+    }
+
+    const length = range.length;
+    // for now we are skipping order of items
+    // todo: investigate if order matter
+    for (let i = 0; i < length; i++) {
+      if (range[i] !== items[i]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

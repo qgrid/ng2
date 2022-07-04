@@ -27,7 +27,7 @@ export class ExampleColumnAutocompleteBasicComponent {
   ];
 
   boolFunctionFetchOptions = {
-    fetch: row => [
+    fetch: (row: any) => [
       true,
       false,
       null,

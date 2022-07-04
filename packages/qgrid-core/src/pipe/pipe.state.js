@@ -23,7 +23,8 @@ export class PipeState {
 
       const shouldKeep = unit => {
         let next;
-        while ((next = schema.get(unit))) {
+        // eslint-disable-next-line no-cond-assign
+        while (next = schema.get(unit)) {
           if (next === unit) {
             break;
           }

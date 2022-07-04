@@ -35,7 +35,19 @@
   },
   "overrides": [
     {
-      "files": ["*.html"],
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "**/tsconfig.json"
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
@@ -45,16 +57,24 @@
       }
     },
     {
-      "files": ["*.module.ts"],
+      "files": [
+        "*.module.ts"
+      ],
       "rules": {
-        "array-element-newline": ["error", {
-          "multiline": true,
-          "minItems": 1
-        }],
-        "array-bracket-newline": ["error", {
-          "multiline": true,
-          "minItems": 1
-        }]
+        "array-element-newline": [
+          "error",
+          {
+            "multiline": true,
+            "minItems": 1
+          }
+        ],
+        "array-bracket-newline": [
+          "error",
+          {
+            "multiline": true,
+            "minItems": 1
+          }
+        ]
       }
     }
   ]

@@ -1,7 +1,9 @@
 {
   "extends": "../../.eslintrc.angular.json",
   "parserOptions": {
-    "project": ["./tsconfig.app.json"],
+    "project": [
+      "./tsconfig.json"
+    ],
     "createDefaultProgram": true
   },
   "rules": {
@@ -13,11 +15,5 @@
         "style": "kebab-case"
       }
     ]
-  },
-  "overrides": [
-    {
-      "files": ["*.html"],
-      "parser": "@angular-eslint/template-parser"
-    }
-  ]
+  }
 }

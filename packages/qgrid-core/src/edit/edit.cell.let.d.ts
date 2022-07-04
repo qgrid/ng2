@@ -7,12 +7,12 @@ import { KeyCode } from '../shortcut/key.code';
 import { CellEditor } from './edit.cell.editor';
 
 export declare class EditCellLet {
-  readonly enter: Command;
-  readonly commit: Command;
-  readonly push: Command;
-  readonly cancel: Command;
-  readonly reset: Command;
-  readonly exit: Command;
+  readonly enter: Command<CellView>;
+  readonly commit: Command<CellView>;
+  readonly push: Command<CellView>;
+  readonly cancel: Command<CellView>;
+  readonly reset: Command<CellView>;
+  readonly exit: Command<CellView>;
 
   value: any;
   label: any;

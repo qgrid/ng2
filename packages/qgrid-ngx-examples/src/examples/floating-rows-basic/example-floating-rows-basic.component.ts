@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
-const EXAMPLE_TAGS = ['floating-rows-basic', 'Rows can be freezed (freezed rows remain on the top, when grid is scrolled)'];
+const EXAMPLE_TAGS = ['floating-rows-basic', 'Experimental! Rows can be freezed (freezed rows remain on the top, when grid is scrolled)'];
 
 @Component({
   selector: 'example-floating-rows-basic',

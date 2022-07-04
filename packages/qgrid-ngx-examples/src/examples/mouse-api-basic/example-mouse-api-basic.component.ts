@@ -47,7 +47,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 
       this.logEntries.unshift({
         status: status,
-        code: code,
+        code: code as string,
         target: targetString,
       });
 

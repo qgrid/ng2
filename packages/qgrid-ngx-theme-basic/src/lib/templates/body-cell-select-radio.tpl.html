@@ -1,7 +1,7 @@
 <ng-template key="body-cell-select-the-$select-singleOnly.tpl.html"
              let-$cell
              let-$view="$view">
-  <ng-container [q-grid-dirty]="$view.selection.stateCheck | async">
+  <ng-container [q-grid-dirty]="$view.selection.stateCheck">
     <input type="radio"
            [checked]="$view.selection.state($cell.row)"
            [disabled]="!$view.selection.state($cell.row) && !$view.selection.toggleRow.canExecute($cell.row)"

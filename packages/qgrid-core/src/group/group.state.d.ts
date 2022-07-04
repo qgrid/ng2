@@ -30,12 +30,8 @@ export declare class GroupState {
 	 * Each item represents next level.
 	 */
   by: string[];
-
-  toggle: Command;
-
+  toggle: Command<Node>;
   toggleAll: Command;
-
   shortcut: { [key: string]: string };
-
   flatten: (nodes: Node[]) => Node[];
 }

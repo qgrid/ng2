@@ -1,25 +1,63 @@
 import {
   ChangeDetectorRef,
   Directive,
+  forwardRef,
+  Host,
+  Inject,
   Input,
-  OnChanges,
-  SimpleChanges,
+  NgZone,
+  OnDestroy,
+  Optional,
+  SkipSelf,
 } from '@angular/core';
+import { ObservableLike, UnsubscribableLike } from '@qgrid/core';
+import { DirtyHostDirective } from './dirty-host.directive';
 
 @Directive({
   selector: '[q-grid-dirty]',
 })
-export class DirtyDirective implements OnChanges {
-  @Input('q-grid-dirty') trigger: any;
+export class DirtyDirective implements OnDestroy {
+  private subscription: UnsubscribableLike | null = null;
 
-  constructor(private cd: ChangeDetectorRef) {
+  @Input('q-grid-dirty') set trigger(value: ObservableLike<any>) {
+    // todo: trigger cd only for particular values
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
+
+    if (value) {
+      this.subscription = value.subscribe(() => {
+        if (this.host) {
+          this.cd.markForCheck();
+        } else {
+          this.zone.run(() => {
+            this.cd.markForCheck();
+            this.cd.detectChanges();
+          });
+        }
+      });
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.trigger) {
-      if (!changes.trigger.firstChange) {
-        this.cd.detectChanges();
-      }
+  constructor(
+    private zone: NgZone,
+    private cd: ChangeDetectorRef,
+    @Optional() @Host() @SkipSelf() private host: DirtyHostDirective,
+  ) {
+    if (this.host) {
+      this.host.whoNeedsIt++;
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.host) {
+      this.host.whoNeedsIt--;
+    }
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
     }
   }
 }

@@ -26,14 +26,14 @@ export class ReferenceComponent implements OnInit {
   private _value: any;
   private _model: GridModel;
   private _reference: {
-    commit: Command;
+    commit: Command<{ entries: any[]; items: any[] }>;
     cancel: Command;
     value: any;
   };
 
   @Output() modelChange = new EventEmitter<GridModel>();
   @Output() valueChange = new EventEmitter<any>();
-  @Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
+  @Output() referenceChange = new EventEmitter<{ commit: ReferenceComponent['reference']['commit']; cancel: Command; value: any }>();
 
   @Input() caption = '';
   @Input() autofocus = false;
@@ -81,51 +81,53 @@ export class ReferenceComponent implements OnInit {
       value: this.value,
     };
 
-    this.model = this.cell.column.editorOptions.modelFactory({
-      reference: this.reference,
-      row: this.cell.row,
-      column: this.cell.column,
-      getValue: getValueFactory(this.cell.column),
-      createDefaultModel: () => this.modelBuilder.build(),
-    } as any);
+    if (this.cell.column.editorOptions?.modelFactory) {
+      this.model = this.cell.column.editorOptions.modelFactory({
+        reference: this.reference,
+        row: this.cell.row,
+        column: this.cell.column,
+        getValue: getValueFactory(this.cell.column),
+        createDefaultModel: () => this.modelBuilder.build(),
+      });
 
-    const selectionService = new SelectionService(this.model);
-    this.disposable.add(
-      this.model.dataChanged.watch((e, off) => {
-        if (e.hasChanges('rows') && e.state.rows.length > 0) {
-          off();
+      const selectionService = new SelectionService(this.model);
+      this.disposable.add(
+        this.model.dataChanged.watch((e, off) => {
+          if (e.hasChanges('rows') && e.state.rows.length > 0) {
+            off();
 
-          if (!this.model.selection().items.length) {
-            const { value } = this.reference;
-            if (!isUndefined(value)) {
-              const entries = isArray(value) ? value : [value];
-              const items = selectionService.map(entries);
-              this.model.selection({
-                items,
-              }, {
-                source: 'reference.component',
-              });
+            if (!this.model.selection().items.length) {
+              const { value } = this.reference;
+              if (!isUndefined(value)) {
+                const entries = isArray(value) ? value : [value];
+                const items = selectionService.map(entries);
+                this.model.selection({
+                  items,
+                }, {
+                  source: 'reference.component',
+                });
+              }
             }
           }
-        }
-      }),
-    );
-
-    this.disposable.add(
-      this.model
-        .selectionChanged
-        // TODO: use rx syntax
-        .watch(e => {
-          // TODO: get rid of this check
-          if (e.tag.source === 'reference.component') {
-            return;
-          }
-
-          if (e.hasChanges('items')) {
-            const entries = selectionService.lookup(e.state.items);
-            this.value = entries;
-          }
         }),
-    );
+      );
+
+      this.disposable.add(
+        this.model
+          .selectionChanged
+          // TODO: use rx syntax
+          .watch(e => {
+            // TODO: get rid of this check
+            if (e.tag.source === 'reference.component') {
+              return;
+            }
+
+            if (e.hasChanges('items')) {
+              const entries = selectionService.lookup(e.state.items);
+              this.value = entries;
+            }
+          }),
+      );
+    }
   }
 }

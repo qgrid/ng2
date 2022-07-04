@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { Atom, DataService } from '../data.service';
-import { Grid, GridModel } from 'ng2-qgrid';
-import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
+import { Grid } from 'ng2-qgrid';
 
 @Component({
   selector: 'example-scroll-virtual-infinite',
@@ -13,31 +12,30 @@ import { Observable } from 'rxjs';
 export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
   static id = 'scroll-virtual-infinite';
 
-  rows: Observable<Atom[]>;
-  gridModel: GridModel;
+  rows = this.dataService.getAtoms();
+  gridModel = this.qgrid.model();
 
-  constructor(private dataService: DataService,
-		private qgrid: Grid,
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid,
   ) {
-    this.gridModel = qgrid.model();
   }
 
   ngAfterViewInit() {
+    const ssPipe: typeof this.qgrid.pipe.data = (rows, context, next) => {
+      const { skip } = this.gridModel.fetch();
+      const { size } = this.gridModel.pagination();
+
+      this.dataService
+        .getAtoms()
+        .subscribe(atoms => {
+          const newPage = atoms.slice(skip, skip + size);
+          next(rows.concat(newPage));
+        });
+    };
+
     this.gridModel.data({
-      pipe: [
-        (rows, context, next) => {
-          const { skip } = this.gridModel.fetch();
-          const { size } = this.gridModel.pagination();
-
-          this.dataService
-            .getAtoms()
-            .subscribe(atoms => {
-              const newPage = atoms.slice(skip, skip + size);
-              next(rows.concat(newPage));
-            });
-
-        },
-      ].concat(this.qgrid.pipeUnit.view),
+      pipe: [ssPipe as any].concat(this.qgrid.pipeUnit.view),
     });
   }
 }

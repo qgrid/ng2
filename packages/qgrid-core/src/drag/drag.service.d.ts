@@ -8,9 +8,9 @@ export interface Position {
 
 export declare class DragService {
   static data: any;
-  static area: string;
-  static element: HTMLElement;
-  static startPosition: Position;
+  static area: string | null;
+  static element: HTMLElement | null;
+  static startPosition: Position | null;
 
   static readonly mimeType: string;
   static decode(source: string): any;

@@ -6,11 +6,11 @@ export class RangeSelectionState extends MultipleSelectionState {
     super(model, service);
   }
 
-  select(item, state = true) {
-    if (isArray(item)) {
+  select(item, state = true, key, source) {
+    if (source === 'body' && isArray(item)) {
       this.clear();
     }
 
-    super.select(item, state);
+    super.select(item, state, key, source);
   }
 }

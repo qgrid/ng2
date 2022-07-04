@@ -114,7 +114,11 @@ export class GridComponent implements OnInit, OnChanges {
   @Input('interactionMode') set gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
 
   @Input('columns') set dataColumns(columns: Array<ColumnModel>) { if (Array.isArray(columns)) { this.dataState({ columns }); } }
-  @Input('rows') set dataRows(rows: Array<any>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }
+  @Input('rows') set dataRows(rows: any[] | null) {
+    if (Array.isArray(rows)) {
+      this.dataState({ rows });
+    }
+  }
 
   @Input() set editCancel(cancel: Command) { this.editState({ cancel }); }
   @Input() set editCommit(commit: Command) { this.editState({ commit }); }
@@ -199,7 +203,7 @@ export class GridComponent implements OnInit, OnChanges {
         docListener.on('mousedown', e => {
           if (model.edit().status === 'edit') {
             const path = eventPath(e);
-            const clickedOutside = path.every(x => x !== nativeElement && !x.classList.contains('q-grid-editor-part'));
+            const clickedOutside = path.every(x => x !== nativeElement && x.classList && !x.classList.contains('q-grid-editor-part'));
             if (clickedOutside) {
               model.edit({
                 status: 'view',

@@ -3,6 +3,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [13.3.0] - 2022-07-04
+### Added
+- `expandOnDblClick` behavior for `q-grid-row` component, which allows to open row details on double click
+- Experimental!! The `DataProvider` type is a new way to support pagination, filtering and sorting on the server side(do not use in prod, not a stable API)
+
+### Changes
+- Requires angular version 13.3.8, cdk\material version 13.3.9.
+- Improvements due to Lighthouse report
+- More strict Angular compilation mode, which allows you to be more strict in the final application
+- Go to the lerna monorepo and use `ng build` instead of a custom build, which allows for faster upgrades.
+- Experimental!! Use observable instead of ngOnChanges in the `dirty` directive
+- The data manipulation plugin does a better job of comparing values.
+- Column selection moved to actions by doing `model.action({items: []})`, it can be removed from the toolbar without touching the html. !!It can break the logic with actions, if there were any custom ones.
+- Improved d.ts typing
+
+### Fixes
+- Fixed issue with `row-number` column when second page has incorrect values.
+- Fixed calculation of the `timestamp` property of the mouse state (usually used to emulate double clicks)
+- Fix stack blitz examples
+- Fixed huge number of selectionChange events when selection is in `range` mode
+- Fixed data manipulation plugin clearing all actions on destruction.
+- Fixed navigation in edit mode with `tab` and `shift-tab` keys for first or last cell.
+- Fix classList element can be undefined when clicked outside the grid.
+- Fix target modal pager not preventing click propagation
+
 ## [11.2.0] - 2021-10-22
 ### Added
 - New options `fit-head` for the `columnWidth` property to set column width based on origin column head width.

@@ -16,8 +16,7 @@ export class Shortcut {
 
     const code = keyCode.code;
     const parts = code.split('+');
-    return parts.some(part => part === 'ctrl' || part === 'alt') ||
-			parts.every(part => Keyboard.isControl(part));
+    return parts.some(part => Keyboard.isControl(part));
   }
 
   static isPrintable(keyCode) {
@@ -27,7 +26,7 @@ export class Shortcut {
 
     const code = keyCode.code;
     const parts = code.split('+');
-    return parts.some(part => Keyboard.isPrintable(part));
+    return parts.every(part => Keyboard.isPrintable(part));
   }
 
   static stringify(keyCode) {
