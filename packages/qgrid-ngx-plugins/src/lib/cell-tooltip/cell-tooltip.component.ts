@@ -41,6 +41,16 @@ export class CellTooltipComponent implements OnInit {
         if (e.state.target) {
           const { rowIndex, columnIndex } = e.state.target;
           const domCell = table.body.cell(rowIndex, columnIndex);
+          const element = domCell.element;
+          if(element.offsetWidth === element.scrollWidth){
+            const tooltipLayer = 'tooltip';
+
+            if (table.view.hasLayer(tooltipLayer)) {
+              table.view.removeLayer(tooltipLayer);
+              this.invalidate();
+            }
+            return;
+          }
 
           if (domCell.model()) {
             this.context = {
